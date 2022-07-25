@@ -1,4 +1,3 @@
-
 import os
 import streamlit as st 
 
@@ -6,8 +5,7 @@ class CreateBot :
 	def __init__(self, name_bot, secret_key, api_key):
 		self.name_bot = name_bot
 		self.api_key =api_key
-		self.secret_key	= secret_key
-			
+		self.secret_key	= secret_key			
 
 	def get_name_bot(self):
 		return self.name_bot
@@ -18,27 +16,33 @@ class CreateBot :
 	def get_secret_key(self):
 		return self.secret_key
 
+	def import_template(self, file):
+		pass
+
+
 
 	
-	def create_bot (self, path):
-
+	def create_bot (self, path, user):
+		# create bot of trix algorith
 		if self.name_bot ==  "Trix":
 			path_trix = path+ "/trix/"
 			st.write(f"cree un bot trix dans {path_trix} ")
-
-			if not os.path.exists("/home/helmi/backend_crypto/trix/"):
-    	   			os.makedirs(f'{path_trix}')
+			if not os.path.exists(f"{path_trix}{user.get_name()}/_bot"):
+    	   			os.makedirs(path_trix + user.get_name()+'_bot')
 			else:
 					st.error("ce bot existe déja ")
 
+        # creat a bot  of cocotier alghorithm 
 		if self.name_bot == "Cocotier":
-				path_cocotier= path+ "/cocotier/"
-				st.write(f"cree un bot Cocotier dans {path_cocotier}")
-				st.write("nous comme dans le cocotier ")
-				if not os.path.exists(f"/home/helmi/backend_crypto/cocotier/{user.get_name}"):
-    	   				os.makedirs(f'{path_cocotier}')
-				else:
-						st.error("ce bot existe déja ")
+			path_cocotier= path+ "/cocotier/"
+			st.write(f"cree un bot Cocotier dans {path_cocotier}")
+			print(Users.get_name)
+			if not os.path.exists(f"{path_cocotier}{user.get_name()}/_bot"):
+    	   			os.makedirs(path_cocotier + user.get_name()+'_bot')
+			else:
+					st.error("ce bot existe déja ")
+
+			
 
 		return print("bot created ")
 		

@@ -8,7 +8,7 @@ def main():
     #
     with st.expander("inscription ", expanded=False):
         name_robot = ["Trix","Cocotier"]
-        selection_bot = st.selectbox("Bot",  name_robot)
+        selection_bot = st.selectbox("Bot", name_robot)
 
         # front entry
         name =st.text_input("Entrer your name")
@@ -26,7 +26,8 @@ def main():
             st.write("email:", user.email)
             st.write("secret key:", bot.secret_key)
             st.write("secret key:", bot.api_key)
-            st.write(bot.create_bot("/home/helmi/backend_crypto"))
+            st.write(bot.create_bot("/home/helmi/backend_crypto",user))
     
 if __name__ == "__main__":
+    
     main()
