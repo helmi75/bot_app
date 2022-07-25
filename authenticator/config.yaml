@@ -1,0 +1,14 @@
+credentials:
+  usernames:
+    helmichiha:
+      email: helmichiha@gmail.com
+      name: Helmi chiha
+      password: '$2b$12$8h8vT9ecTFoD.4ow0ZD82el30c5nQvxt.pKbg9K4e12Ejfve60.iK'
+
+cookie:
+  expiry_days: 30
+  key: some_signature_key
+  name: some_cookie_name
+preauthorized:
+  emails:
+  - helmichia@gmail.com
