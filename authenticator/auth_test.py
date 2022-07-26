@@ -24,10 +24,6 @@ elif authentication_status == False:
     st.error('Username/password is incorrect')
 elif authentication_status == None:
     st.warning('Please enter your username and password')
-
-
-try:
-    if authenticator.update_user_details(username, 'Update user details'):
-        st.success('Entries updated successfully')
-except Exception as e:
-    st.error(e)
+st.write(name,authentication_status, username )
+print (name,authentication_status, username )
+st.write(authenticator.credentials['usernames'][username]['adresse'])
