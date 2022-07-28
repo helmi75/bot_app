@@ -5,14 +5,17 @@ import streamlit as st
 from cryptography.fernet import Fernet
 from cryptography.hazmat.primitives import hashes
 from cryptography.hazmat.primitives.kdf.pbkdf2 import PBKDF2HMAC
+import shutil
 
 class CreateBot :
-    def __init__(self, name_bot, secret_key, api_key, subaccount=None, params=None):
+    def __init__(self, name_bot, secret_key, api_key, subbot_name, pairSymbol=None, subaccount=None, params=None):
         self.name_bot = name_bot
         self.api_key = api_key
         self.secret_key = secret_key
         self.subaccount = subaccount  
-        self.params = params   
+        self.params = params  
+        self.subbot_name = subbot_name
+        self.pairSymbol = pairSymbol
 
     def get_name_bot(self):
         return self.name_bot
@@ -23,20 +26,44 @@ class CreateBot :
     def get_secret_key(self):
         return self.secret_key
 
-    def import_template(self, file):
-        pass  
+
+
+    def import_template(self, file_source, file_destination): 
+
+        """ copyt the template trix  robot from the template file to the detination file
+        """    
+        
+        source= bytes(file_source, 'utf-8')
+        destination = bytes(file_destination, 'utf-8')
+        shutil.copyfile(source, destination)
+        
+
+
+          
     
     def create_bot(self, path, user):
         # create bot of trix algorith
         if self.name_bot ==  "Trix":
-            path_trix = path+ "/bots/trix/"
+            path_trix = path+ f"/{user.get_email()}/ftx/trix/"
             st.write(f"cree un bot trix dans {path_trix} ")
-            if not os.path.exists(f"{path_trix}{user.get_name()}/_bot"):
+            pair_symbol = self.pairSymbol[:3].lower()
+            if not os.path.exists(f"{path_trix}/{pair_symbol}/{self.subbot_name}/_bot"):
                 try :
-                    os.makedirs(path_trix + user.get_name()+'_bot')
+                    os.makedirs(f"{path_trix}/{pair_symbol}/{self.subbot_name}_bot")
                     st.success("bot creted")
                 except FileExistsError :
                     st.warning("this bot exist yet")
+
+        # copy trix algotirh template files into the  production environnement          
+        self.import_template(file_source = './templates/trix_template/TrixFtxlive.py',
+                            file_destination = f'./user_bot/{user.get_email()}/ftx/trix/{pair_symbol}/{self.subbot_name}_bot/{pair_symbol}_TrixFtxlive.py')
+
+        self.import_template(file_source = './templates/trix_template/config.py',
+                            file_destination = f'./user_bot/{user.get_email()}/ftx/trix/{pair_symbol}/{self.subbot_name}_bot/{pair_symbol}_config.py')
+                            
+
+            
+
                 
             
 

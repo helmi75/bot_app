@@ -31,36 +31,35 @@ def main():
             selection_bot = st.selectbox("choise your Bot", name_robot)
             if selection_bot == "Trix":
             # front entry
-                name =st.text_input("Entrer your username", value = username)
-                email = st.text_input("Entrer your email ")
+                subbot_name =st.text_input("Entrer the bot name ")
+                email = st.text_input("Entrer your email ", value = authenticator.credentials['usernames'][username]['email'])
                 api_key = st.text_input("enter your api_key")
                 secret_key = st.text_input("enter  secret key")
                 subaccount = st.text_input("Subaccount")
+                pairSymbol = st.text_input("FTX Pair symbol",value="ETH/USDT", placeholder="i.e  BTC/USDT")
                 params  =(9, 21, 0.88, 0.15,13)
 
             if selection_bot == "Cocotier":
-                name =st.text_input("Entrer your name", value = username)
+                subbot_name =st.text_input("Entrer the bot name ")
                 email = st.text_input("Entrer your email ")
                 api_key = st.text_input("enter your api_key")
                 secret_key = st.text_input("enter  secret key")      
 
             user = Users(name, email)
-            bot = CreateBot(selection_bot, api_key, secret_key)
+            bot = CreateBot(selection_bot, api_key, secret_key, subbot_name, pairSymbol)
             
             
             if st.button('Create this bot'):     
-                #  create  bot with a personal data             
-                
+                #  create  bot with a personal data              
                 st.write("nom:", user.name)
                 st.write("email:", user.email)
-
                 #encode_message(self, password)
                 #bot.encrypt_message(frenet_key, message)
-
                 st.write("secret key:", bot.secret_key)
                 st.write("secret key:", bot.api_key)
 
-                bot.create_bot("/home/helmi/backend_crypto", user)
+
+                bot.create_bot("/home/helmi/backend_crypto/user_bot", user)
                 frenet_message = bot.encode_message_with_pwd(password)
                 print(bot.api_key)
                 #byte_message = bot.encrypt_message(frenet_message, bot.api_key)
