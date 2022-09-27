@@ -4,18 +4,10 @@ credentials:
       email: helmichiha@gmail.com
       name: Helmi chiha
       password: '$2b$12$8h8vT9ecTFoD.4ow0ZD82el30c5nQvxt.pKbg9K4e12Ejfve60.iK'
-      bots:
-        trix :
-          api_key : 
-          secret_key : 
-          subaccount :
-        cocotier :
-          api_key :  'uDwzoVIuyGsUQY38ZOxXARN3n1EqfpAIJz6LeziRv2dnmutdsCSXlGuEA5ntJLHI'
-          secret_key :  'wf8XmTKp1pGTfVnnoGMdVWbiHM6YBgCgIiekGbF8LPIREXZzO43INJ15WCzISLzE'                   
-
-
       adresse : '23 rue albert roussel 75017 Paris'
-      CP : '75017'
+      CP : '75017'      
+
+
 
 cookie:
   expiry_days: 30
@@ -24,3 +16,4 @@ cookie:
 preauthorized:
   emails:
   - helmichia@gmail.com
+  - anisse9@gmail.com
