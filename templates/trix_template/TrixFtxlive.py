@@ -1,13 +1,17 @@
 # version 1.0 28/07/2022
+# version 1.1 29/09/2022
 
-import ftx
-from config import *
+import mysql.connector
 import pandas as pd
-import json
+import ftx
+import sys
+sys.path.insert(0,"/home/anisse9/bot_app")
+from bdd_communication import ConnectBbd
+from pass_secret import mot_de_passe
+from datetime import datetime 
 import time
-import ta
 from math import *
-
+import ta
 
 def truncate(n, decimals=0):
     r = floor(float(n)*10**decimals)/10**decimals
@@ -23,86 +27,101 @@ def getBalance(myclient, coin):
     else:
         return float(pandaBalance.loc[pandaBalance['coin'] == coin]['free'])
 
-pairSymbol = 'ETH/USD'
-fiatSymbol = 'USD'
-cryptoSymbol = 'ETH'
-myTruncate = 3
-i = 9
-j = 21
-accountName = subaccount
-goOn = True
-
-client = ftx.FtxClient(
-    api_key=apikey,
-    api_secret=secret,
-    subaccount_name=accountName
-)
-result = client.get_balances()
-
-data = client.get_historical_data(
-    market_name=pairSymbol,
-    resolution=3600,
-    limit=1000,
-    start_time=float(round(time.time()))-150*3600,
-    end_time=float(round(time.time())))
-df = pd.DataFrame(data)
-
-
-trixLength = trixlength_conf
-trixSignal = trixsignal_conf
-df['TRIX'] = ta.trend.ema_indicator(ta.trend.ema_indicator(ta.trend.ema_indicator(close=df['close'], window=trixLength), window=trixLength), window=trixLeng>
-df['TRIX_PCT'] = df["TRIX"].pct_change()*100
-df['TRIX_SIGNAL'] = ta.trend.sma_indicator(df['TRIX_PCT'],trixSignal)
-df['TRIX_HISTO'] = df['TRIX_PCT'] - df['TRIX_SIGNAL']
-df['STOCH_RSI'] = ta.momentum.stochrsi(close=df['close'], window=stochRSI_conf, smooth1=3, smooth2=3)
-print(df)
-
-actualPrice = df['close'].iloc[-1]
-fiatAmount = getBalance(client, fiatSymbol)
-cryptoAmount = getBalance(client, cryptoSymbol)
-minToken = 5/actualPrice
-print('coin price :',actualPrice, 'usd balance', fiatAmount, 'coin balance :',cryptoAmount)
-
-def buyCondition(row, previousRow):
+def buyCondition(row, stochTop_conf):
     if row['TRIX_HISTO'] > 0 and row['STOCH_RSI'] <=  stochTop_conf:
         return True
     else:
         return False
 
-
-def sellCondition(row, previousRow):
+def sellCondition(row, stochBottom_conf):
     if row['TRIX_HISTO'] < 0 and row['STOCH_RSI'] >= stochBottom_conf:
         return True
     else:
         return False
 
-if buyCondition(df.iloc[-2], df.iloc[-3]):
-    if float(fiatAmount) > 5:
-        quantityBuy = truncate(float(fiatAmount)/actualPrice, myTruncate)
-        buyOrder = client.place_order(
-            market=pairSymbol,
-            side="buy",
-            price=None,
-            size=quantityBuy,
-            type='market')
-        print("BUY", buyOrder)
+# First Task
+# Get All the necessary columns from the database
+pwd = mot_de_passe
+cnx = mysql.connector.connect(host='localhost', user='root', password=pwd, port='3306', database='cryptos',
+                              auth_plugin='mysql_native_password')
+cursor = cnx.cursor()
+query = "select * from params_bot_trix;"
+cursor.execute(query)
+myresult = cursor.fetchall()
+
+# Trix Set : id, api_key, secret_key, sub_account, pair_symbol, trix_length, trix_signal, stoch_top, stoch_bottom,
+# stoch_RSI, bot_id
+
+# Second Task
+# For each line launch the api and get the crypto_wallet value
+
+print("# ", datetime.now().strftime("%d/%m/%Y %H:%M:%S"))
+for i in myresult:
+    client = ftx.FtxClient(
+        api_key=i[1],
+        api_secret=i[2],
+        subaccount_name=i[3]
+    )
+    fiatSymbol = 'USD'
+    cryptoSymbol = (i[4]+"").upper()
+    pairSymbol = cryptoSymbol+'/USD'
+    myTruncate = 3
+
+    data = client.get_historical_data(
+        market_name=pairSymbol,
+        resolution=3600,
+        limit=1000,
+        start_time=float(round(time.time())) - 150 * 3600,
+        end_time=float(round(time.time())))
+    df = pd.DataFrame(data)
+
+    trixLength = i[5]
+    trixSignal = i[6]
+    df['TRIX'] = ta.trend.ema_indicator(
+        ta.trend.ema_indicator(ta.trend.ema_indicator(close=df['close'], window=trixLength), window=trixLength),
+        window=trixLength)
+    df['TRIX_PCT'] = df["TRIX"].pct_change() * 100
+    df['TRIX_SIGNAL'] = ta.trend.sma_indicator(df['TRIX_PCT'], trixSignal)
+    df['TRIX_HISTO'] = df['TRIX_PCT'] - df['TRIX_SIGNAL']
+    df['STOCH_RSI'] = ta.momentum.stochrsi(close=df['close'], window=i[9], smooth1=3, smooth2=3)
+
+
+    actualPrice = df['close'].iloc[-1]
+    fiatAmount = getBalance(client, fiatSymbol)
+    cryptoAmount = getBalance(client, cryptoSymbol)
+    minToken = 5 / actualPrice
+
+    if buyCondition(df.iloc[-2], i[7]):    
+        if float(fiatAmount) > 5:
+            quantityBuy = truncate(float(fiatAmount) / actualPrice, myTruncate)
+            buyOrder = client.place_order(
+                market=pairSymbol,
+                side="buy",
+                price=None,
+                size=quantityBuy,
+                type='market')
+        else:
+
+            goOn = True
+
+    elif sellCondition(df.iloc[-2], i[8]):
+        if float(cryptoAmount) > minToken:
+            print(f"on vent :subaccount_name {i[3]}")
+            sellOrder = client.place_order(
+                market=pairSymbol,
+                side="sell",
+                price=None,
+                size=truncate(cryptoAmount, myTruncate),
+                type='market')
+        else:
+            goOn = True
     else:
         goOn = True
-        print("If you  give me more USD I will buy more",cryptoSymbol)
 
-elif sellCondition(df.iloc[-2], df.iloc[-3]):
-    if float(cryptoAmount) > minToken:
-        sellOrder = client.place_order(
-            market=pairSymbol,
-            side="sell",
-            price=None,
-            size=truncate(cryptoAmount, myTruncate),
-            type='market')
-        print("SELL", sellOrder)
-    else:
-        goOn = True
-        print("If you give me more",cryptoSymbol,"I will sell it")
-else :
-    goOn = True
-    print("No opportunity to take")
+    listBalances = sorted(client.get_balances(),key= lambda d : d['total'], reverse= True)
+    con = ConnectBbd('localhost', '3306', 'root', pwd, 'cryptos', 'mysql_native_password')
+    con.insert_trix_balence(datetime.now(), f"Trix : {i[4]}_len{i[5]}_sign{i[6]}_top{i[7]}_bottom{i[8]}_RSI{i[9]}", listBalances[0]['total'], i[10])
+    print(f"# bot {i[3]} executed")
 
+
+print("We're done\n\n")
