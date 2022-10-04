@@ -1,6 +1,9 @@
 # version 1.0 28/07/2022
 # version 1.1 29/09/2022
+# version 1.2 03/09/2022
 
+
+import traceback
 import mysql.connector
 import pandas as pd
 import ftx
@@ -8,7 +11,7 @@ import sys
 sys.path.insert(0,"/home/anisse9/bot_app")
 from bdd_communication import ConnectBbd
 from pass_secret import mot_de_passe
-from datetime import datetime 
+from datetime import datetime
 import time
 from math import *
 import ta
@@ -32,7 +35,6 @@ def buyCondition(row, stochTop_conf):
         return True
     else:
         return False
-
 def sellCondition(row, stochBottom_conf):
     if row['TRIX_HISTO'] < 0 and row['STOCH_RSI'] >= stochBottom_conf:
         return True
@@ -56,72 +58,90 @@ myresult = cursor.fetchall()
 # For each line launch the api and get the crypto_wallet value
 
 print("# ", datetime.now().strftime("%d/%m/%Y %H:%M:%S"))
+
 for i in myresult:
-    client = ftx.FtxClient(
-        api_key=i[1],
-        api_secret=i[2],
-        subaccount_name=i[3]
-    )
-    fiatSymbol = 'USD'
-    cryptoSymbol = (i[4]+"").upper()
-    pairSymbol = cryptoSymbol+'/USD'
-    myTruncate = 3
+    try :
+      client = ftx.FtxClient(
+          api_key=i[1],
+          api_secret=i[2],
+          subaccount_name=i[3]
+      )
+      fiatSymbol = 'USD'
+      cryptoSymbol = (i[4]+"").upper()
+      pairSymbol = cryptoSymbol+'/USD'
+      myTruncate = 3
 
-    data = client.get_historical_data(
-        market_name=pairSymbol,
-        resolution=3600,
-        limit=1000,
-        start_time=float(round(time.time())) - 150 * 3600,
-        end_time=float(round(time.time())))
-    df = pd.DataFrame(data)
+      data = client.get_historical_data(
+          market_name=pairSymbol,
+          resolution=3600,
+          limit=1000,
+          start_time=float(round(time.time())) - 150 * 3600,
+          end_time=float(round(time.time())))
+      df = pd.DataFrame(data)
 
-    trixLength = i[5]
-    trixSignal = i[6]
-    df['TRIX'] = ta.trend.ema_indicator(
-        ta.trend.ema_indicator(ta.trend.ema_indicator(close=df['close'], window=trixLength), window=trixLength),
-        window=trixLength)
-    df['TRIX_PCT'] = df["TRIX"].pct_change() * 100
-    df['TRIX_SIGNAL'] = ta.trend.sma_indicator(df['TRIX_PCT'], trixSignal)
-    df['TRIX_HISTO'] = df['TRIX_PCT'] - df['TRIX_SIGNAL']
-    df['STOCH_RSI'] = ta.momentum.stochrsi(close=df['close'], window=i[9], smooth1=3, smooth2=3)
+      trixLength = i[5]
+      trixSignal = i[6]
+      df['TRIX'] = ta.trend.ema_indicator(
+          ta.trend.ema_indicator(ta.trend.ema_indicator(close=df['close'], window=trixLength), window=trixLength),
+          window=trixLength)
+      df['TRIX_PCT'] = df["TRIX"].pct_change() * 100
+      df['TRIX_SIGNAL'] = ta.trend.sma_indicator(df['TRIX_PCT'], trixSignal)
+      df['TRIX_HISTO'] = df['TRIX_PCT'] - df['TRIX_SIGNAL']
+      df['STOCH_RSI'] = ta.momentum.stochrsi(close=df['close'], window=i[9], smooth1=3, smooth2=3)
 
 
-    actualPrice = df['close'].iloc[-1]
-    fiatAmount = getBalance(client, fiatSymbol)
-    cryptoAmount = getBalance(client, cryptoSymbol)
-    minToken = 5 / actualPrice
+      actualPrice = df['close'].iloc[-1]
+      fiatAmount = getBalance(client, fiatSymbol)
+      cryptoAmount = getBalance(client, cryptoSymbol)
+      minToken = 5 / actualPrice
+      if buyCondition(df.iloc[-2], i[7]):
+          if float(fiatAmount) > 5:
+              quantityBuy = truncate(float(fiatAmount) / actualPrice, myTruncate)
+              buyOrder = client.place_order(
+                  market=pairSymbol,
+                  side="buy",
+                  price=None,
+                  size=quantityBuy,
+                  type='market')
+          else:
 
-    if buyCondition(df.iloc[-2], i[7]):    
-        if float(fiatAmount) > 5:
-            quantityBuy = truncate(float(fiatAmount) / actualPrice, myTruncate)
-            buyOrder = client.place_order(
-                market=pairSymbol,
-                side="buy",
-                price=None,
-                size=quantityBuy,
-                type='market')
-        else:
+              goOn = True
 
-            goOn = True
+      elif sellCondition(df.iloc[-2], i[8]):
+          if float(cryptoAmount) > minToken:
+              print(f"on vent :subaccount_name {i[3]}")
+              sellOrder = client.place_order(
+                  market=pairSymbol,
+                  side="sell",
+                  price=None,
+                  size=truncate(cryptoAmount, myTruncate),
+                  type='market')
+          else:
+              goOn = True
+      else:
+          goOn = True
 
-    elif sellCondition(df.iloc[-2], i[8]):
-        if float(cryptoAmount) > minToken:
-            print(f"on vent :subaccount_name {i[3]}")
-            sellOrder = client.place_order(
-                market=pairSymbol,
-                side="sell",
-                price=None,
-                size=truncate(cryptoAmount, myTruncate),
-                type='market')
-        else:
-            goOn = True
-    else:
-        goOn = True
+      listBalances = sorted(client.get_balances(),key= lambda d : d['total'], reverse= True)
+      con = ConnectBbd('localhost', '3306', 'root', pwd, 'cryptos', 'mysql_native_password')
+      con.insert_trix_balence(datetime.now(), f"Trix : {i[4]}_len{i[5]}_sign{i[6]}_top{i[7]}_bottom{i[8]}_RSI{i[9]}", listBalances[0]['total'], i[10])
+      print(f"# bot {i[3]} executed")
 
-    listBalances = sorted(client.get_balances(),key= lambda d : d['total'], reverse= True)
-    con = ConnectBbd('localhost', '3306', 'root', pwd, 'cryptos', 'mysql_native_password')
-    con.insert_trix_balence(datetime.now(), f"Trix : {i[4]}_len{i[5]}_sign{i[6]}_top{i[7]}_bottom{i[8]}_RSI{i[9]}", listBalances[0]['total'], i[10])
-    print(f"# bot {i[3]} executed")
+    except BaseException as ex:
+      # Get current system exception
+      ex_type, ex_value, ex_traceback = sys.exc_info()
 
+      # Extract unformatter stack traces as tuples
+      trace_back = traceback.extract_tb(ex_traceback)
+
+      # Format stacktrace
+      stack_trace = list()
+
+      for trace in trace_back:
+          stack_trace.append("File : %s , Line : %d, Func.Name : %s, Message : %s" % (trace[0], trace[1], trace[2], trace[3]))
+      print("\nsubaccout problem :",i[3])
+      print("pair_symbol problem :", pairSymbol)
+      print("Exception type : %s " % ex_type.__name__)
+      print("Exception message : %s" %ex_value)
+      print("Stack trace : %s \n" %stack_trace)
 
 print("We're done\n\n")
