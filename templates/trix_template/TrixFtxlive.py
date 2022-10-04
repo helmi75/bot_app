@@ -2,7 +2,6 @@
 # version 1.1 29/09/2022
 # version 1.2 03/09/2022
 
-
 import traceback
 import mysql.connector
 import pandas as pd
@@ -96,6 +95,7 @@ for i in myresult:
       minToken = 5 / actualPrice
       if buyCondition(df.iloc[-2], i[7]):
           if float(fiatAmount) > 5:
+              print(f"on achete : subacount_name {i[3]}") 
               quantityBuy = truncate(float(fiatAmount) / actualPrice, myTruncate)
               buyOrder = client.place_order(
                   market=pairSymbol,
@@ -121,9 +121,12 @@ for i in myresult:
       else:
           goOn = True
 
-      listBalances = sorted(client.get_balances(),key= lambda d : d['total'], reverse= True)
+      #listBalances = sorted(client.get_balances(),key= lambda d : d['total'], reverse= True)
+      df_balences = pd.DataFrame(client.get_balances())
+      crypto_symbol_value_balence = df_balences[df_balences['coin']==cryptoSymbol]["usdValue"].values[0] + df_balences[df_balences['coin']=="USD"]["usdValue"].values[0]
+
       con = ConnectBbd('localhost', '3306', 'root', pwd, 'cryptos', 'mysql_native_password')
-      con.insert_trix_balence(datetime.now(), f"Trix : {i[4]}_len{i[5]}_sign{i[6]}_top{i[7]}_bottom{i[8]}_RSI{i[9]}", listBalances[0]['total'], i[10])
+      con.insert_trix_balence(datetime.now(), f"Trix : {i[4]}_len{i[5]}_sign{i[6]}_top{i[7]}_bottom{i[8]}_RSI{i[9]}", crypto_symbol_value_balence, i[10])
       print(f"# bot {i[3]} executed")
 
     except BaseException as ex:

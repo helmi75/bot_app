@@ -44,7 +44,7 @@ def main():
                 secret_key = st.text_input("enter  secret key")
                 sub_account = st.text_input("Subaccount")
                 col1, col2, col3 = st.columns(3)
-                pair_symbol = col1.text_input("FTX Pair symbol",value="ETH/USDT", placeholder="i.e  BTC/USDT")
+                pair_symbol = col1.text_input("FTX Pair symbol",value="ETH/USD", placeholder="i.e  BTC/USDT")
                 trix_lenght =  col2.number_input("Trix Lenght", value=9)
                 trix_signal =  col3.number_input("Trix Signal", value=21)
                 stoch_top =  col1.number_input("Stoch Top", value=0.88)
