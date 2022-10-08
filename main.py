@@ -49,7 +49,8 @@ def main():
                     secret_key = st.text_input("enter  secret key", key="secret_key")
                     sub_account = st.text_input("Subaccount", key="sub_account")
                     col1, col2, col3 = st.columns(3)
-                    pair_symbol = col1.text_input("FTX Pair symbol", value="ETH/USDT", placeholder="i.e  BTC/USDT", key="pair_symbol")
+                    pair_symbol = col1.text_input("FTX Pair symbol", value="ETH/USDT", placeholder="i.e  BTC/USDT",
+                                                  key="pair_symbol")
                     trix_lenght = col2.number_input("Trix Lenght", value=9, key="trix_length")
                     trix_signal = col3.number_input("Trix Signal", value=21, key="trix_signal")
                     stoch_top = col1.number_input("Stoch Top", value=0.88, key="stoch_top")
@@ -113,39 +114,38 @@ def main():
                 st.plotly_chart(fig2)
             except Exception as e:
                 print(e)
-        with st.expander("Gestion Des Bots   ", expanded=False):
-            try:
-                bots = con.get_bots()
-                bot = [bot_item[1] for bot_item in bots]
-                if 'my_list' not in st.session_state:
-                    st.session_state.my_list = bot
+    with st.expander("Gestion Des Bots   ", expanded=False):
+        try:
+            bots = con.get_bots()
+            bot = [bot_item[1] for bot_item in bots]
+            if 'my_list' not in st.session_state:
+                st.session_state.my_list = bot
 
-                for index, item in enumerate(st.session_state.my_list):
-                    emplacement = st.empty()
-                    col1, col2 = emplacement.columns([9, 4])
-                    emplacement2 = st.empty()
-                    col3, col4 = emplacement2.columns([9, 4])
+            for index, item in enumerate(st.session_state.my_list):
+                emplacement = st.empty()
+                col1, col2 = emplacement.columns([9, 4])
+                emplacement2 = st.empty()
+                col3, col4 = emplacement2.columns([9, 4])
 
-                    if f'{item}' not in st.session_state:
-                        st.session_state[f'{item}'] = False
+                if f'{item}' not in st.session_state:
+                    st.session_state[f'{item}'] = False
 
-                    if col2.button("Delete this bot", key=f"but{index}") or st.session_state[f'{item}']:
-                        st.error(f"Do you really want to delete {item}")
-                        st.session_state[f'{item}'] = True
-                        if col3.button("Confirm Delete"):
-                            del st.session_state.my_list[index]
-                            st.write(f"bot {item} deleted!")
-                            delBot(bots[index][0])
-                            pyautogui.hotkey("ctrl", "F5")
-
-                        if col4.button("Cancel"):
-                            pass
-                    if len(st.session_state.my_list) > index:
-                        col1.markdown(f'Bot : **{item}**.', unsafe_allow_html=True)
-                    else:
-                        emplacement.empty()
-            except Exception as e:
-                print(e)
+                if col2.button("Delete this bot", key=f"but{index}") or st.session_state[f'{item}']:
+                    st.error(f"Do you really want to delete {item}")
+                    st.session_state[f'{item}'] = True
+                    if col3.button("Confirm Delete"):
+                        del st.session_state.my_list[index]
+                        st.write(f"bot {item} deleted!")
+                        delBot(bots[index][0])
+                        pyautogui.hotkey("ctrl", "F5")
+                    if col4.button("Cancel"):
+                        pass
+                if len(st.session_state.my_list) > index:
+                    col1.markdown(f'Bot : **{item}**.', unsafe_allow_html=True)
+                else:
+                    emplacement.empty()
+        except Exception as e:
+            print(e)
 
 
 if __name__ == "__main__":
