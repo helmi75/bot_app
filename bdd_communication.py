@@ -1,4 +1,6 @@
 import mysql.connector
+import sys
+from datetime import datetime
 
 
 class ConnectBbd:
@@ -60,7 +62,6 @@ class ConnectBbd:
         cursor.execute(query)
         self.cnx.commit()
         cursor.close()
-
         self.cnx.close()
 
     def insert_trix_balence (self, date,crypto_name,crypto_wallet,id_bot):
@@ -71,6 +72,14 @@ class ConnectBbd:
         self.cnx.commit()
         cursor.close()
         self.cnx.close()
+
+    def insert_log_info(self, date, pair_symbol, status_bot, transaction, bot_id):
+        cursor = self.cnx.cursor()
+        query = """Insert into log_execution (date, pair_symbol, status_bot, transaction, bot_id) values ('%s','%s','%s','%s','%s')""" % ( 
+                 date, pair_symbol, status_bot, transaction, bot_id)
+        cursor.execute(query)
+        self.cnx.commit()
+        cursor.close()
 
     def get_info(self):
         cursor = self.cnx.cursor()
@@ -94,3 +103,15 @@ class ConnectBbd:
         cursor.execute(query)
         myresult = cursor.fetchall()
         return myresult
+    
+    def bot_status(self, pairSymbol, side, id_bot):
+        """ 
+           insert status bot data to the database 
+        """
+        try:
+            self.insert_log_info(datetime.now(),pairSymbol,"ONN",side ,id_bot)
+        except BaseException as ex:
+            ex_type, ex_value, ex_traceback = sys.exc_info()
+            self.insert_log_info(datetime.now(),pairSymbol,"ex_value", side,id_bot)
+
+	

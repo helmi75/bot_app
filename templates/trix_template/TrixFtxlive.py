@@ -59,16 +59,18 @@ myresult = cursor.fetchall()
 print("# ", datetime.now().strftime("%d/%m/%Y %H:%M:%S"))
 
 for i in myresult:
+    con = ConnectBbd('localhost', '3306', 'root', pwd, 'cryptos', 'mysql_native_password')
     try :
+      fiatSymbol = 'USD'
+      cryptoSymbol = (i[4]+"").upper()
+      pairSymbol = cryptoSymbol+'/USD'
+      myTruncate = 3
+
       client = ftx.FtxClient(
           api_key=i[1],
           api_secret=i[2],
           subaccount_name=i[3]
       )
-      fiatSymbol = 'USD'
-      cryptoSymbol = (i[4]+"").upper()
-      pairSymbol = cryptoSymbol+'/USD'
-      myTruncate = 3
 
       data = client.get_historical_data(
           market_name=pairSymbol,
@@ -93,9 +95,10 @@ for i in myresult:
       fiatAmount = getBalance(client, fiatSymbol)
       cryptoAmount = getBalance(client, cryptoSymbol)
       minToken = 5 / actualPrice
+      side="none"
       if buyCondition(df.iloc[-2], i[7]):
           if float(fiatAmount) > 5:
-              print(f"on achete : subacount_name {i[3]}") 
+              print(f"on achete : subacount_name {i[3]}")
               quantityBuy = truncate(float(fiatAmount) / actualPrice, myTruncate)
               buyOrder = client.place_order(
                   market=pairSymbol,
@@ -103,8 +106,11 @@ for i in myresult:
                   price=None,
                   size=quantityBuy,
                   type='market')
-          else:
+              print(side)
+              con.bot_status(pairSymbol, side , i[10])
 
+          else:
+              con.bot_status(pairSymbol, side , i[10])
               goOn = True
 
       elif sellCondition(df.iloc[-2], i[8]):
@@ -116,17 +122,21 @@ for i in myresult:
                   price=None,
                   size=truncate(cryptoAmount, myTruncate),
                   type='market')
+              print(side)
+              con.bot_status(pairSymbol, side, i[10])
+
           else:
+              con.bot_status(pairSymbol, side , i[10])
               goOn = True
       else:
           goOn = True
+          con.bot_status(pairSymbol, side , i[10])
 
       #listBalances = sorted(client.get_balances(),key= lambda d : d['total'], reverse= True)
       df_balences = pd.DataFrame(client.get_balances())
       crypto_symbol_value_balence = df_balences[df_balences['coin']==cryptoSymbol]["usdValue"].values[0] + df_balences[df_balences['coin']=="USD"]["usdValue"].values[0]
-
-      con = ConnectBbd('localhost', '3306', 'root', pwd, 'cryptos', 'mysql_native_password')
       con.insert_trix_balence(datetime.now(), f"Trix : {i[4]}_len{i[5]}_sign{i[6]}_top{i[7]}_bottom{i[8]}_RSI{i[9]}", crypto_symbol_value_balence, i[10])
+      #con.insert_log_info(datetime.now(),pairSymbol, "ON", side,i[10])
       print(f"# bot {i[3]} executed")
 
     except BaseException as ex:
@@ -146,5 +156,5 @@ for i in myresult:
       print("Exception type : %s " % ex_type.__name__)
       print("Exception message : %s" %ex_value)
       print("Stack trace : %s \n" %stack_trace)
-
+      con.insert_log_info(datetime.now(), pairSymbol, ex_value, "none", i[10])
 print("We're done\n\n")
