@@ -106,11 +106,10 @@ for i in myresult:
                   price=None,
                   size=quantityBuy,
                   type='market')
-              print(side)
-              con.bot_status(pairSymbol, side , i[10])
+              con.bot_status(pairSymbol,"buy" , i[10])
 
           else:
-              con.bot_status(pairSymbol, side , i[10])
+              con.bot_status(pairSymbol, "none" , i[10])
               goOn = True
 
       elif sellCondition(df.iloc[-2], i[8]):
@@ -123,10 +122,10 @@ for i in myresult:
                   size=truncate(cryptoAmount, myTruncate),
                   type='market')
               print(side)
-              con.bot_status(pairSymbol, side, i[10])
+              con.bot_status(pairSymbol,"sell", i[10])
 
           else:
-              con.bot_status(pairSymbol, side , i[10])
+              con.bot_status(pairSymbol,"none" , i[10])
               goOn = True
       else:
           goOn = True

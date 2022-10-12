@@ -25,7 +25,7 @@ class ConnectBbd:
         cursor.execute(query)
         self.cnx.commit()
         cursor.close()
-        self.cnx.close()
+        #self.cnx.close()
 
     def delete_user(self, user_name):
         cursor = self.cnx.cursor()
@@ -33,7 +33,7 @@ class ConnectBbd:
         cursor.execute(query)
         self.cnx.commit()
         cursor.close()
-        self.cnx.close()
+        #self.cnx.close()
 
     def delete_bot(self, bot_id):
         cursor = self.cnx.cursor()
@@ -41,7 +41,7 @@ class ConnectBbd:
         cursor.execute(query)
         self.cnx.commit()
         cursor.close()
-        self.cnx.close()
+        #self.cnx.close()
 
 
 
@@ -62,7 +62,7 @@ class ConnectBbd:
         cursor.execute(query)
         self.cnx.commit()
         cursor.close()
-        self.cnx.close()
+        #self.cnx.close()
 
     def insert_trix_balence (self, date,crypto_name,crypto_wallet,id_bot):
         cursor = self.cnx.cursor()
@@ -71,7 +71,7 @@ class ConnectBbd:
         cursor.execute(query)
         self.cnx.commit()
         cursor.close()
-        self.cnx.close()
+        #self.cnx.close()
 
     def insert_log_info(self, date, pair_symbol, status_bot, transaction, bot_id):
         cursor = self.cnx.cursor()
@@ -86,7 +86,7 @@ class ConnectBbd:
         query = " SELECT password  FROM users ;"
         cursor.execute(query)
         result = cursor.fetchall()
-        self.cnx.close()
+        #self.cnx.close()
         return result
 
     def get_bots(self):
@@ -94,7 +94,7 @@ class ConnectBbd:
         query = " SELECT bot_id, nom_bot  FROM bots ;"
         cursor.execute(query)
         result = cursor.fetchall()
-        self.cnx.close()
+        #self.cnx.close()
         return result
 
     def get_balences(self):
@@ -114,4 +114,15 @@ class ConnectBbd:
             ex_type, ex_value, ex_traceback = sys.exc_info()
             self.insert_log_info(datetime.now(),pairSymbol,"ex_value", side,id_bot)
 
-	
+    def get_status(self):
+       """
+          get bots status information from bdd 
+       """
+       cursor = self.cnx.cursor()
+       #query = "select * from log_execution;"
+       query = " select * from log_execution left join bots on log_execution.bot_id = bots.bot_id;"
+       cursor.execute(query)
+       result = cursor.fetchall()
+       #self.cnx.close()
+       return result
+

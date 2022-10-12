@@ -82,7 +82,6 @@ def main():
                         stoch_rsi)
                     #pyautogui.hotkey('ctrl', 'F5')
             except Exception as e:
-                print("probléme")
                 st.write(e)
 
     if authentication_status:
@@ -115,38 +114,61 @@ def main():
                 st.plotly_chart(fig2)
             except Exception as e:
                 st.write(e)
-    with st.expander("Gestion Des Bots   ", expanded=False):
-        try:
-            bots = con.get_bots()
-            bot = [bot_item[1] for bot_item in bots]
-            if 'my_list' not in st.session_state:
-                st.session_state.my_list = bot
 
-            for index, item in enumerate(st.session_state.my_list):
-                emplacement = st.empty()
-                col1, col2 = emplacement.columns([9, 4])
-                emplacement2 = st.empty()
-                col3, col4 = emplacement2.columns([9, 4])
+    if authentication_status:
+        with st.expander("Gestion Des Bots", expanded=False):
+            try:
+                bots = con.get_bots()
+                bot = [bot_item[1] for bot_item in bots]
+                if 'my_list' not in st.session_state:
+                    st.session_state.my_list = bot
 
-                if f'{item}' not in st.session_state:
-                    st.session_state[f'{item}'] = False
+                for index, item in enumerate(st.session_state.my_list):
+                    emplacement = st.empty()
+                    col1, col2 = emplacement.columns([9, 4])
+                    emplacement2 = st.empty()
+                    col3, col4 = emplacement2.columns([9, 4])
 
-                if col2.button("Delete this bot", key=f"but{index}") or st.session_state[f'{item}']:
-                    st.error(f"Do you really want to delete {item}")
-                    st.session_state[f'{item}'] = True
-                    if col3.button("Confirm Delete"):
-                        del st.session_state.my_list[index]
-                        st.write(f"bot {item} deleted!")
-                        delBot(bots[index][0])
-                        #pyautogui.hotkey("ctrl", "F5")
-                    if col4.button("Cancel"):
-                        pass
-                if len(st.session_state.my_list) > index:
-                    col1.markdown(f'Bot : **{item}**.', unsafe_allow_html=True)
-                else:
-                    emplacement.empty()
-        except Exception as e:
-            st.write(e)
+                    if f'{item}' not in st.session_state:
+                        st.session_state[f'{item}'] = False
+
+                    if col2.button("Delete this bot", key=f"but{index}") or st.session_state[f'{item}']:
+                        st.error(f"Do you really want to delete {item}")
+                        st.session_state[f'{item}'] = True
+                        if col3.button("Confirm Delete"):
+                            del st.session_state.my_list[index]
+                            st.write(f"bot {item} deleted!")
+                            delBot(bots[index][0])
+                            #pyautogui.hotkey("ctrl", "F5")
+                        if col4.button("Cancel"):
+                            pass
+                    if len(st.session_state.my_list) > index:
+                        col1.markdown(f'Bot : **{item}**.', unsafe_allow_html=True)
+                    else:
+                        emplacement.empty()
+            except Exception as e:
+                st.write(e)
+
+    if authentication_status:
+        with st.expander("Etat des Bots", expanded=False):
+            try:
+                result = con.get_status()
+                df_result = pd.DataFrame(result, columns =['id_execution','date','pair_symbol','status_bot',
+                                                           'transaction','log_execution.id_bot','bot.id_bot',
+                                                           'nom_bot','user_id','type_bot'])
+                list_satus_bot = [ df_result[df_result['nom_bot']==bot].iloc[-1:] for bot in df_result['nom_bot'].unique()]
+                #for bot in df_result['nom_bot'].unique() :
+                #    st.write(df_result[df_result['nom_bot']==bot].iloc[-1:])
+                df_status_bot = pd.concat(list_satus_bot)[['date','nom_bot','status_bot','transaction','user_id','type_bot']]
+                st.dataframe(df_status_bot)
+                select_bot = st.selectbox("info bot 10 dernière heures", df_result['nom_bot'].unique())
+                df_selected_bot = df_result[df_result['nom_bot']==select_bot]
+                #st.dataframe(df_selected_bot)
+                st.write(df_selected_bot[['date','nom_bot','status_bot','transaction','user_id','type_bot']].iloc[-5:])
+            except Exception as e :
+                st.write(e)
+
+
 
 
 if __name__ == "__main__":
