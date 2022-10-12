@@ -94,3 +94,18 @@ class ConnectBbd:
         cursor.execute(query)
         myresult = cursor.fetchall()
         return myresult
+
+    def get_maintenance_setting(self):
+        cursor = self.cnx.cursor()
+        query = "select value_setting_boolean from settings where name_setting='maintenance';"
+        cursor.execute(query)
+        myresult = cursor.fetchall()
+        return myresult
+
+    def update_maintenance_setting(self):
+        cursor = self.cnx.cursor()
+        query = "update settings set value_setting_boolean = not value_setting_boolean where name_setting = 'maintenance';"
+        cursor.execute(query)
+        self.cnx.commit()
+        cursor.close()
+        self.cnx.close()
