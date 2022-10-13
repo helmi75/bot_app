@@ -4,7 +4,7 @@ import auth
 from bdd_communication import ConnectBbd
 import pandas as pd
 import plotly.express as px
-import pyautogui
+#import pyautogui
 
 
 def delBot(x):
@@ -18,8 +18,8 @@ def main():
     con = ConnectBbd('localhost', '3306', 'root', 'Magali_1984', 'cryptos', 'mysql_native_password')
     if authentication_status:
         authenticator.logout('Logout', 'main')
-    maintenance = con.get_maintenance_setting()[0][0]
-    if maintenance:
+    maintenance = con.get_maintenance_setting()[0][0] and username != "helmichiha"
+    if maintenance :
         st.title('''Please Hold on and visit us next time!''')
         st.warning('''The page is in maintenance!''')
 
@@ -27,6 +27,8 @@ def main():
             "https://img.freepik.com/premium-vector/robot-android-with-claw-hands-interface-isolated-cartoon-icon-vector-digital-character-kids-toy-white-robotic-friendly-bot-repair-machine-artificial-intelligence-electronic-space-automaton_53500-1001.jpg",
             use_column_width=False)
     else :
+        if con.get_maintenance_setting()[0][0]:
+            st.warning('''The page is in maintenance!''')
         st.image(
             "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c2/Gnome-stock_person_bot.svg/1200px-Gnome-stock_person_bot.svg.png",
             width=200,
@@ -91,7 +93,7 @@ def main():
                             api_key, secret_key, sub_account, pair_symbol, trix_lenght, trix_signal, stoch_top,
                             stoch_bottom,
                             stoch_rsi)
-                        pyautogui.hotkey('ctrl', 'F5')
+                        # pyautogui.hotkey('ctrl', 'F5')
                 except Exception as e:
                     print("probléme")
                     print(e)
@@ -148,7 +150,7 @@ def main():
                                 del st.session_state.my_list[index]
                                 st.write(f"bot {item} deleted!")
                                 delBot(bots[index][0])
-                                pyautogui.hotkey("ctrl", "F5")
+                                # pyautogui.hotkey("ctrl", "F5")
                             if col4.button("Cancel"):
                                 pass
                         if len(st.session_state.my_list) > index:
@@ -162,7 +164,7 @@ def main():
         if agreed:
             con = ConnectBbd('localhost', '3306', 'root', 'Magali_1984', 'cryptos', 'mysql_native_password')
             con.update_maintenance_setting()
-            pyautogui.hotkey("ctrl", "F5")
+            # pyautogui.hotkey("ctrl", "F5")
 
 
 
