@@ -13,4 +13,9 @@ create table settings (
     value_setting_boolean bool,
     value_setting varchar(100)
 );
+
 insert into settings values (1,'maintenance',false,null);
+
+alter table get_balence add crypto_wallet_pourcentage double ;
+alter table get_balence modify crypto_wallet double ;
+
