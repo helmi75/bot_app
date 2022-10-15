@@ -5,7 +5,6 @@ from bdd_communication import ConnectBbd
 import pandas as pd
 import plotly.express as px
 import pyautogui
-from selenium import webdriver
 
 
 def delBot(bot_id):
@@ -46,7 +45,7 @@ def modifierTrixBot(bot_id):
                             trix_lenght, trix_signal, stoch_top, stoch_bottom, stoch_rsi)
         pyautogui.hotkey("ctrl", "F5")
     if col02.button("Cancel Changes"):
-        # pyautogui.hotkey("ctrl", "F5")
+        pyautogui.hotkey("ctrl", "F5")
         pass
 
 
