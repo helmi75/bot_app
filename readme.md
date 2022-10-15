@@ -17,5 +17,6 @@ create table settings (
 insert into settings values (1,'maintenance',false,null);
 
 alter table get_balence add crypto_wallet_pourcentage double ;
+
 alter table get_balence modify crypto_wallet double ;
 
