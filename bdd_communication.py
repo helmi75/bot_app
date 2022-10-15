@@ -19,7 +19,7 @@ class ConnectBbd:
     def insert_new_user(self, user_name, email, password):
         cursor = self.cnx.cursor()
         query = """INSERT INTO users (username, email, password) VALUES ('%s', '%s', '%s')""" % (
-        user_name, email, password)
+            user_name, email, password)
         cursor.execute(query)
         self.cnx.commit()
         cursor.close()
@@ -41,13 +41,11 @@ class ConnectBbd:
         cursor.close()
         self.cnx.close()
 
-
-
     def insert_new_trix_bot(self, selection_bot, bot_name, user_mail,
-                             api_key, secret_key, sub_account, pair_symbol,
-                             trix_lenght, trix_signal, stoch_top, stoch_bottom, stoch_rsi):
+                            api_key, secret_key, sub_account, pair_symbol,
+                            trix_lenght, trix_signal, stoch_top, stoch_bottom, stoch_rsi):
         cursor = self.cnx.cursor()
-        query = """Insert into bots (nom_bot) values ('%s')"""%(bot_name)
+        query = """Insert into bots (nom_bot) values ('%s')""" % (bot_name)
         cursor.execute(query)
         idd = cursor.lastrowid
         self.cnx.commit()
@@ -55,7 +53,7 @@ class ConnectBbd:
         query = """ INSERT INTO params_bot_trix (api_key, secret_key, sub_account, 
         pair_symbol, trix_length, trix_signal, stoch_top, stoch_bottom, stoch_RSI ,bot_id)
                            VALUES ('%s', '%s', '%s','%s', '%s', '%s', '%s', '%s', '%s', '%s') """ % (
-             api_key, secret_key, sub_account, pair_symbol, trix_lenght, trix_signal, stoch_top, stoch_bottom,
+            api_key, secret_key, sub_account, pair_symbol, trix_lenght, trix_signal, stoch_top, stoch_bottom,
             stoch_rsi, idd)
         cursor.execute(query)
         self.cnx.commit()
@@ -63,10 +61,28 @@ class ConnectBbd:
 
         self.cnx.close()
 
-    def insert_trix_balence (self, date,crypto_name,crypto_wallet,id_bot):
+    def update_trix_bot(self, bot_id, api_key, secret_key, sub_account, pair_symbol,
+                        trix_lenght, trix_signal, stoch_top, stoch_bottom, stoch_rsi):
+        cursor = self.cnx.cursor()
+        query = f'''update params_bot_trix set
+                           api_key = '{api_key}',
+                           secret_key = '{secret_key}',
+                           sub_account = '{sub_account}',
+                           pair_symbol = '{pair_symbol}',
+                           trix_length = '{trix_lenght}',
+                           trix_signal = '{trix_signal}',
+                           stoch_top = '{stoch_top}',
+                           stoch_bottom = '{stoch_bottom}',
+                           stoch_RSI = '{stoch_rsi}' where bot_id = {bot_id} ;'''
+        cursor.execute(query)
+        self.cnx.commit()
+        cursor.close()
+        self.cnx.close()
+
+    def insert_trix_balence(self, date, crypto_name, crypto_wallet, id_bot):
         cursor = self.cnx.cursor()
         query = """Insert into get_balence (dates, crypto_name,crypto_wallet,id_bot) values ('%s','%s','%s','%s')""" % (
-            date,crypto_name,crypto_wallet,id_bot)
+            date, crypto_name, crypto_wallet, id_bot)
         cursor.execute(query)
         self.cnx.commit()
         cursor.close()
@@ -83,6 +99,22 @@ class ConnectBbd:
     def get_bots(self):
         cursor = self.cnx.cursor()
         query = " SELECT bot_id, nom_bot  FROM bots ;"
+        cursor.execute(query)
+        result = cursor.fetchall()
+        self.cnx.close()
+        return result
+
+    def get_trix_bot(self, bot_id):
+        cursor = self.cnx.cursor()
+        query = f"select params_bot_trix.*, bots.nom_bot from params_bot_trix , bots where bots.bot_id = params_bot_trix.bot_id and params_bot_trix.bot_id = {bot_id};"
+        cursor.execute(query)
+        result = cursor.fetchall()
+        self.cnx.close()
+        return result
+
+    def get_type_bot(self, bot_id):
+        cursor = self.cnx.cursor()
+        query = f"select type_bot from bots where bot_id={bot_id};"
         cursor.execute(query)
         result = cursor.fetchall()
         self.cnx.close()
