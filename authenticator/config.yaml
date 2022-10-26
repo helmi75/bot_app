@@ -5,7 +5,13 @@ credentials:
       name: Helmi chiha
       password: '$2b$12$8h8vT9ecTFoD.4ow0ZD82el30c5nQvxt.pKbg9K4e12Ejfve60.iK'
       adresse : '23 rue albert roussel 75017 Paris'
-      CP : '75017'      
+      CP : '75017'
+    mahdihadjsassi:
+      email: mahdihadjsassi1@gmail.com
+      name: Mahdi Hadj Sassi
+      password: '$2b$12$8h8vT9ecTFoD.4ow0ZD82el30c5nQvxt.pKbg9K4e12Ejfve60.iK'
+      adresse: 'Kerkennah Sfax Tunisia'
+      CP: '2021'
 
 
 
