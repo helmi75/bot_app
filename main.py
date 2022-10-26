@@ -4,7 +4,7 @@ import auth
 from bdd_communication import ConnectBbd
 import pandas as pd
 import plotly.express as px
-import pyautogui
+#import pyautogui
 
 
 def delBot(bot_id):
@@ -51,14 +51,17 @@ def modifierTrixBot(bot_id):
 
 def main():
     authenticator = auth.auth_data()
-    name, authentication_status, username = authenticator.login('Login', 'main')
+    name, authentication_status, username, password  = authenticator.login('Login', 'main')
     con = ConnectBbd('localhost', '3306', 'root', 'Magali_1984', 'cryptos', 'mysql_native_password')
+    
+
     if authentication_status:
         authenticator.logout('Logout', 'main')
     maintenance = con.get_maintenance_setting()[0][0] and username != "helmichiha"
     if maintenance:
         st.title('''Please Hold on and visit us next time!''')
         st.warning('''The page is in maintenance!''')
+
 
         st.image(
             "https://img.freepik.com/premium-vector/robot-android-with-claw-hands-interface-isolated-cartoon-icon-vector-digital-character-kids-toy-white-robotic-friendly-bot-repair-machine-artificial-intelligence-electronic-space-automaton_53500-1001.jpg",
@@ -132,8 +135,8 @@ def main():
                             stoch_rsi)
                         pyautogui.hotkey('ctrl', 'F5')
                 except Exception as e:
-                    print("probléme")
-                    print(e)
+                    st.write(e)
+                    
         if authentication_status:
             with st.expander("visulation de vos bot   ", expanded=False):
                 try:
@@ -163,8 +166,10 @@ def main():
                                    title='bots showed by date and wallet')
                     st.plotly_chart(fig2)
                 except Exception as e:
-                    print(e)
-            with st.expander("Gestion Des Bots   ", expanded=False):
+                    st.write(e)
+                    
+        if authentication_status:
+            with st.expander("Gestion des Bots   ", expanded=False):
                 try:
                     bots = con.get_bots()
                     bot = [bot_item[1] for bot_item in bots]
@@ -202,12 +207,31 @@ def main():
                             emplacement.empty()
                 except Exception as e:
                     print(e)
+        if authentication_status:
+            with st.expander("Etat des Bots", expanded=False):
+                try:
+                    result = con.get_status()
+                    df_result = pd.DataFrame(result, columns =['id_execution','date','pair_symbol','status_bot',
+                                                           'transaction','log_execution.id_bot','bot.id_bot',
+                                                           'nom_bot','user_id','type_bot'])
+                    list_satus_bot = [ df_result[df_result['nom_bot']==bot].iloc[-1:] for bot in df_result['nom_bot'].unique()]
+                    #for bot in df_result['nom_bot'].unique() :
+                    #    st.write(df_result[df_result['nom_bot']==bot].iloc[-1:])
+                    df_status_bot = pd.concat(list_satus_bot)[['date','nom_bot','status_bot','transaction','user_id','type_bot']]
+                    st.dataframe(df_status_bot)
+                    select_bot = st.selectbox("info bot 10 dernière heures", df_result['nom_bot'].unique())
+                    df_selected_bot = df_result[df_result['nom_bot']==select_bot]
+                    #st.dataframe(df_selected_bot)
+                    st.write(df_selected_bot[['date','nom_bot','status_bot','transaction','user_id','type_bot']].iloc[-5:])
+                except Exception as e :
+                    st.write(e)           
     if username == "helmichiha":
         agreed = st.checkbox('Maintenance !')
         if agreed:
             con = ConnectBbd('localhost', '3306', 'root', 'Magali_1984', 'cryptos', 'mysql_native_password')
             con.update_maintenance_setting()
             pyautogui.hotkey("ctrl", "F5")
+   
 
 
 if __name__ == "__main__":
