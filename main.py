@@ -53,10 +53,11 @@ def status_bots(df_result):
     list_satus_bot = [ df_result[df_result['nom_bot']==bot].iloc[-1:] for bot in df_result['nom_bot'].unique()]
     df_status_bot = pd.concat(list_satus_bot)[['date','nom_bot','pair_symbol','status_bot','transaction','user_id','type_bot']]
     for i ,transaction in zip(df_status_bot["transaction"].index , df_status_bot["transaction"]):
-        if transaction=="sell":
+        if transaction=="buy":
             df_status_bot["transaction"].loc[i] = df_status_bot["pair_symbol"].loc[i][:-4]
         else: 
             df_status_bot["transaction"].loc[i] = "USD"
+    df_status_bot = df_status_bot.rename(columns ={"transaction":"status_trix"})
     return df_status_bot
 
 def main():
@@ -223,27 +224,11 @@ def main():
                     df_result = pd.DataFrame(result, columns =['id_execution','date','pair_symbol','status_bot',
                                                            'transaction','log_execution.id_bot','bot.id_bot',
                                                            'nom_bot','user_id','type_bot'])
-
-
-                    #--------------------- faire une correction ici  pour Jira  BOTV2-82 -------------------------------------#
- 
-                    list_satus_bot = [ df_result[df_result['nom_bot']==bot].iloc[-1:] for bot in df_result['nom_bot'].unique()]
-                    #for bot in df_result['nom_bot'].unique() :
-                    #    st.write(df_result[df_result['nom_bot']==bot].iloc[-1:])
-                    df_status_bot = pd.concat(list_satus_bot)[['date','nom_bot','status_bot','transaction','user_id','type_bot']]
-                    #---------------------------------------------------------------------------------------------------------#
-
-
-                    #st.dataframe(df_status_bot)
+                    # display bot status 
                     st.dataframe(status_bots(df_result))
-
-
-                    select_bot = st.selectbox("info bot 10 dernière heures", df_result['nom_bot'].unique())
-                    df_selected_bot = df_result[df_result['nom_bot']==select_bot]
-                    #st.dataframe(df_selected_bot)
-                    st.write(df_selected_bot[['date','nom_bot','status_bot','transaction','user_id','type_bot']].iloc[-5:])
                 except Exception as e :
                     st.write(e)
+
     if username == "helmichiha":
         agreed = st.checkbox('Maintenance !')
         if agreed:
