@@ -172,7 +172,7 @@ class ConnectBbd:
         cursor.close()
         self.cnx.close()
 
-    
+ 
     def bot_status(self, pairSymbol, side, id_bot):
         """ 
            insert status bot data to the database 

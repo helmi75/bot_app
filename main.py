@@ -48,21 +48,30 @@ def modifierTrixBot(bot_id):
         pyautogui.hotkey("ctrl", "F5")
         pass
 
+def status_bots(df_result):
+    df_result = df_result[df_result["transaction"]!="none"]
+    list_satus_bot = [ df_result[df_result['nom_bot']==bot].iloc[-1:] for bot in df_result['nom_bot'].unique()]
+    df_status_bot = pd.concat(list_satus_bot)[['date','nom_bot','pair_symbol','status_bot','transaction','user_id','type_bot']]
+    for i ,transaction in zip(df_status_bot["transaction"].index , df_status_bot["transaction"]):
+        if transaction=="sell":
+            df_status_bot["transaction"].loc[i] = df_status_bot["pair_symbol"].loc[i][:-4]
+        else: 
+            df_status_bot["transaction"].loc[i] = "USD"
+    return df_status_bot
 
 def main():
     authenticator = auth.auth_data()
-    name, authentication_status, username, password  = authenticator.login('Login', 'main')
+    name, authentication_status, username  = authenticator.login('Login', 'main')
     con = ConnectBbd('localhost', '3306', 'root', 'Magali_1984', 'cryptos', 'mysql_native_password')
     
 
     if authentication_status:
         authenticator.logout('Logout', 'main')
     maintenance = con.get_maintenance_setting()[0][0] and username != "helmichiha"
+    maintenance=0
     if maintenance:
         st.title('''Please Hold on and visit us next time!''')
         st.warning('''The page is in maintenance!''')
-
-
         st.image(
             "https://img.freepik.com/premium-vector/robot-android-with-claw-hands-interface-isolated-cartoon-icon-vector-digital-character-kids-toy-white-robotic-friendly-bot-repair-machine-artificial-intelligence-electronic-space-automaton_53500-1001.jpg",
             use_column_width=False)
@@ -206,7 +215,7 @@ def main():
                         else:
                             emplacement.empty()
                 except Exception as e:
-                    print(e)
+                    st.write(e)
         if authentication_status:
             with st.expander("Etat des Bots", expanded=False):
                 try:
@@ -214,17 +223,27 @@ def main():
                     df_result = pd.DataFrame(result, columns =['id_execution','date','pair_symbol','status_bot',
                                                            'transaction','log_execution.id_bot','bot.id_bot',
                                                            'nom_bot','user_id','type_bot'])
+
+
+                    #--------------------- faire une correction ici  pour Jira  BOTV2-82 -------------------------------------#
+ 
                     list_satus_bot = [ df_result[df_result['nom_bot']==bot].iloc[-1:] for bot in df_result['nom_bot'].unique()]
                     #for bot in df_result['nom_bot'].unique() :
                     #    st.write(df_result[df_result['nom_bot']==bot].iloc[-1:])
                     df_status_bot = pd.concat(list_satus_bot)[['date','nom_bot','status_bot','transaction','user_id','type_bot']]
-                    st.dataframe(df_status_bot)
+                    #---------------------------------------------------------------------------------------------------------#
+
+
+                    #st.dataframe(df_status_bot)
+                    st.dataframe(status_bots(df_result))
+
+
                     select_bot = st.selectbox("info bot 10 dernière heures", df_result['nom_bot'].unique())
                     df_selected_bot = df_result[df_result['nom_bot']==select_bot]
                     #st.dataframe(df_selected_bot)
                     st.write(df_selected_bot[['date','nom_bot','status_bot','transaction','user_id','type_bot']].iloc[-5:])
                 except Exception as e :
-                    st.write(e)           
+                    st.write(e)
     if username == "helmichiha":
         agreed = st.checkbox('Maintenance !')
         if agreed:
