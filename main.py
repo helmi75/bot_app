@@ -4,16 +4,18 @@ import auth
 from bdd_communication import ConnectBbd
 import pandas as pd
 import plotly.express as px
-#import pyautogui
+from pass_secret import mot_de_passe
+import pyautogui
 
+pwd = mot_de_passe
 
 def delBot(bot_id):
-    con = ConnectBbd('localhost', '3306', 'root', 'Magali_1984', 'cryptos', 'mysql_native_password')
+    con = ConnectBbd('localhost', '3306', 'root', pwd, 'cryptos', 'mysql_native_password')
     con.delete_bot(bot_id)
 
 
 def modifBot(bot_id):
-    con = ConnectBbd('localhost', '3306', 'root', 'Magali_1984', 'cryptos', 'mysql_native_password')
+    con = ConnectBbd('localhost', '3306', 'root', pwd, 'cryptos', 'mysql_native_password')
     type_bot = con.get_type_bot(bot_id)[0][0]
     if type_bot == "trix":
         modifierTrixBot(bot_id)
@@ -22,7 +24,7 @@ def modifBot(bot_id):
 
 
 def modifierTrixBot(bot_id):
-    con = ConnectBbd('localhost', '3306', 'root', 'Magali_1984', 'cryptos', 'mysql_native_password')
+    con = ConnectBbd('localhost', '3306', 'root', pwd, 'cryptos', 'mysql_native_password')
     trix_bot = con.get_trix_bot(bot_id)
     st.title(f"Modifing  : {trix_bot[0][11]}")
     api_key = st.text_input("enter your api_key", key="api_key_trix", value=trix_bot[0][1])
@@ -39,7 +41,7 @@ def modifierTrixBot(bot_id):
     stoch_rsi = col3.number_input("Stoch RSI", value=trix_bot[0][9], key="stoch_rsi_trix")
     col01, col02 = st.columns([9, 4])
     if col01.button("Apply Changes"):
-        con = ConnectBbd('localhost', '3306', 'root', 'Magali_1984', 'cryptos', 'mysql_native_password')
+        con = ConnectBbd('localhost', '3306', 'root', pwd, 'cryptos', 'mysql_native_password')
         pair_symbol = pair_symbol[:-5].lower()
         con.update_trix_bot(bot_id, api_key, secret_key, sub_account, pair_symbol,
                             trix_lenght, trix_signal, stoch_top, stoch_bottom, stoch_rsi)
@@ -51,8 +53,8 @@ def modifierTrixBot(bot_id):
 
 def main():
     authenticator = auth.auth_data()
-    name, authentication_status, username, password  = authenticator.login('Login', 'main')
-    con = ConnectBbd('localhost', '3306', 'root', 'Magali_1984', 'cryptos', 'mysql_native_password')
+    name, authentication_status, username  = authenticator.login('Login', 'main')
+    con = ConnectBbd('localhost', '3306', 'root', pwd, 'cryptos', 'mysql_native_password')
     
 
     if authentication_status:
@@ -136,9 +138,9 @@ def main():
                         pyautogui.hotkey('ctrl', 'F5')
                 except Exception as e:
                     st.write(e)
-                    
+
         if authentication_status:
-            with st.expander("visulation de vos bot   ", expanded=False):
+            with st.expander("visulation de vos crypto_wallet   ", expanded=False):
                 try:
                     list_balences = con.get_balences()
                     balences_data_frame_columns = ['dates', 'crypto_wallet', 'nom_bot']
@@ -167,7 +169,68 @@ def main():
                     st.plotly_chart(fig2)
                 except Exception as e:
                     st.write(e)
-                    
+
+        if authentication_status:
+            with st.expander("visulation de vos crypto_wallet Normalisé   ", expanded=False):
+                try:
+                    list_balences = con.get_balences_Normalization()
+                    balences_data_frame_columns = ['dates', 'crypto_wallet', 'nom_bot']
+                    balences_data_frame = pd.DataFrame(columns=balences_data_frame_columns)
+                    for balence in list_balences:
+                        balences_data_frame.loc[len(balences_data_frame.index)] = balence
+                    balences_data_frame["dates"] = pd.to_datetime(balences_data_frame['dates'])
+                    balences_data_frame["crypto_wallet"] = pd.to_numeric(balences_data_frame['crypto_wallet'])
+                    balence_bot_name_dictionnaire = {}
+                    for bot_name in balences_data_frame['nom_bot'].unique():
+                        balence_bot_name_dictionnaire_dataframe_columns = ['dates', bot_name]
+                        balence_bot_name_dictionnaire_dataframe_values = pd.DataFrame(
+                            columns=balence_bot_name_dictionnaire_dataframe_columns)
+                        balence_bot_name_dictionnaire[bot_name] = balence_bot_name_dictionnaire_dataframe_values
+                    for bot in balences_data_frame.values:
+                        for balence_bot_name_dictionnaire_keys, balence_bot_name_dictionnaire_values in balence_bot_name_dictionnaire.items():
+                            if (bot[2] == balence_bot_name_dictionnaire_keys):
+                                balence_bot_name_dictionnaire_values.loc[
+                                    len(balence_bot_name_dictionnaire_values.index)] = [bot[0], bot[1]]
+                    balence_bots_clean_dataframe = pd.concat(list(balence_bot_name_dictionnaire.values()))
+                    balence_bots_clean_dataframe = balence_bots_clean_dataframe.sort_values('dates', ignore_index=True)
+                    balence_bots_clean_dataframe = balence_bots_clean_dataframe.fillna(method='ffill')
+                    balence_bots_clean_dataframe = balence_bots_clean_dataframe.fillna(0)
+                    fig2 = px.line(balence_bots_clean_dataframe, x="dates", y=balence_bots_clean_dataframe.columns,
+                                   title='bots showed by date and wallet')
+                    st.plotly_chart(fig2)
+                except Exception as e:
+                    st.write(e)
+
+        if authentication_status:
+            with st.expander("visulation de vos bot   ", expanded=False):
+                try:
+                    list_balences = con.get_crypto_pourcentage()
+                    balences_data_frame_columns = ['dates', 'crypto_wallet', 'nom_bot']
+                    balences_data_frame = pd.DataFrame(columns=balences_data_frame_columns)
+                    for balence in list_balences:
+                        balences_data_frame.loc[len(balences_data_frame.index)] = balence
+                    balences_data_frame["dates"] = pd.to_datetime(balences_data_frame['dates'])
+                    balences_data_frame["crypto_wallet"] = pd.to_numeric(balences_data_frame['crypto_wallet'])
+                    balence_bot_name_dictionnaire = {}
+                    for bot_name in balences_data_frame['nom_bot'].unique():
+                        balence_bot_name_dictionnaire_dataframe_columns = ['dates', bot_name]
+                        balence_bot_name_dictionnaire_dataframe_values = pd.DataFrame(
+                            columns=balence_bot_name_dictionnaire_dataframe_columns)
+                        balence_bot_name_dictionnaire[bot_name] = balence_bot_name_dictionnaire_dataframe_values
+                    for bot in balences_data_frame.values:
+                        for balence_bot_name_dictionnaire_keys, balence_bot_name_dictionnaire_values in balence_bot_name_dictionnaire.items():
+                            if (bot[2] == balence_bot_name_dictionnaire_keys):
+                                balence_bot_name_dictionnaire_values.loc[
+                                    len(balence_bot_name_dictionnaire_values.index)] = [bot[0], bot[1]]
+                    balence_bots_clean_dataframe = pd.concat(list(balence_bot_name_dictionnaire.values()))
+                    balence_bots_clean_dataframe = balence_bots_clean_dataframe.sort_values('dates', ignore_index=True)
+                    balence_bots_clean_dataframe = balence_bots_clean_dataframe.fillna(method='ffill')
+                    fig2 = px.line(balence_bots_clean_dataframe, x="dates", y=balence_bots_clean_dataframe.columns,
+                                   title='bots showed by date and wallet')
+                    st.plotly_chart(fig2)
+                except Exception as e:
+                    st.write(e)
+
         if authentication_status:
             with st.expander("Gestion des Bots   ", expanded=False):
                 try:
@@ -224,11 +287,13 @@ def main():
                     #st.dataframe(df_selected_bot)
                     st.write(df_selected_bot[['date','nom_bot','status_bot','transaction','user_id','type_bot']].iloc[-5:])
                 except Exception as e :
-                    st.write(e)           
+                    st.write(e)     
+                    
+                    
     if username == "helmichiha":
         agreed = st.checkbox('Maintenance !')
         if agreed:
-            con = ConnectBbd('localhost', '3306', 'root', 'Magali_1984', 'cryptos', 'mysql_native_password')
+            con = ConnectBbd('localhost', '3306', 'root', pwd, 'cryptos', 'mysql_native_password')
             con.update_maintenance_setting()
             pyautogui.hotkey("ctrl", "F5")
    
