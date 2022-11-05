@@ -2,6 +2,8 @@
 # version 1.1 29/09/2022
 # version 1.2 03/09/2022
 
+#a supprimer !
+
 import traceback
 import mysql.connector
 import pandas as pd
@@ -107,10 +109,10 @@ for i in myresult:
                   size=quantityBuy,
                   type='market')
               print(side)
-              con.bot_status(pairSymbol, side , i[10])
+              # con.bot_status(pairSymbol, side , i[10])
 
           else:
-              con.bot_status(pairSymbol, side , i[10])
+              # con.bot_status(pairSymbol, side , i[10])
               goOn = True
 
       elif sellCondition(df.iloc[-2], i[8]):
@@ -126,11 +128,11 @@ for i in myresult:
               con.bot_status(pairSymbol, side, i[10])
 
           else:
-              con.bot_status(pairSymbol, side , i[10])
+              # con.bot_status(pairSymbol, side , i[10])
               goOn = True
       else:
           goOn = True
-          con.bot_status(pairSymbol, side , i[10])
+          # con.bot_status(pairSymbol, side , i[10])
 
       #listBalances = sorted(client.get_balances(),key= lambda d : d['total'], reverse= True)
       df_balences = pd.DataFrame(client.get_balances())
@@ -156,5 +158,5 @@ for i in myresult:
       print("Exception type : %s " % ex_type.__name__)
       print("Exception message : %s" %ex_value)
       print("Stack trace : %s \n" %stack_trace)
-      con.insert_log_info(datetime.now(), pairSymbol, ex_value, "none", i[10])
+      # con.insert_log_info(datetime.now(), pairSymbol, ex_value, "none", i[10])
 print("We're done\n\n")
