@@ -20,3 +20,9 @@ alter table get_balence add crypto_wallet_pourcentage double ;
 
 alter table get_balence modify crypto_wallet double ;
 
+
+
+
+
+
+p
