@@ -16,6 +16,7 @@ st.title("Cocobots")
 
 
 
+
 def main():
     authenticator = auth.auth_data()
     name, authentication_status, username = authenticator.login('Login', 'main')
@@ -30,10 +31,10 @@ def main():
             con.update_maintenance_setting()
             pyautogui.hotkey("ctrl", "F5")
     maintenance = con.get_maintenance_setting()[0][0] and username != "helmichiha"
+    maintenance=0
     if maintenance:
         st.title('''Please Hold on and visit us next time!''')
         st.warning('''The page is in maintenance!''')
-
         st.image(
             "https://img.freepik.com/premium-vector/robot-android-with-claw-hands-interface-isolated-cartoon-icon-vector-digital-character-kids-toy-white-robotic-friendly-bot-repair-machine-artificial-intelligence-electronic-space-automaton_53500-1001.jpg",
             use_column_width=False)
@@ -54,6 +55,7 @@ def main():
             st.warning('Please enter your username and password')
         if authentication_status:
             st.write(authenticator.credentials['usernames'][username]['adresse'] + " / Code Postal : " + authenticator.credentials['usernames'][username]['CP'] )
+
 
 
 if __name__ == "__main__":
