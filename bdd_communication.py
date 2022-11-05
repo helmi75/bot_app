@@ -86,21 +86,25 @@ class ConnectBbd:
             date, crypto_name, crypto_wallet, id_bot)
         cursor.execute(query)
         self.cnx.commit()
+        idd = cursor.lastrowid
         cursor.close()
-        self.cnx.close()
+        self.insert_trix_balence_pourcentage(idd)
+        self.insert_trix_balence_crypto_pourcentage(idd)
 
-    def insert_trix_balence_pourcentage(self):
+    def insert_trix_balence_pourcentage(self,idd):
         cursor = self.cnx.cursor()
         #recupére the last get_balence id
-        idd = cursor.lastrowid
+        print("idd : ",idd)
         #get the id_bot
         query = f"SELECT id_bot  FROM get_balence where id_get_balence={idd} ;"
         cursor.execute(query)
         bot_id = cursor.fetchall()[0][0]
+        print("bot_id : ",bot_id)
         #get the max crypto_wallet
         query = f"SELECT max(crypto_wallet)  FROM get_balence where id_bot={bot_id} ;"
         cursor.execute(query)
         max = cursor.fetchall()[0][0]
+        print("max : ",max);
         #add the crypto wallet pourcentage to the get_ballence
         query = f'''update get_balence set crypto_wallet_pourcentage = crypto_wallet/{max}
          where  id_get_balence = {idd};'''
@@ -108,6 +112,21 @@ class ConnectBbd:
         self.cnx.commit()
         cursor.close()
         #self.cnx.close()
+
+    def insert_trix_balence_crypto_pourcentage(self,idd):
+        cursor = self.cnx.cursor()
+        query = f"SELECT id_bot  FROM get_balence where id_get_balence={idd} ;"
+        cursor.execute(query)
+        bot_id = cursor.fetchall()[0][0]
+        query = f"SELECT crypto_wallet  FROM get_balence where id_bot= {bot_id} order by dates limit 1;"
+        cursor.execute(query)
+        max = cursor.fetchall()[0][0]
+        query = f'''update get_balence set crypto_pourcentage = crypto_wallet/{max}
+         where  id_get_balence = {idd};'''
+        cursor.execute(query)
+        self.cnx.commit()
+        cursor.close()
+        # self.cnx.close()
 
     def insert_log_info(self, date, pair_symbol, status_bot, transaction, bot_id):
         cursor = self.cnx.cursor()
@@ -139,7 +158,7 @@ class ConnectBbd:
         query = f"select params_bot_trix.*, bots.nom_bot from params_bot_trix , bots where bots.bot_id = params_bot_trix.bot_id and params_bot_trix.bot_id = {bot_id};"
         cursor.execute(query)
         result = cursor.fetchall()
-        self.cnx.close()
+        # self.cnx.close()
         return result
 
     def get_type_bot(self, bot_id):
@@ -147,15 +166,29 @@ class ConnectBbd:
         query = f"select type_bot from bots where bot_id={bot_id};"
         cursor.execute(query)
         result = cursor.fetchall()
-        self.cnx.close()
+        # self.cnx.close()
         return result
 
     def get_balences(self):
+        cursor = self.cnx.cursor()
+        query = "select dates, crypto_wallet,nom_bot from get_balence, bots where (get_balence.id_bot = bots.bot_id);"
+        cursor.execute(query)
+        myresult = cursor.fetchall()
+        return myresult
+
+    def get_balences_Normalization(self):
         cursor = self.cnx.cursor()
         query = "select dates, crypto_wallet_pourcentage,nom_bot from get_balence, bots where (get_balence.id_bot = bots.bot_id);"
         cursor.execute(query)
         myresult = cursor.fetchall()
         return myresult
+    def get_crypto_pourcentage(self):
+        cursor = self.cnx.cursor()
+        query = "select dates, crypto_pourcentage,nom_bot from get_balence, bots where (get_balence.id_bot = bots.bot_id and bots.type_bot = 'trix');"
+        cursor.execute(query)
+        myresult = cursor.fetchall()
+        return myresult
+
 
     def get_maintenance_setting(self):
         cursor = self.cnx.cursor()
@@ -170,7 +203,7 @@ class ConnectBbd:
         cursor.execute(query)
         self.cnx.commit()
         cursor.close()
-        self.cnx.close()
+        # self.cnx.close()
 
  
     def bot_status(self, pairSymbol, side, id_bot):
