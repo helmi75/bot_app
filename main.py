@@ -2,7 +2,7 @@ import streamlit as st
 import auth
 from bdd_communication import ConnectBbd
 from pass_secret import mot_de_passe
-import pyautogui
+# import pyautogui
 
 pwd = mot_de_passe
 
@@ -29,7 +29,7 @@ def main():
         if agreed:
             con = ConnectBbd('localhost', '3306', 'root', pwd, 'cryptos', 'mysql_native_password')
             con.update_maintenance_setting()
-            pyautogui.hotkey("ctrl", "F5")
+            # pyautogui.hotkey("ctrl", "F5")
     maintenance = con.get_maintenance_setting()[0][0] and username != "helmichiha"
     maintenance=0
     if maintenance:

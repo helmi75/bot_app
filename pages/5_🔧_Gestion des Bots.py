@@ -4,7 +4,7 @@ from bdd_communication import ConnectBbd
 import pandas as pd
 import plotly.express as px
 from pass_secret import mot_de_passe
-import pyautogui
+# import pyautogui
 
 st.set_page_config(
     page_title="Cocobots",
@@ -58,9 +58,9 @@ def modifierTrixBot(bot_id):
         pair_symbol = pair_symbol[:-5].lower()
         con.update_trix_bot(bot_id, api_key, secret_key, sub_account, pair_symbol,
                             trix_lenght, trix_signal, stoch_top, stoch_bottom, stoch_rsi)
-        pyautogui.hotkey("ctrl", "F5")
+        # pyautogui.hotkey("ctrl", "F5")
     if col02.button("Cancel Changes"):
-        pyautogui.hotkey("ctrl", "F5")
+        # pyautogui.hotkey("ctrl", "F5")
         pass
 
 
@@ -92,9 +92,10 @@ if authentication_status:
                         del st.session_state.my_list[index]
                         st.write(f"bot {item} deleted!")
                         delBot(bots[index][0])
-                        pyautogui.hotkey("ctrl", "F5")
+                        # pyautogui.hotkey("ctrl", "F5")
                     if col4.button("Cancel"):
-                        pyautogui.hotkey("ctrl", "F5")
+                        pass
+                        # pyautogui.hotkey("ctrl", "F5")
                 if col22.button("Edit this bot", key=f"ed{index}") or st.session_state[f'E{item}']:
                     modifBot(bots[index][0])
                     st.session_state[f'E{item}'] = True
