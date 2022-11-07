@@ -5,6 +5,12 @@ import pandas as pd
 import plotly.express as px
 from pass_secret import mot_de_passe
 
+st.set_page_config(
+    page_title="Cocobots",
+    page_icon="code.png",
+)
+
+st.title("Cocobots")
 
 
 pwd = mot_de_passe

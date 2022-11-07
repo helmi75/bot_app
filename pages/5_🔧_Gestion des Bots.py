@@ -6,6 +6,14 @@ import plotly.express as px
 from pass_secret import mot_de_passe
 import pyautogui
 
+st.set_page_config(
+    page_title="Cocobots",
+    page_icon="code.png",
+)
+
+st.title("Cocobots")
+
+
 pwd = mot_de_passe
 authenticator = auth.auth_data()
 name, authentication_status, username = authenticator.login('Login', 'main')
