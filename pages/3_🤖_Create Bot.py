@@ -3,7 +3,7 @@ from createbot import Users, CreateBot
 import auth
 from bdd_communication import ConnectBbd
 from pass_secret import mot_de_passe
-import pyautogui
+# import pyautogui
 
 st.set_page_config(
     page_title="Cocobots",
@@ -38,7 +38,7 @@ if authentication_status:
                     secret_key = st.text_input("enter  secret key", key="secret_key")
                     sub_account = st.text_input("Subaccount", key="sub_account")
                     col1, col2, col3 = st.columns(3)
-                    pair_symbol = col1.text_input("FTX Pair symbol", value="ETH/USDT", placeholder="i.e  BTC/USDT",
+                    pair_symbol = col1.text_input("FTX Pair symbol", value="ETH/USD", placeholder="i.e  BTC/USD",
                                                   key="pair_symbol")
                     trix_lenght = col2.number_input("Trix Lenght", value=9, key="trix_length")
                     trix_signal = col3.number_input("Trix Signal", value=21, key="trix_signal")
@@ -69,7 +69,7 @@ if authentication_status:
                         api_key, secret_key, sub_account, pair_symbol, trix_lenght, trix_signal, stoch_top,
                         stoch_bottom,
                         stoch_rsi)
-                    pyautogui.hotkey('ctrl', 'F5')
+                    # pyautogui.hotkey('ctrl', 'F5')
             except Exception as e:
                 st.write(e)
     else :
