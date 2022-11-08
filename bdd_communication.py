@@ -3,6 +3,7 @@ import sys
 from datetime import datetime
 
 
+
 class ConnectBbd:
     def __init__(self, host, port, user, password, database, auth_plugin):
         self.host = host
@@ -227,5 +228,4 @@ class ConnectBbd:
        result = cursor.fetchall()
        #self.cnx.close()
        return result
-
 

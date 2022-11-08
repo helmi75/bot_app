@@ -64,12 +64,13 @@ if authentication_status:
                     st.write("secret key:", secret_key)
                     st.write("secret key:", api_key)
 
-                    bot.create__bot(
-                        selection_bot, bot_name, user.get_email(),
-                        api_key, secret_key, sub_account, pair_symbol, trix_lenght, trix_signal, stoch_top,
-                        stoch_bottom,
-                        stoch_rsi)
-                    # pyautogui.hotkey('ctrl', 'F5')
+                    statut_creat_bot = bot.create__bot(selection_bot, bot_name, user.get_email(),
+                                                       api_key, secret_key, sub_account, pair_symbol, 
+                                                       trix_lenght, trix_signal, stoch_top, stoch_bottom,
+                                                       stoch_rsi)
+                    if statut_creat_bot:  
+                        st.success("bot created")
+                    
             except Exception as e:
                 st.write(e)
     else :

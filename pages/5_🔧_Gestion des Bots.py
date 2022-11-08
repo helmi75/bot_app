@@ -90,7 +90,7 @@ if authentication_status:
                     st.session_state[f'E{item}'] = False
                     if col3.button("Confirm Delete"):
                         del st.session_state.my_list[index]
-                        st.write(f"bot {item} deleted!")
+                        st.success(f"bot {item} deleted!")
                         delBot(bots[index][0])
                         # pyautogui.hotkey("ctrl", "F5")
                     if col4.button("Cancel"):

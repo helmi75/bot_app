@@ -32,8 +32,7 @@ class CreateBot:
         elif selection_bot == "Cocotier":
             pass
 
-        return print("bot created ")
-
+        return True
 
 class Users:
     def __init__(self, name, email):
