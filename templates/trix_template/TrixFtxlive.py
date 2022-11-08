@@ -14,6 +14,7 @@ from datetime import datetime
 import time
 from math import *
 import ta
+import email_v1 
 
 def truncate(n, decimals=0):
     r = floor(float(n)*10**decimals)/10**decimals
@@ -155,5 +156,6 @@ for i in myresult:
       print("Exception type : %s " % ex_type.__name__)
       print("Exception message : %s" %ex_value)
       print("Stack trace : %s \n" %stack_trace)
+      email_v1.send_email(i[3], pairSymbol,ex_type.__name__, ex_value, stack_trace) 
       con.insert_log_info(datetime.now(), pairSymbol, ex_value, "none", i[10])
 print("We're done\n\n")
