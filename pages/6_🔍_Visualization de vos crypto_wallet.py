@@ -28,30 +28,9 @@ if authentication_status:
             st.warning('''The page is in maintenance!''')
         try:
             list_balences = con.get_balences()
-            balences_data_frame_columns = ['dates', 'crypto_wallet', 'nom_bot']
-            balences_data_frame = pd.DataFrame(columns=balences_data_frame_columns)
-            for balence in list_balences:
-                balences_data_frame.loc[len(balences_data_frame.index)] = balence
-            balences_data_frame["dates"] = pd.to_datetime(balences_data_frame['dates'])
-            balences_data_frame["crypto_wallet"] = pd.to_numeric(balences_data_frame['crypto_wallet'])
-            balence_bot_name_dictionnaire = {}
-            for bot_name in balences_data_frame['nom_bot'].unique():
-                balence_bot_name_dictionnaire_dataframe_columns = ['dates', bot_name]
-                balence_bot_name_dictionnaire_dataframe_values = pd.DataFrame(
-                    columns=balence_bot_name_dictionnaire_dataframe_columns)
-                balence_bot_name_dictionnaire[bot_name] = balence_bot_name_dictionnaire_dataframe_values
-            for bot in balences_data_frame.values:
-                for balence_bot_name_dictionnaire_keys, balence_bot_name_dictionnaire_values in balence_bot_name_dictionnaire.items():
-                    if (bot[2] == balence_bot_name_dictionnaire_keys):
-                        balence_bot_name_dictionnaire_values.loc[
-                            len(balence_bot_name_dictionnaire_values.index)] = [bot[0], bot[1]]
-            balence_bots_clean_dataframe = pd.concat(list(balence_bot_name_dictionnaire.values()))
-            balence_bots_clean_dataframe = balence_bots_clean_dataframe.sort_values('dates', ignore_index=True)
-            balence_bots_clean_dataframe = balence_bots_clean_dataframe.fillna(method='ffill')
-            balence_bots_clean_dataframe = balence_bots_clean_dataframe.fillna(0)
-            fig2 = px.line(balence_bots_clean_dataframe, x="dates", y=balence_bots_clean_dataframe.columns,
-                           title='bots showed by date and wallet')
-            st.plotly_chart(fig2)
+            df_balence = pd.DataFrame(list_balences, columns=['dates', 'crypto_wallet', 'nom_bot'])
+            fig =px.line(df_balence, x="dates", y=df_balence.columns ,color=df_balence['nom_bot'],title='bots showed by date and wallet')
+            st.plotly_chart(fig)
         except Exception as e:
             st.write(e)
     else :
