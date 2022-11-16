@@ -1,5 +1,6 @@
 import shutil
 
+
 class CreateBot:
     def __init__(self, user, name_bot, type_bot, cnx):
         self.name_bot = name_bot
@@ -18,9 +19,9 @@ class CreateBot:
         destination = bytes(file_destination, 'utf-8')
         shutil.copyfile(source, destination)
 
-
-    def create__bot(self,selection_bot, bot_name, user_mail,
-        api_key, secret_key, sub_account, pair_symbol, trix_lenght, trix_signal, stoch_top, stoch_bottom, stoch_rsi):
+    def create__bot(self, selection_bot, bot_name, user_mail,
+                    api_key, secret_key, sub_account, pair_symbol, trix_lenght, trix_signal, stoch_top, stoch_bottom,
+                    stoch_rsi, delta_hour, n_i):
         # create trix bot
         if selection_bot == "Trix":
             pair_symbol = pair_symbol[:-5].lower()
@@ -29,10 +30,15 @@ class CreateBot:
                                          api_key, secret_key, sub_account, pair_symbol,
                                          trix_lenght, trix_signal, stoch_top, stoch_bottom, stoch_rsi)
 
+        # create cocotier trix
         elif selection_bot == "Cocotier":
-            pass
-
+            pair_symbol = pair_symbol.lower()
+            n_i = n_i.lower()
+            delta_hour = (int)(delta_hour[:-1])
+            self.cnx.insert_new_cocotier_bot(bot_name, api_key, secret_key, sub_account,
+                                             pair_symbol, delta_hour, n_i)
         return True
+
 
 class Users:
     def __init__(self, name, email):
