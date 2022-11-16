@@ -3,6 +3,7 @@ from createbot import Users, CreateBot
 import auth
 from bdd_communication import ConnectBbd
 from pass_secret import mot_de_passe
+
 # import pyautogui
 
 st.set_page_config(
@@ -21,12 +22,12 @@ maintenance = con.get_maintenance_setting()[0][0] and username != "helmichiha"
 st.title("Creation D'un Bot")
 
 if authentication_status:
-    if not maintenance :
+    if not maintenance:
         if con.get_maintenance_setting()[0][0]:
             st.warning('''The page is in maintenance!''')
         with st.expander("Creat a new bot", expanded=True):
             try:
-                name_robot = ["Trix", "Cocotier"]
+                name_robot = ["Cocotier", "Trix", "Cocotier"]
                 selection_bot = st.selectbox("choose your Bot", name_robot, key="selection_bot")
 
                 if selection_bot == "Trix":
@@ -45,12 +46,26 @@ if authentication_status:
                     stoch_top = col1.number_input("Stoch Top", value=0.88, key="stoch_top")
                     stoch_bottom = col2.number_input("Stoch Bottom", value=0.15, key="stoch_bottom")
                     stoch_rsi = col3.number_input("Stoch RSI", value=13, key="stoch_rsi")
-
+                    delta_hour = "None"
+                    n_i = "None"
                 if selection_bot == "Cocotier":
                     bot_name = st.text_input("Entrer the bot name ", key="cocotier_name")
-                    email = st.text_input("Entrer your email ", key="cocotier_email")
+                    email = st.text_input("Entrer your email ", key="cocotier_email",
+                                          value=authenticator.credentials['usernames'][username]['email'])
                     api_key = st.text_input("enter your api_key", key="cocotier_api_key")
                     secret_key = st.text_input("enter  secret key", key="secret_key")
+                    sub_account = st.text_input("Subaccount", key="sub_account")
+                    pair_symbol = st.radio("Selectionner le pair symbol", ("ETH", "ADA", "BNB", "DOGE", "DOT"),
+                                           horizontal=True, key="pair_symbol")
+                    delta_hour = st.selectbox('Selectionner une plage auraire', ['2h', '4h', '6h', '8h', '12h'],
+                                              key="delta_hour")
+                    n_i = st.radio("Selectionner le type computing", ("N", "N-1", "N-2"),
+                                   horizontal=True, key="n_i")
+                    trix_lenght = "None"
+                    trix_signal = "None"
+                    stoch_top = "None"
+                    stoch_bottom = "None"
+                    stoch_rsi = "None"
 
                 user = Users(name, email)
                 bot = CreateBot(user, bot_name, selection_bot, con)
@@ -61,19 +76,20 @@ if authentication_status:
                     st.write("email:", user.email)
                     # encode_message(self, password)
                     # bot.encrypt_message(frenet_key, message)
-                    st.write("secret key:", secret_key)
-                    st.write("secret key:", api_key)
+                    st.write("pair symbol:", pair_symbol)
 
                     statut_creat_bot = bot.create__bot(selection_bot, bot_name, user.get_email(),
-                                                       api_key, secret_key, sub_account, pair_symbol, 
+                                                       api_key, secret_key, sub_account, pair_symbol,
                                                        trix_lenght, trix_signal, stoch_top, stoch_bottom,
-                                                       stoch_rsi)
-                    if statut_creat_bot:  
+                                                       stoch_rsi, delta_hour, n_i)
+                    if statut_creat_bot:
                         st.success("bot created")
-                    
+                    else:
+                        st.error("Ouch There is some problem! Please contact the Engineer!")
+
             except Exception as e:
                 st.write(e)
-    else :
+    else:
         st.title('''Please Hold on and visit us next time!''')
         st.warning('''The page is in maintenance!''')
 

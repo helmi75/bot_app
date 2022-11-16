@@ -3,7 +3,6 @@ import sys
 from datetime import datetime
 
 
-
 class ConnectBbd:
     def __init__(self, host, port, user, password, database, auth_plugin):
         self.host = host
@@ -26,7 +25,7 @@ class ConnectBbd:
         cursor.execute(query)
         self.cnx.commit()
         cursor.close()
-        #self.cnx.close()
+        # self.cnx.close()
 
     def delete_user(self, user_name):
         cursor = self.cnx.cursor()
@@ -34,7 +33,7 @@ class ConnectBbd:
         cursor.execute(query)
         self.cnx.commit()
         cursor.close()
-        #self.cnx.close()
+        # self.cnx.close()
 
     def delete_bot(self, bot_id):
         cursor = self.cnx.cursor()
@@ -42,7 +41,23 @@ class ConnectBbd:
         cursor.execute(query)
         self.cnx.commit()
         cursor.close()
-        #self.cnx.close()
+        # self.cnx.close()
+
+    def insert_new_cocotier_bot(self, bot_name, api_key, secret_key, sub_account,
+                                pair_symbol, delta_hour, n_i):
+        cursor = self.cnx.cursor()
+        query = """Insert into bots (nom_bot,type_bot) values ('%s','%s')""" % (bot_name,'cocotier')
+        cursor.execute(query)
+        idd = cursor.lastrowid
+        self.cnx.commit()
+
+        query = """ INSERT INTO Params_bot_Cocotier (api_key, secret_key, sub_account, 
+                pair_symbol, delta_hour, type_computing, bot_id)
+                                   VALUES ('%s', '%s', '%s','%s', '%s', '%s', '%s') """ % (
+            api_key, secret_key, sub_account, pair_symbol, delta_hour, n_i,idd)
+        cursor.execute(query)
+        self.cnx.commit()
+        cursor.close()
 
     def insert_new_trix_bot(self, selection_bot, bot_name, user_mail,
                             api_key, secret_key, sub_account, pair_symbol,
@@ -61,7 +76,7 @@ class ConnectBbd:
         cursor.execute(query)
         self.cnx.commit()
         cursor.close()
-        #self.cnx.close()
+        # self.cnx.close()
 
     def update_trix_bot(self, bot_id, api_key, secret_key, sub_account, pair_symbol,
                         trix_lenght, trix_signal, stoch_top, stoch_bottom, stoch_rsi):
@@ -92,29 +107,29 @@ class ConnectBbd:
         self.insert_trix_balence_pourcentage(idd)
         self.insert_trix_balence_crypto_pourcentage(idd)
 
-    def insert_trix_balence_pourcentage(self,idd):
+    def insert_trix_balence_pourcentage(self, idd):
         cursor = self.cnx.cursor()
-        #recupére the last get_balence id
-        print("idd : ",idd)
-        #get the id_bot
+        # recupére the last get_balence id
+        print("idd : ", idd)
+        # get the id_bot
         query = f"SELECT id_bot  FROM get_balence where id_get_balence={idd} ;"
         cursor.execute(query)
         bot_id = cursor.fetchall()[0][0]
-        print("bot_id : ",bot_id)
-        #get the max crypto_wallet
+        print("bot_id : ", bot_id)
+        # get the max crypto_wallet
         query = f"SELECT max(crypto_wallet)  FROM get_balence where id_bot={bot_id} ;"
         cursor.execute(query)
         max = cursor.fetchall()[0][0]
-        print("max : ",max);
-        #add the crypto wallet pourcentage to the get_ballence
+        print("max : ", max);
+        # add the crypto wallet pourcentage to the get_ballence
         query = f'''update get_balence set crypto_wallet_pourcentage = crypto_wallet/{max}
          where  id_get_balence = {idd};'''
         cursor.execute(query)
         self.cnx.commit()
         cursor.close()
-        #self.cnx.close()
+        # self.cnx.close()
 
-    def insert_trix_balence_crypto_pourcentage(self,idd):
+    def insert_trix_balence_crypto_pourcentage(self, idd):
         cursor = self.cnx.cursor()
         query = f"SELECT id_bot  FROM get_balence where id_get_balence={idd} ;"
         cursor.execute(query)
@@ -131,19 +146,18 @@ class ConnectBbd:
 
     def insert_log_info(self, date, pair_symbol, status_bot, transaction, bot_id):
         cursor = self.cnx.cursor()
-        query = """Insert into log_execution (date, pair_symbol, status_bot, transaction, bot_id) values ('%s','%s','%s','%s','%s')""" % ( 
-                 date, pair_symbol, status_bot, transaction, bot_id)
+        query = """Insert into log_execution (date, pair_symbol, status_bot, transaction, bot_id) values ('%s','%s','%s','%s','%s')""" % (
+            date, pair_symbol, status_bot, transaction, bot_id)
         cursor.execute(query)
         self.cnx.commit()
         cursor.close()
-
 
     def get_info(self):
         cursor = self.cnx.cursor()
         query = " SELECT password  FROM users ;"
         cursor.execute(query)
         result = cursor.fetchall()
-        #self.cnx.close()
+        # self.cnx.close()
         return result
 
     def get_bots(self):
@@ -151,7 +165,7 @@ class ConnectBbd:
         query = " SELECT bot_id, nom_bot  FROM bots ;"
         cursor.execute(query)
         result = cursor.fetchall()
-        #self.cnx.close()
+        # self.cnx.close()
         return result
 
     def get_trix_bot(self, bot_id):
@@ -183,13 +197,13 @@ class ConnectBbd:
         cursor.execute(query)
         myresult = cursor.fetchall()
         return myresult
+
     def get_crypto_pourcentage(self):
         cursor = self.cnx.cursor()
         query = "select dates, crypto_pourcentage,nom_bot from get_balence, bots where (get_balence.id_bot = bots.bot_id and bots.type_bot = 'trix');"
         cursor.execute(query)
         myresult = cursor.fetchall()
         return myresult
-
 
     def get_maintenance_setting(self):
         cursor = self.cnx.cursor()
@@ -206,26 +220,24 @@ class ConnectBbd:
         cursor.close()
         # self.cnx.close()
 
- 
     def bot_status(self, pairSymbol, side, id_bot):
         """ 
            insert status bot data to the database 
         """
         try:
-            self.insert_log_info(datetime.now(),pairSymbol,"ONN",side ,id_bot)
+            self.insert_log_info(datetime.now(), pairSymbol, "ONN", side, id_bot)
         except BaseException as ex:
             ex_type, ex_value, ex_traceback = sys.exc_info()
-            self.insert_log_info(datetime.now(),pairSymbol,"ex_value", side,id_bot)
+            self.insert_log_info(datetime.now(), pairSymbol, "ex_value", side, id_bot)
 
     def get_status(self):
-       """
-          get bots status information from bdd 
-       """
-       cursor = self.cnx.cursor()
-       #query = "select * from log_execution;"
-       query = " select * from log_execution left join bots on log_execution.bot_id = bots.bot_id;"
-       cursor.execute(query)
-       result = cursor.fetchall()
-       #self.cnx.close()
-       return result
-
+        """
+           get bots status information from bdd
+        """
+        cursor = self.cnx.cursor()
+        # query = "select * from log_execution;"
+        query = " select * from log_execution left join bots on log_execution.bot_id = bots.bot_id;"
+        cursor.execute(query)
+        result = cursor.fetchall()
+        # self.cnx.close()
+        return result
