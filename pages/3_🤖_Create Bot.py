@@ -3,8 +3,27 @@ from createbot import Users, CreateBot
 import auth
 from bdd_communication import ConnectBbd
 from pass_secret import mot_de_passe
+import numpy as np
 
-# import pyautogui
+def choix_market():
+    liste_crypto = np.array(['ETH', 'ADA', 'DOGE', 'BNB', 'DOT'])
+    cols3 = st.columns(5)
+    eth = cols3[0].checkbox('ETH')
+    ada = cols3[1].checkbox('ADA')
+    doge = cols3[2].checkbox('DOGE')
+    bnb = cols3[3].checkbox('BNB')
+    dot = cols3[4].checkbox('DOT')
+
+    liste_boolean = np.array(
+        [eth, ada, doge, bnb, dot])
+
+    return liste_crypto[liste_boolean]
+
+def convertListToString(lista):
+    ch = ""
+    for i in lista :
+        ch+=i+","
+    return ch[:-1]
 
 st.set_page_config(
     page_title="Cocobots",
@@ -55,8 +74,8 @@ if authentication_status:
                     api_key = st.text_input("enter your api_key", key="cocotier_api_key")
                     secret_key = st.text_input("enter  secret key", key="secret_key")
                     sub_account = st.text_input("Subaccount", key="sub_account")
-                    pair_symbol = st.radio("Selectionner le pair symbol", ("ETH", "ADA", "BNB", "DOGE", "DOT"),
-                                           horizontal=True, key="pair_symbol")
+                    st.write("Selectionner le pair symbol")
+                    pair_symbol = convertListToString(choix_market())
                     delta_hour = st.selectbox('Selectionner une plage auraire', ['2h', '4h', '6h', '8h', '12h'],
                                               key="delta_hour")
                     n_i = st.radio("Selectionner le type computing", ("N", "N-1", "N-2"),

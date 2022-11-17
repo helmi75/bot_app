@@ -35,5 +35,9 @@ create table Params_bot_Cocotier
     constraint fk_params_bot_cocotier foreign key (bot_id) references bots (bot_id) on delete cascade
 );
 
+## 17/11/2022
+
+alter table Params_bot_Cocotier modify pair_symbol text;
+
 
 

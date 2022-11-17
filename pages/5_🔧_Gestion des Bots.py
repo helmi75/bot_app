@@ -1,10 +1,8 @@
 import streamlit as st
 import auth
 from bdd_communication import ConnectBbd
-import pandas as pd
-import plotly.express as px
 from pass_secret import mot_de_passe
-# import pyautogui
+import numpy as np
 
 st.set_page_config(
     page_title="Cocobots",
@@ -12,7 +10,6 @@ st.set_page_config(
 )
 
 st.title("Cocobots")
-
 
 pwd = mot_de_passe
 authenticator = auth.auth_data()
@@ -33,7 +30,7 @@ def modifBot(bot_id):
     if type_bot == "trix":
         modifierTrixBot(bot_id)
     elif type_bot == "cocotier":
-        st.warning("Still in developping")
+        modifierCocotierBot(bot_id)
 
 
 def modifierTrixBot(bot_id):
@@ -53,11 +50,68 @@ def modifierTrixBot(bot_id):
     stoch_bottom = col2.number_input("Stoch Bottom", value=trix_bot[0][8], key="stoch_bottom_trix")
     stoch_rsi = col3.number_input("Stoch RSI", value=trix_bot[0][9], key="stoch_rsi_trix")
     col01, col02 = st.columns([9, 4])
+    delta_hour = "None"
+    n_i = "None"
     if col01.button("Apply Changes"):
         con = ConnectBbd('localhost', '3306', 'root', pwd, 'cryptos', 'mysql_native_password')
         pair_symbol = pair_symbol[:-5].lower()
         con.update_trix_bot(bot_id, api_key, secret_key, sub_account, pair_symbol,
                             trix_lenght, trix_signal, stoch_top, stoch_bottom, stoch_rsi)
+        # pyautogui.hotkey("ctrl", "F5")
+    if col02.button("Cancel Changes"):
+        # pyautogui.hotkey("ctrl", "F5")
+        pass
+
+
+def choix_market(list):
+    list = list.upper().split(',')
+    liste_crypto = np.array(['ETH', 'ADA', 'DOGE', 'BNB', 'DOT'])
+    cols3 = st.columns(5)
+    eth = cols3[0].checkbox('ETH', value='ETH' in list)
+    ada = cols3[1].checkbox('ADA', value='ADA' in list)
+    doge = cols3[2].checkbox('DOGE', value='DOGE' in list)
+    bnb = cols3[3].checkbox('BNB', value='BNB' in list)
+    dot = cols3[4].checkbox('DOT', value='DOT' in list)
+
+    liste_boolean = np.array(
+        [eth, ada, doge, bnb, dot])
+
+    return liste_crypto[liste_boolean]
+
+
+def convertListToString(lista):
+    ch = ""
+    for i in lista:
+        ch += i + ","
+    return ch[:-1]
+
+
+def modifierCocotierBot(bot_id):
+    con = ConnectBbd('localhost', '3306', 'root', pwd, 'cryptos', 'mysql_native_password')
+    cocotier_bot = con.get_cocotier_bot(bot_id)
+    st.title(f"Modifing  : {cocotier_bot[0][8]}")
+    api_key = st.text_input("enter your api_key", key="cocotier_api_key", value=cocotier_bot[0][1])
+    secret_key = st.text_input("enter  secret key", key="secret_key", value=cocotier_bot[0][2])
+    sub_account = st.text_input("Subaccount", key="sub_account", value=cocotier_bot[0][3])
+    st.write("Selectionner le pair symbol")
+    pair_symbol = convertListToString(choix_market(cocotier_bot[0][4]))
+    delta_hour = st.selectbox('Selectionner une plage auraire', ['2h', '4h', '6h', '8h', '12h'],
+                              key="delta_hour", index=[2, 4, 6, 8, 12].index(cocotier_bot[0][5]))
+    n_i = st.selectbox('Selectionner le type computing', ["N", "N-1", "N-2"],
+                       key="n_u", index=["n", "n-1", "n-2"].index(cocotier_bot[0][6]))
+    trix_lenght = "None"
+    trix_signal = "None"
+    stoch_top = "None"
+    stoch_bottom = "None"
+    stoch_rsi = "None"
+    col01, col02 = st.columns([9, 4])
+    if col01.button("Apply Changes"):
+        con = ConnectBbd('localhost', '3306', 'root', pwd, 'cryptos', 'mysql_native_password')
+        pair_symbol = pair_symbol.lower()
+        n_i = n_i.lower()
+        delta_hour = (int)(delta_hour[:-1])
+        con.update_Cocotier_bot(bot_id, api_key, secret_key, sub_account, pair_symbol,
+                                delta_hour, n_i)
         # pyautogui.hotkey("ctrl", "F5")
     if col02.button("Cancel Changes"):
         # pyautogui.hotkey("ctrl", "F5")
@@ -105,8 +159,9 @@ if authentication_status:
                 else:
                     emplacement.empty()
         except Exception as e:
-            print(e)
-    else :
+
+            print("This is an exception ", repr(e))
+    else:
         st.title('''Please Hold on and visit us next time!''')
         st.warning('''The page is in maintenance!''')
 
