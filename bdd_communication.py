@@ -96,6 +96,22 @@ class ConnectBbd:
         cursor.close()
         self.cnx.close()
 
+    def update_Cocotier_bot(self, bot_id, api_key, secret_key, sub_account, pair_symbol,
+                         delta_hour, n_i):
+        cursor = self.cnx.cursor()
+        query = f'''update Params_bot_Cocotier set
+                           api_key = '{api_key}',
+                           secret_key = '{secret_key}',
+                           sub_account = '{sub_account}',
+                           pair_symbol = '{pair_symbol}',
+                           delta_hour = '{delta_hour}',
+                           type_computing = '{n_i}'
+                           where bot_id = {bot_id} ;'''
+        cursor.execute(query)
+        self.cnx.commit()
+        cursor.close()
+        self.cnx.close()
+
     def insert_trix_balence(self, date, crypto_name, crypto_wallet, id_bot):
         cursor = self.cnx.cursor()
         query = """Insert into get_balence (dates, crypto_name,crypto_wallet,id_bot) values ('%s','%s','%s','%s')""" % (
@@ -171,6 +187,14 @@ class ConnectBbd:
     def get_trix_bot(self, bot_id):
         cursor = self.cnx.cursor()
         query = f"select params_bot_trix.*, bots.nom_bot from params_bot_trix , bots where bots.bot_id = params_bot_trix.bot_id and params_bot_trix.bot_id = {bot_id};"
+        cursor.execute(query)
+        result = cursor.fetchall()
+        # self.cnx.close()
+        return result
+
+    def get_cocotier_bot(self, bot_id):
+        cursor = self.cnx.cursor()
+        query = f"select Params_bot_Cocotier.*, bots.nom_bot from Params_bot_Cocotier , bots where bots.bot_id = Params_bot_Cocotier.bot_id and Params_bot_Cocotier.bot_id = {bot_id};"
         cursor.execute(query)
         result = cursor.fetchall()
         # self.cnx.close()
