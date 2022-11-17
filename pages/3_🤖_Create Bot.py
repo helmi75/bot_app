@@ -46,7 +46,7 @@ if authentication_status:
             st.warning('''The page is in maintenance!''')
         with st.expander("Creat a new bot", expanded=True):
             try:
-                name_robot = ["Cocotier", "Trix", "Cocotier"]
+                name_robot = ["Trix", "Cocotier"]
                 selection_bot = st.selectbox("choose your Bot", name_robot, key="selection_bot")
 
                 if selection_bot == "Trix":
