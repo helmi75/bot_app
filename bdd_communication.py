@@ -112,7 +112,7 @@ class ConnectBbd:
         cursor.close()
         self.cnx.close()
 
-    def insert_trix_balence(self, date, crypto_name, crypto_wallet, id_bot):
+    def insert_balence(self, date, crypto_name, crypto_wallet, id_bot):
         cursor = self.cnx.cursor()
         query = """Insert into get_balence (dates, crypto_name,crypto_wallet,id_bot) values ('%s','%s','%s','%s')""" % (
             date, crypto_name, crypto_wallet, id_bot)
@@ -120,10 +120,11 @@ class ConnectBbd:
         self.cnx.commit()
         idd = cursor.lastrowid
         cursor.close()
-        self.insert_trix_balence_pourcentage(idd)
-        self.insert_trix_balence_crypto_pourcentage(idd)
+        self.insert_balence_pourcentage(idd)
+        self.insert_balence_crypto_pourcentage(idd)
 
-    def insert_trix_balence_pourcentage(self, idd):
+
+    def insert_balence_pourcentage(self, idd):
         cursor = self.cnx.cursor()
         # recupére the last get_balence id
         print("idd : ", idd)
@@ -145,7 +146,7 @@ class ConnectBbd:
         cursor.close()
         # self.cnx.close()
 
-    def insert_trix_balence_crypto_pourcentage(self, idd):
+    def insert_balence_crypto_pourcentage(self, idd):
         cursor = self.cnx.cursor()
         query = f"SELECT id_bot  FROM get_balence where id_get_balence={idd} ;"
         cursor.execute(query)

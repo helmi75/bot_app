@@ -135,7 +135,7 @@ for i in myresult:
       #listBalances = sorted(client.get_balances(),key= lambda d : d['total'], reverse= True)
       df_balences = pd.DataFrame(client.get_balances())
       crypto_symbol_value_balence = df_balences[df_balences['coin']==cryptoSymbol]["usdValue"].values[0] + df_balences[df_balences['coin']=="USD"]["usdValue"].values[0]
-      con.insert_trix_balence(datetime.now(), f"Trix : {i[4]}_len{i[5]}_sign{i[6]}_top{i[7]}_bottom{i[8]}_RSI{i[9]}", crypto_symbol_value_balence, i[10])
+      con.insert_balence(datetime.now(), f"Trix : {i[4]}_len{i[5]}_sign{i[6]}_top{i[7]}_bottom{i[8]}_RSI{i[9]}", crypto_symbol_value_balence, i[10])
       #con.insert_log_info(datetime.now(),pairSymbol, "ON", side,i[10])
       print(f"# bot {i[3]} executed")
 
