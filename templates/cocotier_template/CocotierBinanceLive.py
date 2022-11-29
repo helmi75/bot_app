@@ -1,6 +1,8 @@
 import pandas as pd
 import numpy as np
 from datetime import datetime, timedelta
+import sys
+sys.path.insert(0,"/home/anisse9/bot_app")
 import ccxt
 from fonctions import *
 from pass_secret import mot_de_passe
