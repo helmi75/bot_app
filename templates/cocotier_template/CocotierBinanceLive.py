@@ -36,7 +36,7 @@ for i in myresult:
 
     query = f"select dates from get_balence where id_bot ={i[7]} order by dates desc limit 1;"
     cursor.execute(query)
-    lastDate = datetime.strptime(cursor.fetchall()[0][0],'%Y-%m-%d %H:%M:%S')
+    lastDate = datetime.strptime(str(cursor.fetchall()[0][0]),'%Y-%m-%d %H:%M:%S')
     currentDate = datetime.now() - timedelta(hours=d_hour)
     if(currentDate >= lastDate):
         start_time = datetime.now() - timedelta(2)
