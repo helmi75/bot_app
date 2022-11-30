@@ -1,6 +1,6 @@
-import pandas as pd
-import numpy as np
-from datetime import datetime, timedelta
+# import pandas as pd
+# import numpy as np
+# from datetime import datetime, timedelta
 import sys
 sys.path.insert(0,"/home/anisse9/bot_app")
 import ccxt
@@ -9,15 +9,20 @@ from pass_secret import mot_de_passe
 from bdd_communication import ConnectBbd
 import mysql.connector
 from binance.client import Client
-import ta
+# import ta
 
-
+print(" ")
+print("---------------------------")
+print("---------------------------")
+print("-----Start the script------")
+print("---------------------------")
+print("---------------------------")
 
 pwd = mot_de_passe
 cnx = mysql.connector.connect(host='localhost', user='root', password=pwd, port='3306', database='cryptos',
                               auth_plugin='mysql_native_password')
 cursor = cnx.cursor()
-query = "select * from Params_bot_Cocotier;"
+query = "select p.*, b.nom_bot from Params_bot_Cocotier as p, bots as b where p.bot_id = b.bot_id;"
 cursor.execute(query)
 myresult = cursor.fetchall()
 
@@ -31,6 +36,7 @@ for i in myresult:
     d_hour = i[5]
     delta_hour = str(i[5])+'h'
     type_computing = i[6]
+    name_bot = i[8]
 
     # verify the time for the crontab
 
@@ -47,6 +53,10 @@ for i in myresult:
             'enableRateLimit': True
         })
 
+        print(" ")
+        print("///////////////")
+        print(f"Cocotier Bot : {name_bot}")
+        print(" ")
 
         #Get the values
         stt = datetime.strftime(start_time, '%Y-%m-%d %H:%M:%S')
@@ -69,14 +79,32 @@ for i in myresult:
         crypto = mergeCryptoTogether(crypto)
         del crypto['BOT_MAX']
         nom_crypto_achat = getBotMax(crypto, market, type_computing)
-        print(nom_crypto_achat)
         #Sell Then Buy maybe here we need to do an exception management
         try :
             nom_crypto_vente = crypto_a_vendre(exchange, market)
             algo_achat_vente(exchange, nom_crypto_vente, nom_crypto_achat)
 
+            print(" ")
+            print(f"{stt} , la meilleur crypto est {nom_crypto_achat}, je vends {nom_crypto_vente} et j'achete {nom_crypto_achat}")
+
             # Save the wallet value
             wallet = get_wallet(exchange)
+            print(f"The new crypto wallet is {wallet}")
             con.insert_balence(datetime.now(),nom_crypto_achat , wallet, i[7])
         except Exception as exceptions :
+            print("*****Exceptions*****")
+            print(" ")
+            print(" ")
             print(exceptions)
+            print(" ")
+            print(" ")
+            print("********************")
+
+
+
+print("---------------------------")
+print("---------------------------")
+print("-----End of the script-----")
+print("---------------------------")
+print("---------------------------")
+print(" ")
