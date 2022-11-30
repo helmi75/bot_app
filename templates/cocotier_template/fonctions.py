@@ -553,8 +553,9 @@ def getBotMax(crypto, market, type_computing):
                     crr[i] = crypto[elm.lower()][i]
     crr = pd.DataFrame(crr)
     crr = crr.iloc[-1].idxmax()
-    if (crr.index("Variation_N_") == 0):
-        crr = crr[len("Variation_N_"):]
-    else:
+    try:
+        if (crr.index("Variation_N_") == 0):
+            crr = crr[len("Variation_N_"):]
+    except:
         crr = crr[len("Variation_"):]
     return ((crr + "/usdt").upper())
