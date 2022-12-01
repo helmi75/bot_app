@@ -314,47 +314,6 @@ def acheter_2(exchange, var2, balence_total, pourcentage):
     return buy
 
 
-def sleep_time(sec):
-    for elm in range(sec):
-        print(elm)
-        tm.sleep(sec)
-
-
-def crypto_a_vendre(exchange, market):
-    try:
-        x = (datetime.now() - timedelta(days=365)).timestamp() * 1000
-        df_hystoric_order = {}
-        liste_df = []
-        tm.sleep(5)
-        liste_name_crypto = []
-
-        for name_crypto in market:
-            name_crypto_low = name_crypto.lower()
-            while True:
-                try:
-                    x = exchange.fetchMyTrades(name_crypto)
-                    break
-                except:
-                    print("ERROR CONNEXTION RECUPERATION fetchmyTrades Crypto: ", name_crypto)
-            df_hystoric_order[name_crypto_low] = pd.DataFrame.from_dict(x)
-            index_dernier_ordre = df_hystoric_order[name_crypto_low].index.max()
-            if not (df_hystoric_order[name_crypto_low].empty):
-                liste_df.append(df_hystoric_order[name_crypto_low].loc[index_dernier_ordre])
-        pd.set_option('display.max_columns', None)
-        df_log = pd.DataFrame(liste_df).set_index('symbol')
-        df_datetime_side_cost = df_log[['datetime', 'side', 'cost']]
-        global crypto_a_vendre
-        try:
-            balence = exchange.fetchBalance()
-            crypto_a_vendre = df_log[df_log['side'] == 'buy'].index[0]
-        except IndexError as e:
-            print(f"# Warning  : {e} we buy BTC by default")
-            acheter_2(exchange, "BTC/USDT", balence['total'], 0.97)
-            cryptos_a_vendre = "BTC/USDT"
-        return crypto_a_vendre
-    except IndexError:
-        return '0'
-
 
 def last_crypto_buyed(exchange, market1):
     for elm in market1:
@@ -400,20 +359,20 @@ def sleep_time(sec):
 
 def get_wallet(exchange):
     balence = exchange.fetch_balance()['total']
-    df_balence = pd.DataFrame.from_dict(balence).transpose().rename(columns={0: "balence"})
+    df_balence = pd.DataFrame([balence]).transpose().rename(columns={0: "balence"})
     df_balence = df_balence[df_balence['balence'] > 0]
     crypto_index = [elm + "/USDT" for elm in df_balence['balence'].index]
     crypto_index.remove('USDT/USDT')
     # crypto_index.remove('LUNC/USDT')
-    crypto_index.remove('ETHW/USDT')
+    # crypto_index.remove('ETHW/USDT')
     dict_balence_usdt = {}
     for elm in crypto_index:
         try:
-            dict_balence_usdt[elm] = exchange.fetchTickers(elm)[elm]['ask'] * exchange.fetch_balance()['total'][
+            dict_balence_usdt[elm] = exchange.fetchTickers([elm])[elm]['ask'] * exchange.fetch_balance()['total'][
                 elm[:-5]]
             tm.sleep(1)
         except Exception as e:
-            print("")
+            print(e)
     return sum(dict_balence_usdt.values())
 
 
@@ -559,3 +518,41 @@ def getBotMax(crypto, market, type_computing):
     except:
         crr = crr[len("Variation_"):]
     return ((crr + "/usdt").upper())
+
+
+
+def crypto_a_vendre(exchange, market):
+    try:
+        x = (datetime.now() - timedelta(days=365)).timestamp() * 1000
+        df_hystoric_order = {}
+        liste_df = []
+        tm.sleep(1)
+        liste_name_crypto = []
+
+        for name_crypto in market:
+            name_crypto_up = name_crypto.upper()
+            while True:
+                try:
+                    x = exchange.fetchMyTrades(name_crypto)
+                    break
+                except:
+                    print("ERROR CONNEXTION RECUPERATION fetchmyTrades Crypto: ", name_crypto)
+            df_hystoric_order[name_crypto_up] = pd.DataFrame.from_dict(x)
+            index_dernier_ordre = df_hystoric_order[name_crypto_up].index.max()
+            if not (df_hystoric_order[name_crypto_up].empty):
+                liste_df.append(df_hystoric_order[name_crypto_up].loc[index_dernier_ordre])
+        pd.set_option('display.max_columns', None)
+        df_log = pd.DataFrame(liste_df).set_index('symbol')
+        df_datetime_side_cost = df_log[['datetime', 'side', 'cost']]
+        global crypto_a_vendre
+        try:
+            balence = exchange.fetchBalance()
+            crypto_a_vendre = df_log[df_log['side'] == 'buy'].index[0]
+        except IndexError as e:
+            print(f"# Warning  : {e} we buy BTC by default")
+            acheter_2(exchange, "BTC/USDT", balence['total'], 0.97)
+            cryptos_a_vendre = "BTC/USDT"
+        return crypto_a_vendre
+    except IndexError:
+        return '0'
+
