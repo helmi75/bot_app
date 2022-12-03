@@ -81,6 +81,9 @@ for i in myresult:
         crypto = mergeCryptoTogether(crypto)
         del crypto['BOT_MAX']
         nom_crypto_achat = getBotMax(crypto, market, type_computing)
+        print("============= the dataframe=============")
+        print(crypto.to_string())
+        print("============= the dataframe=============")
         #Sell Then Buy maybe here we need to do an exception management
         try :
             nom_crypto_vente = crypto_a_vendre(exchange, market)
