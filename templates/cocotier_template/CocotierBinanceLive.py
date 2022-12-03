@@ -43,9 +43,10 @@ for i in myresult:
     query = f"select dates from get_balence where id_bot ={i[7]} order by dates desc limit 1;"
     cursor.execute(query)
     lastDate = datetime.strptime(str(cursor.fetchall()[0][0]),'%Y-%m-%d %H:%M:%S')
-    currentDate = datetime.now() - timedelta(hours=d_hour)
+    currentDate = datetime.now() - timedelta(hours=(d_hour-1))
     if(currentDate >= lastDate):
         start_time = datetime.now() - timedelta(2)
+        show_time = datetime.now()
         crypto = {}
         exchange = ccxt.binance({
             'apiKey': apiKey,
@@ -60,6 +61,7 @@ for i in myresult:
 
         #Get the values
         stt = datetime.strftime(start_time, '%Y-%m-%d %H:%M:%S')
+        show_time = datetime.strftime(show_time, '%Y-%m-%d %H:%M:%S')
         for elm in market:
             x = elm[:-5].lower()
             klinesT = Client().get_historical_klines(elm.replace("/", ""), delta_hour, stt)
@@ -85,7 +87,7 @@ for i in myresult:
             algo_achat_vente(exchange, nom_crypto_vente, nom_crypto_achat)
 
             print(" ")
-            print(f"{stt} , la meilleur crypto est {nom_crypto_achat}, je vends {nom_crypto_vente} et j'achete {nom_crypto_achat}")
+            print(f"{show_time} , la meilleur crypto est {nom_crypto_achat}, je vends {nom_crypto_vente} et j'achete {nom_crypto_achat}")
 
             # Save the wallet value
             wallet = get_wallet(exchange)
