@@ -87,6 +87,10 @@ for i in myresult:
             algo_achat_vente(exchange, nom_crypto_vente, nom_crypto_achat)
 
             print(" ")
+            print(f"Plage Horraire = {delta_hour}")
+            print(" ")
+            print(f"computing = {type_computing}")
+            print(" ")
             print(f"{show_time} , la meilleur crypto est {nom_crypto_achat}, je vends {nom_crypto_vente} et j'achete {nom_crypto_achat}")
 
             # Save the wallet value
