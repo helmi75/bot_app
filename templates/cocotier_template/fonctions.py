@@ -556,3 +556,6 @@ def crypto_a_vendre(exchange, market):
     except IndexError:
         return '0'
 
+def affichageDataFrameLog(crypto):
+    crypto = pd.concat(crypto, axis=1)
+    return crypto
