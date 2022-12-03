@@ -2,6 +2,9 @@
 # import numpy as np
 # from datetime import datetime, timedelta
 import sys
+
+import pandas as pd
+
 sys.path.insert(0,"/home/anisse9/bot_app")
 import ccxt
 from fonctions import *
@@ -76,14 +79,15 @@ for i in myresult:
             crypto[elm.lower()] = df
 
         # Get the best bot
+        print("============= the dataframe=============")
+        # print((crypto))
+        print(affichageDataFrameLog(crypto).tail(3).to_string())
+        print("============= the dataframe=============")
         crypto = variationN(crypto, type_computing)
         crypto = coeffMulti(crypto)
         crypto = mergeCryptoTogether(crypto)
         del crypto['BOT_MAX']
         nom_crypto_achat = getBotMax(crypto, market, type_computing)
-        print("============= the dataframe=============")
-        print(crypto.to_string())
-        print("============= the dataframe=============")
         #Sell Then Buy maybe here we need to do an exception management
         try :
             nom_crypto_vente = crypto_a_vendre(exchange, market)
