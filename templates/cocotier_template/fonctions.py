@@ -511,7 +511,7 @@ def getBotMax(crypto, market, type_computing):
                 if (i == "Variation_" + elm.lower()[:-5]):
                     crr[i] = crypto[elm.lower()][i]
     crr = pd.DataFrame(crr)
-    crr = crr.iloc[-1].idxmax()
+    crr = crr.iloc[-2].idxmax()
     try:
         if (crr.index("Variation_N_") == 0):
             crr = crr[len("Variation_N_"):]

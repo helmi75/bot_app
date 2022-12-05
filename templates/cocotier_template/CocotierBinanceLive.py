@@ -81,7 +81,7 @@ for i in myresult:
         # Get the best bot
         print("============= the dataframe=============")
         # print((crypto))
-        print(affichageDataFrameLog(crypto).tail(3).to_string())
+        print(affichageDataFrameLog(crypto).tail(3).head(2).to_string())
         print("============= the dataframe=============")
         crypto = variationN(crypto, type_computing)
         crypto = coeffMulti(crypto)
