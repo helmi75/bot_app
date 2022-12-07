@@ -67,18 +67,15 @@ def modifierTrixBot(bot_id):
 
 def choix_market(list):
     list = list.upper().split(',')
-    liste_crypto = np.array(['ETH', 'ADA', 'DOGE', 'BNB', 'DOT'])
+    listacrypto = con.getAllPairSymbols()[0][0].split(',')
+    liste_crypto = np.array(listacrypto)
     cols3 = st.columns(5)
-    eth = cols3[0].checkbox('ETH', value='ETH' in list)
-    ada = cols3[1].checkbox('ADA', value='ADA' in list)
-    doge = cols3[2].checkbox('DOGE', value='DOGE' in list)
-    bnb = cols3[3].checkbox('BNB', value='BNB' in list)
-    dot = cols3[4].checkbox('DOT', value='DOT' in list)
-
-    liste_boolean = np.array(
-        [eth, ada, doge, bnb, dot])
-
+    lista = [x for x in liste_crypto]
+    for i in range(len(liste_crypto)):
+        lista[i] = cols3[i % 5].checkbox(liste_crypto[i], value=liste_crypto[i] in list)
+    liste_boolean = np.array(lista)
     return liste_crypto[liste_boolean]
+
 
 
 def convertListToString(lista):

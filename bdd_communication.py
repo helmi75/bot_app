@@ -266,3 +266,16 @@ class ConnectBbd:
         result = cursor.fetchall()
         # self.cnx.close()
         return result
+
+    def getAllPairSymbols(self):
+        cursor = self.cnx.cursor()
+        query = "select value_setting from settings where id_setting = 2"
+        cursor.execute(query)
+        result = cursor.fetchall()
+        return result
+
+    def updatePairSymbols(self, pairSymbols):
+        cursor = self.cnx.cursor()
+        query = f"update settings set value_setting = '{pairSymbols}' where id_setting = 2;"
+        cursor.execute(query)
+        self.cnx.commit()
