@@ -58,8 +58,10 @@ def modifierTrixBot(bot_id):
         con.update_trix_bot(bot_id, api_key, secret_key, sub_account, pair_symbol,
                             trix_lenght, trix_signal, stoch_top, stoch_bottom, stoch_rsi)
         # pyautogui.hotkey("ctrl", "F5")
+        st.success("vos changements ont été enregistrés ")
     if col02.button("Cancel Changes"):
         # pyautogui.hotkey("ctrl", "F5")
+        st.warning("Recharger la page")
         pass
 
 
@@ -112,9 +114,11 @@ def modifierCocotierBot(bot_id):
         delta_hour = (int)(delta_hour[:-1])
         con.update_Cocotier_bot(bot_id, api_key, secret_key, sub_account, pair_symbol,
                                 delta_hour, n_i)
+        st.success("vos changements ont été enregistrés ")
         # pyautogui.hotkey("ctrl", "F5")
     if col02.button("Cancel Changes"):
         # pyautogui.hotkey("ctrl", "F5")
+        st.warning("Recharger la page")
         pass
 
 
