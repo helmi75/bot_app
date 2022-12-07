@@ -5,18 +5,17 @@ from bdd_communication import ConnectBbd
 from pass_secret import mot_de_passe
 import numpy as np
 
+pwd = mot_de_passe
+con = ConnectBbd('localhost', '3306', 'root', pwd, 'cryptos', 'mysql_native_password')
+
 def choix_market():
-    liste_crypto = np.array(['ETH', 'ADA', 'DOGE', 'BNB', 'DOT'])
+    listacrypto = con.getAllPairSymbols()[0][0].split(',')
+    liste_crypto = np.array(listacrypto)
     cols3 = st.columns(5)
-    eth = cols3[0].checkbox('ETH')
-    ada = cols3[1].checkbox('ADA')
-    doge = cols3[2].checkbox('DOGE')
-    bnb = cols3[3].checkbox('BNB')
-    dot = cols3[4].checkbox('DOT')
-
-    liste_boolean = np.array(
-        [eth, ada, doge, bnb, dot])
-
+    lista = [x for x in liste_crypto]
+    for i in range(len(liste_crypto)):
+        lista[i] = cols3[i % 5].checkbox(liste_crypto[i])
+    liste_boolean = np.array(lista)
     return liste_crypto[liste_boolean]
 
 def convertListToString(lista):
@@ -32,10 +31,8 @@ st.set_page_config(
 
 st.title("Cocobots")
 
-pwd = mot_de_passe
 authenticator = auth.auth_data()
 name, authentication_status, username = authenticator.login('Login', 'main')
-con = ConnectBbd('localhost', '3306', 'root', pwd, 'cryptos', 'mysql_native_password')
 maintenance = con.get_maintenance_setting()[0][0] and username != "helmichiha"
 
 st.title("Creation D'un Bot")
