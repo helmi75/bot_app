@@ -500,23 +500,13 @@ def VariationFinal(cryptos):
 
 def getBotMax(crypto, market, type_computing):
     crr = {}
-    if (type_computing != 'n'):
-        for elm in market:
-            for i in crypto[elm.lower()]:
-                if (i == "Variation_N_" + elm.lower()[:-5]):
-                    crr[i] = crypto[elm.lower()][i]
-    else:
-        for elm in market:
-            for i in crypto[elm.lower()]:
-                if (i == "Variation_" + elm.lower()[:-5]):
-                    crr[i] = crypto[elm.lower()][i]
+    for elm in market:
+        for i in crypto[elm.lower()]:
+            if (i == "Variation_" + elm.lower()[:-5]):
+                crr[i] = crypto[elm.lower()][i]
     crr = pd.DataFrame(crr)
     crr = crr.iloc[-2].idxmax()
-    try:
-        if (crr.index("Variation_N_") == 0):
-            crr = crr[len("Variation_N_"):]
-    except:
-        crr = crr[len("Variation_"):]
+    crr = crr[len("Variation_"):]
     return ((crr + "/usdt").upper())
 
 
