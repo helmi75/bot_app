@@ -1,6 +1,7 @@
 /.env
 /__pycache__
 /.idea
+/BackUp
 pass_secret.py 
 /templates/trix_template/Trix_log.txt
-
+BackUp/requirements.txt

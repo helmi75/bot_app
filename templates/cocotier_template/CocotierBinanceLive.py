@@ -15,11 +15,7 @@ from binance.client import Client
 # import ta
 
 print(" ")
-print("---------------------------")
-print("---------------------------")
 print("-----Start the script------")
-print("---------------------------")
-print("---------------------------")
 
 pwd = mot_de_passe
 cnx = mysql.connector.connect(host='localhost', user='root', password=pwd, port='3306', database='cryptos',
@@ -47,9 +43,9 @@ for i in myresult:
     cursor.execute(query)
     lastDate = datetime.strptime(str(cursor.fetchall()[0][0]),'%Y-%m-%d %H:%M:%S')
     currentDate = datetime.now() - timedelta(hours=(d_hour-1))
-    if(currentDate >= lastDate):
+    show_time = datetime.now()
+    if(currentDate >= lastDate and int(show_time.hour)%d_hour == 0 ):
         start_time = datetime.now() - timedelta(2)
-        show_time = datetime.now()
         crypto = {}
         exchange = ccxt.binance({
             'apiKey': apiKey,
@@ -106,18 +102,10 @@ for i in myresult:
             con.insert_balence(datetime.now(),nom_crypto_achat , wallet, i[7])
         except Exception as exceptions :
             print("*****Exceptions*****")
-            print(" ")
-            print(" ")
             print(exceptions)
-            print(" ")
-            print(" ")
             print("********************")
 
 
 
-print("---------------------------")
-print("---------------------------")
 print("-----End of the script-----")
-print("---------------------------")
-print("---------------------------")
 print(" ")
