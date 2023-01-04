@@ -59,6 +59,22 @@ class ConnectBbd:
         self.cnx.commit()
         cursor.close()
 
+    def insert_new_bybit_bot(self, bot_name, api_key, secret_key, sub_account,
+                                pair_symbol, delta_hour, n_i):
+        cursor = self.cnx.cursor()
+        query = """Insert into bots (nom_bot,type_bot) values ('%s','%s')""" % (bot_name,'bybit')
+        cursor.execute(query)
+        idd = cursor.lastrowid
+        self.cnx.commit()
+
+        query = """ INSERT INTO Params_bot_Cocotier (api_key, secret_key, sub_account, 
+                pair_symbol, delta_hour, type_computing, bot_id)
+                                   VALUES ('%s', '%s', '%s','%s', '%s', '%s', '%s') """ % (
+            api_key, secret_key, sub_account, pair_symbol, delta_hour, n_i,idd)
+        cursor.execute(query)
+        self.cnx.commit()
+        cursor.close()
+
     def insert_new_trix_bot(self, selection_bot, bot_name, user_mail,
                             api_key, secret_key, sub_account, pair_symbol,
                             trix_lenght, trix_signal, stoch_top, stoch_bottom, stoch_rsi):

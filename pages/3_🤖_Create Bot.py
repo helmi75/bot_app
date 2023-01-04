@@ -43,7 +43,7 @@ if authentication_status:
             st.warning('''The page is in maintenance!''')
         with st.expander("Creat a new bot", expanded=True):
             try:
-                name_robot = ["Trix", "Cocotier"]
+                name_robot = ["Trix", "Cocotier","ByBit"]
                 selection_bot = st.selectbox("choose your Bot", name_robot, key="selection_bot")
 
                 if selection_bot == "Trix":
@@ -77,6 +77,24 @@ if authentication_status:
                                               key="delta_hour")
                     n_i = st.radio("Selectionner le type computing", ("N", "N-1", "N-2"),
                                    horizontal=True, key="n_i")
+                    trix_lenght = "None"
+                    trix_signal = "None"
+                    stoch_top = "None"
+                    stoch_bottom = "None"
+                    stoch_rsi = "None"
+                if selection_bot == "ByBit":
+                    bot_name = st.text_input("Entrer the bot name ", key="bybit_name")
+                    email = st.text_input("Entrer your email ", key="bybit_email",
+                                          value=authenticator.credentials['usernames'][username]['email'])
+                    sub_account = st.text_input("Password / Name", key="bybit_password_name")
+                    api_key = st.text_input("enter your api_key", key="bybit_api_key")
+                    secret_key = st.text_input("enter  secret key", key="bybit_secret_key")
+                    st.write("Selectionner le pair symbol")
+                    pair_symbol = convertListToString(choix_market())
+                    delta_hour = st.selectbox('Selectionner une plage auraire', ['2h', '4h', '6h', '8h', '12h'],
+                                              key="bybit_delta_hour")
+                    n_i = st.radio("Selectionner le type computing", ("N", "N-1", "N-2"),
+                                   horizontal=True, key="bybit_n_i")
                     trix_lenght = "None"
                     trix_signal = "None"
                     stoch_top = "None"
