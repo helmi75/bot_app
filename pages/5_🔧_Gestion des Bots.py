@@ -31,6 +31,8 @@ def modifBot(bot_id):
         modifierTrixBot(bot_id)
     elif type_bot == "cocotier":
         modifierCocotierBot(bot_id)
+    elif type_bot == "bybit":
+        modifierByBitBot(bot_id)
 
 
 def modifierTrixBot(bot_id):
@@ -98,6 +100,38 @@ def modifierCocotierBot(bot_id):
                               key="delta_hour", index=[2, 4, 6, 8, 12].index(cocotier_bot[0][5]))
     n_i = st.selectbox('Selectionner le type computing', ["N", "N-1", "N-2"],
                        key="n_u", index=["n", "n-1", "n-2"].index(cocotier_bot[0][6]))
+    trix_lenght = "None"
+    trix_signal = "None"
+    stoch_top = "None"
+    stoch_bottom = "None"
+    stoch_rsi = "None"
+    col01, col02 = st.columns([9, 4])
+    if col01.button("Apply Changes"):
+        con = ConnectBbd('localhost', '3306', 'root', pwd, 'cryptos', 'mysql_native_password')
+        pair_symbol = pair_symbol.lower()
+        n_i = n_i.lower()
+        delta_hour = (int)(delta_hour[:-1])
+        con.update_Cocotier_bot(bot_id, api_key, secret_key, sub_account, pair_symbol,
+                                delta_hour, n_i)
+        st.success("vos changements ont été enregistrés ")
+        # pyautogui.hotkey("ctrl", "F5")
+    if col02.button("Cancel Changes"):
+        # pyautogui.hotkey("ctrl", "F5")
+        st.warning("Recharger la page")
+        pass
+def modifierByBitBot(bot_id):
+    con = ConnectBbd('localhost', '3306', 'root', pwd, 'cryptos', 'mysql_native_password')
+    cocotier_bot = con.get_cocotier_bot(bot_id)
+    st.title(f"Modifing  : {cocotier_bot[0][8]}")
+    sub_account = st.text_input("Password / Name", key="bybit_password_name", value=cocotier_bot[0][3])
+    api_key = st.text_input("enter your api_key", key="bybit_api_key", value=cocotier_bot[0][1])
+    secret_key = st.text_input("enter  secret key", key="bybit_secret_key", value=cocotier_bot[0][2])
+    st.write("Selectionner le pair symbol")
+    pair_symbol = convertListToString(choix_market(cocotier_bot[0][4]))
+    delta_hour = st.selectbox('Selectionner une plage auraire', ['2h', '4h', '6h', '8h', '12h'],
+                              key="bybit_delta_hour", index=[2, 4, 6, 8, 12].index(cocotier_bot[0][5]))
+    n_i = st.selectbox('Selectionner le type computing', ["N", "N-1", "N-2"],
+                       key="bybit_n_u", index=["n", "n-1", "n-2"].index(cocotier_bot[0][6]))
     trix_lenght = "None"
     trix_signal = "None"
     stoch_top = "None"
