@@ -43,10 +43,10 @@ if authentication_status:
             st.warning('''The page is in maintenance!''')
         with st.expander("Creat a new bot", expanded=True):
             try:
-                name_robot = ["Trix", "Cocotier","ByBit"]
+                name_robot = ["Trix FTX", "Cocotier Binance","Cocotier ByBit"]
                 selection_bot = st.selectbox("choose your Bot", name_robot, key="selection_bot")
 
-                if selection_bot == "Trix":
+                if selection_bot == "Trix FTX":
                     # front entry
                     bot_name = st.text_input("Entrer the bot name ", key="trix_name")
                     email = st.text_input("Entrer your email ", key="email",
@@ -64,7 +64,7 @@ if authentication_status:
                     stoch_rsi = col3.number_input("Stoch RSI", value=13, key="stoch_rsi")
                     delta_hour = "None"
                     n_i = "None"
-                if selection_bot == "Cocotier":
+                if selection_bot == "Cocotier Binance":
                     bot_name = st.text_input("Entrer the bot name ", key="cocotier_name")
                     email = st.text_input("Entrer your email ", key="cocotier_email",
                                           value=authenticator.credentials['usernames'][username]['email'])
@@ -82,7 +82,7 @@ if authentication_status:
                     stoch_top = "None"
                     stoch_bottom = "None"
                     stoch_rsi = "None"
-                if selection_bot == "ByBit":
+                if selection_bot == "Cocotier ByBit":
                     bot_name = st.text_input("Entrer the bot name ", key="bybit_name")
                     email = st.text_input("Entrer your email ", key="bybit_email",
                                           value=authenticator.credentials['usernames'][username]['email'])
