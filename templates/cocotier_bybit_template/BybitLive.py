@@ -104,6 +104,10 @@ for i in myresult:
                 print("*****Exceptions*****")
                 print(exceptions)
                 print("********************")
+    except IndexError as eee:
+        con = ConnectBbd('localhost', '3306', 'root', pwd, 'cryptos', 'mysql_native_password')
+        show_time = str(datetime.now())[:19]
+        con.insertTime(show_time,i[7])
     except Exception as eee :
         print(eee)
 print("-----End of the script-----")

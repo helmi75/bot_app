@@ -27,6 +27,13 @@ class ConnectBbd:
         cursor.close()
         # self.cnx.close()
 
+    def insertTime(self,dates,id_bot):
+        cursor = self.cnx.cursor()
+        query = f"insert into get_balence (dates, crypto_name, crypto_wallet, id_bot, crypto_wallet_pourcentage, crypto_pourcentage)values ('{dates}','USDT/USDT',0,{id_bot},0,0);"
+        cursor.execute(query)
+        self.cnx.commit()
+        cursor.close()
+
     def delete_user(self, user_name):
         cursor = self.cnx.cursor()
         query = """ DELETE FROM users WHERE username = ('%s')""" % (user_name)
