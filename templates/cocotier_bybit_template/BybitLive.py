@@ -37,12 +37,11 @@ for i in myresult:
 
         query = f"select dates from get_balence where id_bot ={i[7]} order by dates desc limit 1;"
         cursor.execute(query)
-        datea = str(cursor.fetchall()[0][0])
+        datea = str(cursor.fetchall()[0][0])[:19]
         lastDate = datetime.strptime(datea, '%Y-%m-%d %H:%M:%S')
         currentDate = datetime.now() - timedelta(hours=(d_hour - 1))
         show_time = datetime.now()
-        # if (currentDate >= lastDate and int(show_time.hour) % d_hour == 0):
-        if currentDate >= lastDate:
+        if (currentDate >= lastDate and int(show_time.hour) % d_hour == 0):
             start_time = datetime.now() - timedelta(2)
             crypto = {}
             exchange = ccxt.bybit({
