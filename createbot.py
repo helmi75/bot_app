@@ -23,7 +23,7 @@ class CreateBot:
                     api_key, secret_key, sub_account, pair_symbol, trix_lenght, trix_signal, stoch_top, stoch_bottom,
                     stoch_rsi, delta_hour, n_i):
         # create trix bot
-        if selection_bot == "Trix FTX":
+        if selection_bot == "Trix FTX" or selection_bot == "Trix Binance":
             pair_symbol = pair_symbol[:-5].lower()
 
             self.cnx.insert_new_trix_bot(selection_bot, bot_name, user_mail,
