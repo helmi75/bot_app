@@ -27,7 +27,7 @@ def delBot(bot_id):
 def modifBot(bot_id):
     con = ConnectBbd('localhost', '3306', 'root', pwd, 'cryptos', 'mysql_native_password')
     type_bot = con.get_type_bot(bot_id)[0][0]
-    if type_bot == "trix":
+    if type_bot == "Trix FTX" or type_bot == "Trix Binance":
         modifierTrixBot(bot_id)
     elif type_bot == "cocotier":
         modifierCocotierBot(bot_id)

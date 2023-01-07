@@ -47,7 +47,7 @@ pwd = mot_de_passe
 cnx = mysql.connector.connect(host='localhost', user='root', password=pwd, port='3306', database='cryptos',
                               auth_plugin='mysql_native_password')
 cursor = cnx.cursor()
-query = "select * from params_bot_trix;"
+query = "select params_bot_trix.* from params_bot_trix,bots where bots.bot_id = params_bot_trix.bot_id and bots.type_bot ='Trix FTX';"
 cursor.execute(query)
 myresult = cursor.fetchall()
 

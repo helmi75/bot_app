@@ -14,7 +14,7 @@ pwd = mot_de_passe
 cnx = mysql.connector.connect(host='localhost', user='root', password=pwd, port='3306', database='cryptos',
                               auth_plugin='mysql_native_password')
 cursor = cnx.cursor()
-query = "select * from params_bot_trix;"
+query = "select params_bot_trix.* from params_bot_trix,bots where bots.bot_id = params_bot_trix.bot_id and bots.type_bot ='Trix Binance';"
 cursor.execute(query)
 myresult = cursor.fetchall()
 
@@ -93,7 +93,7 @@ for i in myresult :
         binance_api_secret = i[2]  # Enter your own API-secret here
         client = Client(api_key=binance_api_key, api_secret=binance_api_secret)
 
-        df = getHistorical(pairSymbol)
+        df = getHistorical(pairSymbol.replace("/",""))
         df['TRIX'] = ta.trend.ema_indicator(
             ta.trend.ema_indicator(ta.trend.ema_indicator(close=df['close'], window=trixLength), window=trixLength),
             window=trixLength)

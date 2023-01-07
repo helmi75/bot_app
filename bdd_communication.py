@@ -79,7 +79,7 @@ class ConnectBbd:
                             api_key, secret_key, sub_account, pair_symbol,
                             trix_lenght, trix_signal, stoch_top, stoch_bottom, stoch_rsi):
         cursor = self.cnx.cursor()
-        query = """Insert into bots (nom_bot) values ('%s')""" % (bot_name)
+        query = """Insert into bots (nom_bot,type_bot) values ('%s','%s')""" % (bot_name,selection_bot)
         cursor.execute(query)
         idd = cursor.lastrowid
         self.cnx.commit()
