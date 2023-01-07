@@ -1,9 +1,4 @@
-# import pandas as pd
-# import numpy as np
-# from datetime import datetime, timedelta
 import sys
-
-import pandas as pd
 
 sys.path.insert(0, "/home/anisse9/bot_app")
 import ccxt
@@ -11,10 +6,7 @@ from fonctions import *
 from pass_secret import mot_de_passe
 from bdd_communication import ConnectBbd
 import mysql.connector
-import bybit
 from binance.client import Client
-
-# import ta
 
 print(" ")
 print("-----Start the script------")
@@ -49,7 +41,8 @@ for i in myresult:
         lastDate = datetime.strptime(datea, '%Y-%m-%d %H:%M:%S')
         currentDate = datetime.now() - timedelta(hours=(d_hour - 1))
         show_time = datetime.now()
-        if (currentDate >= lastDate and int(show_time.hour) % d_hour == 0):
+        # if (currentDate >= lastDate and int(show_time.hour) % d_hour == 0):
+        if currentDate >= lastDate:
             start_time = datetime.now() - timedelta(2)
             crypto = {}
             exchange = ccxt.bybit({
