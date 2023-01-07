@@ -507,10 +507,8 @@ def getBotMax(crypto, market, type_computing):
 
 def crypto_a_vendre(exchange, market):
     try:
-        x = (datetime.now() - timedelta(days=365)).timestamp() * 1000
         df_hystoric_order = {}
         liste_df = []
-        tm.sleep(1)
         liste_name_crypto = []
 
         for name_crypto in market:
@@ -524,6 +522,14 @@ def crypto_a_vendre(exchange, market):
             df_hystoric_order[name_crypto_up] = pd.DataFrame.from_dict(x)
             index_dernier_ordre = df_hystoric_order[name_crypto_up].index.max()
             if not (df_hystoric_order[name_crypto_up].empty):
+                liste_df.append(df_hystoric_order[name_crypto_up].loc[index_dernier_ordre])
+            elif not(df_hystoric_order) :
+                var1 = name_crypto
+                montant_USDT = float(exchange.fetch_spot_balance().get('USDT').get('free'))
+                exchange.create_spot_order(var1,"market","buy",montant_USDT,1)
+                x = exchange.fetchMyTrades(name_crypto)
+                df_hystoric_order[name_crypto_up] = pd.DataFrame.from_dict(x)
+                index_dernier_ordre = df_hystoric_order[name_crypto_up].index.max()
                 liste_df.append(df_hystoric_order[name_crypto_up].loc[index_dernier_ordre])
         pd.set_option('display.max_columns', None)
         df_log = pd.DataFrame(liste_df).set_index('symbol')
@@ -539,6 +545,7 @@ def crypto_a_vendre(exchange, market):
         return crypto_a_vendre
     except IndexError:
         return '0'
+
 
 
 def affichageDataFrameLog(crypto):
