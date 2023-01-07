@@ -505,6 +505,12 @@ def getBotMax(crypto, market, type_computing):
     return ((crr + "/usdt").upper())
 
 
+def isEmptyDict(di):
+    for i in di :
+        if(di[i].empty):
+            return False
+    return True
+
 def crypto_a_vendre(exchange, market):
     try:
         df_hystoric_order = {}
@@ -523,7 +529,7 @@ def crypto_a_vendre(exchange, market):
             index_dernier_ordre = df_hystoric_order[name_crypto_up].index.max()
             if not (df_hystoric_order[name_crypto_up].empty):
                 liste_df.append(df_hystoric_order[name_crypto_up].loc[index_dernier_ordre])
-            elif not(df_hystoric_order) :
+            elif isEmptyDict(df_hystoric_order) :
                 var1 = name_crypto
                 montant_USDT = float(exchange.fetch_spot_balance().get('USDT').get('free'))
                 exchange.create_spot_order(var1,"market","buy",montant_USDT,1)
@@ -531,6 +537,7 @@ def crypto_a_vendre(exchange, market):
                 df_hystoric_order[name_crypto_up] = pd.DataFrame.from_dict(x)
                 index_dernier_ordre = df_hystoric_order[name_crypto_up].index.max()
                 liste_df.append(df_hystoric_order[name_crypto_up].loc[index_dernier_ordre])
+        isEmptyDict(df_hystoric_order)
         pd.set_option('display.max_columns', None)
         df_log = pd.DataFrame(liste_df).set_index('symbol')
         df_datetime_side_cost = df_log[['datetime', 'side', 'cost']]
