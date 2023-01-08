@@ -5,6 +5,8 @@ from pass_secret import mot_de_passe
 import mysql.connector
 from bdd_communication import ConnectBbd
 import ta
+import sys
+sys.path.insert(0,"/home/anisse9/bot_app")
 
 now = datetime.now()
 current_time = now.strftime("%d/%m/%Y %H:%M:%S")
