@@ -507,7 +507,7 @@ def getBotMax(crypto, market, type_computing):
 
 def isEmptyDict(di):
     for i in di :
-        if(di[i].empty):
+        if not (di[i].empty):
             return False
     return True
 
