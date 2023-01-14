@@ -23,7 +23,7 @@ cursor.execute(query)
 myresult = cursor.fetchall()
 
 
-def getHistorical(symbole):
+def getHistorical(client,symbole):
     klinesT = client.get_historical_klines(
         symbole, Client.KLINE_INTERVAL_1HOUR, "5 day ago UTC")
     dataT = pd.DataFrame(klinesT, columns = ['timestamp', 'open', 'high', 'low', 'close', 'volume', 'close_time', 'quote_av', 'trades', 'tb_base_av', 'tb_quote_av', 'ignore' ])
@@ -45,26 +45,27 @@ def getBalance(myclient, coin):
     else:
         return float(pandaBalance.loc[pandaBalance['coin'] == coin]['free'])
 
-def get_step_size(symbol):
+def get_step_size(client,symbol):
     stepSize = None
+    print(client.get_symbol_info(symbol))
     for filter in client.get_symbol_info(symbol)['filters']:
         if filter['filterType'] == 'LOT_SIZE':
             stepSize = float(filter['stepSize'])
     return stepSize
 
-def get_price_step(symbol):
+def get_price_step(client,symbol):
     stepSize = None
     for filter in client.get_symbol_info(symbol)['filters']:
         if filter['filterType'] == 'PRICE_FILTER':
             stepSize = float(filter['tickSize'])
     return stepSize
 
-def convert_amount_to_precision(symbol, amount):
-    stepSize = get_step_size(symbol)
+def convert_amount_to_precision(client,symbol, amount):
+    stepSize = get_step_size(client,symbol)
     return (amount//stepSize)*stepSize
 
-def convert_price_to_precision(symbol, price):
-    stepSize = get_price_step(symbol)
+def convert_price_to_precision(client,symbol, price):
+    stepSize = get_price_step(client,symbol)
     return (price//stepSize)*stepSize
 
 
@@ -88,19 +89,18 @@ for i in myresult :
         # CONSTANTS
         fiatSymbol = 'USDT'
         cryptoSymbol = (i[4]+"").upper()
-        pairSymbol = cryptoSymbol+'/USDT'
+        pairSymbol = cryptoSymbol+'USDT'
         trixLength = i[5]
         trixSignal = i[6]
         decimal_count = 8
-        stoch_top = i[9]
-        stoch_bottom = i[10]
-        stoch_rsi = i[11]
+        stoch_top = i[7]
+        stoch_bottom = i[8]
+        stoch_rsi = i[9]
         # API
         binance_api_key = i[1]  # Enter your own API-key here
         binance_api_secret = i[2]  # Enter your own API-secret here
         client = Client(api_key=binance_api_key, api_secret=binance_api_secret)
-
-        df = getHistorical(pairSymbol.replace("/",""))
+        df = getHistorical(client,pairSymbol.replace("/",""))
         df['TRIX'] = ta.trend.ema_indicator(
             ta.trend.ema_indicator(ta.trend.ema_indicator(close=df['close'], window=trixLength), window=trixLength),
             window=trixLength)
@@ -118,7 +118,7 @@ for i in myresult :
 
         if buyCondition(df.iloc[-2], df.iloc[-3],stoch_top):
             if float(fiatAmount) > 5:
-                quantityBuy = convert_amount_to_precision(pairSymbol, (float(fiatAmount) / actualPrice))
+                quantityBuy = convert_amount_to_precision(client,pairSymbol, (float(fiatAmount) / actualPrice))
                 buyOrder = client.order_market_buy(
                     symbol=pairSymbol,
                     quantity=f"{float(quantityBuy):.{decimal_count}f}")
@@ -131,7 +131,7 @@ for i in myresult :
             if float(cryptoAmount) > minToken:
                 sellOrder = client.order_market_sell(
                     symbol=pairSymbol,
-                    quantity=f"{float(convert_amount_to_precision(pairSymbol, cryptoAmount)):.{decimal_count}f}")
+                    quantity=f"{float(convert_amount_to_precision(client,pairSymbol, cryptoAmount)):.{decimal_count}f}")
                 print("SELL", sellOrder)
             else:
                 pass
@@ -142,7 +142,6 @@ for i in myresult :
 
     except Exception as ex:
         print("----Exception----")
-        print(ex)
         ex.with_traceback()
         print("-----------------")
 
