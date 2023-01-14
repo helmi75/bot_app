@@ -143,6 +143,7 @@ for i in myresult :
     except Exception as ex:
         print("----Exception----")
         print(ex)
+        ex.with_traceback()
         print("-----------------")
 
 
