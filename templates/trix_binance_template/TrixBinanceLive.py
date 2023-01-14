@@ -11,8 +11,9 @@ import ta
 
 now = datetime.now()
 current_time = now.strftime("%d/%m/%Y %H:%M:%S")
+print("")
 print("--- Start Execution Time :", current_time, "---")
-
+print("")
 pwd = mot_de_passe
 cnx = mysql.connector.connect(host='localhost', user='root', password=pwd, port='3306', database='cryptos',
                               auth_plugin='mysql_native_password')
@@ -69,14 +70,14 @@ def convert_price_to_precision(symbol, price):
 
 
 
-def buyCondition(row, previousRow):
-    if row['TRIX_HISTO'] > 0 and row['STOCH_RSI'] <= 0.8:
+def buyCondition(row, previousRow,stochRsiTop):
+    if row['TRIX_HISTO'] > 0 and row['STOCH_RSI'] <= stochRsiTop:#stoch RSI top
         return True
     else:
         return False
 
-def sellCondition(row, previousRow):
-    if row['TRIX_HISTO'] < 0 and row['STOCH_RSI'] >= 0.24:
+def sellCondition(row, previousRow,stochRsiBottom):
+    if row['TRIX_HISTO'] < 0 and row['STOCH_RSI'] >= stochRsiBottom:#stoch rsi bottom
         return True
     else:
         return False
@@ -91,6 +92,9 @@ for i in myresult :
         trixLength = i[5]
         trixSignal = i[6]
         decimal_count = 8
+        stoch_top = i[9]
+        stoch_bottom = i[10]
+        stoch_rsi = i[11]
         # API
         binance_api_key = i[1]  # Enter your own API-key here
         binance_api_secret = i[2]  # Enter your own API-secret here
@@ -103,7 +107,7 @@ for i in myresult :
         df['TRIX_PCT'] = df["TRIX"].pct_change() * 100
         df['TRIX_SIGNAL'] = ta.trend.sma_indicator(df['TRIX_PCT'], trixSignal)
         df['TRIX_HISTO'] = df['TRIX_PCT'] - df['TRIX_SIGNAL']
-        df['STOCH_RSI'] = ta.momentum.stochrsi(close=df['close'], window=15, smooth1=3, smooth2=3)
+        df['STOCH_RSI'] = ta.momentum.stochrsi(close=df['close'], window=stoch_rsi, smooth1=3, smooth2=3)
         print(df)
 
         actualPrice = df['close'].iloc[-1]
@@ -112,9 +116,9 @@ for i in myresult :
         minToken = 5 / actualPrice
         print('coin price :', actualPrice, 'usd balance', fiatAmount, 'coin balance :', cryptoAmount)
 
-        if buyCondition(df.iloc[-2], df.iloc[-3]):
+        if buyCondition(df.iloc[-2], df.iloc[-3],stoch_top):
             if float(fiatAmount) > 5:
-                quantityBuy = convert_amount_to_precision(pairSymbol, 0.98 * (float(fiatAmount) / actualPrice))
+                quantityBuy = convert_amount_to_precision(pairSymbol, (float(fiatAmount) / actualPrice))
                 buyOrder = client.order_market_buy(
                     symbol=pairSymbol,
                     quantity=f"{float(quantityBuy):.{decimal_count}f}")
@@ -123,7 +127,7 @@ for i in myresult :
                 pass
                 print("If you  give me more USD I will buy more", cryptoSymbol)
 
-        elif sellCondition(df.iloc[-2], df.iloc[-3]):
+        elif sellCondition(df.iloc[-2], df.iloc[-3],stoch_bottom):
             if float(cryptoAmount) > minToken:
                 sellOrder = client.order_market_sell(
                     symbol=pairSymbol,
