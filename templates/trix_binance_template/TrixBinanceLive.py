@@ -47,7 +47,6 @@ def getBalance(myclient, coin):
 
 def get_step_size(client,symbol):
     stepSize = None
-    print(client.get_symbol_info(symbol))
     for filter in client.get_symbol_info(symbol)['filters']:
         if filter['filterType'] == 'LOT_SIZE':
             stepSize = float(filter['stepSize'])
