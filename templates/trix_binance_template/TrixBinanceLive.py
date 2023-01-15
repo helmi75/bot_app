@@ -1,5 +1,7 @@
 import sys
 sys.path.insert(0,"/home/anisse9/bot_app")
+import warnings
+warnings.simplefilter(action='ignore', category=FutureWarning)
 
 from binance.client import Client
 import pandas as pd
@@ -108,6 +110,7 @@ for i in myresult :
         df['TRIX_HISTO'] = df['TRIX_PCT'] - df['TRIX_SIGNAL']
         df['STOCH_RSI'] = ta.momentum.stochrsi(close=df['close'], window=stoch_rsi, smooth1=3, smooth2=3)
         print(df)
+        print("")
 
         actualPrice = df['close'].iloc[-1]
         fiatAmount = float(client.get_asset_balance(asset=fiatSymbol)['free'])
@@ -121,7 +124,7 @@ for i in myresult :
                 buyOrder = client.order_market_buy(
                     symbol=pairSymbol,
                     quantity=f"{float(quantityBuy):.{decimal_count}f}")
-                print("BUY", buyOrder)
+                print("BUY")
             else:
                 pass
                 print("If you  give me more USD I will buy more", cryptoSymbol)
@@ -131,7 +134,7 @@ for i in myresult :
                 sellOrder = client.order_market_sell(
                     symbol=pairSymbol,
                     quantity=f"{float(convert_amount_to_precision(client,pairSymbol, cryptoAmount)):.{decimal_count}f}")
-                print("SELL", sellOrder)
+                print("SELL")
             else:
                 pass
                 print("If you give me more", cryptoSymbol, "I will sell it")
@@ -146,10 +149,9 @@ for i in myresult :
 
 
 
-
-
-
-
+print("")
+print("--- End Execution Time ---")
+print("")
 
 
 
