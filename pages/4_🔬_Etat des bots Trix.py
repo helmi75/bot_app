@@ -12,43 +12,47 @@ st.set_page_config(
 
 st.title("Cocobots")
 
-
 pwd = mot_de_passe
 authenticator = auth.auth_data()
 name, authentication_status, username = authenticator.login('Login', 'main')
 con = ConnectBbd('localhost', '3306', 'root', pwd, 'cryptos', 'mysql_native_password')
 maintenance = con.get_maintenance_setting()[0][0] and username != "helmichiha"
 
-st.title("Etat des Bots")
+st.title("Etat des Bots Trix")
 
 
-
-def status_bots(df_result):
-    df_result = df_result[df_result["transaction"]!="none"]
-    list_satus_bot = [ df_result[df_result['nom_bot']==bot].iloc[-1:] for bot in df_result['nom_bot'].unique()]
-    df_status_bot = pd.concat(list_satus_bot)[['date','nom_bot','pair_symbol','status_bot','transaction','user_id','type_bot']]
-    for i ,transaction in zip(df_status_bot["transaction"].index , df_status_bot["transaction"]):
-        if transaction=="buy":
+def status_bots(df_result, wallets):
+    df_result = df_result[df_result["transaction"] != "none"]
+    list_satus_bot = [df_result[df_result['nom_bot'] == bot].iloc[-1:] for bot in df_result['nom_bot'].unique()]
+    df_status_bot = pd.concat(list_satus_bot)[
+        ['date', 'nom_bot', 'pair_symbol', 'status_bot', 'transaction', 'user_id', 'type_bot']]
+    for i, transaction in zip(df_status_bot["transaction"].index, df_status_bot["transaction"]):
+        if transaction == "buy":
             df_status_bot["transaction"].loc[i] = df_status_bot["pair_symbol"].loc[i][:-4]
         else:
             df_status_bot["transaction"].loc[i] = "USD"
-    df_status_bot = df_status_bot.rename(columns ={"transaction":"status_trix"})
+    df_status_bot = df_status_bot.rename(columns={"transaction": "status_trix"})
+    df_status_bot["Exchange wallet"] = wallets.values()
+    print(wallets.values())
     return df_status_bot
 
+
 if authentication_status:
-    if not maintenance :
+    if not maintenance:
         if con.get_maintenance_setting()[0][0]:
             st.warning('''The page is in maintenance!''')
         try:
             result = con.get_status()
+            wallet = result[1]
+            result = result[0]
             df_result = pd.DataFrame(result, columns=['id_execution', 'date', 'pair_symbol', 'status_bot',
                                                       'transaction', 'log_execution.id_bot', 'bot.id_bot',
                                                       'nom_bot', 'user_id', 'type_bot'])
             # display bot status
-            st.dataframe(status_bots(df_result))
+            st.dataframe(status_bots(df_result, wallet))
         except Exception as e:
             st.write(e)
-    else :
+    else:
         st.title('''Please Hold on and visit us next time!''')
         st.warning('''The page is in maintenance!''')
 

@@ -20,7 +20,7 @@ pwd = mot_de_passe
 cnx = mysql.connector.connect(host='localhost', user='root', password=pwd, port='3306', database='cryptos',
                               auth_plugin='mysql_native_password')
 cursor = cnx.cursor()
-query = "select params_bot_trix.* from params_bot_trix,bots where bots.bot_id = params_bot_trix.bot_id and bots.type_bot ='Trix Binance';"
+query = "select p.* , b.nom_bot from params_bot_trix as p ,bots as b where b.bot_id = p.bot_id and b.type_bot ='Trix Binance';"
 cursor.execute(query)
 myresult = cursor.fetchall()
 
@@ -109,14 +109,13 @@ for i in myresult :
         df['TRIX_SIGNAL'] = ta.trend.sma_indicator(df['TRIX_PCT'], trixSignal)
         df['TRIX_HISTO'] = df['TRIX_PCT'] - df['TRIX_SIGNAL']
         df['STOCH_RSI'] = ta.momentum.stochrsi(close=df['close'], window=stoch_rsi, smooth1=3, smooth2=3)
-        print(df)
-        print("")
 
         actualPrice = df['close'].iloc[-1]
         fiatAmount = float(client.get_asset_balance(asset=fiatSymbol)['free'])
         cryptoAmount = float(client.get_asset_balance(asset=cryptoSymbol)['free'])
         minToken = 5 / actualPrice
-        print('coin price :', actualPrice, 'usd balance', fiatAmount, 'coin balance :', cryptoAmount)
+        print(f"{i[11]} : usd balance = {fiatAmount} ")
+        # print('coin price :', actualPrice, 'usd balance', fiatAmount, 'coin balance :', cryptoAmount)
 
         if buyCondition(df.iloc[-2], df.iloc[-3],stoch_top):
             if float(fiatAmount) > 5:
