@@ -287,8 +287,15 @@ class ConnectBbd:
         query = " select * from log_execution left join bots on log_execution.bot_id = bots.bot_id;"
         cursor.execute(query)
         result = cursor.fetchall()
+        wallets = {}
+        for i in result :
+            query = f"select crypto_wallet from get_balence where id_bot ={i[5]} order by id_get_balence desc limit 1;"
+            cursor.execute(query)
+            ree = cursor.fetchone()
+            if (ree != None):
+                wallets[i[5]] = ree[0]
         # self.cnx.close()
-        return result
+        return result,wallets
 
     def getAllPairSymbols(self):
         cursor = self.cnx.cursor()
