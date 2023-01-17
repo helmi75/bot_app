@@ -35,7 +35,7 @@ def status_bots(df_result,wallet):
     df_status_bot = df_status_bot.rename(columns ={"transaction":"status_trix"})
     df_status_bot["Exchange wallet"] = wallet.values()
     return df_status_bot
-@st.cache
+@st.cache(suppress_st_warning=True)
 def init():
     if authentication_status:
         if not maintenance :
