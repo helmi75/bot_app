@@ -135,10 +135,10 @@ class ConnectBbd:
         cursor.close()
         self.cnx.close()
 
-    def insert_balence(self, date, crypto_name, crypto_wallet, id_bot):
+    def insert_balence(self, date, crypto_name, crypto_wallet, id_bot,status,transaction):
         cursor = self.cnx.cursor()
-        query = """Insert into get_balence (dates, crypto_name,crypto_wallet,id_bot) values ('%s','%s','%s','%s')""" % (
-            date, crypto_name, crypto_wallet, id_bot)
+        query = """Insert into get_balence (dates, crypto_name,crypto_wallet,id_bot,status_bot,transaction) values ('%s','%s','%s','%s','%s','%s')""" % (
+            date, crypto_name, crypto_wallet, id_bot,status,transaction)
         cursor.execute(query)
         self.cnx.commit()
         idd = cursor.lastrowid
@@ -294,18 +294,12 @@ class ConnectBbd:
         """
         cursor = self.cnx.cursor()
         # query = "select * from log_execution;"
-        query = "select log_execution.*, bots.* from log_execution,bots where log_execution.bot_id = bots.bot_id and lower(bots.type_bot) like 'trix%';"
+        query = "select g.dates,g.crypto_wallet,g.status_bot,g.transaction,b.nom_bot,b.type_bot,p.pair_symbol from get_balence as g, bots as b, params_bot_trix as p where p.bot_id = g.id_bot and g.id_bot = b.bot_id;"
         cursor.execute(query)
         result = cursor.fetchall()
         wallets = {}
-        for i in result:
-            query = f"select crypto_wallet from get_balence where id_bot ={i[5]} order by id_get_balence desc limit 1;"
-            cursor.execute(query)
-            ree = cursor.fetchone()
-            if (ree != None):
-                wallets[i[5]] = ree[0]
         # self.cnx.close()
-        return result, wallets
+        return result
 
     def get_statusCocotier(self):
         """
@@ -313,18 +307,11 @@ class ConnectBbd:
         """
         cursor = self.cnx.cursor()
         # query = "select * from log_execution;"
-        query = "select log_execution.*, bots.* from log_execution,bots where log_execution.bot_id = bots.bot_id and lower(bots.type_bot) like 'trix%';"
+        query = "select g.dates,g.crypto_wallet,g.status_bot,b.nom_bot,b.type_bot,p.pair_symbol,g.crypto_name,p.delta_hour,p.type_computing from get_balence as g, bots as b, Params_bot_Cocotier as p where p.bot_id = g.id_bot and g.id_bot = b.bot_id;"
         cursor.execute(query)
         result = cursor.fetchall()
-        wallets = {}
-        for i in result:
-            query = f"select crypto_wallet from get_balence where id_bot ={i[5]} order by id_get_balence desc limit 1;"
-            cursor.execute(query)
-            ree = cursor.fetchone()
-            if (ree != None):
-                wallets[i[5]] = ree[0]
         # self.cnx.close()
-        return result, wallets
+        return result
 
     def getAllPairSymbols(self):
         cursor = self.cnx.cursor()

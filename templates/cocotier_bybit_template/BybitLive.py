@@ -99,17 +99,19 @@ for i in myresult:
                 # Save the wallet value
                 wallet = get_wallet(exchange)
                 print(f"The new crypto wallet is {wallet}")
-                con.bot_statusCocotier(nom_crypto_achat, "buy", i[7])
-                con.insert_balence(datetime.now(), nom_crypto_achat, wallet, i[7])
+                con.insert_balence(datetime.now(), nom_crypto_achat, wallet, i[7], "ONN", "none")
             except Exception as exceptions:
                 print("*****Exceptions*****")
                 print(exceptions)
+                con.insert_balence(datetime.now(), "none", 0, i[7], "OFF", "none")
                 print("********************")
     except IndexError as eee:
         con = ConnectBbd('localhost', '3306', 'root', pwd, 'cryptos', 'mysql_native_password')
         show_time = str(datetime.now())[:19]
         con.insertTime(show_time,i[7])
+        con.insert_balence(datetime.now(), "none", 0, i[7], "OFF", "none")
     except Exception as eee :
         print(eee)
+
 print("-----End of the script-----")
 print(" ")
