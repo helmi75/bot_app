@@ -35,28 +35,31 @@ def status_bots(df_result,wallet):
     df_status_bot = df_status_bot.rename(columns ={"transaction":"status_trix"})
     df_status_bot["Exchange wallet"] = wallet.values()
     return df_status_bot
-
-if authentication_status:
-    if not maintenance :
-        if con.get_maintenance_setting()[0][0]:
+@st.cache
+def init():
+    if authentication_status:
+        if not maintenance :
+            if con.get_maintenance_setting()[0][0]:
+                st.warning('''The page is in maintenance!''')
+            try:
+                result,wallet = con.get_status()
+                df_result = pd.DataFrame(result, columns=['id_execution', 'date', 'pair_symbol', 'status_bot',
+                                                          'transaction', 'log_execution.id_bot', 'bot.id_bot',
+                                                          'nom_bot', 'user_id', 'type_bot'])
+                # display bot status
+                st.dataframe(status_bots(df_result,wallet))
+            except Exception as e:
+                st.write(e)
+        else :
+            st.title('''Please Hold on and visit us next time!''')
             st.warning('''The page is in maintenance!''')
-        try:
-            result,wallet = con.get_status()
-            df_result = pd.DataFrame(result, columns=['id_execution', 'date', 'pair_symbol', 'status_bot',
-                                                      'transaction', 'log_execution.id_bot', 'bot.id_bot',
-                                                      'nom_bot', 'user_id', 'type_bot'])
-            # display bot status
-            st.dataframe(status_bots(df_result,wallet))
-        except Exception as e:
-            st.write(e)
-    else :
-        st.title('''Please Hold on and visit us next time!''')
-        st.warning('''The page is in maintenance!''')
 
-        st.image(
-            "https://img.freepik.com/premium-vector/robot-android-with-claw-hands-interface-isolated-cartoon-icon-vector-digital-character-kids-toy-white-robotic-friendly-bot-repair-machine-artificial-intelligence-electronic-space-automaton_53500-1001.jpg",
-            use_column_width=False)
-elif authentication_status == False:
-    st.error('Username/password is incorrect')
-elif authentication_status == None:
-    st.warning('Please enter your username and password')
+            st.image(
+                "https://img.freepik.com/premium-vector/robot-android-with-claw-hands-interface-isolated-cartoon-icon-vector-digital-character-kids-toy-white-robotic-friendly-bot-repair-machine-artificial-intelligence-electronic-space-automaton_53500-1001.jpg",
+                use_column_width=False)
+    elif authentication_status == False:
+        st.error('Username/password is incorrect')
+    elif authentication_status == None:
+        st.warning('Please enter your username and password')
+
+init()
