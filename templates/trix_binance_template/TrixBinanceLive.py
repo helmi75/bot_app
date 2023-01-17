@@ -114,6 +114,7 @@ for i in myresult :
         fiatAmount = float(client.get_asset_balance(asset=fiatSymbol)['free'])
         cryptoAmount = float(client.get_asset_balance(asset=cryptoSymbol)['free'])
         minToken = 5 / actualPrice
+        print(" ")
         print(f"{i[11]} : usd balance = {fiatAmount} ")
         # print('coin price :', actualPrice, 'usd balance', fiatAmount, 'coin balance :', cryptoAmount)
 

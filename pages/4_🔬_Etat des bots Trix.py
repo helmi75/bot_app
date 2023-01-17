@@ -34,7 +34,7 @@ def status_bots(df_result,wallet):
             df_status_bot["transaction"].loc[i] = "USD"
     df_status_bot = df_status_bot.rename(columns ={"transaction":"status_trix"})
     df_status_bot = df_status_bot.rename(columns ={"type_bot":"exchange"})
-    # df_status_bot["Exchange wallet"] = wallet.values()
+    df_status_bot[" wallet "] = wallet.values()
     return df_status_bot
 def init():
     if authentication_status:
