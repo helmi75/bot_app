@@ -123,9 +123,10 @@ for i in myresult :
                 buyOrder = client.order_market_buy(
                     symbol=pairSymbol,
                     quantity=f"{float(quantityBuy):.{decimal_count}f}")
+                con.bot_status(pairSymbol, "buy", i[10])
                 print("BUY")
             else:
-                pass
+                con.bot_status(pairSymbol, "none" , i[10])
                 print("If you  give me more USD I will buy more", cryptoSymbol)
 
         elif sellCondition(df.iloc[-2], df.iloc[-3],stoch_bottom):
@@ -133,12 +134,13 @@ for i in myresult :
                 sellOrder = client.order_market_sell(
                     symbol=pairSymbol,
                     quantity=f"{float(convert_amount_to_precision(client,pairSymbol, cryptoAmount)):.{decimal_count}f}")
+                con.bot_status(pairSymbol, "sell", i[10])
                 print("SELL")
             else:
-                pass
+                con.bot_status(pairSymbol,"none" , i[10])
                 print("If you give me more", cryptoSymbol, "I will sell it")
         else:
-            pass
+            con.bot_status(pairSymbol, "none" , i[10])
             print("No opportunity to take")
 
     except Exception as ex:
