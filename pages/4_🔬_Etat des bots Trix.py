@@ -47,7 +47,6 @@ def init():
                                                           'transaction', 'nom_bot', 'type_bot', 'pair_symbol'])
                 # display bot status
                 df_result['type_bot'] = df_result['type_bot'].str[5:]
-                df_result['date'] = df_result['date'].str[:19]
                 st.dataframe(status_bots(df_result))
             except Exception as e:
                 st.write(e)
