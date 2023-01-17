@@ -19,7 +19,7 @@ name, authentication_status, username = authenticator.login('Login', 'main')
 con = ConnectBbd('localhost', '3306', 'root', pwd, 'cryptos', 'mysql_native_password')
 maintenance = con.get_maintenance_setting()[0][0] and username != "helmichiha"
 
-st.title("Etat des Bots")
+st.title("Etat des Bots Cocotier")
 
 
 
