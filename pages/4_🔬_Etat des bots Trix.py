@@ -26,14 +26,15 @@ st.title("Etat des Bots")
 def status_bots(df_result,wallet):
     df_result = df_result[df_result["transaction"]!="none"]
     list_satus_bot = [ df_result[df_result['nom_bot']==bot].iloc[-1:] for bot in df_result['nom_bot'].unique()]
-    df_status_bot = pd.concat(list_satus_bot)[['date','nom_bot','pair_symbol','status_bot','transaction','user_id','type_bot']]
+    df_status_bot = pd.concat(list_satus_bot)[['date','nom_bot','pair_symbol','status_bot','transaction','type_bot']]
     for i ,transaction in zip(df_status_bot["transaction"].index , df_status_bot["transaction"]):
         if transaction=="buy":
             df_status_bot["transaction"].loc[i] = df_status_bot["pair_symbol"].loc[i][:-4]
         else:
             df_status_bot["transaction"].loc[i] = "USD"
     df_status_bot = df_status_bot.rename(columns ={"transaction":"status_trix"})
-    df_status_bot["Exchange wallet"] = wallet.values()
+    df_status_bot = df_status_bot.rename(columns ={"type_bot":"exchange"})
+    # df_status_bot["Exchange wallet"] = wallet.values()
     return df_status_bot
 def init():
     if authentication_status:
