@@ -123,10 +123,10 @@ for i in myresult :
                 buyOrder = client.order_market_buy(
                     symbol=pairSymbol,
                     quantity=f"{float(quantityBuy):.{decimal_count}f}")
-                con.bot_status(pairSymbol, "buy", i[10])
+                con.bot_statusTrix(pairSymbol, "buy", i[10])
                 print("BUY")
             else:
-                con.bot_status(pairSymbol, "none" , i[10])
+                con.bot_statusTrix(pairSymbol, "none" , i[10])
                 print("If you  give me more USD I will buy more", cryptoSymbol)
 
         elif sellCondition(df.iloc[-2], df.iloc[-3],stoch_bottom):
@@ -134,14 +134,15 @@ for i in myresult :
                 sellOrder = client.order_market_sell(
                     symbol=pairSymbol,
                     quantity=f"{float(convert_amount_to_precision(client,pairSymbol, cryptoAmount)):.{decimal_count}f}")
-                con.bot_status(pairSymbol, "sell", i[10])
+                con.bot_statusTrix(pairSymbol, "sell", i[10])
                 print("SELL")
             else:
-                con.bot_status(pairSymbol,"none" , i[10])
+                con.bot_statusTrix(pairSymbol,"none" , i[10])
                 print("If you give me more", cryptoSymbol, "I will sell it")
         else:
-            con.bot_status(pairSymbol, "none" , i[10])
+            con.bot_statusTrix(pairSymbol, "none" , i[10])
             print("No opportunity to take")
+        con.insert_balence(datetime.now(), f"Trix : {i[4]}_len{i[5]}_sign{i[6]}_top{i[7]}_bottom{i[8]}_RSI{i[9]}",fiatAmount, i[10])
 
     except Exception as ex:
         print("----Exception----")

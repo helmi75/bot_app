@@ -268,7 +268,7 @@ class ConnectBbd:
         cursor.close()
         # self.cnx.close()
 
-    def bot_status(self, pairSymbol, side, id_bot):
+    def bot_statusTrix(self, pairSymbol, side, id_bot):
         """ 
            insert status bot data to the database 
         """
@@ -278,13 +278,42 @@ class ConnectBbd:
             ex_type, ex_value, ex_traceback = sys.exc_info()
             self.insert_log_info(datetime.now(), pairSymbol, "ex_value", side, id_bot)
 
-    def get_status(self):
+    def bot_statusCocotier(self, pairSymbol, side, id_bot):
+        """
+           insert status bot data to the database
+        """
+        try:
+            self.insert_log_info(datetime.now(), pairSymbol, "ONN", side, id_bot)
+        except BaseException as ex:
+            ex_type, ex_value, ex_traceback = sys.exc_info()
+            self.insert_log_info(datetime.now(), pairSymbol, "ex_value", side, id_bot)
+
+    def get_statusTrix(self):
         """
            get bots status information from bdd
         """
         cursor = self.cnx.cursor()
         # query = "select * from log_execution;"
-        query = " select * from log_execution left join bots on log_execution.bot_id = bots.bot_id;"
+        query = "select log_execution.*, bots.* from log_execution,bots where log_execution.bot_id = bots.bot_id and lower(bots.type_bot) like 'trix%';"
+        cursor.execute(query)
+        result = cursor.fetchall()
+        wallets = {}
+        for i in result:
+            query = f"select crypto_wallet from get_balence where id_bot ={i[5]} order by id_get_balence desc limit 1;"
+            cursor.execute(query)
+            ree = cursor.fetchone()
+            if (ree != None):
+                wallets[i[5]] = ree[0]
+        # self.cnx.close()
+        return result, wallets
+
+    def get_statusCocotier(self):
+        """
+           get bots status information from bdd
+        """
+        cursor = self.cnx.cursor()
+        # query = "select * from log_execution;"
+        query = "select log_execution.*, bots.* from log_execution,bots where log_execution.bot_id = bots.bot_id and lower(bots.type_bot) like 'trix%';"
         cursor.execute(query)
         result = cursor.fetchall()
         wallets = {}

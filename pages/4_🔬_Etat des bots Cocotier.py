@@ -41,7 +41,7 @@ def init():
             if con.get_maintenance_setting()[0][0]:
                 st.warning('''The page is in maintenance!''')
             try:
-                result,wallet = con.get_statusTrix()
+                result,wallet = con.get_statusCocotier()
                 df_result = pd.DataFrame(result, columns=['id_execution', 'date', 'pair_symbol', 'status_bot',
                                                           'transaction', 'log_execution.id_bot', 'bot.id_bot',
                                                           'nom_bot', 'user_id', 'type_bot'])
