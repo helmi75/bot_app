@@ -12,7 +12,6 @@ st.set_page_config(
 
 st.title("Cocobots")
 
-
 pwd = mot_de_passe
 authenticator = auth.auth_data()
 name, authentication_status, username = authenticator.login('Login', 'main')
@@ -22,34 +21,30 @@ maintenance = con.get_maintenance_setting()[0][0] and username != "helmichiha"
 st.title("Etat des Bots Cocotier")
 
 
-
-def status_bots(df_result,wallet):
-    df_result = df_result[df_result["transaction"]!="none"]
-    list_satus_bot = [ df_result[df_result['nom_bot']==bot].iloc[-1:] for bot in df_result['nom_bot'].unique()]
-    df_status_bot = pd.concat(list_satus_bot)[['date','nom_bot','pair_symbol','status_bot','transaction','user_id','type_bot']]
-    for i ,transaction in zip(df_status_bot["transaction"].index , df_status_bot["transaction"]):
-        if transaction=="buy":
-            df_status_bot["transaction"].loc[i] = df_status_bot["pair_symbol"].loc[i][:-4]
-        else:
-            df_status_bot["transaction"].loc[i] = "USD"
-    df_status_bot = df_status_bot.rename(columns ={"transaction":"status_trix"})
-    df_status_bot["Exchange wallet"] = wallet.values()
+def status_bots(df_result):
+    list_satus_bot = [df_result[df_result['nom_bot'] == bot].iloc[-1:] for bot in df_result['nom_bot'].unique()]
+    df_status_bot = pd.concat(list_satus_bot)[
+        ['date','nom_bot', 'type_bot', 'crypto_name', 'wallet', 'pair_symbol',  'delta_hour',
+         'n_computing', 'status_bot']]
+    df_status_bot = df_status_bot.rename(columns={"type_bot": "exchange"})
     return df_status_bot
+
+
 def init():
     if authentication_status:
-        if not maintenance :
+        if not maintenance:
             if con.get_maintenance_setting()[0][0]:
                 st.warning('''The page is in maintenance!''')
             try:
-                result,wallet = con.get_statusCocotier()
-                df_result = pd.DataFrame(result, columns=['id_execution', 'date', 'pair_symbol', 'status_bot',
-                                                          'transaction', 'log_execution.id_bot', 'bot.id_bot',
-                                                          'nom_bot', 'user_id', 'type_bot'])
+                result = con.get_statusCocotier()
+                df_result = pd.DataFrame(result, columns=['date', 'wallet', 'status_bot',
+                                                          'nom_bot', 'type_bot', 'pair_symbol', 'crypto_name',
+                                                          'delta_hour', 'n_computing'])
                 # display bot status
-                st.dataframe(status_bots(df_result,wallet))
+                st.dataframe(status_bots(df_result))
             except Exception as e:
                 st.write(e)
-        else :
+        else:
             st.title('''Please Hold on and visit us next time!''')
             st.warning('''The page is in maintenance!''')
 
@@ -60,5 +55,6 @@ def init():
         st.error('Username/password is incorrect')
     elif authentication_status == None:
         st.warning('Please enter your username and password')
+
 
 init()

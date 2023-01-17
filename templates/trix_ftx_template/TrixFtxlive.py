@@ -107,10 +107,14 @@ for i in myresult:
                   price=None,
                   size=quantityBuy,
                   type='market')
-              con.bot_statusTrix(pairSymbol,"buy" , i[10])
+              con.insert_balence(datetime.now(),
+                                 f"Trix : {i[4]}_len{i[5]}_sign{i[6]}_top{i[7]}_bottom{i[8]}_RSI{i[9]}",
+                                 fiatAmount, i[10], "ONN", "buy")
 
           else:
-              con.bot_statusTrix(pairSymbol, "none" , i[10])
+              con.insert_balence(datetime.now(),
+                                 f"Trix : {i[4]}_len{i[5]}_sign{i[6]}_top{i[7]}_bottom{i[8]}_RSI{i[9]}",
+                                 fiatAmount, i[10], "ONN", "none")
               goOn = True
 
       elif sellCondition(df.iloc[-2], i[8]):
@@ -123,19 +127,23 @@ for i in myresult:
                   size=truncate(cryptoAmount, myTruncate),
                   type='market')
               print(side)
-              con.bot_statusTrix(pairSymbol,"sell", i[10])
-
+              con.insert_balence(datetime.now(),
+                                 f"Trix : {i[4]}_len{i[5]}_sign{i[6]}_top{i[7]}_bottom{i[8]}_RSI{i[9]}",
+                                 fiatAmount, i[10], "ONN", "sell")
           else:
-              con.bot_statusTrix(pairSymbol,"none" , i[10])
+              con.insert_balence(datetime.now(),
+                                 f"Trix : {i[4]}_len{i[5]}_sign{i[6]}_top{i[7]}_bottom{i[8]}_RSI{i[9]}",
+                                 fiatAmount, i[10], "ONN", "none")
               goOn = True
       else:
           goOn = True
-          con.bot_statusTrix(pairSymbol, side , i[10])
+          con.insert_balence(datetime.now(),
+                             f"Trix : {i[4]}_len{i[5]}_sign{i[6]}_top{i[7]}_bottom{i[8]}_RSI{i[9]}",
+                             fiatAmount, i[10], "ONN", side)
 
       #listBalances = sorted(client.get_balances(),key= lambda d : d['total'], reverse= True)
       df_balences = pd.DataFrame(client.get_balances())
       crypto_symbol_value_balence = df_balences[df_balences['coin']==cryptoSymbol]["usdValue"].values[0] + df_balences[df_balences['coin']=="USD"]["usdValue"].values[0]
-      con.insert_balence(datetime.now(), f"Trix : {i[4]}_len{i[5]}_sign{i[6]}_top{i[7]}_bottom{i[8]}_RSI{i[9]}", crypto_symbol_value_balence, i[10])
       #con.insert_log_info(datetime.now(),pairSymbol, "ON", side,i[10])
       print(f"# bot {i[3]} executed")
 
@@ -156,6 +164,8 @@ for i in myresult:
       print("Exception type : %s " % ex_type.__name__)
       print("Exception message : %s" %ex_value)
       print("Stack trace : %s \n" %stack_trace)
-      email_v1.send_mail(i[3], pairSymbol,ex_type.__name__, ex_value, stack_trace) 
-      con.insert_log_info(datetime.now(), pairSymbol, ex_value, "none", i[10])
-print("We're done\n\n")
+      email_v1.send_mail(i[3], pairSymbol,ex_type.__name__, ex_value, stack_trace)
+      con.insert_balence(datetime.now(),
+                         f"Trix : {i[4]}_len{i[5]}_sign{i[6]}_top{i[7]}_bottom{i[8]}_RSI{i[9]}",
+                         0, i[10], "OFF", "none")
+      print("We're done\n\n")
