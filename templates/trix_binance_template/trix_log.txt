@@ -1,0 +1,1173 @@
+--- Start Execution Time : 15/01/2023 17:00:05 ---
+
+        open     high      low  ...  TRIX_SIGNAL  TRIX_HISTO  STOCH_RSI
+0    1331.94  1342.27  1331.55  ...          NaN         NaN        NaN
+1    1341.08  1344.04  1338.50  ...          NaN         NaN        NaN
+2    1339.48  1347.69  1335.08  ...          NaN         NaN        NaN
+3    1341.97  1343.21  1338.76  ...          NaN         NaN        NaN
+4    1339.00  1339.45  1334.45  ...          NaN         NaN        NaN
+..       ...      ...      ...  ...          ...         ...        ...
+115  1531.94  1540.93  1530.08  ...     0.045630   -0.048696   0.267779
+116  1531.79  1543.06  1531.00  ...     0.038198   -0.034304   1.000000
+117  1540.08  1560.16  1538.24  ...     0.032786   -0.012223   1.000000
+118  1556.35  1563.52  1543.36  ...     0.029102    0.005394   0.506730
+119  1545.25  1546.48  1545.25  ...     0.026737    0.019196   0.541277
+
+[120 rows x 10 columns]
+coin price : 1546.47 usd balance 23.56775401 coin balance : 3.196e-05
+{'symbol': 'ETHUSDT', 'status': 'TRADING', 'baseAsset': 'ETH', 'baseAssetPrecision': 8, 'quoteAsset': 'USDT', 'quotePrecision': 8, 'quoteAssetPrecision': 8, 'baseCommissionPrecision': 8, 'quoteCommissionPrecision': 8, 'orderTypes': ['LIMIT', 'LIMIT_MAKER', 'MARKET', 'STOP_LOSS_LIMIT', 'TAKE_PROFIT_LIMIT'], 'icebergAllowed': True, 'ocoAllowed': True, 'quoteOrderQtyMarketAllowed': True, 'allowTrailingStop': True, 'cancelReplaceAllowed': True, 'isSpotTradingAllowed': True, 'isMarginTradingAllowed': True, 'filters': [{'filterType': 'PRICE_FILTER', 'minPrice': '0.01000000', 'maxPrice': '1000000.00000000', 'tickSize': '0.01000000'}, {'filterType': 'LOT_SIZE', 'minQty': '0.00010000', 'maxQty': '9000.00000000', 'stepSize': '0.00010000'}, {'filterType': 'MIN_NOTIONAL', 'minNotional': '10.00000000', 'applyToMarket': True, 'avgPriceMins': 5}, {'filterType': 'ICEBERG_PARTS', 'limit': 10}, {'filterType': 'MARKET_LOT_SIZE', 'minQty': '0.00000000', 'maxQty': '3646.12944736', 'stepSize': '0.00000000'}, {'filterType': 'TRAILING_DELTA', 'minTrailingAboveDelta': 10, 'maxTrailingAboveDelta': 2000, 'minTrailingBelowDelta': 10, 'maxTrailingBelowDelta': 2000}, {'filterType': 'PERCENT_PRICE_BY_SIDE', 'bidMultiplierUp': '5', 'bidMultiplierDown': '0.2', 'askMultiplierUp': '5', 'askMultiplierDown': '0.2', 'avgPriceMins': 5}, {'filterType': 'MAX_NUM_ORDERS', 'maxNumOrders': 200}, {'filterType': 'MAX_NUM_ALGO_ORDERS', 'maxNumAlgoOrders': 5}], 'permissions': ['SPOT', 'MARGIN', 'TRD_GRP_004', 'TRD_GRP_005', 'TRD_GRP_006'], 'defaultSelfTradePreventionMode': 'NONE', 'allowedSelfTradePreventionModes': ['NONE']}
+BUY {'symbol': 'ETHUSDT', 'orderId': 12189207185, 'orderListId': -1, 'clientOrderId': 'HJHOvCWVfA0fqg2twVfwFU', 'transactTime': 1673802010728, 'price': '0.00000000', 'origQty': '0.01520000', 'executedQty': '0.01520000', 'cummulativeQuoteQty': '23.50710400', 'status': 'FILLED', 'timeInForce': 'GTC', 'type': 'MARKET', 'side': 'BUY', 'workingTime': 1673802010728, 'fills': [{'price': '1546.52000000', 'qty': '0.01520000', 'commission': '0.00001520', 'commissionAsset': 'ETH', 'tradeId': 1057145579}], 'selfTradePreventionMode': 'NONE'}
+./templates/trix_binance_template/TrixBinanceLive.py:35: FutureWarning: In a future version of pandas all arguments of DataFrame.drop except for the argument 'labels' will be keyword-only.
+  dataT.drop(dataT.columns.difference(['open','high','low','close','volume']), 1, inplace=True)
+
+--- Start Execution Time : 15/01/2023 17:00:05 ---
+
+        open     high      low  ...  TRIX_SIGNAL  TRIX_HISTO  STOCH_RSI
+0    1331.94  1342.27  1331.55  ...          NaN         NaN        NaN
+1    1341.08  1344.04  1338.50  ...          NaN         NaN        NaN
+2    1339.48  1347.69  1335.08  ...          NaN         NaN        NaN
+3    1341.97  1343.21  1338.76  ...          NaN         NaN        NaN
+4    1339.00  1339.45  1334.45  ...          NaN         NaN        NaN
+..       ...      ...      ...  ...          ...         ...        ...
+115  1531.94  1540.93  1530.08  ...     0.045630   -0.048696   0.267779
+116  1531.79  1543.06  1531.00  ...     0.038198   -0.034304   1.000000
+117  1540.08  1560.16  1538.24  ...     0.032786   -0.012223   1.000000
+118  1556.35  1563.52  1543.36  ...     0.029102    0.005394   0.506730
+119  1545.25  1546.48  1545.25  ...     0.026737    0.019196   0.541277
+
+[120 rows x 10 columns]
+coin price : 1546.47 usd balance 23.56775401 coin balance : 3.196e-05
+BUY {'symbol': 'ETHUSDT', 'orderId': 12189207185, 'orderListId': -1, 'clientOrderId': 'HJHOvCWVfA0fqg2twVfwFU', 'transactTime': 1673802010728, 'price': '0.00000000', 'origQty': '0.01520000', 'executedQty': '0.01520000', 'cummulativeQuoteQty': '23.50710400', 'status': 'FILLED', 'timeInForce': 'GTC', 'type': 'MARKET', 'side': 'BUY', 'workingTime': 1673802010728, 'fills': [{'price': '1546.52000000', 'qty': '0.01520000', 'commission': '0.00001520', 'commissionAsset': 'ETH', 'tradeId': 1057145579}], 'selfTradePreventionMode': 'NONE'}
+./templates/trix_binance_template/TrixBinanceLive.py:35: FutureWarning: In a future version of pandas all arguments of DataFrame.drop except for the argument 'labels' will be keyword-only.
+  dataT.drop(dataT.columns.difference(['open','high','low','close','volume']), 1, inplace=True)
+
+--- Start Execution Time : 15/01/2023 21:00:06 ---
+
+        open     high      low  ...  TRIX_SIGNAL  TRIX_HISTO  STOCH_RSI
+0    1339.00  1339.45  1334.45  ...          NaN         NaN        NaN
+1    1334.45  1338.17  1333.80  ...          NaN         NaN        NaN
+2    1335.63  1340.39  1334.30  ...          NaN         NaN        NaN
+3    1337.75  1341.50  1335.00  ...          NaN         NaN        NaN
+4    1337.92  1338.45  1330.14  ...          NaN         NaN        NaN
+..       ...      ...      ...  ...          ...         ...        ...
+115  1545.25  1566.66  1545.25  ...     0.026859    0.021629   0.670857
+116  1551.36  1551.76  1533.00  ...     0.025601    0.033232   0.522844
+117  1547.88  1557.19  1542.00  ...     0.024747    0.042197   0.588370
+118  1550.14  1554.55  1546.08  ...     0.024082    0.050284   0.689953
+119  1553.68  1554.16  1553.68  ...     0.024040    0.056260   0.703772
+
+[120 rows x 10 columns]
+coin price : 1554.15 usd balance 0.06065001 coin balance : 0.01521828
+If you  give me more USD I will buy more ETH
+
+--- Start Execution Time : 15/01/2023 22:00:05 ---
+
+        open     high      low  ...  TRIX_SIGNAL  TRIX_HISTO  STOCH_RSI
+0    1334.45  1338.17  1333.80  ...          NaN         NaN        NaN
+1    1335.63  1340.39  1334.30  ...          NaN         NaN        NaN
+2    1337.75  1341.50  1335.00  ...          NaN         NaN        NaN
+3    1337.92  1338.45  1330.14  ...          NaN         NaN        NaN
+4    1330.21  1332.09  1327.29  ...          NaN         NaN        NaN
+..       ...      ...      ...  ...          ...         ...        ...
+115  1551.36  1551.76  1533.00  ...     0.025601    0.033232   0.522852
+116  1547.88  1557.19  1542.00  ...     0.024747    0.042197   0.588378
+117  1550.14  1554.55  1546.08  ...     0.024082    0.050284   0.689959
+118  1553.68  1554.48  1548.74  ...     0.023986    0.055173   0.607464
+119  1551.96  1551.97  1551.96  ...     0.024584    0.056890   0.607785
+
+[120 rows x 10 columns]
+
+coin price : 1551.97 usd balance 0.06065001 coin balance : 0.01521828
+If you  give me more USD I will buy more ETH
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 15/01/2023 23:00:05 ---
+
+        open     high      low  ...  TRIX_SIGNAL  TRIX_HISTO  STOCH_RSI
+0    1335.63  1340.39  1334.30  ...          NaN         NaN        NaN
+1    1337.75  1341.50  1335.00  ...          NaN         NaN        NaN
+2    1337.92  1338.45  1330.14  ...          NaN         NaN        NaN
+3    1330.21  1332.09  1327.29  ...          NaN         NaN        NaN
+4    1331.07  1332.41  1329.00  ...          NaN         NaN        NaN
+..       ...      ...      ...  ...          ...         ...        ...
+115  1547.88  1557.19  1542.00  ...     0.024747    0.042197   0.588392
+116  1550.14  1554.55  1546.08  ...     0.024082    0.050284   0.689972
+117  1553.68  1554.48  1548.74  ...     0.023986    0.055173   0.607479
+118  1551.96  1560.52  1542.29  ...     0.024722    0.059657   0.774738
+119  1557.55  1557.74  1557.11  ...     0.026475    0.061884   0.667051
+
+[120 rows x 10 columns]
+
+coin price : 1557.11 usd balance 0.06065001 coin balance : 0.01521828
+If you  give me more USD I will buy more ETH
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 16/01/2023 00:00:06 ---
+
+        open     high      low  ...  TRIX_SIGNAL  TRIX_HISTO  STOCH_RSI
+0    1337.75  1341.50  1335.00  ...          NaN         NaN        NaN
+1    1337.92  1338.45  1330.14  ...          NaN         NaN        NaN
+2    1330.21  1332.09  1327.29  ...          NaN         NaN        NaN
+3    1331.07  1332.41  1329.00  ...          NaN         NaN        NaN
+4    1330.56  1334.17  1329.92  ...          NaN         NaN        NaN
+..       ...      ...      ...  ...          ...         ...        ...
+115  1550.14  1554.55  1546.08  ...     0.024082    0.050284   0.689973
+116  1553.68  1554.48  1548.74  ...     0.023986    0.055173   0.607481
+117  1551.96  1560.52  1542.29  ...     0.024722    0.059657   0.774739
+118  1557.55  1560.93  1547.69  ...     0.026361    0.059610   0.365763
+119  1552.52  1552.52  1552.37  ...     0.028748    0.056027   0.356485
+
+[120 rows x 10 columns]
+
+coin price : 1552.38 usd balance 0.06065001 coin balance : 0.01521828
+If you  give me more USD I will buy more ETH
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 16/01/2023 01:00:05 ---
+
+        open     high      low  ...  TRIX_SIGNAL  TRIX_HISTO  STOCH_RSI
+0    1337.92  1338.45  1330.14  ...          NaN         NaN        NaN
+1    1330.21  1332.09  1327.29  ...          NaN         NaN        NaN
+2    1331.07  1332.41  1329.00  ...          NaN         NaN        NaN
+3    1330.56  1334.17  1329.92  ...          NaN         NaN        NaN
+4    1330.87  1333.88  1327.19  ...          NaN         NaN        NaN
+..       ...      ...      ...  ...          ...         ...        ...
+115  1553.68  1554.48  1548.74  ...     0.023986    0.055173   0.607398
+116  1551.96  1560.52  1542.29  ...     0.024722    0.059657   0.774660
+117  1557.55  1560.93  1547.69  ...     0.026361    0.059610   0.365628
+118  1552.52  1560.40  1540.54  ...     0.028863    0.058344   0.557026
+119  1557.06  1557.58  1556.93  ...     0.032082    0.055617   0.579047
+
+[120 rows x 10 columns]
+
+coin price : 1557.58 usd balance 0.06065001 coin balance : 0.01521828
+If you  give me more USD I will buy more ETH
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 16/01/2023 02:00:06 ---
+
+        open     high      low  ...  TRIX_SIGNAL  TRIX_HISTO  STOCH_RSI
+0    1330.21  1332.09  1327.29  ...          NaN         NaN        NaN
+1    1331.07  1332.41  1329.00  ...          NaN         NaN        NaN
+2    1330.56  1334.17  1329.92  ...          NaN         NaN        NaN
+3    1330.87  1333.88  1327.19  ...          NaN         NaN        NaN
+4    1333.51  1335.70  1332.73  ...          NaN         NaN        NaN
+..       ...      ...      ...  ...          ...         ...        ...
+115  1551.96  1560.52  1542.29  ...     0.024722    0.059657   0.774666
+116  1557.55  1560.93  1547.69  ...     0.026361    0.059610   0.365640
+117  1552.52  1560.40  1540.54  ...     0.028863    0.058344   0.557036
+118  1557.06  1577.92  1553.83  ...     0.032340    0.060781   0.965255
+119  1568.03  1568.57  1568.02  ...     0.036687    0.063645   0.984297
+
+[120 rows x 10 columns]
+
+coin price : 1568.57 usd balance 0.06065001 coin balance : 0.01521828
+No opportunity to take
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 16/01/2023 03:00:06 ---
+
+        open     high      low  ...  TRIX_SIGNAL  TRIX_HISTO  STOCH_RSI
+0    1331.07  1332.41  1329.00  ...          NaN         NaN        NaN
+1    1330.56  1334.17  1329.92  ...          NaN         NaN        NaN
+2    1330.87  1333.88  1327.19  ...          NaN         NaN        NaN
+3    1333.51  1335.70  1332.73  ...          NaN         NaN        NaN
+4    1335.53  1335.77  1331.39  ...          NaN         NaN        NaN
+..       ...      ...      ...  ...          ...         ...        ...
+115  1557.55  1560.93  1547.69  ...     0.026361    0.059610   0.365630
+116  1552.52  1560.40  1540.54  ...     0.028863    0.058344   0.557026
+117  1557.06  1577.92  1553.83  ...     0.032340    0.060781   0.965245
+118  1568.03  1584.58  1563.15  ...     0.036784    0.065587   1.000000
+119  1572.51  1572.89  1572.50  ...     0.042128    0.069536   1.000000
+
+[120 rows x 10 columns]
+
+coin price : 1572.78 usd balance 0.06065001 coin balance : 0.01521828
+No opportunity to take
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 16/01/2023 04:00:06 ---
+
+        open     high      low  ...  TRIX_SIGNAL  TRIX_HISTO  STOCH_RSI
+0    1330.56  1334.17  1329.92  ...          NaN         NaN        NaN
+1    1330.87  1333.88  1327.19  ...          NaN         NaN        NaN
+2    1333.51  1335.70  1332.73  ...          NaN         NaN        NaN
+3    1335.53  1335.77  1331.39  ...          NaN         NaN        NaN
+4    1334.67  1337.69  1334.41  ...          NaN         NaN        NaN
+..       ...      ...      ...  ...          ...         ...        ...
+115  1552.52  1560.40  1540.54  ...     0.028863    0.058344   0.557031
+116  1557.06  1577.92  1553.83  ...     0.032340    0.060781   0.965248
+117  1568.03  1584.58  1563.15  ...     0.036784    0.065587   1.000000
+118  1572.51  1574.48  1564.10  ...     0.042039    0.067764   0.791054
+119  1569.19  1569.50  1569.00  ...     0.047809    0.066729   0.682198
+
+[120 rows x 10 columns]
+
+coin price : 1569.0 usd balance 0.06065001 coin balance : 0.01521828
+If you  give me more USD I will buy more ETH
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 16/01/2023 05:00:05 ---
+
+        open     high      low  ...  TRIX_SIGNAL  TRIX_HISTO  STOCH_RSI
+0    1330.87  1333.88  1327.19  ...          NaN         NaN        NaN
+1    1333.51  1335.70  1332.73  ...          NaN         NaN        NaN
+2    1335.53  1335.77  1331.39  ...          NaN         NaN        NaN
+3    1334.67  1337.69  1334.41  ...          NaN         NaN        NaN
+4    1335.12  1338.20  1334.38  ...          NaN         NaN        NaN
+..       ...      ...      ...  ...          ...         ...        ...
+115  1557.06  1577.92  1553.83  ...     0.032340    0.060781   0.965277
+116  1568.03  1584.58  1563.15  ...     0.036784    0.065587   1.000000
+117  1572.51  1574.48  1564.10  ...     0.042039    0.067764   0.791068
+118  1569.19  1573.77  1567.44  ...     0.047891    0.068366   0.845432
+119  1572.33  1572.33  1572.32  ...     0.054271    0.066322   0.845911
+
+[120 rows x 10 columns]
+
+coin price : 1572.33 usd balance 0.06065001 coin balance : 0.01521828
+No opportunity to take
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 16/01/2023 06:00:05 ---
+
+        open     high      low  ...  TRIX_SIGNAL  TRIX_HISTO  STOCH_RSI
+0    1333.51  1335.70  1332.73  ...          NaN         NaN        NaN
+1    1335.53  1335.77  1331.39  ...          NaN         NaN        NaN
+2    1334.67  1337.69  1334.41  ...          NaN         NaN        NaN
+3    1335.12  1338.20  1334.38  ...          NaN         NaN        NaN
+4    1336.13  1338.06  1334.00  ...          NaN         NaN        NaN
+..       ...      ...      ...  ...          ...         ...        ...
+115  1568.03  1584.58  1563.15  ...     0.036784    0.065587   1.000000
+116  1572.51  1574.48  1564.10  ...     0.042039    0.067764   0.791079
+117  1569.19  1573.77  1567.44  ...     0.047891    0.068366   0.845439
+118  1572.33  1577.20  1571.00  ...     0.054362    0.068145   1.000000
+119  1576.03  1576.03  1575.58  ...     0.061102    0.065804   0.981890
+
+[120 rows x 10 columns]
+
+coin price : 1575.85 usd balance 0.06065001 coin balance : 0.01521828
+No opportunity to take
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 16/01/2023 07:00:05 ---
+
+        open     high      low  ...  TRIX_SIGNAL  TRIX_HISTO  STOCH_RSI
+0    1335.53  1335.77  1331.39  ...          NaN         NaN        NaN
+1    1334.67  1337.69  1334.41  ...          NaN         NaN        NaN
+2    1335.12  1338.20  1334.38  ...          NaN         NaN        NaN
+3    1336.13  1338.06  1334.00  ...          NaN         NaN        NaN
+4    1336.44  1336.45  1332.00  ...          NaN         NaN        NaN
+..       ...      ...      ...  ...          ...         ...        ...
+115  1572.51  1574.48  1564.10  ...     0.042039    0.067764   0.791072
+116  1569.19  1573.77  1567.44  ...     0.047891    0.068366   0.845434
+117  1572.33  1577.20  1571.00  ...     0.054362    0.068145   1.000000
+118  1576.03  1578.54  1569.36  ...     0.060988    0.063516   0.542839
+119  1571.20  1571.21  1571.09  ...     0.067475    0.055581   0.519139
+
+[120 rows x 10 columns]
+
+coin price : 1571.09 usd balance 0.06065001 coin balance : 0.01521828
+If you  give me more USD I will buy more ETH
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 16/01/2023 08:00:05 ---
+
+        open     high      low  ...  TRIX_SIGNAL  TRIX_HISTO  STOCH_RSI
+0    1334.67  1337.69  1334.41  ...          NaN         NaN        NaN
+1    1335.12  1338.20  1334.38  ...          NaN         NaN        NaN
+2    1336.13  1338.06  1334.00  ...          NaN         NaN        NaN
+3    1336.44  1336.45  1332.00  ...          NaN         NaN        NaN
+4    1332.48  1335.72  1329.78  ...          NaN         NaN        NaN
+..       ...      ...      ...  ...          ...         ...        ...
+115  1569.19  1573.77  1567.44  ...     0.047891    0.068366   0.845436
+116  1572.33  1577.20  1571.00  ...     0.054362    0.068145   1.000000
+117  1576.03  1578.54  1569.36  ...     0.060988    0.063516   0.542844
+118  1571.20  1571.33  1562.25  ...     0.067349    0.053055   0.050469
+119  1565.96  1565.96  1565.91  ...     0.073174    0.039464   0.047732
+
+[120 rows x 10 columns]
+
+coin price : 1565.92 usd balance 0.06065001 coin balance : 0.01521828
+If you  give me more USD I will buy more ETH
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 16/01/2023 09:00:05 ---
+
+        open     high      low  ...  TRIX_SIGNAL  TRIX_HISTO  STOCH_RSI
+0    1335.12  1338.20  1334.38  ...          NaN         NaN        NaN
+1    1336.13  1338.06  1334.00  ...          NaN         NaN        NaN
+2    1336.44  1336.45  1332.00  ...          NaN         NaN        NaN
+3    1332.48  1335.72  1329.78  ...          NaN         NaN        NaN
+4    1333.27  1334.65  1328.66  ...          NaN         NaN        NaN
+..       ...      ...      ...  ...          ...         ...        ...
+115  1572.33  1577.20  1571.00  ...     0.054362    0.068145   1.000000
+116  1576.03  1578.54  1569.36  ...     0.060988    0.063516   0.542854
+117  1571.20  1571.33  1562.25  ...     0.067349    0.053055   0.050488
+118  1565.96  1566.25  1523.20  ...     0.072475    0.025492   0.000000
+119  1537.46  1537.46  1537.28  ...     0.075992   -0.008332   0.000000
+
+[120 rows x 10 columns]
+
+coin price : 1537.28 usd balance 0.06065001 coin balance : 0.01521828
+If you  give me more USD I will buy more ETH
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 16/01/2023 10:00:05 ---
+
+        open     high      low  ...  TRIX_SIGNAL  TRIX_HISTO  STOCH_RSI
+0    1336.13  1338.06  1334.00  ...          NaN         NaN        NaN
+1    1336.44  1336.45  1332.00  ...          NaN         NaN        NaN
+2    1332.48  1335.72  1329.78  ...          NaN         NaN        NaN
+3    1333.27  1334.65  1328.66  ...          NaN         NaN        NaN
+4    1332.51  1334.98  1321.04  ...          NaN         NaN        NaN
+..       ...      ...      ...  ...          ...         ...        ...
+115  1576.03  1578.54  1569.36  ...     0.060988    0.063516   0.542857
+116  1571.20  1571.33  1562.25  ...     0.067349    0.053055   0.050494
+117  1565.96  1566.25  1523.20  ...     0.072475    0.025492   0.000000
+118  1537.46  1545.72  1536.00  ...     0.076166   -0.004841   0.152187
+119  1544.40  1544.40  1544.03  ...     0.078434   -0.033877   0.144989
+
+[120 rows x 10 columns]
+
+coin price : 1544.03 usd balance 0.06065001 coin balance : 0.01521828
+No opportunity to take
+----Exception----
+Traceback (most recent call last):
+  File "./templates/trix_binance_template/TrixBinanceLive.py", line 104, in <module>
+    df = getHistorical(client,pairSymbol.replace("/",""))
+  File "./templates/trix_binance_template/TrixBinanceLive.py", line 29, in getHistorical
+    klinesT = client.get_historical_klines(
+  File "/home/anisse9/bot_app/.env/lib/python3.8/site-packages/binance/client.py", line 934, in get_historical_klines
+    return self._historical_klines(
+  File "/home/anisse9/bot_app/.env/lib/python3.8/site-packages/binance/client.py", line 973, in _historical_klines
+    first_valid_ts = self._get_earliest_valid_timestamp(symbol, interval, klines_type)
+  File "/home/anisse9/bot_app/.env/lib/python3.8/site-packages/binance/client.py", line 904, in _get_earliest_valid_timestamp
+    kline = self._klines(
+  File "/home/anisse9/bot_app/.env/lib/python3.8/site-packages/binance/client.py", line 883, in _klines
+    return self.get_klines(**params)
+  File "/home/anisse9/bot_app/.env/lib/python3.8/site-packages/binance/client.py", line 868, in get_klines
+    return self._get('klines', data=params, version=self.PRIVATE_API_VERSION)
+  File "/home/anisse9/bot_app/.env/lib/python3.8/site-packages/binance/client.py", line 371, in _get
+    return self._request_api('get', path, signed, version, **kwargs)
+  File "/home/anisse9/bot_app/.env/lib/python3.8/site-packages/binance/client.py", line 334, in _request_api
+    return self._request(method, uri, signed, **kwargs)
+  File "/home/anisse9/bot_app/.env/lib/python3.8/site-packages/binance/client.py", line 315, in _request
+    return self._handle_response(self.response)
+  File "/home/anisse9/bot_app/.env/lib/python3.8/site-packages/binance/client.py", line 324, in _handle_response
+    raise BinanceAPIException(response, response.status_code, response.text)
+binance.exceptions.BinanceAPIException: APIError(code=-1121): Invalid symbol.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "./templates/trix_binance_template/TrixBinanceLive.py", line 147, in <module>
+    ex.with_traceback()
+TypeError: with_traceback() takes exactly one argument (0 given)
+
+--- Start Execution Time : 16/01/2023 11:00:05 ---
+
+        open     high      low  ...  TRIX_SIGNAL  TRIX_HISTO  STOCH_RSI
+0    1336.44  1336.45  1332.00  ...          NaN         NaN        NaN
+1    1332.48  1335.72  1329.78  ...          NaN         NaN        NaN
+2    1333.27  1334.65  1328.66  ...          NaN         NaN        NaN
+3    1332.51  1334.98  1321.04  ...          NaN         NaN        NaN
+4    1323.05  1327.34  1321.86  ...          NaN         NaN        NaN
+..       ...      ...      ...  ...          ...         ...        ...
+115  1571.20  1571.33  1562.25  ...     0.067349    0.053055   0.050370
+116  1565.96  1566.25  1523.20  ...     0.072475    0.025492   0.000000
+117  1537.46  1545.72  1536.00  ...     0.076166   -0.004841   0.152182
+118  1544.40  1552.97  1544.03  ...     0.078506   -0.032432   0.207094
+119  1546.98  1546.98  1546.97  ...     0.079454   -0.055663   0.206885
+
+[120 rows x 10 columns]
+
+coin price : 1546.97 usd balance 0.06065001 coin balance : 0.01521828
+No opportunity to take
+----Exception----
+Traceback (most recent call last):
+  File "./templates/trix_binance_template/TrixBinanceLive.py", line 104, in <module>
+    df = getHistorical(client,pairSymbol.replace("/",""))
+  File "./templates/trix_binance_template/TrixBinanceLive.py", line 29, in getHistorical
+    klinesT = client.get_historical_klines(
+  File "/home/anisse9/bot_app/.env/lib/python3.8/site-packages/binance/client.py", line 934, in get_historical_klines
+    return self._historical_klines(
+  File "/home/anisse9/bot_app/.env/lib/python3.8/site-packages/binance/client.py", line 973, in _historical_klines
+    first_valid_ts = self._get_earliest_valid_timestamp(symbol, interval, klines_type)
+  File "/home/anisse9/bot_app/.env/lib/python3.8/site-packages/binance/client.py", line 904, in _get_earliest_valid_timestamp
+    kline = self._klines(
+  File "/home/anisse9/bot_app/.env/lib/python3.8/site-packages/binance/client.py", line 883, in _klines
+    return self.get_klines(**params)
+  File "/home/anisse9/bot_app/.env/lib/python3.8/site-packages/binance/client.py", line 868, in get_klines
+    return self._get('klines', data=params, version=self.PRIVATE_API_VERSION)
+  File "/home/anisse9/bot_app/.env/lib/python3.8/site-packages/binance/client.py", line 371, in _get
+    return self._request_api('get', path, signed, version, **kwargs)
+  File "/home/anisse9/bot_app/.env/lib/python3.8/site-packages/binance/client.py", line 334, in _request_api
+    return self._request(method, uri, signed, **kwargs)
+  File "/home/anisse9/bot_app/.env/lib/python3.8/site-packages/binance/client.py", line 315, in _request
+    return self._handle_response(self.response)
+  File "/home/anisse9/bot_app/.env/lib/python3.8/site-packages/binance/client.py", line 324, in _handle_response
+    raise BinanceAPIException(response, response.status_code, response.text)
+binance.exceptions.BinanceAPIException: APIError(code=-1121): Invalid symbol.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "./templates/trix_binance_template/TrixBinanceLive.py", line 147, in <module>
+    ex.with_traceback()
+TypeError: with_traceback() takes exactly one argument (0 given)
+
+--- Start Execution Time : 16/01/2023 12:00:05 ---
+
+        open     high      low  ...  TRIX_SIGNAL  TRIX_HISTO  STOCH_RSI
+0    1332.48  1335.72  1329.78  ...          NaN         NaN        NaN
+1    1333.27  1334.65  1328.66  ...          NaN         NaN        NaN
+2    1332.51  1334.98  1321.04  ...          NaN         NaN        NaN
+3    1323.05  1327.34  1321.86  ...          NaN         NaN        NaN
+4    1325.00  1329.19  1324.43  ...          NaN         NaN        NaN
+..       ...      ...      ...  ...          ...         ...        ...
+115  1565.96  1566.25  1523.20  ...     0.072475    0.025492   0.000000
+116  1537.46  1545.72  1536.00  ...     0.076166   -0.004841   0.152183
+117  1544.40  1552.97  1544.03  ...     0.078506   -0.032432   0.207095
+118  1546.98  1548.40  1539.54  ...     0.079340   -0.057940   0.114101
+119  1542.31  1542.32  1542.27  ...     0.078332   -0.078939   0.113288
+
+[120 rows x 10 columns]
+
+coin price : 1542.28 usd balance 0.06065001 coin balance : 0.01521828
+No opportunity to take
+----Exception----
+Traceback (most recent call last):
+  File "./templates/trix_binance_template/TrixBinanceLive.py", line 104, in <module>
+    df = getHistorical(client,pairSymbol.replace("/",""))
+  File "./templates/trix_binance_template/TrixBinanceLive.py", line 29, in getHistorical
+    klinesT = client.get_historical_klines(
+  File "/home/anisse9/bot_app/.env/lib/python3.8/site-packages/binance/client.py", line 934, in get_historical_klines
+    return self._historical_klines(
+  File "/home/anisse9/bot_app/.env/lib/python3.8/site-packages/binance/client.py", line 973, in _historical_klines
+    first_valid_ts = self._get_earliest_valid_timestamp(symbol, interval, klines_type)
+  File "/home/anisse9/bot_app/.env/lib/python3.8/site-packages/binance/client.py", line 904, in _get_earliest_valid_timestamp
+    kline = self._klines(
+  File "/home/anisse9/bot_app/.env/lib/python3.8/site-packages/binance/client.py", line 883, in _klines
+    return self.get_klines(**params)
+  File "/home/anisse9/bot_app/.env/lib/python3.8/site-packages/binance/client.py", line 868, in get_klines
+    return self._get('klines', data=params, version=self.PRIVATE_API_VERSION)
+  File "/home/anisse9/bot_app/.env/lib/python3.8/site-packages/binance/client.py", line 371, in _get
+    return self._request_api('get', path, signed, version, **kwargs)
+  File "/home/anisse9/bot_app/.env/lib/python3.8/site-packages/binance/client.py", line 334, in _request_api
+    return self._request(method, uri, signed, **kwargs)
+  File "/home/anisse9/bot_app/.env/lib/python3.8/site-packages/binance/client.py", line 315, in _request
+    return self._handle_response(self.response)
+  File "/home/anisse9/bot_app/.env/lib/python3.8/site-packages/binance/client.py", line 324, in _handle_response
+    raise BinanceAPIException(response, response.status_code, response.text)
+binance.exceptions.BinanceAPIException: APIError(code=-1121): Invalid symbol.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "./templates/trix_binance_template/TrixBinanceLive.py", line 147, in <module>
+    ex.with_traceback()
+TypeError: with_traceback() takes exactly one argument (0 given)
+
+--- Start Execution Time : 16/01/2023 13:00:06 ---
+
+        open     high      low  ...  TRIX_SIGNAL  TRIX_HISTO  STOCH_RSI
+0    1333.27  1334.65  1328.66  ...          NaN         NaN        NaN
+1    1332.51  1334.98  1321.04  ...          NaN         NaN        NaN
+2    1323.05  1327.34  1321.86  ...          NaN         NaN        NaN
+3    1325.00  1329.19  1324.43  ...          NaN         NaN        NaN
+4    1327.57  1345.00  1327.52  ...          NaN         NaN        NaN
+..       ...      ...      ...  ...          ...         ...        ...
+115  1537.46  1545.72  1536.00  ...     0.076166   -0.004841   0.152182
+116  1544.40  1552.97  1544.03  ...     0.078506   -0.032432   0.207094
+117  1546.98  1548.40  1539.54  ...     0.079340   -0.057940   0.114100
+118  1542.31  1546.18  1537.85  ...     0.078252   -0.080545   0.048982
+119  1539.00  1539.28  1539.00  ...     0.075520   -0.098386   0.056017
+
+[120 rows x 10 columns]
+
+coin price : 1539.28 usd balance 0.06065001 coin balance : 0.01521828
+No opportunity to take
+----Exception----
+Traceback (most recent call last):
+  File "./templates/trix_binance_template/TrixBinanceLive.py", line 104, in <module>
+    df = getHistorical(client,pairSymbol.replace("/",""))
+  File "./templates/trix_binance_template/TrixBinanceLive.py", line 29, in getHistorical
+    klinesT = client.get_historical_klines(
+  File "/home/anisse9/bot_app/.env/lib/python3.8/site-packages/binance/client.py", line 934, in get_historical_klines
+    return self._historical_klines(
+  File "/home/anisse9/bot_app/.env/lib/python3.8/site-packages/binance/client.py", line 973, in _historical_klines
+    first_valid_ts = self._get_earliest_valid_timestamp(symbol, interval, klines_type)
+  File "/home/anisse9/bot_app/.env/lib/python3.8/site-packages/binance/client.py", line 904, in _get_earliest_valid_timestamp
+    kline = self._klines(
+  File "/home/anisse9/bot_app/.env/lib/python3.8/site-packages/binance/client.py", line 883, in _klines
+    return self.get_klines(**params)
+  File "/home/anisse9/bot_app/.env/lib/python3.8/site-packages/binance/client.py", line 868, in get_klines
+    return self._get('klines', data=params, version=self.PRIVATE_API_VERSION)
+  File "/home/anisse9/bot_app/.env/lib/python3.8/site-packages/binance/client.py", line 371, in _get
+    return self._request_api('get', path, signed, version, **kwargs)
+  File "/home/anisse9/bot_app/.env/lib/python3.8/site-packages/binance/client.py", line 334, in _request_api
+    return self._request(method, uri, signed, **kwargs)
+  File "/home/anisse9/bot_app/.env/lib/python3.8/site-packages/binance/client.py", line 315, in _request
+    return self._handle_response(self.response)
+  File "/home/anisse9/bot_app/.env/lib/python3.8/site-packages/binance/client.py", line 324, in _handle_response
+    raise BinanceAPIException(response, response.status_code, response.text)
+binance.exceptions.BinanceAPIException: APIError(code=-1121): Invalid symbol.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "./templates/trix_binance_template/TrixBinanceLive.py", line 147, in <module>
+    ex.with_traceback()
+TypeError: with_traceback() takes exactly one argument (0 given)
+
+--- Start Execution Time : 16/01/2023 14:00:05 ---
+
+        open     high      low  ...  TRIX_SIGNAL  TRIX_HISTO  STOCH_RSI
+0    1332.51  1334.98  1321.04  ...          NaN         NaN        NaN
+1    1323.05  1327.34  1321.86  ...          NaN         NaN        NaN
+2    1325.00  1329.19  1324.43  ...          NaN         NaN        NaN
+3    1327.57  1345.00  1327.52  ...          NaN         NaN        NaN
+4    1337.72  1344.56  1335.14  ...          NaN         NaN        NaN
+..       ...      ...      ...  ...          ...         ...        ...
+115  1544.40  1552.97  1544.03  ...     0.078506   -0.032432   0.207074
+116  1546.98  1548.40  1539.54  ...     0.079340   -0.057940   0.114084
+117  1542.31  1546.18  1537.85  ...     0.078252   -0.080545   0.048968
+118  1539.00  1545.96  1539.00  ...     0.075652   -0.095747   0.183090
+119  1544.67  1544.99  1544.63  ...     0.071785   -0.104497   0.190674
+
+[120 rows x 10 columns]
+
+coin price : 1544.99 usd balance 0.06065001 coin balance : 0.01521828
+No opportunity to take
+        open     high      low  ...  TRIX_SIGNAL  TRIX_HISTO  STOCH_RSI
+0    1332.51  1334.98  1321.04  ...          NaN         NaN        NaN
+1    1323.05  1327.34  1321.86  ...          NaN         NaN        NaN
+2    1325.00  1329.19  1324.43  ...          NaN         NaN        NaN
+3    1327.57  1345.00  1327.52  ...          NaN         NaN        NaN
+4    1337.72  1344.56  1335.14  ...          NaN         NaN        NaN
+..       ...      ...      ...  ...          ...         ...        ...
+115  1544.40  1552.97  1544.03  ...     0.078506   -0.032432   0.207074
+116  1546.98  1548.40  1539.54  ...     0.079340   -0.057940   0.114084
+117  1542.31  1546.18  1537.85  ...     0.078252   -0.080545   0.048968
+118  1539.00  1545.96  1539.00  ...     0.075652   -0.095747   0.183090
+119  1544.67  1545.00  1544.63  ...     0.071786   -0.104492   0.190910
+
+[120 rows x 10 columns]
+
+coin price : 1545.0 usd balance 35.89053874 coin balance : 0.0
+No opportunity to take
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 16/01/2023 15:00:06 ---
+
+        open     high      low  ...  TRIX_SIGNAL  TRIX_HISTO  STOCH_RSI
+0    1323.05  1327.34  1321.86  ...          NaN         NaN        NaN
+1    1325.00  1329.19  1324.43  ...          NaN         NaN        NaN
+2    1327.57  1345.00  1327.52  ...          NaN         NaN        NaN
+3    1337.72  1344.56  1335.14  ...          NaN         NaN        NaN
+4    1342.91  1345.00  1340.44  ...          NaN         NaN        NaN
+..       ...      ...      ...  ...          ...         ...        ...
+115  1546.98  1548.40  1539.54  ...     0.079340   -0.057940   0.114087
+116  1542.31  1546.18  1537.85  ...     0.078252   -0.080545   0.048972
+117  1539.00  1545.96  1539.00  ...     0.075652   -0.095747   0.183095
+118  1544.67  1549.27  1531.79  ...     0.071721   -0.105780   0.133962
+119  1542.37  1542.37  1542.29  ...     0.066806   -0.111188   0.132181
+
+[120 rows x 10 columns]
+
+coin price : 1542.29 usd balance 0.06065001 coin balance : 0.01521828
+No opportunity to take
+        open     high      low  ...  TRIX_SIGNAL  TRIX_HISTO  STOCH_RSI
+0    1323.05  1327.34  1321.86  ...          NaN         NaN        NaN
+1    1325.00  1329.19  1324.43  ...          NaN         NaN        NaN
+2    1327.57  1345.00  1327.52  ...          NaN         NaN        NaN
+3    1337.72  1344.56  1335.14  ...          NaN         NaN        NaN
+4    1342.91  1345.00  1340.44  ...          NaN         NaN        NaN
+..       ...      ...      ...  ...          ...         ...        ...
+115  1546.98  1548.40  1539.54  ...     0.079340   -0.057940   0.114087
+116  1542.31  1546.18  1537.85  ...     0.078252   -0.080545   0.048972
+117  1539.00  1545.96  1539.00  ...     0.075652   -0.095747   0.183095
+118  1544.67  1549.27  1531.79  ...     0.071721   -0.105780   0.133962
+119  1542.37  1542.37  1542.29  ...     0.066806   -0.111188   0.132181
+
+[120 rows x 10 columns]
+
+coin price : 1542.29 usd balance 35.89053874 coin balance : 0.0
+No opportunity to take
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 16/01/2023 16:00:05 ---
+
+        open     high      low  ...  TRIX_SIGNAL  TRIX_HISTO  STOCH_RSI
+0    1325.00  1329.19  1324.43  ...          NaN         NaN        NaN
+1    1327.57  1345.00  1327.52  ...          NaN         NaN        NaN
+2    1337.72  1344.56  1335.14  ...          NaN         NaN        NaN
+3    1342.91  1345.00  1340.44  ...          NaN         NaN        NaN
+4    1341.56  1344.74  1339.43  ...          NaN         NaN        NaN
+..       ...      ...      ...  ...          ...         ...        ...
+115  1542.31  1546.18  1537.85  ...     0.078252   -0.080545   0.048976
+116  1539.00  1545.96  1539.00  ...     0.075652   -0.095747   0.183102
+117  1544.67  1549.27  1531.79  ...     0.071721   -0.105780   0.133969
+118  1542.37  1553.38  1521.31  ...     0.066994   -0.107425   0.310862
+119  1549.97  1549.98  1549.70  ...     0.061805   -0.103829   0.306555
+
+[120 rows x 10 columns]
+
+coin price : 1549.79 usd balance 0.06065001 coin balance : 0.01521828
+SELL
+        open     high      low  ...  TRIX_SIGNAL  TRIX_HISTO  STOCH_RSI
+0    1325.00  1329.19  1324.43  ...          NaN         NaN        NaN
+1    1327.57  1345.00  1327.52  ...          NaN         NaN        NaN
+2    1337.72  1344.56  1335.14  ...          NaN         NaN        NaN
+3    1342.91  1345.00  1340.44  ...          NaN         NaN        NaN
+4    1341.56  1344.74  1339.43  ...          NaN         NaN        NaN
+..       ...      ...      ...  ...          ...         ...        ...
+115  1542.31  1546.18  1537.85  ...     0.078252   -0.080545   0.048976
+116  1539.00  1545.96  1539.00  ...     0.075652   -0.095747   0.183102
+117  1544.67  1549.27  1531.79  ...     0.071721   -0.105780   0.133969
+118  1542.37  1553.38  1521.31  ...     0.066994   -0.107425   0.310862
+119  1549.97  1549.98  1549.68  ...     0.061805   -0.103839   0.306078
+
+[120 rows x 10 columns]
+
+coin price : 1549.77 usd balance 35.89053874 coin balance : 0.0
+If you give me more ETH I will sell it
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 16/01/2023 17:00:05 ---
+
+        open     high      low  ...  TRIX_SIGNAL  TRIX_HISTO  STOCH_RSI
+0    1327.57  1345.00  1327.52  ...          NaN         NaN        NaN
+1    1337.72  1344.56  1335.14  ...          NaN         NaN        NaN
+2    1342.91  1345.00  1340.44  ...          NaN         NaN        NaN
+3    1341.56  1344.74  1339.43  ...          NaN         NaN        NaN
+4    1342.63  1360.00  1340.39  ...          NaN         NaN        NaN
+..       ...      ...      ...  ...          ...         ...        ...
+115  1539.00  1545.96  1539.00  ...     0.075652   -0.095747   0.183131
+116  1544.67  1549.27  1531.79  ...     0.071721   -0.105780   0.134000
+117  1542.37  1553.38  1521.31  ...     0.066994   -0.107425   0.310902
+118  1549.97  1559.32  1545.71  ...     0.061848   -0.102986   0.345437
+119  1551.51  1551.74  1551.50  ...     0.056477   -0.094899   0.350849
+
+[120 rows x 10 columns]
+
+coin price : 1551.74 usd balance 23.59595316 coin balance : 1.828e-05
+If you give me more ETH I will sell it
+        open     high      low  ...  TRIX_SIGNAL  TRIX_HISTO  STOCH_RSI
+0    1327.57  1345.00  1327.52  ...          NaN         NaN        NaN
+1    1337.72  1344.56  1335.14  ...          NaN         NaN        NaN
+2    1342.91  1345.00  1340.44  ...          NaN         NaN        NaN
+3    1341.56  1344.74  1339.43  ...          NaN         NaN        NaN
+4    1342.63  1360.00  1340.39  ...          NaN         NaN        NaN
+..       ...      ...      ...  ...          ...         ...        ...
+115  1539.00  1545.96  1539.00  ...     0.075652   -0.095747   0.183131
+116  1544.67  1549.27  1531.79  ...     0.071721   -0.105780   0.134000
+117  1542.37  1553.38  1521.31  ...     0.066994   -0.107425   0.310902
+118  1549.97  1559.32  1545.71  ...     0.061848   -0.102986   0.345437
+119  1551.51  1551.90  1551.50  ...     0.056481   -0.094821   0.354595
+
+[120 rows x 10 columns]
+
+coin price : 1551.9 usd balance 35.89053874 coin balance : 0.0
+If you give me more ETH I will sell it
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 16/01/2023 18:00:05 ---
+
+        open     high      low  ...  TRIX_SIGNAL  TRIX_HISTO  STOCH_RSI
+0    1337.72  1344.56  1335.14  ...          NaN         NaN        NaN
+1    1342.91  1345.00  1340.44  ...          NaN         NaN        NaN
+2    1341.56  1344.74  1339.43  ...          NaN         NaN        NaN
+3    1342.63  1360.00  1340.39  ...          NaN         NaN        NaN
+4    1349.33  1398.00  1349.32  ...          NaN         NaN        NaN
+..       ...      ...      ...  ...          ...         ...        ...
+115  1544.67  1549.27  1531.79  ...     0.071721   -0.105780   0.134016
+116  1542.37  1553.38  1521.31  ...     0.066994   -0.107425   0.310925
+117  1549.97  1559.32  1545.71  ...     0.061848   -0.102986   0.345461
+118  1551.51  1562.14  1548.66  ...     0.056715   -0.090143   0.553877
+119  1561.45  1561.84  1561.44  ...     0.051910   -0.073640   0.561841
+
+[120 rows x 10 columns]
+
+coin price : 1561.84 usd balance 23.59595316 coin balance : 1.828e-05
+If you give me more ETH I will sell it
+        open     high      low  ...  TRIX_SIGNAL  TRIX_HISTO  STOCH_RSI
+0    1337.72  1344.56  1335.14  ...          NaN         NaN        NaN
+1    1342.91  1345.00  1340.44  ...          NaN         NaN        NaN
+2    1341.56  1344.74  1339.43  ...          NaN         NaN        NaN
+3    1342.63  1360.00  1340.39  ...          NaN         NaN        NaN
+4    1349.33  1398.00  1349.32  ...          NaN         NaN        NaN
+..       ...      ...      ...  ...          ...         ...        ...
+115  1544.67  1549.27  1531.79  ...     0.071721   -0.105780   0.134016
+116  1542.37  1553.38  1521.31  ...     0.066994   -0.107425   0.310925
+117  1549.97  1559.32  1545.71  ...     0.061848   -0.102986   0.345461
+118  1551.51  1562.14  1548.66  ...     0.056715   -0.090143   0.553877
+119  1561.45  1561.84  1561.44  ...     0.051910   -0.073645   0.561642
+
+[120 rows x 10 columns]
+
+coin price : 1561.83 usd balance 35.89053874 coin balance : 0.0
+If you give me more ETH I will sell it
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 16/01/2023 19:00:05 ---
+
+        open     high      low  ...  TRIX_SIGNAL  TRIX_HISTO  STOCH_RSI
+0    1342.91  1345.00  1340.44  ...          NaN         NaN        NaN
+1    1341.56  1344.74  1339.43  ...          NaN         NaN        NaN
+2    1342.63  1360.00  1340.39  ...          NaN         NaN        NaN
+3    1349.33  1398.00  1349.32  ...          NaN         NaN        NaN
+4    1389.40  1418.77  1386.00  ...          NaN         NaN        NaN
+..       ...      ...      ...  ...          ...         ...        ...
+115  1542.37  1553.38  1521.31  ...     0.066994   -0.107425   0.310916
+116  1549.97  1559.32  1545.71  ...     0.061848   -0.102986   0.345451
+117  1551.51  1562.14  1548.66  ...     0.056715   -0.090143   0.553864
+118  1561.45  1574.69  1557.40  ...     0.052173   -0.068387   0.750098
+119  1572.54  1574.82  1572.54  ...     0.048402   -0.043221   0.780862
+
+[120 rows x 10 columns]
+
+coin price : 1574.43 usd balance 23.59595316 coin balance : 1.828e-05
+If you give me more ETH I will sell it
+        open     high      low  ...  TRIX_SIGNAL  TRIX_HISTO  STOCH_RSI
+0    1342.91  1345.00  1340.44  ...          NaN         NaN        NaN
+1    1341.56  1344.74  1339.43  ...          NaN         NaN        NaN
+2    1342.63  1360.00  1340.39  ...          NaN         NaN        NaN
+3    1349.33  1398.00  1349.32  ...          NaN         NaN        NaN
+4    1389.40  1418.77  1386.00  ...          NaN         NaN        NaN
+..       ...      ...      ...  ...          ...         ...        ...
+115  1542.37  1553.38  1521.31  ...     0.066994   -0.107425   0.310916
+116  1549.97  1559.32  1545.71  ...     0.061848   -0.102986   0.345451
+117  1551.51  1562.14  1548.66  ...     0.056715   -0.090143   0.553864
+118  1561.45  1574.69  1557.40  ...     0.052173   -0.068387   0.750098
+119  1572.54  1574.82  1572.54  ...     0.048400   -0.043250   0.779900
+
+[120 rows x 10 columns]
+
+coin price : 1574.37 usd balance 35.89053874 coin balance : 0.0
+If you give me more ETH I will sell it
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 16/01/2023 20:00:05 ---
+
+        open     high      low  ...  TRIX_SIGNAL  TRIX_HISTO  STOCH_RSI
+0    1341.56  1344.74  1339.43  ...          NaN         NaN        NaN
+1    1342.63  1360.00  1340.39  ...          NaN         NaN        NaN
+2    1349.33  1398.00  1349.32  ...          NaN         NaN        NaN
+3    1389.40  1418.77  1386.00  ...          NaN         NaN        NaN
+4    1415.22  1416.39  1397.09  ...          NaN         NaN        NaN
+..       ...      ...      ...  ...          ...         ...        ...
+115  1549.97  1559.32  1545.71  ...     0.061848   -0.102986   0.345457
+116  1551.51  1562.14  1548.66  ...     0.056715   -0.090143   0.553871
+117  1561.45  1574.69  1557.40  ...     0.052173   -0.068387   0.750106
+118  1572.54  1604.50  1571.69  ...     0.048814   -0.034980   1.000000
+119  1591.22  1591.85  1591.06  ...     0.046983    0.000543   1.000000
+
+[120 rows x 10 columns]
+
+coin price : 1591.85 usd balance 23.59595316 coin balance : 1.828e-05
+If you give me more ETH I will sell it
+        open     high      low  ...  TRIX_SIGNAL  TRIX_HISTO  STOCH_RSI
+0    1341.56  1344.74  1339.43  ...          NaN         NaN        NaN
+1    1342.63  1360.00  1340.39  ...          NaN         NaN        NaN
+2    1349.33  1398.00  1349.32  ...          NaN         NaN        NaN
+3    1389.40  1418.77  1386.00  ...          NaN         NaN        NaN
+4    1415.22  1416.39  1397.09  ...          NaN         NaN        NaN
+..       ...      ...      ...  ...          ...         ...        ...
+115  1549.97  1559.32  1545.71  ...     0.061848   -0.102986   0.345457
+116  1551.51  1562.14  1548.66  ...     0.056715   -0.090143   0.553871
+117  1561.45  1574.69  1557.40  ...     0.052173   -0.068387   0.750106
+118  1572.54  1604.50  1571.69  ...     0.048814   -0.034980   1.000000
+119  1591.22  1591.86  1591.06  ...     0.046982    0.000518   1.000000
+
+[120 rows x 10 columns]
+
+coin price : 1591.8 usd balance 35.89053874 coin balance : 0.0
+If you give me more ETH I will sell it
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 16/01/2023 21:00:06 ---
+
+TRIX_BINANCE_ETH_TEST : usd balance = 23.59595316 
+If you give me more ETH I will sell it
+TrixETH_yace_bin : usd balance = 35.89053874 
+If you give me more ETH I will sell it
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 16/01/2023 22:00:05 ---
+
+TRIX_BINANCE_ETH_TEST : usd balance = 23.59595316 
+BUY
+TrixETH_yace_bin : usd balance = 35.89053874 
+----Exception----
+Traceback (most recent call last):
+  File "./templates/trix_binance_template/TrixBinanceLive.py", line 123, in <module>
+    buyOrder = client.order_market_buy(
+  File "/home/anisse9/bot_app/.env/lib/python3.8/site-packages/binance/client.py", line 1563, in order_market_buy
+    return self.order_market(**params)
+  File "/home/anisse9/bot_app/.env/lib/python3.8/site-packages/binance/client.py", line 1535, in order_market
+    return self.create_order(**params)
+  File "/home/anisse9/bot_app/.env/lib/python3.8/site-packages/binance/client.py", line 1397, in create_order
+    return self._post('order', True, data=params)
+  File "/home/anisse9/bot_app/.env/lib/python3.8/site-packages/binance/client.py", line 374, in _post
+    return self._request_api('post', path, signed, version, **kwargs)
+  File "/home/anisse9/bot_app/.env/lib/python3.8/site-packages/binance/client.py", line 334, in _request_api
+    return self._request(method, uri, signed, **kwargs)
+  File "/home/anisse9/bot_app/.env/lib/python3.8/site-packages/binance/client.py", line 315, in _request
+    return self._handle_response(self.response)
+  File "/home/anisse9/bot_app/.env/lib/python3.8/site-packages/binance/client.py", line 324, in _handle_response
+    raise BinanceAPIException(response, response.status_code, response.text)
+binance.exceptions.BinanceAPIException: APIError(code=-2015): Invalid API-key, IP, or permissions for action.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "./templates/trix_binance_template/TrixBinanceLive.py", line 146, in <module>
+    ex.with_traceback()
+TypeError: with_traceback() takes exactly one argument (0 given)
+
+--- Start Execution Time : 16/01/2023 23:00:05 ---
+
+TRIX_BINANCE_ETH_TEST : usd balance = 0.06006216 
+If you  give me more USD I will buy more ETH
+TrixETH_yace_bin : usd balance = 35.89053874 
+----Exception----
+Traceback (most recent call last):
+  File "./templates/trix_binance_template/TrixBinanceLive.py", line 123, in <module>
+    buyOrder = client.order_market_buy(
+  File "/home/anisse9/bot_app/.env/lib/python3.8/site-packages/binance/client.py", line 1563, in order_market_buy
+    return self.order_market(**params)
+  File "/home/anisse9/bot_app/.env/lib/python3.8/site-packages/binance/client.py", line 1535, in order_market
+    return self.create_order(**params)
+  File "/home/anisse9/bot_app/.env/lib/python3.8/site-packages/binance/client.py", line 1397, in create_order
+    return self._post('order', True, data=params)
+  File "/home/anisse9/bot_app/.env/lib/python3.8/site-packages/binance/client.py", line 374, in _post
+    return self._request_api('post', path, signed, version, **kwargs)
+  File "/home/anisse9/bot_app/.env/lib/python3.8/site-packages/binance/client.py", line 334, in _request_api
+    return self._request(method, uri, signed, **kwargs)
+  File "/home/anisse9/bot_app/.env/lib/python3.8/site-packages/binance/client.py", line 315, in _request
+    return self._handle_response(self.response)
+  File "/home/anisse9/bot_app/.env/lib/python3.8/site-packages/binance/client.py", line 324, in _handle_response
+    raise BinanceAPIException(response, response.status_code, response.text)
+binance.exceptions.BinanceAPIException: APIError(code=-2015): Invalid API-key, IP, or permissions for action.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "./templates/trix_binance_template/TrixBinanceLive.py", line 146, in <module>
+    ex.with_traceback()
+TypeError: with_traceback() takes exactly one argument (0 given)
+
+--- Start Execution Time : 17/01/2023 00:00:05 ---
+
+TRIX_BINANCE_ETH_TEST : usd balance = 0.06006216 
+If you  give me more USD I will buy more ETH
+TrixETH_yace_bin : usd balance = 35.89053874 
+----Exception----
+Traceback (most recent call last):
+  File "./templates/trix_binance_template/TrixBinanceLive.py", line 123, in <module>
+    buyOrder = client.order_market_buy(
+  File "/home/anisse9/bot_app/.env/lib/python3.8/site-packages/binance/client.py", line 1563, in order_market_buy
+    return self.order_market(**params)
+  File "/home/anisse9/bot_app/.env/lib/python3.8/site-packages/binance/client.py", line 1535, in order_market
+    return self.create_order(**params)
+  File "/home/anisse9/bot_app/.env/lib/python3.8/site-packages/binance/client.py", line 1397, in create_order
+    return self._post('order', True, data=params)
+  File "/home/anisse9/bot_app/.env/lib/python3.8/site-packages/binance/client.py", line 374, in _post
+    return self._request_api('post', path, signed, version, **kwargs)
+  File "/home/anisse9/bot_app/.env/lib/python3.8/site-packages/binance/client.py", line 334, in _request_api
+    return self._request(method, uri, signed, **kwargs)
+  File "/home/anisse9/bot_app/.env/lib/python3.8/site-packages/binance/client.py", line 315, in _request
+    return self._handle_response(self.response)
+  File "/home/anisse9/bot_app/.env/lib/python3.8/site-packages/binance/client.py", line 324, in _handle_response
+    raise BinanceAPIException(response, response.status_code, response.text)
+binance.exceptions.BinanceAPIException: APIError(code=-2015): Invalid API-key, IP, or permissions for action.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "./templates/trix_binance_template/TrixBinanceLive.py", line 146, in <module>
+    ex.with_traceback()
+TypeError: with_traceback() takes exactly one argument (0 given)
+
+--- Start Execution Time : 17/01/2023 01:00:05 ---
+
+TRIX_BINANCE_ETH_TEST : usd balance = 0.06006216 
+If you  give me more USD I will buy more ETH
+TrixETH_yace_bin : usd balance = 35.89053874 
+----Exception----
+Traceback (most recent call last):
+  File "./templates/trix_binance_template/TrixBinanceLive.py", line 123, in <module>
+    buyOrder = client.order_market_buy(
+  File "/home/anisse9/bot_app/.env/lib/python3.8/site-packages/binance/client.py", line 1563, in order_market_buy
+    return self.order_market(**params)
+  File "/home/anisse9/bot_app/.env/lib/python3.8/site-packages/binance/client.py", line 1535, in order_market
+    return self.create_order(**params)
+  File "/home/anisse9/bot_app/.env/lib/python3.8/site-packages/binance/client.py", line 1397, in create_order
+    return self._post('order', True, data=params)
+  File "/home/anisse9/bot_app/.env/lib/python3.8/site-packages/binance/client.py", line 374, in _post
+    return self._request_api('post', path, signed, version, **kwargs)
+  File "/home/anisse9/bot_app/.env/lib/python3.8/site-packages/binance/client.py", line 334, in _request_api
+    return self._request(method, uri, signed, **kwargs)
+  File "/home/anisse9/bot_app/.env/lib/python3.8/site-packages/binance/client.py", line 315, in _request
+    return self._handle_response(self.response)
+  File "/home/anisse9/bot_app/.env/lib/python3.8/site-packages/binance/client.py", line 324, in _handle_response
+    raise BinanceAPIException(response, response.status_code, response.text)
+binance.exceptions.BinanceAPIException: APIError(code=-2015): Invalid API-key, IP, or permissions for action.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "./templates/trix_binance_template/TrixBinanceLive.py", line 146, in <module>
+    ex.with_traceback()
+TypeError: with_traceback() takes exactly one argument (0 given)
+
+--- Start Execution Time : 17/01/2023 02:00:05 ---
+
+TRIX_BINANCE_ETH_TEST : usd balance = 0.06006216 
+If you  give me more USD I will buy more ETH
+TrixETH_yace_bin : usd balance = 35.89053874 
+----Exception----
+Traceback (most recent call last):
+  File "./templates/trix_binance_template/TrixBinanceLive.py", line 123, in <module>
+    buyOrder = client.order_market_buy(
+  File "/home/anisse9/bot_app/.env/lib/python3.8/site-packages/binance/client.py", line 1563, in order_market_buy
+    return self.order_market(**params)
+  File "/home/anisse9/bot_app/.env/lib/python3.8/site-packages/binance/client.py", line 1535, in order_market
+    return self.create_order(**params)
+  File "/home/anisse9/bot_app/.env/lib/python3.8/site-packages/binance/client.py", line 1397, in create_order
+    return self._post('order', True, data=params)
+  File "/home/anisse9/bot_app/.env/lib/python3.8/site-packages/binance/client.py", line 374, in _post
+    return self._request_api('post', path, signed, version, **kwargs)
+  File "/home/anisse9/bot_app/.env/lib/python3.8/site-packages/binance/client.py", line 334, in _request_api
+    return self._request(method, uri, signed, **kwargs)
+  File "/home/anisse9/bot_app/.env/lib/python3.8/site-packages/binance/client.py", line 315, in _request
+    return self._handle_response(self.response)
+  File "/home/anisse9/bot_app/.env/lib/python3.8/site-packages/binance/client.py", line 324, in _handle_response
+    raise BinanceAPIException(response, response.status_code, response.text)
+binance.exceptions.BinanceAPIException: APIError(code=-2015): Invalid API-key, IP, or permissions for action.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "./templates/trix_binance_template/TrixBinanceLive.py", line 146, in <module>
+    ex.with_traceback()
+TypeError: with_traceback() takes exactly one argument (0 given)
+
+--- Start Execution Time : 17/01/2023 03:00:05 ---
+
+TRIX_BINANCE_ETH_TEST : usd balance = 0.06006216 
+If you  give me more USD I will buy more ETH
+TrixETH_yace_bin : usd balance = 35.89053874 
+----Exception----
+Traceback (most recent call last):
+  File "./templates/trix_binance_template/TrixBinanceLive.py", line 123, in <module>
+    buyOrder = client.order_market_buy(
+  File "/home/anisse9/bot_app/.env/lib/python3.8/site-packages/binance/client.py", line 1563, in order_market_buy
+    return self.order_market(**params)
+  File "/home/anisse9/bot_app/.env/lib/python3.8/site-packages/binance/client.py", line 1535, in order_market
+    return self.create_order(**params)
+  File "/home/anisse9/bot_app/.env/lib/python3.8/site-packages/binance/client.py", line 1397, in create_order
+    return self._post('order', True, data=params)
+  File "/home/anisse9/bot_app/.env/lib/python3.8/site-packages/binance/client.py", line 374, in _post
+    return self._request_api('post', path, signed, version, **kwargs)
+  File "/home/anisse9/bot_app/.env/lib/python3.8/site-packages/binance/client.py", line 334, in _request_api
+    return self._request(method, uri, signed, **kwargs)
+  File "/home/anisse9/bot_app/.env/lib/python3.8/site-packages/binance/client.py", line 315, in _request
+    return self._handle_response(self.response)
+  File "/home/anisse9/bot_app/.env/lib/python3.8/site-packages/binance/client.py", line 324, in _handle_response
+    raise BinanceAPIException(response, response.status_code, response.text)
+binance.exceptions.BinanceAPIException: APIError(code=-2015): Invalid API-key, IP, or permissions for action.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "./templates/trix_binance_template/TrixBinanceLive.py", line 146, in <module>
+    ex.with_traceback()
+TypeError: with_traceback() takes exactly one argument (0 given)
+
+--- Start Execution Time : 17/01/2023 04:00:05 ---
+
+TRIX_BINANCE_ETH_TEST : usd balance = 0.06006216 
+If you  give me more USD I will buy more ETH
+TrixETH_yace_bin : usd balance = 35.89053874 
+----Exception----
+Traceback (most recent call last):
+  File "./templates/trix_binance_template/TrixBinanceLive.py", line 123, in <module>
+    buyOrder = client.order_market_buy(
+  File "/home/anisse9/bot_app/.env/lib/python3.8/site-packages/binance/client.py", line 1563, in order_market_buy
+    return self.order_market(**params)
+  File "/home/anisse9/bot_app/.env/lib/python3.8/site-packages/binance/client.py", line 1535, in order_market
+    return self.create_order(**params)
+  File "/home/anisse9/bot_app/.env/lib/python3.8/site-packages/binance/client.py", line 1397, in create_order
+    return self._post('order', True, data=params)
+  File "/home/anisse9/bot_app/.env/lib/python3.8/site-packages/binance/client.py", line 374, in _post
+    return self._request_api('post', path, signed, version, **kwargs)
+  File "/home/anisse9/bot_app/.env/lib/python3.8/site-packages/binance/client.py", line 334, in _request_api
+    return self._request(method, uri, signed, **kwargs)
+  File "/home/anisse9/bot_app/.env/lib/python3.8/site-packages/binance/client.py", line 315, in _request
+    return self._handle_response(self.response)
+  File "/home/anisse9/bot_app/.env/lib/python3.8/site-packages/binance/client.py", line 324, in _handle_response
+    raise BinanceAPIException(response, response.status_code, response.text)
+binance.exceptions.BinanceAPIException: APIError(code=-2015): Invalid API-key, IP, or permissions for action.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "./templates/trix_binance_template/TrixBinanceLive.py", line 146, in <module>
+    ex.with_traceback()
+TypeError: with_traceback() takes exactly one argument (0 given)
+
+--- Start Execution Time : 17/01/2023 05:00:05 ---
+
+TRIX_BINANCE_ETH_TEST : usd balance = 0.06006216 
+If you  give me more USD I will buy more ETH
+TrixETH_yace_bin : usd balance = 35.89053874 
+----Exception----
+Traceback (most recent call last):
+  File "./templates/trix_binance_template/TrixBinanceLive.py", line 123, in <module>
+    buyOrder = client.order_market_buy(
+  File "/home/anisse9/bot_app/.env/lib/python3.8/site-packages/binance/client.py", line 1563, in order_market_buy
+    return self.order_market(**params)
+  File "/home/anisse9/bot_app/.env/lib/python3.8/site-packages/binance/client.py", line 1535, in order_market
+    return self.create_order(**params)
+  File "/home/anisse9/bot_app/.env/lib/python3.8/site-packages/binance/client.py", line 1397, in create_order
+    return self._post('order', True, data=params)
+  File "/home/anisse9/bot_app/.env/lib/python3.8/site-packages/binance/client.py", line 374, in _post
+    return self._request_api('post', path, signed, version, **kwargs)
+  File "/home/anisse9/bot_app/.env/lib/python3.8/site-packages/binance/client.py", line 334, in _request_api
+    return self._request(method, uri, signed, **kwargs)
+  File "/home/anisse9/bot_app/.env/lib/python3.8/site-packages/binance/client.py", line 315, in _request
+    return self._handle_response(self.response)
+  File "/home/anisse9/bot_app/.env/lib/python3.8/site-packages/binance/client.py", line 324, in _handle_response
+    raise BinanceAPIException(response, response.status_code, response.text)
+binance.exceptions.BinanceAPIException: APIError(code=-2015): Invalid API-key, IP, or permissions for action.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "./templates/trix_binance_template/TrixBinanceLive.py", line 146, in <module>
+    ex.with_traceback()
+TypeError: with_traceback() takes exactly one argument (0 given)
+
+--- Start Execution Time : 17/01/2023 06:00:05 ---
+
+TRIX_BINANCE_ETH_TEST : usd balance = 0.06006216 
+If you  give me more USD I will buy more ETH
+TrixETH_yace_bin : usd balance = 35.89053874 
+----Exception----
+Traceback (most recent call last):
+  File "./templates/trix_binance_template/TrixBinanceLive.py", line 123, in <module>
+    buyOrder = client.order_market_buy(
+  File "/home/anisse9/bot_app/.env/lib/python3.8/site-packages/binance/client.py", line 1563, in order_market_buy
+    return self.order_market(**params)
+  File "/home/anisse9/bot_app/.env/lib/python3.8/site-packages/binance/client.py", line 1535, in order_market
+    return self.create_order(**params)
+  File "/home/anisse9/bot_app/.env/lib/python3.8/site-packages/binance/client.py", line 1397, in create_order
+    return self._post('order', True, data=params)
+  File "/home/anisse9/bot_app/.env/lib/python3.8/site-packages/binance/client.py", line 374, in _post
+    return self._request_api('post', path, signed, version, **kwargs)
+  File "/home/anisse9/bot_app/.env/lib/python3.8/site-packages/binance/client.py", line 334, in _request_api
+    return self._request(method, uri, signed, **kwargs)
+  File "/home/anisse9/bot_app/.env/lib/python3.8/site-packages/binance/client.py", line 315, in _request
+    return self._handle_response(self.response)
+  File "/home/anisse9/bot_app/.env/lib/python3.8/site-packages/binance/client.py", line 324, in _handle_response
+    raise BinanceAPIException(response, response.status_code, response.text)
+binance.exceptions.BinanceAPIException: APIError(code=-2015): Invalid API-key, IP, or permissions for action.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "./templates/trix_binance_template/TrixBinanceLive.py", line 146, in <module>
+    ex.with_traceback()
+TypeError: with_traceback() takes exactly one argument (0 given)
+
+--- Start Execution Time : 17/01/2023 07:00:06 ---
+
+TRIX_BINANCE_ETH_TEST : usd balance = 0.06006216 
+No opportunity to take
+TrixETH_yace_bin : usd balance = 35.89053874 
+No opportunity to take
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 17/01/2023 08:00:05 ---
+
+TRIX_BINANCE_ETH_TEST : usd balance = 0.06006216 
+No opportunity to take
+TrixETH_yace_bin : usd balance = 35.89053874 
+No opportunity to take
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 17/01/2023 09:00:05 ---
+
+TRIX_BINANCE_ETH_TEST : usd balance = 0.06006216 
+SELL
+TrixETH_yace_bin : usd balance = 35.89053874 
+If you give me more ETH I will sell it
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 17/01/2023 10:00:05 ---
+
+TRIX_BINANCE_ETH_TEST : usd balance = 23.41533548 
+No opportunity to take
+TrixETH_yace_bin : usd balance = 35.89053874 
+No opportunity to take
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 17/01/2023 11:00:05 ---
+
+TRIX_BINANCE_ETH_TEST : usd balance = 23.41533548 
+No opportunity to take
+TrixETH_yace_bin : usd balance = 35.89053874 
+No opportunity to take
+
+--- End Execution Time ---
+
