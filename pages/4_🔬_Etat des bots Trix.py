@@ -19,7 +19,7 @@ name, authentication_status, username = authenticator.login('Login', 'main')
 con = ConnectBbd('localhost', '3306', 'root', pwd, 'cryptos', 'mysql_native_password')
 maintenance = con.get_maintenance_setting()[0][0] and username != "helmichiha"
 
-st.title("Etat des Bots")
+st.title("Etat des Bots Trix")
 
 
 
@@ -47,6 +47,7 @@ def init():
                                                           'transaction', 'log_execution.id_bot', 'bot.id_bot',
                                                           'nom_bot', 'user_id', 'type_bot'])
                 # display bot status
+                df_result['type_bot'] = df_result['type_bot'].str[5:]
                 st.dataframe(status_bots(df_result,wallet))
             except Exception as e:
                 st.write(e)
