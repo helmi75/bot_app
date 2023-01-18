@@ -32,7 +32,7 @@ def status_bots(df_result):
         else:
             df_status_bot["transaction"].loc[i] = transaction
         if transaction == "sell":
-            df_status_bot["pair_symbol"] = "USDT"
+            df_status_bot["pair_symbol"].loc[i] = "USDT"
     df_status_bot = df_status_bot.rename(columns={"transaction": "status_trix"})
     df_status_bot = df_status_bot.rename(columns={"type_bot": "exchange"})
     return df_status_bot
