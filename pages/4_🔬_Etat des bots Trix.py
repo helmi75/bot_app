@@ -27,10 +27,10 @@ def status_bots(df_result):
     df_status_bot = pd.concat(list_satus_bot)[
         ['date', 'nom_bot', 'pair_symbol', 'status_bot', 'transaction', 'type_bot','wallet']]
     for i, transaction in zip(df_status_bot["transaction"].index, df_status_bot["transaction"]):
-        if transaction == "buy":
-            df_status_bot["transaction"].loc[i] = df_status_bot["pair_symbol"].loc[i][:-4]
+        if transaction == "none" :
+            df_status_bot["transaction"].loc[i] = "USDT"
         else:
-            df_status_bot["transaction"].loc[i] = "USD"
+            df_status_bot["transaction"].loc[i] = transaction
     df_status_bot = df_status_bot.rename(columns={"transaction": "status_trix"})
     df_status_bot = df_status_bot.rename(columns={"type_bot": "exchange"})
     return df_status_bot
