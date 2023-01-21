@@ -43,7 +43,7 @@ if authentication_status:
             st.warning('''The page is in maintenance!''')
         with st.expander("Creat a new bot", expanded=True):
             try:
-                name_robot = ["Trix FTX","Trix Binance", "Cocotier Binance","Cocotier ByBit"]
+                name_robot = ["Cocotier Binance","Cocotier ByBit","Trix Binance","Trix Bybit","Trix FTX"]
                 selection_bot = st.selectbox("choose your Bot", name_robot, key="selection_bot")
 
                 if selection_bot == "Trix FTX":
@@ -80,6 +80,24 @@ if authentication_status:
                     stoch_top = col1.number_input("Stoch Top", value=0.88, key="stoch_top")
                     stoch_bottom = col2.number_input("Stoch Bottom", value=0.15, key="stoch_bottom")
                     stoch_rsi = col3.number_input("Stoch RSI", value=13, key="stoch_rsi")
+                    delta_hour = "None"
+                    n_i = "None"
+                if selection_bot == "Trix Bybit":
+                    # front entry
+                    bot_name = st.text_input("Entrer the bot name ", key="trix_bybit_name")
+                    email = st.text_input("Entrer your email ", key="trix_bybit_email",
+                                          value=authenticator.credentials['usernames'][username]['email'])
+                    api_key = st.text_input("enter your api_key", key="trix_bybit_api_key")
+                    secret_key = st.text_input("enter  secret key", key="trix_bybit_secret_key")
+                    sub_account = st.text_input("Subaccount", key="trix_bybit_sub_account")
+                    col1, col2, col3 = st.columns(3)
+                    pair_symbol = col1.text_input("FTX Pair symbol", value="ETH/USD", placeholder="i.e  BTC/USD",
+                                                  key="trix_bybit_pair_symbol")
+                    trix_lenght = col2.number_input("Trix Lenght", value=9, key="trix_bybit__length")
+                    trix_signal = col3.number_input("Trix Signal", value=21, key="trix_bybit__signal")
+                    stoch_top = col1.number_input("Stoch Top", value=0.88, key="trix_bybit_stoch_top")
+                    stoch_bottom = col2.number_input("Stoch Bottom", value=0.15, key="trix_bybit_stoch_bottom")
+                    stoch_rsi = col3.number_input("Stoch RSI", value=13, key="trix_bybit_stoch_rsi")
                     delta_hour = "None"
                     n_i = "None"
                 if selection_bot == "Cocotier Binance":
