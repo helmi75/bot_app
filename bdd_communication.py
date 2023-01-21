@@ -232,7 +232,7 @@ class ConnectBbd:
 
     def get_crypto_pourcentage(self):
         cursor = self.cnx.cursor()
-        query = "select dates, crypto_pourcentage,nom_bot from get_balence, bots where (get_balence.id_bot = bots.bot_id and bots.type_bot = 'trix');"
+        query = "select dates, crypto_pourcentage,nom_bot from get_balence, bots where (get_balence.id_bot = bots.bot_id and bots.type_bot like 'Trix %');"
         cursor.execute(query)
         myresult = cursor.fetchall()
         return myresult
