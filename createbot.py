@@ -23,7 +23,7 @@ class CreateBot:
                     api_key, secret_key, sub_account, pair_symbol, trix_lenght, trix_signal, stoch_top, stoch_bottom,
                     stoch_rsi, delta_hour, n_i):
         # create trix bot
-        if selection_bot == "Trix FTX" or selection_bot == "Trix Binance":
+        if selection_bot == "Trix FTX" or selection_bot == "Trix Binance" or selection_bot == "Trix Bybit":
             pair_symbol = pair_symbol[:-5].lower()
 
             self.cnx.insert_new_trix_bot(selection_bot, bot_name, user_mail,
@@ -31,18 +31,13 @@ class CreateBot:
                                          trix_lenght, trix_signal, stoch_top, stoch_bottom, stoch_rsi)
 
         # create cocotier trix
-        elif selection_bot == "Cocotier Binance":
+        elif selection_bot == "Cocotier Binance"or selection_bot == "Cocotier ByBit" :
             pair_symbol = pair_symbol.lower()
             n_i = n_i.lower()
             delta_hour = (int)(delta_hour[:-1])
-            self.cnx.insert_new_cocotier_bot(bot_name, api_key, secret_key, sub_account,
+            self.cnx.insert_new_cocotier_bot(selection_bot,bot_name, api_key, secret_key, sub_account,
                                              pair_symbol, delta_hour, n_i)
-        elif selection_bot == "Cocotier ByBit":
-            pair_symbol = pair_symbol.lower()
-            n_i = n_i.lower()
-            delta_hour = (int)(delta_hour[:-1])
-            self.cnx.insert_new_bybit_bot(bot_name, api_key, secret_key, sub_account,
-                                             pair_symbol, delta_hour, n_i)
+
         return True
 
 
