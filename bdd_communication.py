@@ -50,26 +50,10 @@ class ConnectBbd:
         cursor.close()
         # self.cnx.close()
 
-    def insert_new_cocotier_bot(self, bot_name, api_key, secret_key, sub_account,
+    def insert_new_cocotier_bot(self,selection ,bot_name, api_key, secret_key, sub_account,
                                 pair_symbol, delta_hour, n_i):
         cursor = self.cnx.cursor()
-        query = """Insert into bots (nom_bot,type_bot) values ('%s','%s')""" % (bot_name,'Cocotier Binance')
-        cursor.execute(query)
-        idd = cursor.lastrowid
-        self.cnx.commit()
-
-        query = """ INSERT INTO Params_bot_Cocotier (api_key, secret_key, sub_account, 
-                pair_symbol, delta_hour, type_computing, bot_id)
-                                   VALUES ('%s', '%s', '%s','%s', '%s', '%s', '%s') """ % (
-            api_key, secret_key, sub_account, pair_symbol, delta_hour, n_i,idd)
-        cursor.execute(query)
-        self.cnx.commit()
-        cursor.close()
-
-    def insert_new_bybit_bot(self, bot_name, api_key, secret_key, sub_account,
-                                pair_symbol, delta_hour, n_i):
-        cursor = self.cnx.cursor()
-        query = """Insert into bots (nom_bot,type_bot) values ('%s','%s')""" % (bot_name,'Cocotier ByBit')
+        query = """Insert into bots (nom_bot,type_bot) values ('%s','%s')""" % (bot_name,selection)
         cursor.execute(query)
         idd = cursor.lastrowid
         self.cnx.commit()
