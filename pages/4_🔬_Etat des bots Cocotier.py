@@ -27,6 +27,9 @@ def status_bots(df_result):
         ['date','nom_bot', 'type_bot', 'crypto_name', 'wallet', 'pair_symbol',  'delta_hour',
          'n_computing', 'status_bot']]
     df_status_bot = df_status_bot.rename(columns={"type_bot": "exchange"})
+    for i in range(len(df_status_bot["exchange"])):
+        df_status_bot.iloc[i, 2] = df_status_bot.iloc[i,2][len("cocotier")+1 :]
+
     return df_status_bot
 
 
