@@ -154,8 +154,6 @@ for i in myresult:
         print(" ")
         print(f"{i[11]} : usd balance = {fiatAmount} ")
         # print('coin price :', actualPrice, 'usd balance', fiatAmount, 'coin balance :', cryptoAmount)
-        print(stoch_top,stoch_bottom)
-        print(df.iloc[-2])
         if buyCondition(df.iloc[-2], df.iloc[-3], stoch_top):
             if float(fiatAmount) > 5:
                 #todo convert the buy order with this next line
