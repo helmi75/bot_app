@@ -82,20 +82,12 @@ def convert_price_to_precision(client, symbol, price):
     return (price // stepSize) * stepSize
 
 
-def get_wallet(exchange):
-    balence = exchange.fetch_spot_balance()['total']
-    df_balence = pd.DataFrame([balence]).transpose().rename(columns={0: "balence"})
-    df_balence = df_balence[df_balence['balence'] > 0]
-    crypto_index = [elm + "/USDT:USDT" for elm in df_balence['balence'].index]
-    crypto_index.remove('USDT/USDT:USDT')
-    dict_balence_usdt = {}
-    for elm in crypto_index:
-        try:
-            dict_balence_usdt[elm] = exchange.fetchTickers([elm])[elm]['ask'] * exchange.fetch_spot_balance()['total'][
-                elm[:-10]]
-        except Exception as e:
-            print(e)
-    return sum(dict_balence_usdt.values())
+def get_wallet(exchange, pairSymbol):
+    try:
+        montant = client.fetch_spot_balance()['total'][pairSymbol[:-4]]
+    except Exception as exz:
+        montant = 0
+    return montant
 
 
 def buyCondition(row, previousRow, stochRsiTop):
@@ -149,7 +141,7 @@ for i in myresult:
         actualPrice = df['close'].iloc[-1]
         fiatAmount = float(client.fetch_spot_balance()['total']['USDT'])
         # fiatAmount = float(client.get_asset_balance(asset=fiatSymbol)['free'])  # 23.45
-        cryptoAmount = float(get_wallet(client))
+        cryptoAmount = float(get_wallet(client, pairSymbol))
         # cryptoAmount = float(client.get_asset_balance(asset=cryptoSymbol)['free'])  # 5.24e-05
         minToken = 5 / actualPrice
         print(" ")
@@ -160,7 +152,7 @@ for i in myresult:
                 buyOrder = client.create_spot_order(pairSymbol, "market", "buy", fiatAmount, 1)
                 # buyOrder = client.order_market_buy(symbol=pairSymbol,quantity=f"{float(quantityBuy):.{decimal_count}f}")
                 fiatAmount = float(client.fetch_spot_balance()['total']['USDT'])
-                cryptoAmount = float(get_wallet(client))
+                cryptoAmount = float(get_wallet(client, pairSymbol))
                 ticker = exchangeWallet.fetch_ticker(pairsSymbol)
                 crypto_wallet_value = fiatAmount + (cryptoAmount * ticker['last'])
                 con.insert_balence(datetime.now(),
@@ -169,7 +161,7 @@ for i in myresult:
                 print("BUY")
             else:
                 fiatAmount = float(client.fetch_spot_balance()['total']['USDT'])
-                cryptoAmount = float(get_wallet(client))
+                cryptoAmount = float(get_wallet(client, pairSymbol))
                 ticker = exchangeWallet.fetch_ticker(pairsSymbol)
                 crypto_wallet_value = fiatAmount + (cryptoAmount * ticker['last'])
                 con.insert_balence(datetime.now(),
@@ -183,7 +175,7 @@ for i in myresult:
                 sellOrder = client.create_spot_order(pairSymbol, "market", "sell", montant, 1)
                 # sellOrder = client.order_market_sell( symbol=pairSymbol,quantity=f"{float(convert_amount_to_precision(client, pairSymbol, cryptoAmount)):.{decimal_count}f}")
                 fiatAmount = float(client.fetch_spot_balance()['total']['USDT'])
-                cryptoAmount = float(get_wallet(client))
+                cryptoAmount = float(get_wallet(client, pairSymbol))
                 ticker = exchangeWallet.fetch_ticker(pairsSymbol)
                 crypto_wallet_value = fiatAmount + (cryptoAmount * ticker['last'])
                 con.insert_balence(datetime.now(),
@@ -192,7 +184,7 @@ for i in myresult:
                 print("SELL")
             else:
                 fiatAmount = float(client.fetch_spot_balance()['total']['USDT'])
-                cryptoAmount = float(get_wallet(client))
+                cryptoAmount = float(get_wallet(client, pairSymbol))
                 ticker = exchangeWallet.fetch_ticker(pairsSymbol)
                 crypto_wallet_value = fiatAmount + (cryptoAmount * ticker['last'])
                 con.insert_balence(datetime.now(),
@@ -202,7 +194,7 @@ for i in myresult:
         else:
             print("No opportunity to take")
             fiatAmount = float(client.fetch_spot_balance()['total']['USDT'])
-            cryptoAmount = float(get_wallet(client))
+            cryptoAmount = float(get_wallet(client, pairSymbol))
             ticker = exchangeWallet.fetch_ticker(pairsSymbol)
             crypto_wallet_value = fiatAmount + (cryptoAmount * ticker['last'])
             con.insert_balence(datetime.now(),
