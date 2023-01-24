@@ -15,6 +15,9 @@ import time
 from math import *
 import ta
 import email_v1
+import ccxt
+
+exchangeWallet = ccxt.binance()
 
 def truncate(n, decimals=0):
     r = floor(float(n)*10**decimals)/10**decimals
@@ -65,6 +68,7 @@ for i in myresult:
       fiatSymbol = 'USD'
       cryptoSymbol = (i[4]+"").upper()
       pairSymbol = cryptoSymbol+'/USD'
+      pairsSymbol = cryptoSymbol + '/USDT'
       myTruncate = 3
 
       client = ftx.FtxClient(
@@ -107,14 +111,22 @@ for i in myresult:
                   price=None,
                   size=quantityBuy,
                   type='market')
+              fiatAmount = getBalance(client, fiatSymbol)
+              cryptoAmount = getBalance(client, cryptoSymbol)
+              ticker = exchangeWallet.fetch_ticker(pairsSymbol)
+              crypto_wallet_value = fiatAmount + (cryptoAmount * ticker['last'])
               con.insert_balence(datetime.now(),
                                  f"Trix : {i[4]}_len{i[5]}_sign{i[6]}_top{i[7]}_bottom{i[8]}_RSI{i[9]}",
-                                 fiatAmount, i[10], "ONN", "buy")
+                                 crypto_wallet_value, i[10], "ONN", "buy")
 
           else:
+              fiatAmount = getBalance(client, fiatSymbol)
+              cryptoAmount = getBalance(client, cryptoSymbol)
+              ticker = exchangeWallet.fetch_ticker(pairsSymbol)
+              crypto_wallet_value = fiatAmount + (cryptoAmount * ticker['last'])
               con.insert_balence(datetime.now(),
                                  f"Trix : {i[4]}_len{i[5]}_sign{i[6]}_top{i[7]}_bottom{i[8]}_RSI{i[9]}",
-                                 fiatAmount, i[10], "ONN", "none")
+                                 crypto_wallet_value, i[10], "ONN", "buy")
               goOn = True
 
       elif sellCondition(df.iloc[-2], i[8]):
@@ -126,20 +138,31 @@ for i in myresult:
                   price=None,
                   size=truncate(cryptoAmount, myTruncate),
                   type='market')
-              print(side)
+              fiatAmount = getBalance(client, fiatSymbol)
+              cryptoAmount = getBalance(client, cryptoSymbol)
+              ticker = exchangeWallet.fetch_ticker(pairsSymbol)
+              crypto_wallet_value = fiatAmount + (cryptoAmount * ticker['last'])
               con.insert_balence(datetime.now(),
                                  f"Trix : {i[4]}_len{i[5]}_sign{i[6]}_top{i[7]}_bottom{i[8]}_RSI{i[9]}",
-                                 fiatAmount, i[10], "ONN", "sell")
+                                 crypto_wallet_value, i[10], "ONN", "sell")
           else:
+              fiatAmount = getBalance(client, fiatSymbol)
+              cryptoAmount = getBalance(client, cryptoSymbol)
+              ticker = exchangeWallet.fetch_ticker(pairsSymbol)
+              crypto_wallet_value = fiatAmount + (cryptoAmount * ticker['last'])
               con.insert_balence(datetime.now(),
                                  f"Trix : {i[4]}_len{i[5]}_sign{i[6]}_top{i[7]}_bottom{i[8]}_RSI{i[9]}",
-                                 fiatAmount, i[10], "ONN", "none")
+                                 crypto_wallet_value, i[10], "ONN", "sell")
               goOn = True
       else:
           goOn = True
+          fiatAmount = getBalance(client, fiatSymbol)
+          cryptoAmount = getBalance(client, cryptoSymbol)
+          ticker = exchangeWallet.fetch_ticker(pairsSymbol)
+          crypto_wallet_value = fiatAmount + (cryptoAmount * ticker['last'])
           con.insert_balence(datetime.now(),
                              f"Trix : {i[4]}_len{i[5]}_sign{i[6]}_top{i[7]}_bottom{i[8]}_RSI{i[9]}",
-                             fiatAmount, i[10], "ONN", side)
+                             crypto_wallet_value, i[10], "ONN", side)
 
       #listBalances = sorted(client.get_balances(),key= lambda d : d['total'], reverse= True)
       df_balences = pd.DataFrame(client.get_balances())
