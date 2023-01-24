@@ -14,6 +14,8 @@ from bdd_communication import ConnectBbd
 import ta
 import ccxt
 
+exchangeWallet = ccxt.binance()
+
 now = datetime.now()
 current_time = now.strftime("%d/%m/%Y %H:%M:%S")
 print("")
@@ -117,6 +119,7 @@ for i in myresult:
         fiatSymbol = 'USDT'
         cryptoSymbol = (i[4] + "").upper()
         pairSymbol = cryptoSymbol + 'USDT'
+        pairsSymbol = cryptoSymbol + '/USDT'
         trixLength = i[5]
         trixSignal = i[6]
         decimal_count = 8
@@ -144,10 +147,8 @@ for i in myresult:
         df['STOCH_RSI'] = ta.momentum.stochrsi(close=df['close'], window=stoch_rsi, smooth1=3, smooth2=3)
 
         actualPrice = df['close'].iloc[-1]
-        #todo change the api for fiatAmount
         fiatAmount = float(client.fetch_spot_balance()['total']['USDT'])
         # fiatAmount = float(client.get_asset_balance(asset=fiatSymbol)['free'])  # 23.45
-        #todo change the api for cryptoAmount
         cryptoAmount = float(get_wallet(client))
         # cryptoAmount = float(client.get_asset_balance(asset=cryptoSymbol)['free'])  # 5.24e-05
         minToken = 5 / actualPrice
@@ -156,39 +157,57 @@ for i in myresult:
         # print('coin price :', actualPrice, 'usd balance', fiatAmount, 'coin balance :', cryptoAmount)
         if buyCondition(df.iloc[-2], df.iloc[-3], stoch_top):
             if float(fiatAmount) > 5:
-                #todo convert the buy order with this next line
                 buyOrder = client.create_spot_order(pairSymbol, "market", "buy", fiatAmount, 1)
                 # buyOrder = client.order_market_buy(symbol=pairSymbol,quantity=f"{float(quantityBuy):.{decimal_count}f}")
+                fiatAmount = float(client.fetch_spot_balance()['total']['USDT'])
+                cryptoAmount = float(get_wallet(client))
+                ticker = exchangeWallet.fetch_ticker(pairsSymbol)
+                crypto_wallet_value = fiatAmount + (cryptoAmount * ticker['last'])
                 con.insert_balence(datetime.now(),
                                    f"Trix : {i[4]}_len{i[5]}_sign{i[6]}_top{i[7]}_bottom{i[8]}_RSI{i[9]}",
-                                   fiatAmount, i[10], "ONN", "buy")
+                                   crypto_wallet_value, i[10], "ONN", "buy")
                 print("BUY")
             else:
+                fiatAmount = float(client.fetch_spot_balance()['total']['USDT'])
+                cryptoAmount = float(get_wallet(client))
+                ticker = exchangeWallet.fetch_ticker(pairsSymbol)
+                crypto_wallet_value = fiatAmount + (cryptoAmount * ticker['last'])
                 con.insert_balence(datetime.now(),
                                    f"Trix : {i[4]}_len{i[5]}_sign{i[6]}_top{i[7]}_bottom{i[8]}_RSI{i[9]}",
-                                   fiatAmount, i[10], "ONN", "none")
+                                   crypto_wallet_value, i[10], "ONN", "buy")
                 print("If you  give me more USD I will buy more", cryptoSymbol)
 
         elif sellCondition(df.iloc[-2], df.iloc[-3], stoch_bottom):
             if float(cryptoAmount) > minToken:
-                # todo convert the sell order with this next line
                 montant = client.fetch_spot_balance()['total'][pairSymbol[:-4]]
                 sellOrder = client.create_spot_order(pairSymbol, "market", "sell", montant, 1)
                 # sellOrder = client.order_market_sell( symbol=pairSymbol,quantity=f"{float(convert_amount_to_precision(client, pairSymbol, cryptoAmount)):.{decimal_count}f}")
+                fiatAmount = float(client.fetch_spot_balance()['total']['USDT'])
+                cryptoAmount = float(get_wallet(client))
+                ticker = exchangeWallet.fetch_ticker(pairsSymbol)
+                crypto_wallet_value = fiatAmount + (cryptoAmount * ticker['last'])
                 con.insert_balence(datetime.now(),
                                    f"Trix : {i[4]}_len{i[5]}_sign{i[6]}_top{i[7]}_bottom{i[8]}_RSI{i[9]}",
-                                   fiatAmount, i[10], "ONN", "sell")
+                                   crypto_wallet_value, i[10], "ONN", "sell")
                 print("SELL")
             else:
+                fiatAmount = float(client.fetch_spot_balance()['total']['USDT'])
+                cryptoAmount = float(get_wallet(client))
+                ticker = exchangeWallet.fetch_ticker(pairsSymbol)
+                crypto_wallet_value = fiatAmount + (cryptoAmount * ticker['last'])
                 con.insert_balence(datetime.now(),
                                    f"Trix : {i[4]}_len{i[5]}_sign{i[6]}_top{i[7]}_bottom{i[8]}_RSI{i[9]}",
-                                   fiatAmount, i[10], "ONN", "none")
+                                   crypto_wallet_value, i[10], "ONN", "sell")
                 print("If you give me more", cryptoSymbol, "I will sell it")
         else:
             print("No opportunity to take")
+            fiatAmount = float(client.fetch_spot_balance()['total']['USDT'])
+            cryptoAmount = float(get_wallet(client))
+            ticker = exchangeWallet.fetch_ticker(pairsSymbol)
+            crypto_wallet_value = fiatAmount + (cryptoAmount * ticker['last'])
             con.insert_balence(datetime.now(),
                                f"Trix : {i[4]}_len{i[5]}_sign{i[6]}_top{i[7]}_bottom{i[8]}_RSI{i[9]}",
-                               fiatAmount, i[10], "ONN", "buy")
+                               crypto_wallet_value, i[10], "ONN", "none")
 
     except Exception as ex:
         print("----Exception----")

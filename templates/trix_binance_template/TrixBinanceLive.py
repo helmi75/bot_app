@@ -10,6 +10,9 @@ from pass_secret import mot_de_passe
 import mysql.connector
 from bdd_communication import ConnectBbd
 import ta
+import ccxt
+
+exchangeWallet = ccxt.binance()
 
 now = datetime.now()
 current_time = now.strftime("%d/%m/%Y %H:%M:%S")
@@ -91,6 +94,7 @@ for i in myresult :
         fiatSymbol = 'USDT'
         cryptoSymbol = (i[4]+"").upper()
         pairSymbol = cryptoSymbol+'USDT'
+        pairsSymbol = cryptoSymbol+'/USDT'
         trixLength = i[5]
         trixSignal = i[6]
         decimal_count = 8
@@ -124,15 +128,23 @@ for i in myresult :
                 buyOrder = client.order_market_buy(
                     symbol=pairSymbol,
                     quantity=f"{float(quantityBuy):.{decimal_count}f}")
+                fiatAmount = float(client.get_asset_balance(asset=fiatSymbol)['free'])
+                cryptoAmount = float(client.get_asset_balance(asset=cryptoSymbol)['free'])
+                ticker = exchangeWallet.fetch_ticker(pairsSymbol)
+                crypto_wallet_value = fiatAmount + (cryptoAmount*ticker['last'])
                 con.insert_balence(datetime.now(),
                                    f"Trix : {i[4]}_len{i[5]}_sign{i[6]}_top{i[7]}_bottom{i[8]}_RSI{i[9]}",
-                                   fiatAmount,i[10],"ONN","buy")
+                                   crypto_wallet_value,i[10],"ONN","buy")
 
                 print("BUY")
             else:
+                fiatAmount = float(client.get_asset_balance(asset=fiatSymbol)['free'])
+                cryptoAmount = float(client.get_asset_balance(asset=cryptoSymbol)['free'])
+                ticker = exchangeWallet.fetch_ticker(pairsSymbol)
+                crypto_wallet_value = fiatAmount + (cryptoAmount * ticker['last'])
                 con.insert_balence(datetime.now(),
                                    f"Trix : {i[4]}_len{i[5]}_sign{i[6]}_top{i[7]}_bottom{i[8]}_RSI{i[9]}",
-                                   fiatAmount, i[10], "ONN", "none")
+                                   crypto_wallet_value, i[10], "ONN", "buy")
                 print("If you  give me more USD I will buy more", cryptoSymbol)
 
         elif sellCondition(df.iloc[-2], df.iloc[-3],stoch_bottom):
@@ -140,20 +152,32 @@ for i in myresult :
                 sellOrder = client.order_market_sell(
                     symbol=pairSymbol,
                     quantity=f"{float(convert_amount_to_precision(client,pairSymbol, cryptoAmount)):.{decimal_count}f}")
+                fiatAmount = float(client.get_asset_balance(asset=fiatSymbol)['free'])
+                cryptoAmount = float(client.get_asset_balance(asset=cryptoSymbol)['free'])
+                ticker = exchangeWallet.fetch_ticker(pairsSymbol)
+                crypto_wallet_value = fiatAmount + (cryptoAmount * ticker['last'])
                 con.insert_balence(datetime.now(),
                                    f"Trix : {i[4]}_len{i[5]}_sign{i[6]}_top{i[7]}_bottom{i[8]}_RSI{i[9]}",
-                                   fiatAmount, i[10], "ONN", "sell")
+                                   crypto_wallet_value, i[10], "ONN", "sell")
                 print("SELL")
             else:
+                fiatAmount = float(client.get_asset_balance(asset=fiatSymbol)['free'])
+                cryptoAmount = float(client.get_asset_balance(asset=cryptoSymbol)['free'])
+                ticker = exchangeWallet.fetch_ticker(pairsSymbol)
+                crypto_wallet_value = fiatAmount + (cryptoAmount * ticker['last'])
                 con.insert_balence(datetime.now(),
                                    f"Trix : {i[4]}_len{i[5]}_sign{i[6]}_top{i[7]}_bottom{i[8]}_RSI{i[9]}",
-                                   fiatAmount, i[10], "ONN", "none")
+                                   crypto_wallet_value, i[10], "ONN", "sell")
                 print("If you give me more", cryptoSymbol, "I will sell it")
         else:
             print("No opportunity to take")
+            fiatAmount = float(client.get_asset_balance(asset=fiatSymbol)['free'])
+            cryptoAmount = float(client.get_asset_balance(asset=cryptoSymbol)['free'])
+            ticker = exchangeWallet.fetch_ticker(pairsSymbol)
+            crypto_wallet_value = fiatAmount + (cryptoAmount * ticker['last'])
             con.insert_balence(datetime.now(),
                                f"Trix : {i[4]}_len{i[5]}_sign{i[6]}_top{i[7]}_bottom{i[8]}_RSI{i[9]}",
-                               fiatAmount, i[10], "ONN", "buy")
+                               crypto_wallet_value, i[10], "ONN", "none")
 
     except Exception as ex:
         print("----Exception----")
