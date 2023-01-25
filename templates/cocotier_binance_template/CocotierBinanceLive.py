@@ -21,7 +21,7 @@ pwd = mot_de_passe
 cnx = mysql.connector.connect(host='localhost', user='root', password=pwd, port='3306', database='cryptos',
                               auth_plugin='mysql_native_password')
 cursor = cnx.cursor()
-query = "select p.*, b.nom_bot from Params_bot_Cocotier as p, bots as b where p.bot_id = b.bot_id and b.type_bot = 'cocotier';"
+query = "select p.*, b.nom_bot from Params_bot_Cocotier as p, bots as b where p.bot_id = b.bot_id and b.type_bot = 'Cocotier Binance';"
 cursor.execute(query)
 myresult = cursor.fetchall()
 
