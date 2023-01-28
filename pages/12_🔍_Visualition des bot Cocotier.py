@@ -19,7 +19,7 @@ name, authentication_status, username = authenticator.login('Login', 'main')
 con = ConnectBbd('localhost', '3306', 'root', pwd, 'cryptos', 'mysql_native_password')
 maintenance = con.get_maintenance_setting()[0][0] and username != "helmichiha"
 
-st.title("Visualization de vos bot trix normalisé")
+st.title("Visualization des bots Cocotier")
 
 
 if authentication_status:
@@ -27,10 +27,9 @@ if authentication_status:
         if con.get_maintenance_setting()[0][0]:
             st.warning('''The page is in maintenance!''')
         try:
-            list_balences = con.get_crypto_pourcentage()
+            list_balences = con.get_balencesCocotier()
             df_balence = pd.DataFrame(list_balences, columns=['dates', 'crypto_wallet', 'nom_bot'])
-            fig = px.line(df_balence, x="dates", y=df_balence.columns, color=df_balence['nom_bot'],
-                          title='bots showed by date and wallet')
+            fig =px.line(df_balence, x="dates", y=df_balence.columns ,color=df_balence['nom_bot'],title='bots showed by date and wallet')
             st.plotly_chart(fig)
         except Exception as e:
             st.write(e)

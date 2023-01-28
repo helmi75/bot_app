@@ -9,7 +9,7 @@ pwd = mot_de_passe
 con = ConnectBbd('localhost', '3306', 'root', pwd, 'cryptos', 'mysql_native_password')
 
 def choix_market():
-    listacrypto = con.getAllPairSymbols()[0][0].split(',')
+    listacrypto = con.getAllPairSymbolsBinance()[0][0].split(',')
     liste_crypto = np.array(listacrypto)
     cols3 = st.columns(5)
     lista = [x for x in liste_crypto]
