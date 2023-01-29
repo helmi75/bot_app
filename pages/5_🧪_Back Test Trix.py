@@ -215,7 +215,7 @@ else:
                                   2)
     except:
         tradesPerformance = 0
-        print("/!\ There is no Good or Bad Trades in your BackTest, maybe a problem...")
+        # print("/!\ There is no Good or Bad Trades in your BackTest, maybe a problem...")
     try:
         totalGoodTrades = dt.groupby('tradeIs')['date'].nunique()['Good']
         AveragePercentagePositivTrades = round(dt.loc[dt['tradeIs'] == 'Good', 'resultat%'].sum()
@@ -228,7 +228,7 @@ else:
         AveragePercentagePositivTrades = 0
         idbest = ''
         bestTrade = 0
-        print("/!\ There is no Good Trades in your BackTest, maybe a problem...")
+        # print("/!\ There is no Good Trades in your BackTest, maybe a problem...")
     try:
         totalBadTrades = dt.groupby('tradeIs')['date'].nunique()['Bad']
         AveragePercentageNegativTrades = round(dt.loc[dt['tradeIs'] == 'Bad', 'resultat%'].sum()
@@ -240,7 +240,7 @@ else:
         AveragePercentageNegativTrades = 0
         idworst = ''
         worstTrade = 0
-        print("/!\ There is no Bad Trades in your BackTest, maybe a problem...")
+        # print("/!\ There is no Bad Trades in your BackTest, maybe a problem...")
     totalTrades = totalBadTrades + totalGoodTrades
     winRateRatio = (totalGoodTrades / totalTrades) * 100
     st.text("Pair Symbol :" + pair_symbol)
