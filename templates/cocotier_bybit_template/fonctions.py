@@ -5,8 +5,10 @@ from time import time
 from datetime import timedelta
 import numpy as np
 import pandas as pd
+from pass_secret import mot_de_passe
 import time as tm
 import mysql.connector
+from bdd_communication import *
 
 
 # Calcul  de la variation
@@ -511,7 +513,7 @@ def isEmptyDict(di):
             return False
     return True
 
-def crypto_a_vendre(exchange, market):
+def crypto_a_vendre2(exchange, market):
     try:
         df_hystoric_order = {}
         liste_df = []
@@ -537,7 +539,6 @@ def crypto_a_vendre(exchange, market):
                 df_hystoric_order[name_crypto_up] = pd.DataFrame.from_dict(x)
                 index_dernier_ordre = df_hystoric_order[name_crypto_up].index.max()
                 liste_df.append(df_hystoric_order[name_crypto_up].loc[index_dernier_ordre])
-        isEmptyDict(df_hystoric_order)
         pd.set_option('display.max_columns', None)
         df_log = pd.DataFrame(liste_df).set_index('symbol')
         df_datetime_side_cost = df_log[['datetime', 'side', 'cost']]
@@ -553,7 +554,23 @@ def crypto_a_vendre(exchange, market):
     except IndexError:
         return '0'
 
-
+def get_pair_symbol_for_last_balence_by_id(id):
+    pwd = mot_de_passe
+    con = ConnectBbd('localhost', '3306', 'root', pwd, 'cryptos', 'mysql_native_password')
+    cursor = con.cnx.cursor()
+    query = f"select crypto_name from get_balence where id_bot = {id} order by id_get_balence desc limit 1;"
+    cursor.execute(query)
+    myresult = cursor.fetchall()
+    return myresult
+def crypto_a_vendre(exchange,idbot):
+    try :
+        crypto_name = get_pair_symbol_for_last_balence_by_id(idbot)[0][0]
+    except Exception as exx :
+        crypto_name = "BTC/USDT"
+        print("We'll buy btc for now just for the start !")
+        montant_USDT = float(exchange.fetch_spot_balance().get('USDT').get('free'))
+        exchange.create_spot_order("BTC/USDT", "market", "buy", montant_USDT, 1)
+    return crypto_name
 
 def affichageDataFrameLog(crypto):
     crypto = pd.concat(crypto, axis=1)

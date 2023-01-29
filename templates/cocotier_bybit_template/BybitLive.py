@@ -41,7 +41,7 @@ for i in myresult:
         lastDate = datetime.strptime(datea, '%Y-%m-%d %H:%M:%S')
         currentDate = datetime.now() - timedelta(hours=(d_hour - 1))
         show_time = datetime.now()
-        if (currentDate >= lastDate and int(show_time.hour) % d_hour == 0):
+        if (currentDate >= lastDate and int(show_time.hour) % d_hour == 0) or True:
             start_time = datetime.now() - timedelta(2)
             crypto = {}
             exchange = ccxt.bybit({
@@ -85,7 +85,8 @@ for i in myresult:
             nom_crypto_achat = getBotMax(crypto, market, type_computing)
             # Sell Then Buy maybe here we need to do an exception management
             try:
-                nom_crypto_vente = crypto_a_vendre(exchange, market)
+                # nom_crypto_vente = crypto_a_vendre(exchange, market)
+                nom_crypto_vente = crypto_a_vendre(exchange, i[7])
                 algo_achat_vente(exchange, nom_crypto_vente, nom_crypto_achat)
 
                 print(" ")
