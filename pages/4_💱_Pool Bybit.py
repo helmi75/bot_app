@@ -1,24 +1,29 @@
-#alter table settings modify value_setting text ;
-# insert into settings values (2,'pair_symbols',0,'ETH,ADA,DOGE,BNB,DOT');
-
 import streamlit as st
-import numpy as np
-from binance.client import Client
+import requests
 from bdd_communication import ConnectBbd
 from pass_secret import mot_de_passe
 
+st.set_page_config(
+    page_title="Cocobots",
+    page_icon="code.png",
+)
+
+st.title("Cocobots")
+st.title("Pool Bybit Pairs Symbol")
+
 con = ConnectBbd('localhost', '3306', 'root', mot_de_passe, 'cryptos', 'mysql_native_password')
-liste_crypto = con.getAllPairSymbols()[0][0].split(',')
+liste_crypto = con.getAllPairSymbolsBybit()[0][0].split(',')
 @st.cache
-def getAllPairSymbolsOfBinance():
+def getAllPairSymbolsOfBybit():
     cryptoss = []
-    client = Client()
-    exchange_info = client.get_exchange_info()
-    for s in exchange_info['symbols']:
-        if s['symbol'].endswith('USDT'):
-            cryptoss.append(s['symbol'])
+    url = 'https://api.bybit.com/v2/public/symbols'
+    response = requests.get(url)
+    exchange_info = response.json()
+    for s in exchange_info['result']:
+        if s['name'].endswith('USDT'):
+            cryptoss.append(s['name'])
     return cryptoss
-cryptoss = getAllPairSymbolsOfBinance()
+cryptoss = getAllPairSymbolsOfBybit()
 cols2 = st.columns(4)
 newCrypto = cols2[0].text_input("Write the pair symbol here!")
 searching = cols2[3].button("Search")
@@ -37,14 +42,14 @@ if (searching or st.session_state.searching):
             if(cols2[2].button("Delete it from List")):
                 liste_crypto.remove(crr[:-4])
                 newcrr = ','.join(liste_crypto)
-                con.updatePairSymbols(newcrr)
+                con.updatePairSymbolsBybit(newcrr)
                 st.success(f"{crr[:-4]} a été supprimé de la liste")
 
         else:
             if (cols2[2].button("Add it to List")):
                 liste_crypto.append(crr[:-4])
                 newcrr = ','.join(liste_crypto)
-                con.updatePairSymbols(newcrr)
+                con.updatePairSymbolsBybit(newcrr)
                 st.success(f"{crr[:-4]} a été ajouté à la listse")
 
 
