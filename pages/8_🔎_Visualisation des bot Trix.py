@@ -27,7 +27,7 @@ if authentication_status:
         if con.get_maintenance_setting()[0][0]:
             st.warning('''The page is in maintenance!''')
         try:
-            list_balences = con.get_crypto_pourcentage()
+            list_balences = con.get_balencesTrix()
             df_balence = pd.DataFrame(list_balences, columns=['dates', 'crypto_wallet', 'nom_bot'])
             fig = px.line(df_balence, x="dates", y=df_balence.columns, color=df_balence['nom_bot'],
                           title='bots showed by date and wallet')
