@@ -2,6 +2,8 @@ import streamlit as st
 import requests
 from bdd_communication import ConnectBbd
 from pass_secret import mot_de_passe
+from binance.client import Client
+
 
 st.set_page_config(
     page_title="Cocobots",
@@ -23,7 +25,19 @@ def getAllPairSymbolsOfBybit():
         if s['name'].endswith('USDT'):
             cryptoss.append(s['name'])
     return cryptoss
-cryptoss = getAllPairSymbolsOfBybit()
+
+@st.cache
+def getAllPairSymbolsOfBinance():
+    cryptoss = []
+    client = Client()
+    exchange_info = client.get_exchange_info()
+    for s in exchange_info['symbols']:
+        if s['symbol'].endswith('USDT'):
+            cryptoss.append(s['symbol'])
+    return cryptoss
+
+cryptoss = getAllPairSymbolsOfBinance()
+cryptosss = getAllPairSymbolsOfBybit()
 cols2 = st.columns(4)
 newCrypto = cols2[0].text_input("Write the pair symbol here!")
 searching = cols2[3].button("Search")
@@ -35,7 +49,8 @@ if (searching or st.session_state.searching):
     if not (len(crr) > 4 and crr[-4:] == 'USDT'):
         crr += 'USDT'
     countt = cryptoss.count(crr)
-    if (countt == 0):
+    counttt = cryptosss.count(crr)
+    if (countt == 0 or counttt == 0):
         st.warning("cette crypto n’existe pas")
     else :
         if(liste_crypto.count(crr[:-4])):
