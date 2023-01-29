@@ -5,6 +5,7 @@ import pandas as pd
 from datetime import datetime
 from datetime import timedelta
 import streamlit as st
+import plotly.graph_objects as go
 
 class ConnectBbd:
     def __init__(self, host, port, user, password, database, auth_plugin):
@@ -252,6 +253,13 @@ class ConnectBbd:
         myresult = cursor.fetchall()
         return myresult
 
+    def get_balencesTrix(self):
+        cursor = self.cnx.cursor()
+        query = "select dates, crypto_wallet,nom_bot from get_balence, bots where get_balence.id_bot = bots.bot_id and type_bot like 'Trix%';"
+        cursor.execute(query)
+        myresult = cursor.fetchall()
+        return myresult
+
     def get_balences_Normalization(self):
         cursor = self.cnx.cursor()
         query = "select dates, crypto_wallet_pourcentage,nom_bot from get_balence, bots where (get_balence.id_bot = bots.bot_id);"
@@ -352,37 +360,7 @@ class ConnectBbd:
         cursor.execute(query)
         self.cnx.commit()
 
-# Calcul  de la variation
-# ENtRE => dataframe   exemple crypto['eth/usdt']
-# SORTIE =>  pandas.core.series.Series
-def variation(dataframe):
 
-    open_ = dataframe[dataframe.columns[0]]
-    close = dataframe[dataframe.columns[1]]
-    serie_variation = ((close) / open_)
-    df_serie_variation = pd.DataFrame(serie_variation, dataframe.index, columns=[dataframe.columns[0][:3] + '_var'])
-    return df_serie_variation
-
-# Calcul du coef_multiplicateur
-# entre =>  Dataframe  exemple crypto['eth/usdt']
-# sortie => pandas.Series du coeffitient multiplicateur
-def coef_multi(dataframe):
-    liste_finale = []
-    for i in range(len(dataframe.index)):
-        if dataframe[dataframe.columns[2]][i] == 0:
-            liste_finale.append(0)
-        else:
-            break
-    var_zeros = dataframe[dataframe.columns[2]][:i]
-    var_sans_zero = dataframe.iloc[i:][dataframe.columns[2]]
-    var_sans_z_cumprod = var_sans_zero.cumprod()
-    coef_multi = pd.concat([var_zeros, var_sans_z_cumprod])
-    return coef_multi
-
-#
-# converti timestamp en datatime
-# entrée dataframe
-# Sortie dataframe
 def convert_time(dataframe):
     temps = []
     for elm in dataframe['timestamp']:
@@ -390,9 +368,7 @@ def convert_time(dataframe):
     dataframe['timestamp'] = pd.DatetimeIndex(pd.to_datetime(temps)).tz_localize('UTC').tz_convert('UTC')
     return dataframe
 
-# foction pour détecter les mauvai shape
-# entrée dictionnaire
-# Sortie array
+
 def detection_mauvais_shape(dictionaire_crypto):
     liste_shape = []
     liste_crypto = []
@@ -408,9 +384,6 @@ def detection_mauvais_shape(dictionaire_crypto):
     boulean, liste_crypto = np.array(boulean), np.array(liste_crypto)
     return liste_crypto[boulean]
 
-# corrections des shape en ajoutant une colonne de zero et une colonnes de ones
-# entrée dictionnaire  et array
-# Sortie dictionnaire
 
 def correction_shape(dictionaire_crypto, array):
     max_shape = []
@@ -433,9 +406,6 @@ def correction_shape(dictionaire_crypto, array):
         dictionaire_crypto[nom] = pd.concat((df_liste_final, dictionaire_crypto[nom]), axis=0)
     return dictionaire_crypto
 
-# génération de datatime en fontion du pas
-# entre  dataframe  + timedelta
-# sortie liste datatime
 
 def generation_date(dataframe, delta_pas):
     test_list = []
@@ -447,64 +417,21 @@ def generation_date(dataframe, delta_pas):
     test_list = test_list[::-1]
     return test_list
 
-def fonction_cumul(dataframe, name_crypto):
-    dataframe['cumul_' + name_crypto[:3]] = ((dataframe['coef_multi_' + name_crypto[:3]]) * 100) - 100
-    return dataframe
 
 def to_timestamp(date):
     element = datetime.strptime(date, "%Y-%m-%d")
     timestamp = int(datetime.timestamp(element)) * 1000
     return timestamp
 
-def fonction_tableau_var(dictionnaire_crypto):
-    liste_var = []
-    liste_crypto = []
-    index = []
-    for nom_crypto in dictionnaire_crypto:
-        liste_var.append(dictionnaire_crypto[nom_crypto][nom_crypto[:3] + '_var'])
-
-        liste_crypto.append(nom_crypto[:3] + '_var')
-
-    index = dictionnaire_crypto[nom_crypto].index
-    # print(np.transpose(liste_var))
-
-    df_liste_var = pd.DataFrame(np.transpose(liste_var), columns=liste_crypto).set_index(index)
-    return df_liste_var
-
-# algorithme  qui cherche la meilleur valeur d'une crypto à  un instant t
-# ENtrée dataframe
-# sortie dataframe 2 colinnes
-def meilleur_varaition(dataframe):
-    max_var = dataframe.max(axis=1)
-    name_max_var = dataframe.idxmax(axis=1)
-    concat_meilleur_var = pd.concat([max_var, name_max_var], axis=1)
-    concat_meilleur_var = pd.concat([dataframe, concat_meilleur_var], axis=1)
-    concat_meilleur_var.rename(columns={0: 'var_max', 1: 'meilleur_var'}, inplace=True)
-    return concat_meilleur_var
-
-# entré dataaframe des varaibles
-def algo(concat_meilleur_var):
-    tempo = []
-    list_valeur_algo = []
-    nbr_colon = len(concat_meilleur_var.columns) - 2
-    df_utile = concat_meilleur_var.iloc[:, :nbr_colon]
-    serie_var_max = concat_meilleur_var['var_max']
-    df_utile['index'] = range(len(serie_var_max))
-    df_utile.set_index('index', inplace=True)
-    nom_init = df_utile[df_utile.index == 0].idxmax(axis=1).values[0]
-    tempo.append(df_utile[df_utile.index == 0][nom_init].values)
-    for i in range(0, len(df_utile) - 1):
-        name_i_max = df_utile[df_utile.index == i].idxmax(axis=1).values[0]
-        tempo.append(df_utile[df_utile.index == i + 1][name_i_max].values)
-    for elm in tempo:
-        list_valeur_algo.append(elm[0])
-    return list_valeur_algo
 
 def choix_market():
-    liste_crypto = np.array(['BTC/USDT', 'ETH/USDT', 'ADA/USDT', 'DOGE/USDT', 'BNB/USDT', 'UNI/USDT',
-                             'LTC/USDT', 'BCH/USDT', 'LINK/USDT', 'VET/USDT', 'XLM/USDT', 'FIL/USDT', 'TRX/USDT',
-                             'NEO/USDT', 'EOS/USDT', 'DOT/USDT'])
-    cols3 = st.beta_columns(3)
+    liste_crypto = np.array(
+        ['BTC/USDT', 'ETH/USDT', 'ADA/USDT', 'DOGE/USDT', 'BNB/USDT', 'UNI/USDT', 'SOL/USDT', 'KSM/USDT',
+         'LTC/USDT', 'BCH/USDT', 'LINK/USDT', 'VET/USDT', 'XLM/USDT', 'FIL/USDT', 'TRX/USDT',
+         'NEO/USDT', 'EOS/USDT', 'DOT/USDT', 'AAVE/USDT', 'MATIC/USDT', 'LUNA/USDT', 'THETA/USDT',
+         'AXS/USDT', 'ENJ/USDT', 'SAND/USDT', 'WIN/USDT', 'SLP/USDT', 'XRP/USDT', 'EGLD/USDT', 'ATOM/USDT'])
+
+    cols3 = st.columns(3)
     btc = cols3[0].checkbox('BTC/USDT')
     eth = cols3[0].checkbox('ETH/USDT')
     ada = cols3[0].checkbox('ADA/USDT')
@@ -514,7 +441,7 @@ def choix_market():
     bch = cols3[1].checkbox('BCH/USDT')
     link = cols3[1].checkbox('LINK/USDT')
     vet = cols3[1].checkbox('VET/USDT')
-    xml = cols3[1].checkbox('XLM/USDT')
+    xlm = cols3[1].checkbox('XLM/USDT')
     fil = cols3[2].checkbox('FIL/USDT')
     ltc = cols3[2].checkbox('LTC/USDT')
     trx = cols3[2].checkbox('TRX/USDT')
@@ -522,6 +449,155 @@ def choix_market():
     eos = cols3[2].checkbox('EOS/USDT')
     dot = cols3[2].checkbox('DOT/USDT')
 
-    liste_boolean = np.array([btc, eth, ada, doge, bnb, uni,
-                              ltc, bch, link, vet, xml, fil, trx, neo, eos, dot])
+    aave = cols3[0].checkbox('AAVE/USDT')
+    matic = cols3[1].checkbox('MATIC/USDT')
+    luna = cols3[0].checkbox('LUNA/USDT')
+    theta = cols3[1].checkbox('THETA/USDT')
+    sol = cols3[1].checkbox('SOL/USDT')
+    ksm = cols3[0].checkbox('KSM/USDT')
+
+    axs = cols3[2].checkbox('AXS/USDT')
+    enj = cols3[2].checkbox('ENJ/USDT')
+    sand = cols3[0].checkbox('SAND/USDT')
+    win = cols3[1].checkbox('WIN/USDT')
+    slp = cols3[2].checkbox('SLP/USDT')
+    xrp = cols3[0].checkbox('XRP/USDT')
+
+    egld = cols3[1].checkbox('EGLD/USDT')
+    atom = cols3[2].checkbox('ATOM/USDT')
+
+    liste_boolean = np.array(
+        [btc, eth, ada, doge, bnb, uni, sol, ksm, ltc, bch, link, vet, xlm, fil, trx, neo, eos, dot, aave, matic,
+         luna,
+         theta,
+         axs, enj, sand, win, slp, xrp, egld, atom])
+
     return liste_crypto[liste_boolean]
+
+
+def plot_courbes2(df_tableau_multi):
+    fig = go.Figure()
+    for elm in df_tableau_multi.columns:
+        fig.add_trace(go.Scatter(x=df_tableau_multi[elm].index,
+                                 y=df_tableau_multi[elm],
+                                 mode='lines',
+                                 name=elm,
+                                 ))
+    return st.plotly_chart(fig)
+
+
+def variationN(cryptos, ni):
+    if (ni == 'N'):
+        for crypto in cryptos:
+            cryptos[crypto]["Variation_" + crypto[:-5]] = cryptos[crypto][crypto[:-5] + "_close"] / cryptos[crypto][
+                crypto[:-5] + "_open"]
+            cryptos[crypto]["Variation_N_" + crypto[:-5]] = cryptos[crypto][crypto[:-5] + "_close"] / cryptos[crypto][
+                crypto[:-5] + "_open"]
+    elif (ni == 'N-1'):
+        for crypto in cryptos:
+            cryptos[crypto]["Variation_N_" + crypto[:-5]] = cryptos[crypto][crypto[:-5] + "_close"] / cryptos[crypto][
+                crypto[:-5] + "_open"]
+            cryptos[crypto]["Variation_" + crypto[:-5]] = 0.0
+            cryptos[crypto]["Variation_" + crypto[:-5]][0] = float(cryptos[crypto][crypto[:-5] + "_close"][0]) /float(cryptos[crypto][crypto[:-5] + "_open"][0])
+            for j in range(1,len(cryptos[crypto])):
+                cryptos[crypto]["Variation_" + crypto[:-5]][j] = cryptos[crypto][crypto[:-5] + "_close"][j] / cryptos[crypto][crypto[:-5] + "_open"][j-1]
+    elif (ni == 'N-2'):
+        for crypto in cryptos:
+            cryptos[crypto]["Variation_N_" + crypto[:-5]] = cryptos[crypto][crypto[:-5] + "_close"] / cryptos[crypto][
+                crypto[:-5] + "_open"]
+            cryptos[crypto]["Variation_" + crypto[:-5]] = 0.0
+            cryptos[crypto]["Variation_" + crypto[:-5]][0] = float(cryptos[crypto][crypto[:-5] + "_close"][0]) / float(
+                cryptos[crypto][crypto[:-5] + "_open"][0])
+            cryptos[crypto]["Variation_" + crypto[:-5]][1] = float(cryptos[crypto][crypto[:-5] + "_close"][1]) / float(
+                cryptos[crypto][crypto[:-5] + "_open"][0])
+            for j in range(2, len(cryptos[crypto])):
+                cryptos[crypto]["Variation_" + crypto[:-5]][j] = cryptos[crypto][crypto[:-5] + "_close"][j] / \
+                                                                 cryptos[crypto][crypto[:-5] + "_open"][j - 2]
+    return (cryptos)
+
+
+def coeffMulti(cryptos):
+    for crypto in cryptos:
+        for i in range(len(cryptos[crypto].index)):
+            if (i == 0):
+                cryptos[crypto]["Coeff_mult_" + crypto[:-5]] = cryptos[crypto][crypto[:-5] + "_close"][0] / \
+                                                               cryptos[crypto][crypto[:-5] + "_open"][0]
+            else:
+                cryptos[crypto]["Coeff_mult_" + crypto[:-5]][i] = cryptos[crypto]["Variation_N_" + crypto[:-5]][i] * \
+                                                                  cryptos[crypto]["Coeff_mult_" + crypto[:-5]][i - 1]
+                # print(cryptos[crypto]["Variation_N_" + crypto[:-5]][i]," * ",  cryptos[crypto]["Coeff_mult_" + crypto[:-5]][i - 1] ," = ",cryptos[crypto]["Coeff_mult_" + crypto[:-5]][i] )
+
+    return cryptos
+
+
+def mergeCryptoTogether(cryptos):
+    for i in cryptos:
+        cryptos["BOT_MAX"] = cryptos[i].copy()
+        cryptos["BOT_MAX"].rename(columns={"Variation_" + i[:-5]: "Variation_BOTMAX"}, inplace=True)
+        cryptos["BOT_MAX"].rename(columns={i[:-5] + "_close": "Variation2BOTMAX"}, inplace=True)
+        cryptos["BOT_MAX"].rename(columns={"Coeff_mult_" + i[:-5]: "Coeff_mult_BOTMAX"}, inplace=True)
+        cryptos["BOT_MAX"].rename(columns={"Variation_N_" + i[:-5]: "Variation_BOTMAX_N"}, inplace=True)
+        break
+    cryptos = pd.concat(cryptos, axis=1)
+    return cryptos
+
+
+def botMax(cryptos):
+    maxis = []
+    for i in range(len(cryptos)):
+        v = []
+        k = 0
+        for j in range(len(cryptos.iloc[i])):
+            if (k == 3):
+                v.append(cryptos.iloc[i].iloc[j])
+            elif (k == 4):
+                k = -1
+            k += 1
+        maxx = max(v)
+        maxis.append(v.index(maxx))
+        cryptos["BOT_MAX"]["Variation_BOTMAX"][i] = maxx
+    return cryptos, maxis
+
+
+def botMaxVariation2(cryptos, maxis):
+    botNames = []
+    for crypto in cryptos:
+        if (crypto[0] not in botNames):
+            botNames.append(crypto[0])
+    for i in range(len(cryptos)):
+        botName = botNames[maxis[i]]
+        cryptos["BOT_MAX"]["Variation_BOTMAX_N"][i] = cryptos[botName]["Variation_N_" + botName[:-5]][i]
+    for i in range(0, len(cryptos) - 1):
+        botName = botNames[maxis[i]]
+        cryptos["BOT_MAX"]["Variation2BOTMAX"][i + 1] = cryptos[botName]["Variation_N_" + botName[:-5]][i + 1]
+    cryptos["BOT_MAX"]["Variation2BOTMAX"][0] = 0
+
+    return cryptos
+
+
+def coeffMultiBotMax(cryptos):
+    cryptos["BOT_MAX"]["Coeff_mult_BOTMAX"][0] = 1.000
+    for i in range(1, len(cryptos)):
+        cryptos["BOT_MAX"]["Coeff_mult_BOTMAX"][i] = cryptos["BOT_MAX"]["Coeff_mult_BOTMAX"][i - 1] * \
+                                                     cryptos["BOT_MAX"]["Variation2BOTMAX"][i]
+    return cryptos
+
+
+def coefmultiFinal(cryptos):
+    tabe = {}
+    for crypto in cryptos:
+        if (crypto[1].find("Coeff_mult_") == 0):
+            tabe[crypto[1]] = cryptos[crypto]
+
+    tabe = pd.DataFrame(tabe)
+    return tabe
+
+
+def VariationFinal(cryptos):
+    tabe = {}
+    for crypto in cryptos:
+        if (crypto[1].find("Variation") == 0):
+            tabe[crypto[1]] = cryptos[crypto]
+
+    tabe = pd.DataFrame(tabe)
+    return tabe
