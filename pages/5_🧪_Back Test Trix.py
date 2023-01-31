@@ -1,21 +1,6 @@
 import streamlit as st
-import ccxt
-import pandas as pd
-import os
 import ta
-import numpy as np
-import pickle as pk
-from math import *
 import matplotlib.pyplot as plt
-from datetime import datetime
-from time import time
-from datetime import timedelta
-from IPython.display import clear_output
-import plotly.express as px
-import plotly.graph_objects as go
-import base64
-from mpl_toolkits.mplot3d import Axes3D
-from matplotlib import cm
 from binance.client import Client
 from bdd_communication import *
 
@@ -76,7 +61,7 @@ date_init = datetime.now() - timedelta(days=180)
 timeInterval = '1h'
 ema200 = 200
 dfTest = None
-# Plage des paramettres pour le OPTIMIZER  des paramettres
+
 stochTop_plage = [85, 90, 1]
 stochBottom_plage = [25, 30, 1]
 stoch_rsi_plage = [12, 16, 1]
@@ -115,7 +100,7 @@ if st.button("Submit"):
             pair_symbol = pair_symbol + 'USDT'
         st.success(pair_symbol)
         client = Client()
-        klinesT = client.get_historical_klines(pair_symbol, timeInterval, stDate)
+        klinesT = client.get_historical_klines(pair_symbol, timeInterval, str(star_date))
         # -- Define your dataset --
         df = pd.DataFrame(klinesT, columns=['timestamp', 'open', 'high', 'low', 'close', 'volume', 'close_time',
                                             'quote_av', 'trades', 'tb_base_av', 'tb_quote_av', 'ignore'])
@@ -135,7 +120,12 @@ if st.button("Submit"):
         df['TRIX_SIGNAL'] = ta.trend.sma_indicator(df['TRIX_PCT'], trix_signal)
         df['TRIX_HISTO'] = df['TRIX_PCT'] - df['TRIX_SIGNAL']
         df['STOCH_RSI'] = ta.momentum.stochrsi(close=df['close'], window=stoch_rsi, smooth1=3, smooth2=3)
-        dfTest = df[star_date: end_date]
+        dfTest = None
+        # dfTest = df.copy()
+
+        if str(end_date) == "":
+            end_date = None
+        dfTest = df[str(star_date): str(end_date)]
         dt = pd.DataFrame(columns=['date', 'position', 'reason', 'price', 'frais', 'fiat', 'coins', 'wallet', 'drawBack'])
         usdt = 1000
         makerFee = 0.0002
@@ -160,24 +150,24 @@ if st.button("Submit"):
                 wallet = coin * row['close']
                 if wallet > lastAth:
                     lastAth = wallet
-                    myrow = {'date': index, 'position': "Buy", 'reason': 'Buy Market Order', 'price': buyPrice,
-                             'frais': fee,
-                             'fiat': usdt, 'coins': coin, 'wallet': wallet, 'drawBack': (wallet - lastAth) / lastAth}
-                    dt = dt.append(myrow, ignore_index=True)
-                elif row['low'] < stopLoss and coin > 0:
-                    sellPrice = stopLoss
-                    usdt = coin * sellPrice
-                    fee = makerFee * usdt
-                    usdt = usdt - fee
-                    coin = 0
-                    buyReady = False
-                    wallet = usdt
-                    if wallet > lastAth:
-                        lastAth = wallet
-                        myrow = {'date': index, 'position': "Sell", 'reason': 'Sell Stop Loss', 'price': sellPrice,
-                                 'frais': fee,
-                                 'fiat': usdt, 'coins': coin, 'wallet': wallet, 'drawBack': (wallet - lastAth) / lastAth}
-                        dt = dt.append(myrow, ignore_index=True)
+                myrow = {'date': index, 'position': "Buy", 'reason': 'Buy Market Order', 'price': buyPrice,
+                         'frais': fee,
+                         'fiat': usdt, 'coins': coin, 'wallet': wallet, 'drawBack': (wallet - lastAth) / lastAth}
+                dt = dt.append(myrow, ignore_index=True)
+            elif row['low'] < stopLoss and coin > 0:
+                sellPrice = stopLoss
+                usdt = coin * sellPrice
+                fee = makerFee * usdt
+                usdt = usdt - fee
+                coin = 0
+                buyReady = False
+                wallet = usdt
+                if wallet > lastAth:
+                    lastAth = wallet
+                myrow = {'date': index, 'position': "Sell", 'reason': 'Sell Stop Loss', 'price': sellPrice,
+                         'frais': fee,
+                         'fiat': usdt, 'coins': coin, 'wallet': wallet, 'drawBack': (wallet - lastAth) / lastAth}
+                dt = dt.append(myrow, ignore_index=True)
             elif sellCondition(row, previousRow) and coin > 0 and sellReady == True:
                 sellPrice = row['close']
                 usdt = coin * sellPrice
@@ -188,10 +178,10 @@ if st.button("Submit"):
                 wallet = usdt
                 if wallet > lastAth:
                     lastAth = wallet
-                    myrow = {'date': index, 'position': "Sell", 'reason': 'Sell Market Order', 'price': sellPrice,
-                             'frais': fee,
-                             'fiat': usdt, 'coins': coin, 'wallet': wallet, 'drawBack': (wallet - lastAth) / lastAth}
-                    dt = dt.append(myrow, ignore_index=True)
+                myrow = {'date': index, 'position': "Sell", 'reason': 'Sell Market Order', 'price': sellPrice,
+                         'frais': fee,
+                         'fiat': usdt, 'coins': coin, 'wallet': wallet, 'drawBack': (wallet - lastAth) / lastAth}
+                dt = dt.append(myrow, ignore_index=True)
 
             previousRow = row
         dt = dt.set_index(dt['date'])
