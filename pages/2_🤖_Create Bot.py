@@ -18,6 +18,16 @@ def choix_market():
     liste_boolean = np.array(lista)
     return liste_crypto[liste_boolean]
 
+def choix_marketBybit():
+    listacrypto = con.getAllPairSymbolsBybit()[0][0].split(',')
+    liste_crypto = np.array(listacrypto)
+    cols3 = st.columns(5)
+    lista = [x for x in liste_crypto]
+    for i in range(len(liste_crypto)):
+        lista[i] = cols3[i % 5].checkbox(liste_crypto[i])
+    liste_boolean = np.array(lista)
+    return liste_crypto[liste_boolean]
+
 def convertListToString(lista):
     ch = ""
     for i in lista :
@@ -126,7 +136,7 @@ if authentication_status:
                     api_key = st.text_input("enter your api_key", key="bybit_api_key")
                     secret_key = st.text_input("enter  secret key", key="bybit_secret_key")
                     st.write("Selectionner le pair symbol")
-                    pair_symbol = convertListToString(choix_market())
+                    pair_symbol = convertListToString(choix_marketBybit())
                     delta_hour = st.selectbox('Selectionner une plage auraire', ['2h', '4h', '6h', '8h', '12h'],
                                               key="bybit_delta_hour")
                     n_i = st.radio("Selectionner le type computing", ("N", "N-1", "N-2"),
