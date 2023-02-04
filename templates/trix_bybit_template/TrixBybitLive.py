@@ -149,7 +149,7 @@ for i in myresult:
         # print('coin price :', actualPrice, 'usd balance', fiatAmount, 'coin balance :', cryptoAmount)
         if buyCondition(df.iloc[-2], df.iloc[-3], stoch_top):
             if float(fiatAmount) > 5:
-                buyOrder = client.create_spot_order(pairSymbol, "market", "buy", fiatAmount, 1)
+                buyOrder = client.create_spot_order(pairsSymbol, "market", "buy", fiatAmount, 1)
                 # buyOrder = client.order_market_buy(symbol=pairSymbol,quantity=f"{float(quantityBuy):.{decimal_count}f}")
                 fiatAmount = float(client.fetch_spot_balance()['total']['USDT'])
                 cryptoAmount = float(get_wallet(client, pairSymbol))
