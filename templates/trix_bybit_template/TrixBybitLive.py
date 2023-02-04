@@ -172,8 +172,7 @@ for i in myresult:
         elif sellCondition(df.iloc[-2], df.iloc[-3], stoch_bottom):
             if float(cryptoAmount) > minToken:
                 montant = client.fetch_spot_balance()['total'][pairSymbol[:-4]]
-                sellOrder = client.create_spot_order(pairSymbol, "market", "sell", montant, 1)
-                # sellOrder = client.order_market_sell( symbol=pairSymbol,quantity=f"{float(convert_amount_to_precision(client, pairSymbol, cryptoAmount)):.{decimal_count}f}")
+                sellOrder = client.create_spot_order(pairsSymbol, "market", "sell", montant, 1)
                 fiatAmount = float(client.fetch_spot_balance()['total']['USDT'])
                 cryptoAmount = float(get_wallet(client, pairSymbol))
                 ticker = exchangeWallet.fetch_ticker(pairsSymbol)
