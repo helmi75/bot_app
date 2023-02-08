@@ -8,7 +8,7 @@ import pandas as pd
 from datetime import datetime
 from pass_secret import mot_de_passe
 import mysql.connector
-from bdd_communication import ConnectBbd
+from bdd_communication import *
 import ta
 import ccxt
 
@@ -104,6 +104,8 @@ for i in myresult :
         # API
         binance_api_key = i[1]  # Enter your own API-key here
         binance_api_secret = i[2]  # Enter your own API-secret here
+        idd = i[10]
+        binance_api_key, binance_api_secret = degenerateApiSecret(binance_api_key, binance_api_secret, idd)
         client = Client(api_key=binance_api_key, api_secret=binance_api_secret)
         df = getHistorical(client,pairSymbol.replace("/",""))
         df['TRIX'] = ta.trend.ema_indicator(

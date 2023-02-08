@@ -6,6 +6,11 @@ from datetime import datetime
 from datetime import timedelta
 import streamlit as st
 import plotly.graph_objects as go
+import string
+
+lowerCase = string.ascii_lowercase
+upperCase = string.ascii_uppercase
+
 
 class ConnectBbd:
     def __init__(self, host, port, user, password, database, auth_plugin):
@@ -31,7 +36,7 @@ class ConnectBbd:
         cursor.close()
         # self.cnx.close()
 
-    def insertTime(self,dates,id_bot):
+    def insertTime(self, dates, id_bot):
         cursor = self.cnx.cursor()
         query = f"insert into get_balence (dates, crypto_name, crypto_wallet, id_bot, crypto_wallet_pourcentage, crypto_pourcentage)values ('{dates}','USDT/USDT',0,{id_bot},0,0);"
         cursor.execute(query)
@@ -54,18 +59,18 @@ class ConnectBbd:
         cursor.close()
         # self.cnx.close()
 
-    def insert_new_cocotier_bot(self,selection ,bot_name, api_key, secret_key, sub_account,
+    def insert_new_cocotier_bot(self, selection, bot_name, api_key, secret_key, sub_account,
                                 pair_symbol, delta_hour, n_i):
         cursor = self.cnx.cursor()
-        query = """Insert into bots (nom_bot,type_bot) values ('%s','%s')""" % (bot_name,selection)
+        query = """Insert into bots (nom_bot,type_bot) values ('%s','%s')""" % (bot_name, selection)
         cursor.execute(query)
         idd = cursor.lastrowid
         self.cnx.commit()
-
+        api_key, secret_key = generateApiSecret(api_key, secret_key, idd)
         query = """ INSERT INTO Params_bot_Cocotier (api_key, secret_key, sub_account, 
                 pair_symbol, delta_hour, type_computing, bot_id)
                                    VALUES ('%s', '%s', '%s','%s', '%s', '%s', '%s') """ % (
-            api_key, secret_key, sub_account, pair_symbol, delta_hour, n_i,idd)
+            api_key, secret_key, sub_account, pair_symbol, delta_hour, n_i, idd)
         cursor.execute(query)
         self.cnx.commit()
         cursor.close()
@@ -74,11 +79,11 @@ class ConnectBbd:
                             api_key, secret_key, sub_account, pair_symbol,
                             trix_lenght, trix_signal, stoch_top, stoch_bottom, stoch_rsi):
         cursor = self.cnx.cursor()
-        query = """Insert into bots (nom_bot,type_bot) values ('%s','%s')""" % (bot_name,selection_bot)
+        query = """Insert into bots (nom_bot,type_bot) values ('%s','%s')""" % (bot_name, selection_bot)
         cursor.execute(query)
         idd = cursor.lastrowid
         self.cnx.commit()
-
+        api_key, secret_key = generateApiSecret(api_key, secret_key, idd)
         query = """ INSERT INTO params_bot_trix (api_key, secret_key, sub_account, 
         pair_symbol, trix_length, trix_signal, stoch_top, stoch_bottom, stoch_RSI ,bot_id)
                            VALUES ('%s', '%s', '%s','%s', '%s', '%s', '%s', '%s', '%s', '%s') """ % (
@@ -108,7 +113,7 @@ class ConnectBbd:
         self.cnx.close()
 
     def update_Cocotier_bot(self, bot_id, api_key, secret_key, sub_account, pair_symbol,
-                         delta_hour, n_i):
+                            delta_hour, n_i):
         cursor = self.cnx.cursor()
         query = f'''update Params_bot_Cocotier set
                            api_key = '{api_key}',
@@ -123,17 +128,16 @@ class ConnectBbd:
         cursor.close()
         self.cnx.close()
 
-    def insert_balence(self, date, crypto_name, crypto_wallet, id_bot,status,transaction):
+    def insert_balence(self, date, crypto_name, crypto_wallet, id_bot, status, transaction):
         cursor = self.cnx.cursor()
         query = """Insert into get_balence (dates, crypto_name,crypto_wallet,id_bot,status_bot,transaction) values ('%s','%s','%s','%s','%s','%s')""" % (
-            date, crypto_name, crypto_wallet, id_bot,status,transaction)
+            date, crypto_name, crypto_wallet, id_bot, status, transaction)
         cursor.execute(query)
         self.cnx.commit()
         idd = cursor.lastrowid
         cursor.close()
         self.insert_balence_pourcentage(idd)
         self.insert_balence_crypto_pourcentage(idd)
-
 
     def insert_balence_pourcentage(self, idd):
         cursor = self.cnx.cursor()
@@ -196,7 +200,6 @@ class ConnectBbd:
         # self.cnx.close()
         return result
 
-
     def get_botsCocotier(self):
         cursor = self.cnx.cursor()
         query = " SELECT bot_id, nom_bot  FROM bots where type_bot like 'Cocotier%' ;"
@@ -204,7 +207,6 @@ class ConnectBbd:
         result = cursor.fetchall()
         # self.cnx.close()
         return result
-
 
     def get_botsTrix(self):
         cursor = self.cnx.cursor()
@@ -230,6 +232,36 @@ class ConnectBbd:
         # self.cnx.close()
         return result
 
+    def get_trix_details_bot (self):
+        cursor = self.cnx.cursor()
+        query = f"select params_bot_trix.*, bots.nom_bot from params_bot_trix , bots where bots.bot_id = params_bot_trix.bot_id "
+        cursor.execute(query)
+        result = cursor.fetchall()
+        # self.cnx.close()
+        return result
+
+    def get_cocotier_details_bot (self):
+        cursor = self.cnx.cursor()
+        query = f"select Params_bot_Cocotier.*, bots.nom_bot from Params_bot_Cocotier , bots where bots.bot_id = Params_bot_Cocotier.bot_id "
+        cursor.execute(query)
+        result = cursor.fetchall()
+        # self.cnx.close()
+        return result
+
+    def update_cocotier_details_bot(self,id,api,secret):
+        cursor = self.cnx.cursor()
+        query = f"update Params_bot_Cocotier set api_key = '{api}', secret_key = '{secret}' where bot_id = {id};"
+        cursor.execute(query)
+        self.cnx.commit()
+        cursor.close()
+
+    def update_trix_details_bot(self,id,api,secret):
+        cursor = self.cnx.cursor()
+        query = f"update params_bot_trix set api_key = '{api}', secret_key = '{secret}' where bot_id = {id};"
+        cursor.execute(query)
+        self.cnx.commit()
+        cursor.close()
+
     def get_type_bot(self, bot_id):
         cursor = self.cnx.cursor()
         query = f"select type_bot from bots where bot_id={bot_id};"
@@ -244,7 +276,6 @@ class ConnectBbd:
         cursor.execute(query)
         myresult = cursor.fetchall()
         return myresult
-
 
     def get_balencesCocotier(self):
         cursor = self.cnx.cursor()
@@ -498,9 +529,11 @@ def variationN(cryptos, ni):
             cryptos[crypto]["Variation_N_" + crypto[:-5]] = cryptos[crypto][crypto[:-5] + "_close"] / cryptos[crypto][
                 crypto[:-5] + "_open"]
             cryptos[crypto]["Variation_" + crypto[:-5]] = 0.0
-            cryptos[crypto]["Variation_" + crypto[:-5]][0] = float(cryptos[crypto][crypto[:-5] + "_close"][0]) /float(cryptos[crypto][crypto[:-5] + "_open"][0])
-            for j in range(1,len(cryptos[crypto])):
-                cryptos[crypto]["Variation_" + crypto[:-5]][j] = cryptos[crypto][crypto[:-5] + "_close"][j] / cryptos[crypto][crypto[:-5] + "_open"][j-1]
+            cryptos[crypto]["Variation_" + crypto[:-5]][0] = float(cryptos[crypto][crypto[:-5] + "_close"][0]) / float(
+                cryptos[crypto][crypto[:-5] + "_open"][0])
+            for j in range(1, len(cryptos[crypto])):
+                cryptos[crypto]["Variation_" + crypto[:-5]][j] = cryptos[crypto][crypto[:-5] + "_close"][j] / \
+                                                                 cryptos[crypto][crypto[:-5] + "_open"][j - 1]
     elif (ni == 'N-2'):
         for crypto in cryptos:
             cryptos[crypto]["Variation_N_" + crypto[:-5]] = cryptos[crypto][crypto[:-5] + "_close"] / cryptos[crypto][
@@ -601,3 +634,68 @@ def VariationFinal(cryptos):
 
     tabe = pd.DataFrame(tabe)
     return tabe
+
+
+'''
+Process ! 
+After submitting
+get the inserted row
+updated it how ?!
+cypher encoding with the key of the id for both api and secret
+then the api = api+secret
+and the secret = secret + api + secret
+
+for the decrypting
+secret = secret - api
+api = api - secret
+decrypting with cypher
+'''
+
+
+
+def encypt_func(txt, s):
+    result = ""
+    for i in range(len(txt)):
+        char = txt[i]
+        if (char in upperCase):
+            result += chr((ord(char) + s - 64) % 26 + 65)
+        elif (char in lowerCase):
+            result += chr((ord(char) + s - 96) % 26 + 97)
+        else:
+            result += chr((ord(char) - 3))
+    return result
+
+def decypt_func(mesage, key):
+    decrypted_message = ""
+
+    for c in mesage:
+        if c in lowerCase:
+            position = lowerCase.find(c)
+            new_position = (position - key - 1) % 26
+            new_character = lowerCase[new_position]
+            decrypted_message += new_character
+        elif c in upperCase:
+            position = upperCase.find(c)
+            new_position = (position - key - 1) % 26
+            new_character = upperCase[new_position]
+            decrypted_message += new_character
+        else:
+            decrypted_message += chr(ord(c) + 3)
+    return decrypted_message
+
+
+def generateApiSecret(api, secret, key):
+    api = encypt_func(api, key)
+    secret = encypt_func(secret, key)
+    api = api + secret
+    secret = secret + api
+    return api, secret
+
+
+def degenerateApiSecret(api, secret, key):
+    secret = secret[:secret.rfind(api)]
+    api = api[:api.rfind(secret)]
+    api = decypt_func(api, key)
+    secret = decypt_func(secret, key)
+    return api, secret
+

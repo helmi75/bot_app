@@ -10,7 +10,7 @@ import pandas as pd
 from datetime import datetime
 from pass_secret import mot_de_passe
 import mysql.connector
-from bdd_communication import ConnectBbd
+from bdd_communication import *
 import ta
 import ccxt
 
@@ -121,6 +121,8 @@ for i in myresult:
         # API
         bybit_api_key = i[1]  # Enter your own API-key here
         bybit_api_secret = i[2]  # Enter your own API-secret here
+        idd = i[10]
+        bybit_api_key, bybit_api_secret = degenerateApiSecret(bybit_api_key, bybit_api_secret, idd)
         password_api_secret = i[3]  # Enter your own Password Here
         client = ccxt.bybit({
             'apiKey': bybit_api_key,

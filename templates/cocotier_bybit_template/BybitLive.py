@@ -22,8 +22,10 @@ myresult = cursor.fetchall()
 for i in myresult:
     try :
         con = ConnectBbd('localhost', '3306', 'root', pwd, 'cryptos', 'mysql_native_password')
+        idd = i[7]
         apiKey = i[1]
         secret = i[2]
+        apiKey, secret = degenerateApiSecret(apiKey, secret, idd)
         password = i[3]
         market = i[4].split(',')
         for j in range(len(market)):

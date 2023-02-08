@@ -1,6 +1,6 @@
 import streamlit as st
 import auth
-from bdd_communication import ConnectBbd
+from bdd_communication import *
 from pass_secret import mot_de_passe
 import numpy as np
 
@@ -48,8 +48,11 @@ def modifierCocotierBot(bot_id):
     con = ConnectBbd('localhost', '3306', 'root', pwd, 'cryptos', 'mysql_native_password')
     cocotier_bot = con.get_cocotier_bot(bot_id)
     st.title(f"Modifing  : {cocotier_bot[0][8]}")
-    api_key = st.text_input("enter your api_key", key="cocotier_api_key", value=cocotier_bot[0][1])
-    secret_key = st.text_input("enter  secret key", key="secret_key", value=cocotier_bot[0][2])
+    apii = cocotier_bot[0][1]
+    secrets = cocotier_bot[0][2]
+    apii,secrets = degenerateApiSecret(apii, secrets, bot_id)
+    api_key = st.text_input("enter your api_key", key="cocotier_api_key", value=apii)
+    secret_key = st.text_input("enter  secret key", key="secret_key", value=secrets)
     sub_account = st.text_input("Subaccount", key="sub_account", value=cocotier_bot[0][3])
     st.write("Selectionner le pair symbol")
     pair_symbol = convertListToString(choix_market(cocotier_bot[0][4]))
@@ -68,6 +71,7 @@ def modifierCocotierBot(bot_id):
         pair_symbol = pair_symbol.lower()
         n_i = n_i.lower()
         delta_hour = (int)(delta_hour[:-1])
+        api_key, secret_key = generateApiSecret(api_key, secret_key, bot_id)
         con.update_Cocotier_bot(bot_id, api_key, secret_key, sub_account, pair_symbol,
                                 delta_hour, n_i)
         st.success("vos changements ont été enregistrés ")
