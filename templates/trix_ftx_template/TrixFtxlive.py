@@ -8,7 +8,7 @@ import pandas as pd
 import ftx
 import sys
 sys.path.insert(0,"/home/anisse9/bot_app")
-from bdd_communication import ConnectBbd
+from bdd_communication import *
 from pass_secret import mot_de_passe
 from datetime import datetime
 import time
@@ -70,10 +70,13 @@ for i in myresult:
       pairSymbol = cryptoSymbol+'/USD'
       pairsSymbol = cryptoSymbol + '/USDT'
       myTruncate = 3
-
+      idd = i[10]
+      apiKey = i[1]
+      secret = i[2]
+      apiKey, secret = degenerateApiSecret(apiKey, secret, idd)
       client = ftx.FtxClient(
-          api_key=i[1],
-          api_secret=i[2],
+          api_key=apiKey,
+          api_secret=secret,
           subaccount_name=i[3]
       )
 

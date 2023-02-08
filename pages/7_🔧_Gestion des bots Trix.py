@@ -1,6 +1,6 @@
 import streamlit as st
 import auth
-from bdd_communication import ConnectBbd
+from bdd_communication import *
 from pass_secret import mot_de_passe
 import numpy as np
 
@@ -28,8 +28,11 @@ def modifierTrixBot(bot_id):
     con = ConnectBbd('localhost', '3306', 'root', pwd, 'cryptos', 'mysql_native_password')
     trix_bot = con.get_trix_bot(bot_id)
     st.title(f"Modifing  : {trix_bot[0][11]}")
-    api_key = st.text_input("enter your api_key", key="api_key_trix", value=trix_bot[0][1])
-    secret_key = st.text_input("enter  secret key", key="secret_key_trix", value=trix_bot[0][2])
+    apii = trix_bot[0][1]
+    secrets = trix_bot[0][2]
+    apii, secrets = degenerateApiSecret(apii, secrets, bot_id)
+    api_key = st.text_input("enter your api_key", key="api_key_trix", value=apii)
+    secret_key = st.text_input("enter  secret key", key="secret_key_trix", value=secrets)
     sub_account = st.text_input("Subaccount", key="sub_account_trix", value=trix_bot[0][3])
     col1, col2, col3 = st.columns(3)
     pair_symbol = col1.text_input("FTX Pair symbol", value=f"{trix_bot[0][4].upper()}/USDT",
@@ -46,6 +49,7 @@ def modifierTrixBot(bot_id):
     if col01.button("Apply Changes"):
         con = ConnectBbd('localhost', '3306', 'root', pwd, 'cryptos', 'mysql_native_password')
         pair_symbol = pair_symbol[:-5].lower()
+        api_key, secret_key = generateApiSecret(api_key, secret_key, bot_id)
         con.update_trix_bot(bot_id, api_key, secret_key, sub_account, pair_symbol,
                             trix_lenght, trix_signal, stoch_top, stoch_bottom, stoch_rsi)
         # pyautogui.hotkey("ctrl", "F5")

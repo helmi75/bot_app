@@ -1,15 +1,9 @@
-# import pandas as pd
-# import numpy as np
-# from datetime import datetime, timedelta
 import sys
-
-import pandas as pd
-
 sys.path.insert(0,"/home/anisse9/bot_app")
 import ccxt
 from fonctions import *
 from pass_secret import mot_de_passe
-from bdd_communication import ConnectBbd
+from bdd_communication import *
 import mysql.connector
 from binance.client import Client
 # import ta
@@ -27,8 +21,10 @@ myresult = cursor.fetchall()
 
 for i in myresult:
     con = ConnectBbd('localhost', '3306', 'root', pwd, 'cryptos', 'mysql_native_password')
+    idd = i[7]
     apiKey = i[1]
     secret = i[2]
+    apiKey, secret = degenerateApiSecret(apiKey, secret, idd)
     market = i[4].split(',')
     for j in range(len(market)):
         market[j] = market[j].upper() + "/USDT"
