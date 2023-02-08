@@ -123,7 +123,7 @@ if authentication_status:
                     emplacement.empty()
         except Exception as e:
 
-            print("This is an exception ", e)
+            st.error("This is an exception ", e)
     else:
         st.title('''Please Hold on and visit us next time!''')
         st.warning('''The page is in maintenance!''')
