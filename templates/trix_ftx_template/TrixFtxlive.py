@@ -50,7 +50,7 @@ pwd = mot_de_passe
 cnx = mysql.connector.connect(host='localhost', user='root', password=pwd, port='3306', database='cryptos',
                               auth_plugin='mysql_native_password')
 cursor = cnx.cursor()
-query = "select params_bot_trix.* from params_bot_trix,bots where bots.bot_id = params_bot_trix.bot_id and bots.type_bot ='Trix FTX';"
+query = "select params_bot_trix.*,bots.nom_bot,bots.working from params_bot_trix,bots where bots.bot_id = params_bot_trix.bot_id and bots.type_bot ='Trix FTX';"
 cursor.execute(query)
 myresult = cursor.fetchall()
 
@@ -63,135 +63,136 @@ myresult = cursor.fetchall()
 print("# ", datetime.now().strftime("%d/%m/%Y %H:%M:%S"))
 
 for i in myresult:
-    con = ConnectBbd('localhost', '3306', 'root', pwd, 'cryptos', 'mysql_native_password')
-    try :
-      fiatSymbol = 'USD'
-      cryptoSymbol = (i[4]+"").upper()
-      pairSymbol = cryptoSymbol+'/USD'
-      pairsSymbol = cryptoSymbol + '/USDT'
-      myTruncate = 3
-      idd = i[10]
-      apiKey = i[1]
-      secret = i[2]
-      apiKey, secret = degenerateApiSecret(apiKey, secret, idd)
-      client = ftx.FtxClient(
-          api_key=apiKey,
-          api_secret=secret,
-          subaccount_name=i[3]
-      )
+    if i[12]:
+        con = ConnectBbd('localhost', '3306', 'root', pwd, 'cryptos', 'mysql_native_password')
+        try :
+          fiatSymbol = 'USD'
+          cryptoSymbol = (i[4]+"").upper()
+          pairSymbol = cryptoSymbol+'/USD'
+          pairsSymbol = cryptoSymbol + '/USDT'
+          myTruncate = 3
+          idd = i[10]
+          apiKey = i[1]
+          secret = i[2]
+          apiKey, secret = degenerateApiSecret(apiKey, secret, idd)
+          client = ftx.FtxClient(
+              api_key=apiKey,
+              api_secret=secret,
+              subaccount_name=i[3]
+          )
 
-      data = client.get_historical_data(
-          market_name=pairSymbol,
-          resolution=3600,
-          limit=1000,
-          start_time=float(round(time.time())) - 150 * 3600,
-          end_time=float(round(time.time())))
-      df = pd.DataFrame(data)
+          data = client.get_historical_data(
+              market_name=pairSymbol,
+              resolution=3600,
+              limit=1000,
+              start_time=float(round(time.time())) - 150 * 3600,
+              end_time=float(round(time.time())))
+          df = pd.DataFrame(data)
 
-      trixLength = i[5]
-      trixSignal = i[6]
-      df['TRIX'] = ta.trend.ema_indicator(
-          ta.trend.ema_indicator(ta.trend.ema_indicator(close=df['close'], window=trixLength), window=trixLength),
-          window=trixLength)
-      df['TRIX_PCT'] = df["TRIX"].pct_change() * 100
-      df['TRIX_SIGNAL'] = ta.trend.sma_indicator(df['TRIX_PCT'], trixSignal)
-      df['TRIX_HISTO'] = df['TRIX_PCT'] - df['TRIX_SIGNAL']
-      df['STOCH_RSI'] = ta.momentum.stochrsi(close=df['close'], window=i[9], smooth1=3, smooth2=3)
+          trixLength = i[5]
+          trixSignal = i[6]
+          df['TRIX'] = ta.trend.ema_indicator(
+              ta.trend.ema_indicator(ta.trend.ema_indicator(close=df['close'], window=trixLength), window=trixLength),
+              window=trixLength)
+          df['TRIX_PCT'] = df["TRIX"].pct_change() * 100
+          df['TRIX_SIGNAL'] = ta.trend.sma_indicator(df['TRIX_PCT'], trixSignal)
+          df['TRIX_HISTO'] = df['TRIX_PCT'] - df['TRIX_SIGNAL']
+          df['STOCH_RSI'] = ta.momentum.stochrsi(close=df['close'], window=i[9], smooth1=3, smooth2=3)
 
 
-      actualPrice = df['close'].iloc[-1]
-      fiatAmount = getBalance(client, fiatSymbol)
-      cryptoAmount = getBalance(client, cryptoSymbol)
-      minToken = 5 / actualPrice
-      side="none"
-      if buyCondition(df.iloc[-2], i[7]):
-          if float(fiatAmount) > 5:
-              print(f"on achete : subacount_name {i[3]}")
-              quantityBuy = truncate(float(fiatAmount) / actualPrice, myTruncate)
-              buyOrder = client.place_order(
-                  market=pairSymbol,
-                  side="buy",
-                  price=None,
-                  size=quantityBuy,
-                  type='market')
-              fiatAmount = getBalance(client, fiatSymbol)
-              cryptoAmount = getBalance(client, cryptoSymbol)
-              ticker = exchangeWallet.fetch_ticker(pairsSymbol)
-              crypto_wallet_value = fiatAmount + (cryptoAmount * ticker['last'])
-              con.insert_balence(datetime.now(),
-                                 f"Trix : {i[4]}_len{i[5]}_sign{i[6]}_top{i[7]}_bottom{i[8]}_RSI{i[9]}",
-                                 crypto_wallet_value, i[10], "ONN", "buy")
-
-          else:
-              fiatAmount = getBalance(client, fiatSymbol)
-              cryptoAmount = getBalance(client, cryptoSymbol)
-              ticker = exchangeWallet.fetch_ticker(pairsSymbol)
-              crypto_wallet_value = fiatAmount + (cryptoAmount * ticker['last'])
-              con.insert_balence(datetime.now(),
-                                 f"Trix : {i[4]}_len{i[5]}_sign{i[6]}_top{i[7]}_bottom{i[8]}_RSI{i[9]}",
-                                 crypto_wallet_value, i[10], "ONN", "buy")
-              goOn = True
-
-      elif sellCondition(df.iloc[-2], i[8]):
-          if float(cryptoAmount) > minToken:
-              print(f"on vent :subaccount_name {i[3]}")
-              sellOrder = client.place_order(
-                  market=pairSymbol,
-                  side="sell",
-                  price=None,
-                  size=truncate(cryptoAmount, myTruncate),
-                  type='market')
-              fiatAmount = getBalance(client, fiatSymbol)
-              cryptoAmount = getBalance(client, cryptoSymbol)
-              ticker = exchangeWallet.fetch_ticker(pairsSymbol)
-              crypto_wallet_value = fiatAmount + (cryptoAmount * ticker['last'])
-              con.insert_balence(datetime.now(),
-                                 f"Trix : {i[4]}_len{i[5]}_sign{i[6]}_top{i[7]}_bottom{i[8]}_RSI{i[9]}",
-                                 crypto_wallet_value, i[10], "ONN", "sell")
-          else:
-              fiatAmount = getBalance(client, fiatSymbol)
-              cryptoAmount = getBalance(client, cryptoSymbol)
-              ticker = exchangeWallet.fetch_ticker(pairsSymbol)
-              crypto_wallet_value = fiatAmount + (cryptoAmount * ticker['last'])
-              con.insert_balence(datetime.now(),
-                                 f"Trix : {i[4]}_len{i[5]}_sign{i[6]}_top{i[7]}_bottom{i[8]}_RSI{i[9]}",
-                                 crypto_wallet_value, i[10], "ONN", "sell")
-              goOn = True
-      else:
-          goOn = True
+          actualPrice = df['close'].iloc[-1]
           fiatAmount = getBalance(client, fiatSymbol)
           cryptoAmount = getBalance(client, cryptoSymbol)
-          ticker = exchangeWallet.fetch_ticker(pairsSymbol)
-          crypto_wallet_value = fiatAmount + (cryptoAmount * ticker['last'])
+          minToken = 5 / actualPrice
+          side="none"
+          if buyCondition(df.iloc[-2], i[7]):
+              if float(fiatAmount) > 5:
+                  print(f"on achete : subacount_name {i[3]}")
+                  quantityBuy = truncate(float(fiatAmount) / actualPrice, myTruncate)
+                  buyOrder = client.place_order(
+                      market=pairSymbol,
+                      side="buy",
+                      price=None,
+                      size=quantityBuy,
+                      type='market')
+                  fiatAmount = getBalance(client, fiatSymbol)
+                  cryptoAmount = getBalance(client, cryptoSymbol)
+                  ticker = exchangeWallet.fetch_ticker(pairsSymbol)
+                  crypto_wallet_value = fiatAmount + (cryptoAmount * ticker['last'])
+                  con.insert_balence(datetime.now(),
+                                     f"Trix : {i[4]}_len{i[5]}_sign{i[6]}_top{i[7]}_bottom{i[8]}_RSI{i[9]}",
+                                     crypto_wallet_value, i[10], "ONN", "buy")
+
+              else:
+                  fiatAmount = getBalance(client, fiatSymbol)
+                  cryptoAmount = getBalance(client, cryptoSymbol)
+                  ticker = exchangeWallet.fetch_ticker(pairsSymbol)
+                  crypto_wallet_value = fiatAmount + (cryptoAmount * ticker['last'])
+                  con.insert_balence(datetime.now(),
+                                     f"Trix : {i[4]}_len{i[5]}_sign{i[6]}_top{i[7]}_bottom{i[8]}_RSI{i[9]}",
+                                     crypto_wallet_value, i[10], "ONN", "buy")
+                  goOn = True
+
+          elif sellCondition(df.iloc[-2], i[8]):
+              if float(cryptoAmount) > minToken:
+                  print(f"on vent :subaccount_name {i[3]}")
+                  sellOrder = client.place_order(
+                      market=pairSymbol,
+                      side="sell",
+                      price=None,
+                      size=truncate(cryptoAmount, myTruncate),
+                      type='market')
+                  fiatAmount = getBalance(client, fiatSymbol)
+                  cryptoAmount = getBalance(client, cryptoSymbol)
+                  ticker = exchangeWallet.fetch_ticker(pairsSymbol)
+                  crypto_wallet_value = fiatAmount + (cryptoAmount * ticker['last'])
+                  con.insert_balence(datetime.now(),
+                                     f"Trix : {i[4]}_len{i[5]}_sign{i[6]}_top{i[7]}_bottom{i[8]}_RSI{i[9]}",
+                                     crypto_wallet_value, i[10], "ONN", "sell")
+              else:
+                  fiatAmount = getBalance(client, fiatSymbol)
+                  cryptoAmount = getBalance(client, cryptoSymbol)
+                  ticker = exchangeWallet.fetch_ticker(pairsSymbol)
+                  crypto_wallet_value = fiatAmount + (cryptoAmount * ticker['last'])
+                  con.insert_balence(datetime.now(),
+                                     f"Trix : {i[4]}_len{i[5]}_sign{i[6]}_top{i[7]}_bottom{i[8]}_RSI{i[9]}",
+                                     crypto_wallet_value, i[10], "ONN", "sell")
+                  goOn = True
+          else:
+              goOn = True
+              fiatAmount = getBalance(client, fiatSymbol)
+              cryptoAmount = getBalance(client, cryptoSymbol)
+              ticker = exchangeWallet.fetch_ticker(pairsSymbol)
+              crypto_wallet_value = fiatAmount + (cryptoAmount * ticker['last'])
+              con.insert_balence(datetime.now(),
+                                 f"Trix : {i[4]}_len{i[5]}_sign{i[6]}_top{i[7]}_bottom{i[8]}_RSI{i[9]}",
+                                 crypto_wallet_value, i[10], "ONN", side)
+
+          #listBalances = sorted(client.get_balances(),key= lambda d : d['total'], reverse= True)
+          df_balences = pd.DataFrame(client.get_balances())
+          crypto_symbol_value_balence = df_balences[df_balences['coin']==cryptoSymbol]["usdValue"].values[0] + df_balences[df_balences['coin']=="USD"]["usdValue"].values[0]
+          #con.insert_log_info(datetime.now(),pairSymbol, "ON", side,i[10])
+          print(f"# bot {i[3]} executed")
+
+        except BaseException as ex:
+          # Get current system exception
+          ex_type, ex_value, ex_traceback = sys.exc_info()
+
+          # Extract unformatter stack traces as tuples
+          trace_back = traceback.extract_tb(ex_traceback)
+
+          # Format stacktrace
+          stack_trace = list()
+
+          for trace in trace_back:
+              stack_trace.append("File : %s , Line : %d, Func.Name : %s, Message : %s" % (trace[0], trace[1], trace[2], trace[3]))
+          print("\nsubaccout problem :",i[3])
+          print("pair_symbol problem :", pairSymbol)
+          print("Exception type : %s " % ex_type.__name__)
+          print("Exception message : %s" %ex_value)
+          print("Stack trace : %s \n" %stack_trace)
+          email_v1.send_mail(i[3], pairSymbol,ex_type.__name__, ex_value, stack_trace)
           con.insert_balence(datetime.now(),
                              f"Trix : {i[4]}_len{i[5]}_sign{i[6]}_top{i[7]}_bottom{i[8]}_RSI{i[9]}",
-                             crypto_wallet_value, i[10], "ONN", side)
-
-      #listBalances = sorted(client.get_balances(),key= lambda d : d['total'], reverse= True)
-      df_balences = pd.DataFrame(client.get_balances())
-      crypto_symbol_value_balence = df_balences[df_balences['coin']==cryptoSymbol]["usdValue"].values[0] + df_balences[df_balences['coin']=="USD"]["usdValue"].values[0]
-      #con.insert_log_info(datetime.now(),pairSymbol, "ON", side,i[10])
-      print(f"# bot {i[3]} executed")
-
-    except BaseException as ex:
-      # Get current system exception
-      ex_type, ex_value, ex_traceback = sys.exc_info()
-
-      # Extract unformatter stack traces as tuples
-      trace_back = traceback.extract_tb(ex_traceback)
-
-      # Format stacktrace
-      stack_trace = list()
-
-      for trace in trace_back:
-          stack_trace.append("File : %s , Line : %d, Func.Name : %s, Message : %s" % (trace[0], trace[1], trace[2], trace[3]))
-      print("\nsubaccout problem :",i[3])
-      print("pair_symbol problem :", pairSymbol)
-      print("Exception type : %s " % ex_type.__name__)
-      print("Exception message : %s" %ex_value)
-      print("Stack trace : %s \n" %stack_trace)
-      email_v1.send_mail(i[3], pairSymbol,ex_type.__name__, ex_value, stack_trace)
-      con.insert_balence(datetime.now(),
-                         f"Trix : {i[4]}_len{i[5]}_sign{i[6]}_top{i[7]}_bottom{i[8]}_RSI{i[9]}",
-                         0, i[10], "OFF", "none")
-      print("We're done\n\n")
+                             0, i[10], "OFF", "none")
+          print("We're done\n\n")

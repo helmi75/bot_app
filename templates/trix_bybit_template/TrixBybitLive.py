@@ -25,7 +25,7 @@ pwd = mot_de_passe
 cnx = mysql.connector.connect(host='localhost', user='root', password=pwd, port='3306', database='cryptos',
                               auth_plugin='mysql_native_password')
 cursor = cnx.cursor()
-query = "select p.* , b.nom_bot from params_bot_trix as p ,bots as b where b.bot_id = p.bot_id and b.type_bot ='Trix Bybit';"
+query = "select p.* , b.nom_bot, b.working from params_bot_trix as p ,bots as b where b.bot_id = p.bot_id and b.type_bot ='Trix Bybit';"
 cursor.execute(query)
 myresult = cursor.fetchall()
 
@@ -105,107 +105,108 @@ def sellCondition(row, previousRow, stochRsiBottom):
 
 
 for i in myresult:
-    con = ConnectBbd('localhost', '3306', 'root', pwd, 'cryptos', 'mysql_native_password')
-    try:
-        # CONSTANTS
-        fiatSymbol = 'USDT'
-        cryptoSymbol = (i[4] + "").upper()
-        pairSymbol = cryptoSymbol + 'USDT'
-        pairsSymbol = cryptoSymbol + '/USDT'
-        trixLength = i[5]
-        trixSignal = i[6]
-        decimal_count = 8
-        stoch_top = i[7]
-        stoch_bottom = i[8]
-        stoch_rsi = i[9]
-        # API
-        bybit_api_key = i[1]  # Enter your own API-key here
-        bybit_api_secret = i[2]  # Enter your own API-secret here
-        idd = i[10]
-        bybit_api_key, bybit_api_secret = degenerateApiSecret(bybit_api_key, bybit_api_secret, idd)
-        password_api_secret = i[3]  # Enter your own Password Here
-        client = ccxt.bybit({
-            'apiKey': bybit_api_key,
-            'secret': bybit_api_secret,
-            'password': password_api_secret,
-            'enableRateLimit': True
-        })
-        # client = Client(api_key=bybit_api_key, api_secret=bybit_api_secret)
-        df = getHistorical(Client(), pairSymbol.replace("/", ""))
-        df['TRIX'] = ta.trend.ema_indicator(
-            ta.trend.ema_indicator(ta.trend.ema_indicator(close=df['close'], window=trixLength), window=trixLength),
-            window=trixLength)
-        df['TRIX_PCT'] = df["TRIX"].pct_change() * 100
-        df['TRIX_SIGNAL'] = ta.trend.sma_indicator(df['TRIX_PCT'], trixSignal)
-        df['TRIX_HISTO'] = df['TRIX_PCT'] - df['TRIX_SIGNAL']
-        df['STOCH_RSI'] = ta.momentum.stochrsi(close=df['close'], window=stoch_rsi, smooth1=3, smooth2=3)
+    if i[12]:
+        con = ConnectBbd('localhost', '3306', 'root', pwd, 'cryptos', 'mysql_native_password')
+        try:
+            # CONSTANTS
+            fiatSymbol = 'USDT'
+            cryptoSymbol = (i[4] + "").upper()
+            pairSymbol = cryptoSymbol + 'USDT'
+            pairsSymbol = cryptoSymbol + '/USDT'
+            trixLength = i[5]
+            trixSignal = i[6]
+            decimal_count = 8
+            stoch_top = i[7]
+            stoch_bottom = i[8]
+            stoch_rsi = i[9]
+            # API
+            bybit_api_key = i[1]  # Enter your own API-key here
+            bybit_api_secret = i[2]  # Enter your own API-secret here
+            idd = i[10]
+            bybit_api_key, bybit_api_secret = degenerateApiSecret(bybit_api_key, bybit_api_secret, idd)
+            password_api_secret = i[3]  # Enter your own Password Here
+            client = ccxt.bybit({
+                'apiKey': bybit_api_key,
+                'secret': bybit_api_secret,
+                'password': password_api_secret,
+                'enableRateLimit': True
+            })
+            # client = Client(api_key=bybit_api_key, api_secret=bybit_api_secret)
+            df = getHistorical(Client(), pairSymbol.replace("/", ""))
+            df['TRIX'] = ta.trend.ema_indicator(
+                ta.trend.ema_indicator(ta.trend.ema_indicator(close=df['close'], window=trixLength), window=trixLength),
+                window=trixLength)
+            df['TRIX_PCT'] = df["TRIX"].pct_change() * 100
+            df['TRIX_SIGNAL'] = ta.trend.sma_indicator(df['TRIX_PCT'], trixSignal)
+            df['TRIX_HISTO'] = df['TRIX_PCT'] - df['TRIX_SIGNAL']
+            df['STOCH_RSI'] = ta.momentum.stochrsi(close=df['close'], window=stoch_rsi, smooth1=3, smooth2=3)
 
-        actualPrice = df['close'].iloc[-1]
-        fiatAmount = float(client.fetch_spot_balance()['total']['USDT'])
-        # fiatAmount = float(client.get_asset_balance(asset=fiatSymbol)['free'])  # 23.45
-        cryptoAmount = float(get_wallet(client, pairSymbol))
-        # cryptoAmount = float(client.get_asset_balance(asset=cryptoSymbol)['free'])  # 5.24e-05
-        minToken = 5 / actualPrice
-        print(" ")
-        print(f"{i[11]} : usd balance = {fiatAmount} ")
-        # print('coin price :', actualPrice, 'usd balance', fiatAmount, 'coin balance :', cryptoAmount)
-        if buyCondition(df.iloc[-2], df.iloc[-3], stoch_top):
-            if float(fiatAmount) > 5:
-                buyOrder = client.create_spot_order(pairsSymbol, "market", "buy", fiatAmount, 1)
-                # buyOrder = client.order_market_buy(symbol=pairSymbol,quantity=f"{float(quantityBuy):.{decimal_count}f}")
-                fiatAmount = float(client.fetch_spot_balance()['total']['USDT'])
-                cryptoAmount = float(get_wallet(client, pairSymbol))
-                ticker = exchangeWallet.fetch_ticker(pairsSymbol)
-                crypto_wallet_value = fiatAmount + (cryptoAmount * ticker['last'])
-                con.insert_balence(datetime.now(),
-                                   f"Trix : {i[4]}_len{i[5]}_sign{i[6]}_top{i[7]}_bottom{i[8]}_RSI{i[9]}",
-                                   crypto_wallet_value, i[10], "ONN", "buy")
-                print("BUY")
-            else:
-                fiatAmount = float(client.fetch_spot_balance()['total']['USDT'])
-                cryptoAmount = float(get_wallet(client, pairSymbol))
-                ticker = exchangeWallet.fetch_ticker(pairsSymbol)
-                crypto_wallet_value = fiatAmount + (cryptoAmount * ticker['last'])
-                con.insert_balence(datetime.now(),
-                                   f"Trix : {i[4]}_len{i[5]}_sign{i[6]}_top{i[7]}_bottom{i[8]}_RSI{i[9]}",
-                                   crypto_wallet_value, i[10], "ONN", "buy")
-                print("If you  give me more USD I will buy more", cryptoSymbol)
-
-        elif sellCondition(df.iloc[-2], df.iloc[-3], stoch_bottom):
-            if float(cryptoAmount) > minToken:
-                montant = client.fetch_spot_balance()['total'][pairSymbol[:-4]]
-                sellOrder = client.create_spot_order(pairsSymbol, "market", "sell", montant, 1)
-                fiatAmount = float(client.fetch_spot_balance()['total']['USDT'])
-                cryptoAmount = float(get_wallet(client, pairSymbol))
-                ticker = exchangeWallet.fetch_ticker(pairsSymbol)
-                crypto_wallet_value = fiatAmount + (cryptoAmount * ticker['last'])
-                con.insert_balence(datetime.now(),
-                                   f"Trix : {i[4]}_len{i[5]}_sign{i[6]}_top{i[7]}_bottom{i[8]}_RSI{i[9]}",
-                                   crypto_wallet_value, i[10], "ONN", "sell")
-                print("SELL")
-            else:
-                fiatAmount = float(client.fetch_spot_balance()['total']['USDT'])
-                cryptoAmount = float(get_wallet(client, pairSymbol))
-                ticker = exchangeWallet.fetch_ticker(pairsSymbol)
-                crypto_wallet_value = fiatAmount + (cryptoAmount * ticker['last'])
-                con.insert_balence(datetime.now(),
-                                   f"Trix : {i[4]}_len{i[5]}_sign{i[6]}_top{i[7]}_bottom{i[8]}_RSI{i[9]}",
-                                   crypto_wallet_value, i[10], "ONN", "sell")
-                print("If you give me more", cryptoSymbol, "I will sell it")
-        else:
-            print("No opportunity to take")
+            actualPrice = df['close'].iloc[-1]
             fiatAmount = float(client.fetch_spot_balance()['total']['USDT'])
+            # fiatAmount = float(client.get_asset_balance(asset=fiatSymbol)['free'])  # 23.45
             cryptoAmount = float(get_wallet(client, pairSymbol))
-            ticker = exchangeWallet.fetch_ticker(pairsSymbol)
-            crypto_wallet_value = fiatAmount + (cryptoAmount * ticker['last'])
-            con.insert_balence(datetime.now(),
-                               f"Trix : {i[4]}_len{i[5]}_sign{i[6]}_top{i[7]}_bottom{i[8]}_RSI{i[9]}",
-                               crypto_wallet_value, i[10], "ONN", "none")
+            # cryptoAmount = float(client.get_asset_balance(asset=cryptoSymbol)['free'])  # 5.24e-05
+            minToken = 5 / actualPrice
+            print(" ")
+            print(f"{i[11]} : usd balance = {fiatAmount} ")
+            # print('coin price :', actualPrice, 'usd balance', fiatAmount, 'coin balance :', cryptoAmount)
+            if buyCondition(df.iloc[-2], df.iloc[-3], stoch_top):
+                if float(fiatAmount) > 5:
+                    buyOrder = client.create_spot_order(pairsSymbol, "market", "buy", fiatAmount, 1)
+                    # buyOrder = client.order_market_buy(symbol=pairSymbol,quantity=f"{float(quantityBuy):.{decimal_count}f}")
+                    fiatAmount = float(client.fetch_spot_balance()['total']['USDT'])
+                    cryptoAmount = float(get_wallet(client, pairSymbol))
+                    ticker = exchangeWallet.fetch_ticker(pairsSymbol)
+                    crypto_wallet_value = fiatAmount + (cryptoAmount * ticker['last'])
+                    con.insert_balence(datetime.now(),
+                                       f"Trix : {i[4]}_len{i[5]}_sign{i[6]}_top{i[7]}_bottom{i[8]}_RSI{i[9]}",
+                                       crypto_wallet_value, i[10], "ONN", "buy")
+                    print("BUY")
+                else:
+                    fiatAmount = float(client.fetch_spot_balance()['total']['USDT'])
+                    cryptoAmount = float(get_wallet(client, pairSymbol))
+                    ticker = exchangeWallet.fetch_ticker(pairsSymbol)
+                    crypto_wallet_value = fiatAmount + (cryptoAmount * ticker['last'])
+                    con.insert_balence(datetime.now(),
+                                       f"Trix : {i[4]}_len{i[5]}_sign{i[6]}_top{i[7]}_bottom{i[8]}_RSI{i[9]}",
+                                       crypto_wallet_value, i[10], "ONN", "buy")
+                    print("If you  give me more USD I will buy more", cryptoSymbol)
 
-    except Exception as ex:
-        print("----Exception----")
-        ex.with_traceback()
-        print("-----------------")
+            elif sellCondition(df.iloc[-2], df.iloc[-3], stoch_bottom):
+                if float(cryptoAmount) > minToken:
+                    montant = client.fetch_spot_balance()['total'][pairSymbol[:-4]]
+                    sellOrder = client.create_spot_order(pairsSymbol, "market", "sell", montant, 1)
+                    fiatAmount = float(client.fetch_spot_balance()['total']['USDT'])
+                    cryptoAmount = float(get_wallet(client, pairSymbol))
+                    ticker = exchangeWallet.fetch_ticker(pairsSymbol)
+                    crypto_wallet_value = fiatAmount + (cryptoAmount * ticker['last'])
+                    con.insert_balence(datetime.now(),
+                                       f"Trix : {i[4]}_len{i[5]}_sign{i[6]}_top{i[7]}_bottom{i[8]}_RSI{i[9]}",
+                                       crypto_wallet_value, i[10], "ONN", "sell")
+                    print("SELL")
+                else:
+                    fiatAmount = float(client.fetch_spot_balance()['total']['USDT'])
+                    cryptoAmount = float(get_wallet(client, pairSymbol))
+                    ticker = exchangeWallet.fetch_ticker(pairsSymbol)
+                    crypto_wallet_value = fiatAmount + (cryptoAmount * ticker['last'])
+                    con.insert_balence(datetime.now(),
+                                       f"Trix : {i[4]}_len{i[5]}_sign{i[6]}_top{i[7]}_bottom{i[8]}_RSI{i[9]}",
+                                       crypto_wallet_value, i[10], "ONN", "sell")
+                    print("If you give me more", cryptoSymbol, "I will sell it")
+            else:
+                print("No opportunity to take")
+                fiatAmount = float(client.fetch_spot_balance()['total']['USDT'])
+                cryptoAmount = float(get_wallet(client, pairSymbol))
+                ticker = exchangeWallet.fetch_ticker(pairsSymbol)
+                crypto_wallet_value = fiatAmount + (cryptoAmount * ticker['last'])
+                con.insert_balence(datetime.now(),
+                                   f"Trix : {i[4]}_len{i[5]}_sign{i[6]}_top{i[7]}_bottom{i[8]}_RSI{i[9]}",
+                                   crypto_wallet_value, i[10], "ONN", "none")
+
+        except Exception as ex:
+            print("----Exception----")
+            ex.with_traceback()
+            print("-----------------")
 
 print("")
 print("--- End Execution Time ---")

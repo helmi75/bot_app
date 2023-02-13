@@ -31,8 +31,10 @@ def modifierTrixBot(bot_id):
     apii = trix_bot[0][1]
     secrets = trix_bot[0][2]
     apii, secrets = degenerateApiSecret(apii, secrets, bot_id)
-    api_key = st.text_input("enter your api_key", key="api_key_trix", value=apii)
-    secret_key = st.text_input("enter  secret key", key="secret_key_trix", value=secrets)
+    apiii  = apii[0]+apii[1]+"**************"+apii[-1]+apii[-2]
+    secretss = secrets[0]+secrets[1]+"**************"+secrets[-1]+secrets[-2]
+    api_key = st.text_input("enter your api_key", key="api_key_trix", value=apiii)
+    secret_key = st.text_input("enter  secret key", key="secret_key_trix", value=secretss)
     sub_account = st.text_input("Subaccount", key="sub_account_trix", value=trix_bot[0][3])
     col1, col2, col3 = st.columns(3)
     pair_symbol = col1.text_input("FTX Pair symbol", value=f"{trix_bot[0][4].upper()}/USDT",
@@ -49,6 +51,10 @@ def modifierTrixBot(bot_id):
     if col01.button("Apply Changes"):
         con = ConnectBbd('localhost', '3306', 'root', pwd, 'cryptos', 'mysql_native_password')
         pair_symbol = pair_symbol[:-5].lower()
+        if (api_key == apiii):
+            api_key = apii
+        if (secret_key == secretss):
+            secret_key = secrets
         api_key, secret_key = generateApiSecret(api_key, secret_key, bot_id)
         con.update_trix_bot(bot_id, api_key, secret_key, sub_account, pair_symbol,
                             trix_lenght, trix_signal, stoch_top, stoch_bottom, stoch_rsi)
@@ -72,9 +78,11 @@ if authentication_status:
 
             for index, item in enumerate(st.session_state.my_list):
                 emplacement = st.empty()
-                col1, col2, col22 = emplacement.columns([9, 3, 3])
+                col1, col2, col22, col222 = emplacement.columns([6, 3, 3, 3])
                 emplacement2 = st.empty()
-                col3, col4 = emplacement2.columns([9, 4])
+                col3, col4 = emplacement2.columns([5, 4])
+
+                stopMarche = con.getStopMarche(botsTrix[index][0])
 
                 if f'{item}' not in st.session_state:
                     st.session_state[f'{item}'] = False
@@ -96,6 +104,22 @@ if authentication_status:
                     modifierTrixBot(botsTrix[index][0])
                     st.session_state[f'E{item}'] = True
                     st.session_state[f'{item}'] = False
+
+                if stopMarche and col222.button("Stop", key=f"stop{index}"):
+                    usdtCrypto = con.get_state_vente_achat_trix_By_id(botsTrix[index][0])
+                    if usdtCrypto.lower() != "usdt":
+                        if botsTrix[index][0].lower == "Trix FTX".lower():
+                            con.vendreTrixFtx(botsTrix[index][0])
+                        elif botsTrix[index][0].lower == "Trix Binance".lower():
+                            con.vendreTrixBinance(botsTrix[index][0])
+                        elif botsTrix[index][0].lower == "Trix Bybit".lower():
+                            con.vendreTrixBybit(botsTrix[index][0])
+                    con.updateStopMarche(botsTrix[index][0], 0)
+                    st.error(f"Le bot {item} est stoppé {usdtCrypto}")
+                elif not stopMarche and col222.button("Work", key=f"marche{index}"):
+                    con.updateStopMarche(botsTrix[index][0], 1)
+                    st.success(f"Le bot {item} est en marche ")
+
                 if len(st.session_state.my_list) > index:
                     col1.markdown(f'Bot : **{item}**.', unsafe_allow_html=True)
                 else:
