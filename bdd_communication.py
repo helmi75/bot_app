@@ -7,6 +7,11 @@ from datetime import timedelta
 import streamlit as st
 import plotly.graph_objects as go
 import string
+import ccxt
+import ftx
+from math import *
+from binance.client import Client
+from pass_secret import mot_de_passe
 
 lowerCase = string.ascii_lowercase
 upperCase = string.ascii_uppercase
@@ -210,7 +215,7 @@ class ConnectBbd:
 
     def get_botsTrix(self):
         cursor = self.cnx.cursor()
-        query = " SELECT bot_id, nom_bot  FROM bots where type_bot like 'Trix%'  ;"
+        query = " SELECT bot_id, nom_bot,type_bot  FROM bots where type_bot like 'Trix%'  ;"
         cursor.execute(query)
         result = cursor.fetchall()
         # self.cnx.close()
@@ -232,7 +237,7 @@ class ConnectBbd:
         # self.cnx.close()
         return result
 
-    def get_trix_details_bot (self):
+    def get_trix_details_bot(self):
         cursor = self.cnx.cursor()
         query = f"select params_bot_trix.*, bots.nom_bot from params_bot_trix , bots where bots.bot_id = params_bot_trix.bot_id "
         cursor.execute(query)
@@ -240,7 +245,7 @@ class ConnectBbd:
         # self.cnx.close()
         return result
 
-    def get_cocotier_details_bot (self):
+    def get_cocotier_details_bot(self):
         cursor = self.cnx.cursor()
         query = f"select Params_bot_Cocotier.*, bots.nom_bot from Params_bot_Cocotier , bots where bots.bot_id = Params_bot_Cocotier.bot_id "
         cursor.execute(query)
@@ -248,14 +253,14 @@ class ConnectBbd:
         # self.cnx.close()
         return result
 
-    def update_cocotier_details_bot(self,id,api,secret):
+    def update_cocotier_details_bot(self, id, api, secret):
         cursor = self.cnx.cursor()
         query = f"update Params_bot_Cocotier set api_key = '{api}', secret_key = '{secret}' where bot_id = {id};"
         cursor.execute(query)
         self.cnx.commit()
         cursor.close()
 
-    def update_trix_details_bot(self,id,api,secret):
+    def update_trix_details_bot(self, id, api, secret):
         cursor = self.cnx.cursor()
         query = f"update params_bot_trix set api_key = '{api}', secret_key = '{secret}' where bot_id = {id};"
         cursor.execute(query)
@@ -353,6 +358,191 @@ class ConnectBbd:
         # self.cnx.close()
         return result
 
+    def get_statusTrixById(self, idBot):
+        """
+           get bots status information from bdd
+        """
+        cursor = self.cnx.cursor()
+        # query = "select * from log_execution;"
+        query = f"select g.dates,g.crypto_wallet,g.status_bot,g.transaction,b.nom_bot,b.type_bot,p.pair_symbol from get_balence as g, bots as b, params_bot_trix as p where p.bot_id = g.id_bot and g.id_bot = b.bot_id and b.bot_id = {idBot};"
+        cursor.execute(query)
+        result = cursor.fetchall()
+        wallets = {}
+        # self.cnx.close()
+        return result
+
+    def get_statusCocotierById(self, idBot):
+        """
+           get bots status information from bdd
+        """
+        cursor = self.cnx.cursor()
+        # query = "select * from log_execution;"
+        query = f"select g.dates,g.crypto_wallet,g.status_bot,b.nom_bot,b.type_bot,p.pair_symbol,g.crypto_name,p.delta_hour,p.type_computing from get_balence as g, bots as b, Params_bot_Cocotier as p where p.bot_id = g.id_bot and g.id_bot = b.bot_id and b.bot_id = {idBot};"
+        cursor.execute(query)
+        result = cursor.fetch()
+        wallets = {}
+        # self.cnx.close()
+        return result[2]
+
+    def status_bots(self, df_result):
+        # df_result = df_result[df_result["transaction"] != "none"]
+        list_satus_bot = [df_result[df_result['nom_bot'] == bot].iloc[-1:] for bot in df_result['nom_bot'].unique()]
+        df_status_bot = pd.concat(list_satus_bot)[
+            ['date', 'nom_bot', 'pair_symbol', 'status_bot', 'transaction', 'type_bot', 'wallet']]
+        for i, transaction in zip(df_status_bot["transaction"].index, df_status_bot["transaction"]):
+            if transaction == "none":
+                df_status_bot["transaction"].loc[i] = "USDT"
+            else:
+                df_status_bot["transaction"].loc[i] = transaction
+            if transaction == "sell":
+                df_status_bot["pair_symbol"].loc[i] = "USDT"
+        # df_status_bot = df_status_bot.rename(columns={"transaction": "status_trix"})
+        # df_status_bot = df_status_bot.rename(columns={"type_bot": "exchange"})
+        return df_status_bot["pair_symbol"].iloc[0]
+
+    def get_state_OFF_ONN_Cocotier_By_id(self, idbot):
+        result = self.get_statusCocotierById(idbot)
+        return result
+
+    def get_state_vente_achat_trix_By_id(self, idbot):
+        result = self.get_statusTrixById(idbot)
+        df_result = pd.DataFrame(result, columns=['date', 'wallet', 'status_bot',
+                                                  'transaction', 'nom_bot', 'type_bot', 'pair_symbol'])
+        df_result['type_bot'] = df_result['type_bot'].str[5:]
+
+        return self.status_bots(df_result)
+
+    def vendreTrixFtx(self, idbot):
+        exchangeWallet = ccxt.binance()
+        cursor = self.cnx.cursor()
+        query = f"select params_bot_trix.* from params_bot_trix where  params_bot_trix.bot_id  ={idbot};"
+        cursor.execute(query)
+        result = cursor.fetch()
+        apiKey = result[1]
+        secret = result[2]
+        apiKey, secret = degenerateApiSecret(apiKey, secret, idbot)
+        cryptoSymbol = (result[4] + "").upper()
+        pairSymbol = cryptoSymbol + '/USD'
+        fiatSymbol = 'USD'
+        pairsSymbol = cryptoSymbol + '/USDT'
+        client = ftx.FtxClient(
+            api_key=apiKey,
+            api_secret=secret,
+            subaccount_name=result[3]
+        )
+        myTruncate = 3
+        cryptoAmount = getBalance(client, cryptoSymbol)
+        sellOrder = client.place_order(
+            market=pairSymbol,
+            side="sell",
+            price=None,
+            size=truncate(cryptoAmount, myTruncate),
+            type='market')
+        fiatAmount = getBalance(client, fiatSymbol)
+        cryptoAmount = getBalance(client, cryptoSymbol)
+        ticker = exchangeWallet.fetch_ticker(pairsSymbol)
+        crypto_wallet_value = fiatAmount + (cryptoAmount * ticker['last'])
+        self.insert_balence(datetime.now(),
+                            f"Trix : {result[4]}_len{result[5]}_sign{result[6]}_top{result[7]}_bottom{result[8]}_RSI{result[9]}",
+                            crypto_wallet_value, result[10], "OFF", "sell")
+
+    def vendreTrixBinance(self, idbot):
+        exchangeWallet = ccxt.binance()
+        cursor = self.cnx.cursor()
+        query = f"select params_bot_trix.* from params_bot_trix where  params_bot_trix.bot_id  ={idbot};"
+        cursor.execute(query)
+        result = cursor.fetch()
+        apiKey = result[1]
+        secret = result[2]
+        apiKey, secret = degenerateApiSecret(apiKey, secret, idbot)
+        decimal_count = 8
+        fiatSymbol = 'USDT'
+        cryptoSymbol = (result[4] + "").upper()
+        pairSymbol = cryptoSymbol + 'USDT'
+        pairsSymbol = cryptoSymbol + '/USDT'
+        client = Client(api_key=apiKey, api_secret=secret)
+        cryptoAmount = float(client.get_asset_balance(asset=cryptoSymbol)['free'])
+        sellOrder = client.order_market_sell(
+            symbol=pairSymbol,
+            quantity=f"{float(convert_amount_to_precision(client, pairSymbol, cryptoAmount)):.{decimal_count}f}")
+        fiatAmount = float(client.get_asset_balance(asset=fiatSymbol)['free'])
+        cryptoAmount = float(client.get_asset_balance(asset=cryptoSymbol)['free'])
+        ticker = exchangeWallet.fetch_ticker(pairsSymbol)
+        crypto_wallet_value = fiatAmount + (cryptoAmount * ticker['last'])
+        self.insert_balence(datetime.now(),
+                            f"Trix : {result[4]}_len{result[5]}_sign{result[6]}_top{result[7]}_bottom{result[8]}_RSI{result[9]}",
+                            crypto_wallet_value, result[10], "OFF", "sell")
+
+    def vendreTrixBybit(self, idbot):
+        exchangeWallet = ccxt.binance()
+        cursor = self.cnx.cursor()
+        query = f"select params_bot_trix.* from params_bot_trix where  params_bot_trix.bot_id  ={idbot};"
+        cursor.execute(query)
+        result = cursor.fetch()
+        apiKey = result[1]
+        secret = result[2]
+        apiKey, secret = degenerateApiSecret(apiKey, secret, idbot)
+        fiatSymbol = 'USDT'
+        cryptoSymbol = (result[4] + "").upper()
+        pairSymbol = cryptoSymbol + 'USDT'
+        pairsSymbol = cryptoSymbol + '/USDT'
+        client = ccxt.bybit({
+            'apiKey': apiKey,
+            'secret': secret,
+            'password': result[3],
+            'enableRateLimit': True
+        })
+        montant = client.fetch_spot_balance()['total'][pairSymbol[:-4]]
+        sellOrder = client.create_spot_order(pairsSymbol, "market", "sell", montant, 1)
+        fiatAmount = float(client.fetch_spot_balance()['total']['USDT'])
+        cryptoAmount = float(client.fetch_spot_balance()['total'][pairSymbol[:-4]])
+        ticker = exchangeWallet.fetch_ticker(pairsSymbol)
+        crypto_wallet_value = fiatAmount + (cryptoAmount * ticker['last'])
+        self.insert_balence(datetime.now(),
+                            f"Trix : {result[4]}_len{result[5]}_sign{result[6]}_top{result[7]}_bottom{result[8]}_RSI{result[9]}",
+                            crypto_wallet_value, result[10], "OFF", "sell")
+
+    def vendreCocotierBinance(self, idbot):
+        cursor = self.cnx.cursor()
+        query = f"select * from Params_bot_Cocotier where bot_id  ={idbot};"
+        cursor.execute(query)
+        result = cursor.fetch()
+        apiKey = result[1]
+        secret = result[2]
+        market = result[4].split(',')
+        apiKey, secret = degenerateApiSecret(apiKey, secret, idbot)
+        exchange = ccxt.binance({
+            'apiKey': apiKey,
+            'secret': secret,
+            'enableRateLimit': True
+        })
+        balence = exchange.fetchBalance()
+        nom_crypto_vente = crypto_a_vendre(exchange, market)
+        sell = vente(exchange, nom_crypto_vente, balence['total'])
+        wallet = get_wallet(exchange)
+        self.insert_balence(datetime.now(), "USDT", wallet, idbot, "OFF", "none")
+
+    def vendreCocotierBybit(self, idbot):
+        cursor = self.cnx.cursor()
+        query = f"select * from Params_bot_Cocotier where bot_id  ={idbot};"
+        cursor.execute(query)
+        result = cursor.fetch()
+        apiKey = result[1]
+        secret = result[2]
+        password = result[3]
+        apiKey, secret = degenerateApiSecret(apiKey, secret, idbot)
+        exchange = ccxt.bybit({
+            'apiKey': apiKey,
+            'secret': secret,
+            'password': password,
+            'enableRateLimit': True
+        })
+        nom_crypto_vente = crypto_a_vendreBybit(exchange, result[7])
+        balence = exchange.fetch_spot_balance()
+        sell = vente(exchange, nom_crypto_vente, balence['total'])
+        wallet = get_walletBybit(exchange)
+        self.insert_balence(datetime.now(), "USDT", wallet, idbot, "OFF", "none")
+
     def get_statusCocotier(self):
         """
            get bots status information from bdd
@@ -388,6 +578,19 @@ class ConnectBbd:
     def updatePairSymbolsBybit(self, pairSymbols):
         cursor = self.cnx.cursor()
         query = f"update settings set value_setting = '{pairSymbols}' where id_setting = 3;"
+        cursor.execute(query)
+        self.cnx.commit()
+
+    def getStopMarche(self, idbot):
+        cursor = self.cnx.cursor()
+        query = f"select working from bots where bot_id = {idbot}"
+        cursor.execute(query)
+        result = cursor.fetchall()
+        return result[0][0]
+
+    def updateStopMarche(self, idbot, state):
+        cursor = self.cnx.cursor()
+        query = f"update bots set working = '{state}' where bot_id = {idbot};"
         cursor.execute(query)
         self.cnx.commit()
 
@@ -652,7 +855,6 @@ decrypting with cypher
 '''
 
 
-
 def encypt_func(txt, s):
     result = ""
     for i in range(len(txt)):
@@ -664,6 +866,7 @@ def encypt_func(txt, s):
         else:
             result += chr((ord(char) - 3))
     return result
+
 
 def decypt_func(mesage, key):
     decrypted_message = ""
@@ -699,3 +902,139 @@ def degenerateApiSecret(api, secret, key):
     secret = decypt_func(secret, key)
     return api, secret
 
+
+def truncate(n, decimals=0):
+    r = floor(float(n) * 10 ** decimals) / 10 ** decimals
+    return str(r)
+
+
+def getBalance(myclient, coin):
+    jsonBalance = myclient.get_balances()
+    if jsonBalance == []:
+        return 0
+    pandaBalance = pd.DataFrame(jsonBalance)
+    if pandaBalance.loc[pandaBalance['coin'] == coin].empty:
+        return 0
+    else:
+        return float(pandaBalance.loc[pandaBalance['coin'] == coin]['free'])
+
+
+def get_step_size(client, symbol):
+    stepSize = None
+    for filter in client.get_symbol_info(symbol)['filters']:
+        if filter['filterType'] == 'LOT_SIZE':
+            stepSize = float(filter['stepSize'])
+    return stepSize
+
+
+def convert_amount_to_precision(client, symbol, amount):
+    stepSize = get_step_size(client, symbol)
+    return (amount // stepSize) * stepSize
+
+
+def vente(exchange, var1, balence_total):
+    sell_1 = exchange.create_market_sell_order(var1, balence_total[var1[:-5]])
+    return sell_1
+
+
+def get_wallet(exchange):
+    balence = exchange.fetch_balance()['total']
+    df_balence = pd.DataFrame([balence]).transpose().rename(columns={0: "balence"})
+    df_balence = df_balence[df_balence['balence'] > 0]
+    crypto_index = [elm + "/USDT" for elm in df_balence['balence'].index]
+    crypto_index.remove('USDT/USDT')
+    # crypto_index.remove('LUNC/USDT')
+    # crypto_index.remove('ETHW/USDT')
+    dict_balence_usdt = {}
+    for elm in crypto_index:
+        try:
+            dict_balence_usdt[elm] = exchange.fetchTickers([elm])[elm]['ask'] * exchange.fetch_balance()['total'][
+                elm[:-5]]
+        except Exception as e:
+            print(e)
+    return sum(dict_balence_usdt.values())
+
+
+def get_walletBybit(exchange):
+    balence = exchange.fetch_spot_balance()['total']
+    df_balence = pd.DataFrame([balence]).transpose().rename(columns={0: "balence"})
+    df_balence = df_balence[df_balence['balence'] > 0]
+    crypto_index = [elm + "/USDT:USDT" for elm in df_balence['balence'].index]
+    crypto_index.remove('USDT/USDT:USDT')
+    dict_balence_usdt = {}
+    for elm in crypto_index:
+        try:
+            dict_balence_usdt[elm] = exchange.fetchTickers([elm])[elm]['ask'] * exchange.fetch_spot_balance()['total'][
+                elm[:-10]]
+        except Exception as e:
+            print(e)
+    return sum(dict_balence_usdt.values())
+
+
+def acheter_2(exchange, var2, balence_total, pourcentage):
+    montant_USDT = float(exchange.fetch_balance().get('USDT').get('free'))
+    dict = exchange.fetchTicker(var2)
+    last = dict['last']
+    # Prevent error divide by zero
+    while last == 0:
+        try:
+            last = exchange.fetchTicker(var2)['last']
+        except:
+            pass
+    buy = exchange.create_market_buy_order(var2, (montant_USDT * pourcentage) / last)
+    return buy
+
+
+def crypto_a_vendre(exchange, market):
+    try:
+        x = (datetime.now() - timedelta(days=365)).timestamp() * 1000
+        df_hystoric_order = {}
+        liste_df = []
+        liste_name_crypto = []
+
+        for name_crypto in market:
+            name_crypto_up = name_crypto.upper()
+            while True:
+                try:
+                    x = exchange.fetchMyTrades(name_crypto)
+                    break
+                except:
+                    print("ERROR CONNEXTION RECUPERATION fetchmyTrades Crypto: ", name_crypto)
+            df_hystoric_order[name_crypto_up] = pd.DataFrame.from_dict(x)
+            index_dernier_ordre = df_hystoric_order[name_crypto_up].index.max()
+            if not (df_hystoric_order[name_crypto_up].empty):
+                liste_df.append(df_hystoric_order[name_crypto_up].loc[index_dernier_ordre])
+        pd.set_option('display.max_columns', None)
+        df_log = pd.DataFrame(liste_df).set_index('symbol')
+        df_datetime_side_cost = df_log[['datetime', 'side', 'cost']]
+        global crypto_a_vendre
+        try:
+            balence = exchange.fetchBalance()
+            crypto_a_vendre = df_log[df_log['side'] == 'buy'].index[0]
+        except IndexError as e:
+            print(f"# Warning  : {e} we buy BTC by default")
+            acheter_2(exchange, "BTC/USDT", balence['total'], 0.97)
+            cryptos_a_vendre = "BTC/USDT"
+        return crypto_a_vendre
+    except IndexError:
+        return '0'
+
+
+def get_pair_symbol_for_last_balence_by_id(id):
+    con = ConnectBbd('localhost', '3306', 'root', mot_de_passe, 'cryptos', 'mysql_native_password')
+    cursor = con.cnx.cursor()
+    query = f"select crypto_name from get_balence where id_bot = {id} order by id_get_balence desc limit 1;"
+    cursor.execute(query)
+    myresult = cursor.fetchall()
+    return myresult
+
+
+def crypto_a_vendreBybit(exchange, idbot):
+    try:
+        crypto_name = get_pair_symbol_for_last_balence_by_id(idbot)[0][0]
+    except Exception as exx:
+        crypto_name = "BTC/USDT"
+        print("We'll buy btc for now just for the start !")
+        montant_USDT = float(exchange.fetch_spot_balance().get('USDT').get('free'))
+        exchange.create_spot_order("BTC/USDT", "market", "buy", montant_USDT, 1)
+    return crypto_name

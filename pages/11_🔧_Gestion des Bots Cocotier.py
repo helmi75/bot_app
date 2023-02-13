@@ -51,8 +51,10 @@ def modifierCocotierBot(bot_id):
     apii = cocotier_bot[0][1]
     secrets = cocotier_bot[0][2]
     apii,secrets = degenerateApiSecret(apii, secrets, bot_id)
-    api_key = st.text_input("enter your api_key", key="cocotier_api_key", value=apii)
-    secret_key = st.text_input("enter  secret key", key="secret_key", value=secrets)
+    apiii = apii[0] + apii[1] + "**************" + apii[-1] + apii[-2]
+    secretss = secrets[0] + secrets[1] + "**************" + secrets[-1] + secrets[-2]
+    api_key = st.text_input("enter your api_key", key="cocotier_api_key", value=apiii)
+    secret_key = st.text_input("enter  secret key", key="secret_key", value=secretss)
     sub_account = st.text_input("Subaccount", key="sub_account", value=cocotier_bot[0][3])
     st.write("Selectionner le pair symbol")
     pair_symbol = convertListToString(choix_market(cocotier_bot[0][4]))
@@ -71,6 +73,10 @@ def modifierCocotierBot(bot_id):
         pair_symbol = pair_symbol.lower()
         n_i = n_i.lower()
         delta_hour = (int)(delta_hour[:-1])
+        if (api_key == apiii):
+            api_key = apii
+        if (secret_key == secretss):
+            secret_key = secrets
         api_key, secret_key = generateApiSecret(api_key, secret_key, bot_id)
         con.update_Cocotier_bot(bot_id, api_key, secret_key, sub_account, pair_symbol,
                                 delta_hour, n_i)
@@ -93,9 +99,10 @@ if authentication_status:
 
             for index, item in enumerate(st.session_state.my_list):
                 emplacement = st.empty()
-                col1, col2, col22 = emplacement.columns([9, 3, 3])
+                col1, col2, col22, col222 = emplacement.columns([6, 3, 3, 3])
                 emplacement2 = st.empty()
                 col3, col4 = emplacement2.columns([9, 4])
+                stopMarche = con.getStopMarche(botsCocotier[index][0])
 
                 if f'{item}' not in st.session_state:
                     st.session_state[f'{item}'] = False
@@ -117,6 +124,20 @@ if authentication_status:
                     modifierCocotierBot(botsCocotier[index][0])
                     st.session_state[f'E{item}'] = True
                     st.session_state[f'{item}'] = False
+
+                if stopMarche and col222.button("Stop", key=f"stop{index}"):
+                    usdtCrypto = con.get_state_OFF_ONN_Cocotier_By_id(botsCocotier[index][0])
+                    if usdtCrypto.lower() == "onn":
+                        if botsCocotier[index][0].lower == "Cocotier Binance".lower():
+                            con.vendreCocotierBinance(botsCocotier[index][0])
+                        elif botsCocotier[index][0].lower == "Cocotier Bybit".lower():
+                            con.vendreCocotierBybit(botsCocotier[index][0])
+                    con.updateStopMarche(botsCocotier[index][0], 0)
+                    st.error(f"Le bot {item} est stoppé {usdtCrypto}")
+                elif not stopMarche and col222.button("Work", key=f"marche{index}"):
+                    con.updateStopMarche(botsCocotier[index][0], 1)
+                    st.success(f"Le bot {item} est en marche ")
+
                 if len(st.session_state.my_list) > index:
                     col1.markdown(f'Bot : **{item}**.', unsafe_allow_html=True)
                 else:
