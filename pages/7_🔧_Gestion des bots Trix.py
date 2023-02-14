@@ -108,11 +108,11 @@ if authentication_status:
                 if stopMarche and col222.button("Stop", key=f"stop{index}"):
                     usdtCrypto = con.get_state_vente_achat_trix_By_id(botsTrix[index][0])
                     if usdtCrypto.lower() != "usdt":
-                        if botsTrix[index][0].lower == "Trix FTX".lower():
+                        if botsTrix[index][2].lower == "Trix FTX".lower():
                             con.vendreTrixFtx(botsTrix[index][0])
-                        elif botsTrix[index][0].lower == "Trix Binance".lower():
+                        elif botsTrix[index][2].lower == "Trix Binance".lower():
                             con.vendreTrixBinance(botsTrix[index][0])
-                        elif botsTrix[index][0].lower == "Trix Bybit".lower():
+                        elif botsTrix[index][2].lower == "Trix Bybit".lower():
                             con.vendreTrixBybit(botsTrix[index][0])
                     con.updateStopMarche(botsTrix[index][0], 0)
                     st.error(f"Le bot {item} est stoppé {usdtCrypto}")
