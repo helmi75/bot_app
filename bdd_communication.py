@@ -379,7 +379,7 @@ class ConnectBbd:
         # query = "select * from log_execution;"
         query = f"select g.dates,g.crypto_wallet,g.status_bot,b.nom_bot,b.type_bot,p.pair_symbol,g.crypto_name,p.delta_hour,p.type_computing from get_balence as g, bots as b, Params_bot_Cocotier as p where p.bot_id = g.id_bot and g.id_bot = b.bot_id and b.bot_id = {idBot};"
         cursor.execute(query)
-        result = cursor.fetch()
+        result = cursor.fetchone()
         wallets = {}
         # self.cnx.close()
         return result[2]
@@ -417,7 +417,7 @@ class ConnectBbd:
         cursor = self.cnx.cursor()
         query = f"select params_bot_trix.* from params_bot_trix where  params_bot_trix.bot_id  ={idbot};"
         cursor.execute(query)
-        result = cursor.fetch()
+        result = cursor.fetchone()
         apiKey = result[1]
         secret = result[2]
         apiKey, secret = degenerateApiSecret(apiKey, secret, idbot)
@@ -451,7 +451,7 @@ class ConnectBbd:
         cursor = self.cnx.cursor()
         query = f"select params_bot_trix.* from params_bot_trix where  params_bot_trix.bot_id  ={idbot};"
         cursor.execute(query)
-        result = cursor.fetch()
+        result = cursor.fetchone()
         apiKey = result[1]
         secret = result[2]
         apiKey, secret = degenerateApiSecret(apiKey, secret, idbot)
@@ -478,7 +478,7 @@ class ConnectBbd:
         cursor = self.cnx.cursor()
         query = f"select params_bot_trix.* from params_bot_trix where  params_bot_trix.bot_id  ={idbot};"
         cursor.execute(query)
-        result = cursor.fetch()
+        result = cursor.fetchone()
         apiKey = result[1]
         secret = result[2]
         apiKey, secret = degenerateApiSecret(apiKey, secret, idbot)
@@ -506,7 +506,7 @@ class ConnectBbd:
         cursor = self.cnx.cursor()
         query = f"select * from Params_bot_Cocotier where bot_id  ={idbot};"
         cursor.execute(query)
-        result = cursor.fetch()
+        result = cursor.fetchone()
         apiKey = result[1]
         secret = result[2]
         market = result[4].split(',')
@@ -526,7 +526,7 @@ class ConnectBbd:
         cursor = self.cnx.cursor()
         query = f"select * from Params_bot_Cocotier where bot_id  ={idbot};"
         cursor.execute(query)
-        result = cursor.fetch()
+        result = cursor.fetchone()
         apiKey = result[1]
         secret = result[2]
         password = result[3]
