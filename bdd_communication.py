@@ -401,8 +401,14 @@ class ConnectBbd:
         return df_status_bot["pair_symbol"].iloc[0]
 
     def get_state_OFF_ONN_Cocotier_By_id(self, idbot):
-        result = self.get_statusCocotierById(idbot)
-        return result
+        cursor = self.cnx.cursor()
+        # query = "select * from log_execution;"
+        query = f"select g.status_bot, g.id_get_balence from get_balence as g where g.id_bot = {idbot} order by id_get_balence desc limit  1;"
+        cursor.execute(query)
+        result = cursor.fetchone()
+        wallets = {}
+        # self.cnx.close()
+        return result[0]
 
     def get_state_vente_achat_trix_By_id(self, idbot):
         result = self.get_statusTrixById(idbot)
