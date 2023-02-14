@@ -207,7 +207,7 @@ class ConnectBbd:
 
     def get_botsCocotier(self):
         cursor = self.cnx.cursor()
-        query = " SELECT bot_id, nom_bot  FROM bots where type_bot like 'Cocotier%' ;"
+        query = " SELECT bot_id, nom_bot,type_bot  FROM bots where type_bot like 'Cocotier%' ;"
         cursor.execute(query)
         result = cursor.fetchall()
         # self.cnx.close()
@@ -377,12 +377,12 @@ class ConnectBbd:
         """
         cursor = self.cnx.cursor()
         # query = "select * from log_execution;"
-        query = f"select g.dates,g.crypto_wallet,g.status_bot,b.nom_bot,b.type_bot,p.pair_symbol,g.crypto_name,p.delta_hour,p.type_computing from get_balence as g, bots as b, Params_bot_Cocotier as p where p.bot_id = g.id_bot and g.id_bot = b.bot_id and b.bot_id = {idBot};"
+        query = f"select g.dates,g.crypto_wallet,g.status_bot,b.nom_bot,b.type_bot,p.pair_symbol,g.crypto_name,p.delta_hour,p.type_computing from get_balence as g, bots as b, Params_bot_Cocotier as p where p.bot_id = g.id_bot and g.id_bot = b.bot_id and b.bot_id = {idBot} order by g.dates desc limit 1;"
         cursor.execute(query)
         result = cursor.fetchone()
         wallets = {}
         # self.cnx.close()
-        return result[2]
+        return result
 
     def status_bots(self, df_result):
         # df_result = df_result[df_result["transaction"] != "none"]

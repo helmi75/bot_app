@@ -128,9 +128,9 @@ if authentication_status:
                 if stopMarche and col222.button("Stop", key=f"stop{index}"):
                     usdtCrypto = str(con.get_state_OFF_ONN_Cocotier_By_id(botsCocotier[index][0]))
                     if usdtCrypto.lower() == "onn":
-                        if botsCocotier[index][0].lower == "Cocotier Binance".lower():
+                        if botsCocotier[index][2].lower == "Cocotier Binance".lower():
                             con.vendreCocotierBinance(botsCocotier[index][0])
-                        elif botsCocotier[index][0].lower == "Cocotier Bybit".lower():
+                        elif botsCocotier[index][2].lower == "Cocotier Bybit".lower():
                             con.vendreCocotierBybit(botsCocotier[index][0])
                     con.updateStopMarche(botsCocotier[index][0], 0)
                     st.error(f"Le bot {item} est stoppé {usdtCrypto}")
