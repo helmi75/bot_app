@@ -126,7 +126,8 @@ if authentication_status:
                     emplacement.empty()
         except Exception as e:
 
-            st.error("This is an exception ", e)
+            st.error("This is an exception ")
+            st.error(e)
     else:
         st.title('''Please Hold on and visit us next time!''')
         st.warning('''The page is in maintenance!''')
