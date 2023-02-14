@@ -126,7 +126,7 @@ if authentication_status:
                     st.session_state[f'{item}'] = False
 
                 if stopMarche and col222.button("Stop", key=f"stop{index}"):
-                    usdtCrypto = con.get_state_OFF_ONN_Cocotier_By_id(botsCocotier[index][0])
+                    usdtCrypto = str(con.get_state_OFF_ONN_Cocotier_By_id(botsCocotier[index][0]))
                     if usdtCrypto.lower() == "onn":
                         if botsCocotier[index][0].lower == "Cocotier Binance".lower():
                             con.vendreCocotierBinance(botsCocotier[index][0])
