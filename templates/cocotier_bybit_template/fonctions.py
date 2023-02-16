@@ -549,7 +549,7 @@ def crypto_a_vendre2(exchange, market):
             crypto_a_vendre = df_log[df_log['side'] == 'buy'].index[0]
         except IndexError as e:
             print(f"# Warning  : {e} we buy BTC by default")
-            acheter_2(exchange, "BTC/USDT", balence['total'], 0.97)
+            acheter_2(exchange, "BTC/USDT", balence['total'], 1)
             cryptos_a_vendre = "BTC/USDT"
         return crypto_a_vendre
     except IndexError:
