@@ -945,12 +945,11 @@ def vente(exchange, var1, balence_total):
 
 def get_wallet(exchange):
     balence = exchange.fetch_balance()['total']
+    usdtt = balence['USDT']
     df_balence = pd.DataFrame([balence]).transpose().rename(columns={0: "balence"})
     df_balence = df_balence[df_balence['balence'] > 0]
     crypto_index = [elm + "/USDT" for elm in df_balence['balence'].index]
     crypto_index.remove('USDT/USDT')
-    # crypto_index.remove('LUNC/USDT')
-    # crypto_index.remove('ETHW/USDT')
     dict_balence_usdt = {}
     for elm in crypto_index:
         try:
@@ -958,11 +957,12 @@ def get_wallet(exchange):
                 elm[:-5]]
         except Exception as e:
             print(e)
-    return sum(dict_balence_usdt.values())
+    return sum(dict_balence_usdt.values())+usdtt
 
 
 def get_walletBybit(exchange):
     balence = exchange.fetch_spot_balance()['total']
+    usdtt = balence['USDT']
     df_balence = pd.DataFrame([balence]).transpose().rename(columns={0: "balence"})
     df_balence = df_balence[df_balence['balence'] > 0]
     crypto_index = [elm + "/USDT:USDT" for elm in df_balence['balence'].index]
@@ -974,7 +974,7 @@ def get_walletBybit(exchange):
                 elm[:-10]]
         except Exception as e:
             print(e)
-    return sum(dict_balence_usdt.values())
+    return sum(dict_balence_usdt.values())+usdtt
 
 
 def acheter_2(exchange, var2, balence_total, pourcentage):
