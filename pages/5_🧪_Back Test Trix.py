@@ -316,19 +316,21 @@ if st.button("Submit"):
         st.markdown(new_title, unsafe_allow_html=True)
         x = dt['date']
         y = dt['wallet']
+        z = dt['price']
         fig, ax = plt.subplots()
         fig.set_figwidth(10)
         fig.set_figheight(4)
-        fig.suptitle("wallet", fontsize=25)
-        ax.plot(x, y, linewidth=2.0, color="red")
+        # fig.suptitle("wallet", fontsize=25)
+        ax.plot(x, y, linewidth=2.0, color="red", label = "wallet")
+        ax.plot(x, z, linewidth=2.0, color="blue", label = "price")
+        ax.legend()
         st.pyplot(fig)
         # plot_courbes2(dt[['wallet']], 'wallet','Red')
 
-        z = dt['price']
-        fig2, ax2 = plt.subplots()
-        fig2.set_figwidth(10)
-        fig2.set_figheight(4)
-        fig2.suptitle("price", fontsize=25)
-        ax2.plot(x, z, linewidth=2.0, color="blue")
-        st.pyplot(fig2)
+        # fig2, ax2 = plt.subplots()
+        # fig2.set_figwidth(10)
+        # fig2.set_figheight(4)
+        # fig2.suptitle("price", fontsize=25)
+        # ax2.plot(x, z, linewidth=2.0, color="blue")
+        # st.pyplot(fig2)
         # plot_courbes2(dt[['price']], 'price','Blue')
