@@ -147,17 +147,16 @@ class ConnectBbd:
     def insert_balence_pourcentage(self, idd):
         cursor = self.cnx.cursor()
         # recupére the last get_balence id
-        print("idd : ", idd)
         # get the id_bot
         query = f"SELECT id_bot  FROM get_balence where id_get_balence={idd} ;"
         cursor.execute(query)
         bot_id = cursor.fetchall()[0][0]
-        print("bot_id : ", bot_id)
         # get the max crypto_wallet
         query = f"SELECT max(crypto_wallet)  FROM get_balence where id_bot={bot_id} ;"
         cursor.execute(query)
         max = cursor.fetchall()[0][0]
-        print("max : ", max);
+        if (max == 0):
+            max = 0.0001
         # add the crypto wallet pourcentage to the get_ballence
         query = f'''update get_balence set crypto_wallet_pourcentage = crypto_wallet/{max}
          where  id_get_balence = {idd};'''
@@ -174,6 +173,8 @@ class ConnectBbd:
         query = f"SELECT crypto_wallet  FROM get_balence where id_bot= {bot_id} order by dates limit 1;"
         cursor.execute(query)
         max = cursor.fetchall()[0][0]
+        if (max == 0):
+            max = 0.0001
         query = f'''update get_balence set crypto_pourcentage = crypto_wallet/{max}
          where  id_get_balence = {idd};'''
         cursor.execute(query)
@@ -909,7 +910,7 @@ def degenerateApiSecret(api, secret, key):
     return api, secret
 
 
-def truncate(n, decimals=0):
+def truncate(n, decimals):
     r = floor(float(n) * 10 ** decimals) / 10 ** decimals
     return str(r)
 
