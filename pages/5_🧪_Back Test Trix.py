@@ -201,6 +201,7 @@ if st.button("Submit"):
         holdPercentage = ((lastClose - iniClose) / iniClose) * 100
         algoPercentage = ((wallet - initalWallet) / initalWallet) * 100
         vsHoldPercentage = ((algoPercentage - holdPercentage) / holdPercentage) * 100
+        BuyandHoldperformance = lastClose/iniClose
         try:
             tradesPerformance = round(dt.loc[(dt['tradeIs'] == 'Good') | (dt['tradeIs'] == 'Bad'), 'resultat%'].sum()
                                       / dt.loc[
@@ -258,7 +259,10 @@ if st.button("Submit"):
         new_title = f'<p style="font-family:sans-serif; font-size: 25px;">{"Buy and Hold Performence :" + str(round(holdPercentage, 2)) + "%"}</p>'
         st.markdown(new_title, unsafe_allow_html=True)
         # st.text("Buy and Hold Performence :" + str(round(holdPercentage, 2)) + "%")
-        new_title = f'<p style="font-family:sans-serif; font-size: 25px;">{"Performance vs Buy and Hold :" + str(round(vsHoldPercentage, 2)) + "%"}</p>'
+        new_title = f'<p style="font-family:sans-serif; font-size: 25px;">{"Older Performance vs Buy and Hold :" + str(round(vsHoldPercentage, 2)) + "%"}</p>'
+        st.markdown(new_title, unsafe_allow_html=True)
+
+        new_title = f'<p style="font-family:sans-serif; font-size: 25px;">{"Newer Performance vs Buy and Hold :" + str(round(wallet/BuyandHoldperformance,2)) + "%"}</p>'
         st.markdown(new_title, unsafe_allow_html=True)
         # st.text("Performance vs Buy and Hold :" + str(round(vsHoldPercentage, 2)) + "%")
         new_title = f'<p style="font-family:sans-serif; font-size: 25px;">{"Best trade : " + str(bestTrade) + "%, the" + str(idbest)}</p>'
