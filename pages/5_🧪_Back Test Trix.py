@@ -37,14 +37,14 @@ def sellCondition(row, previousRow):
         return False
 
 
-def plot_courbes2(df_tableau_multi, namee,rcolor):
+def plot_courbes2(df_tableau_multi, namee, rcolor):
     fig = go.Figure()
     for elm in df_tableau_multi.columns:
         fig.add_trace(go.Scatter(x=df_tableau_multi[elm].index,
                                  y=df_tableau_multi[elm],
                                  mode='lines',
                                  name=elm,
-                                 line=dict(color = rcolor)
+                                 line=dict(color=rcolor)
                                  ))
     fig.update_layout(
         title={
@@ -126,7 +126,8 @@ if st.button("Submit"):
         if str(end_date) == "":
             end_date = None
         dfTest = df[str(star_date): str(end_date)]
-        dt = pd.DataFrame(columns=['date', 'position', 'reason', 'price', 'frais', 'fiat', 'coins', 'wallet', 'drawBack'])
+        dt = pd.DataFrame(
+            columns=['date', 'position', 'reason', 'price', 'frais', 'fiat', 'coins', 'wallet', 'drawBack'])
         usdt = 1000
         makerFee = 0.0002
         takerFee = 0.0007
@@ -202,7 +203,8 @@ if st.button("Submit"):
         vsHoldPercentage = ((algoPercentage - holdPercentage) / holdPercentage) * 100
         try:
             tradesPerformance = round(dt.loc[(dt['tradeIs'] == 'Good') | (dt['tradeIs'] == 'Bad'), 'resultat%'].sum()
-                                      / dt.loc[(dt['tradeIs'] == 'Good') | (dt['tradeIs'] == 'Bad'), 'resultat%'].count(),
+                                      / dt.loc[
+                                          (dt['tradeIs'] == 'Good') | (dt['tradeIs'] == 'Bad'), 'resultat%'].count(),
                                       2)
         except:
             tradesPerformance = 0
@@ -234,43 +236,91 @@ if st.button("Submit"):
             # print("/!\ There is no Bad Trades in your BackTest, maybe a problem...")
         totalTrades = totalBadTrades + totalGoodTrades
         winRateRatio = (totalGoodTrades / totalTrades) * 100
-        st.text("Pair Symbol :" + pair_symbol)
-        st.text("Period : [" + str(dfTest.index[0]) + "] -> [" +
-                str(dfTest.index[len(dfTest) - 1]) + "]")
-        st.text("Starting balance :" + str(initalWallet) + "$")
+        new_title = f'<p style="font-family:sans-serif; font-size: 25px;">{"Pair Symbol :" + pair_symbol}</p>'
+        st.markdown(new_title, unsafe_allow_html=True)
+        # st.text("Pair Symbol :" + pair_symbol)
+        new_title = f'<p style="font-family:sans-serif; font-size: 25px;">{"Period : [" + str(dfTest.index[0]) + "] -> [" +str(dfTest.index[len(dfTest) - 1]) + "]"}</p>'
+        st.markdown(new_title, unsafe_allow_html=True)
+        # st.text("Period : [" + str(dfTest.index[0]) + "] -> [" +
+        #         str(dfTest.index[len(dfTest) - 1]) + "]")
+        new_title = f'<p style="font-family:sans-serif; font-size: 25px;">{"Starting balance :" + str(initalWallet) + "$"}</p>'
+        st.markdown(new_title, unsafe_allow_html=True)
+        # st.text("Starting balance :" + str(initalWallet) + "$")
+        new_title = f'<p style="font-family:sans-serif; font-size: 25px;"><br>{"----- General Informations -----"}</p>'
+        st.markdown(new_title, unsafe_allow_html=True)
+        # st.text("\n----- General Informations -----")
+        new_title = f'<p style="font-family:sans-serif; font-size: 25px;">{"Final balance :" + str(round(wallet, 2)) + "$"}</p>'
+        st.markdown(new_title, unsafe_allow_html=True)
+        # st.text("Final balance :" + str(round(wallet, 2)) + "$")
+        new_title = f'<p style="font-family:sans-serif; font-size: 25px;">{"Performance vs US Dollar :" + str(round(algoPercentage, 2)) + "%"}</p>'
+        st.markdown(new_title, unsafe_allow_html=True)
+        # st.text("Performance vs US Dollar :" + str(round(algoPercentage, 2)) + "%")
+        new_title = f'<p style="font-family:sans-serif; font-size: 25px;">{"Buy and Hold Performence :" + str(round(holdPercentage, 2)) + "%"}</p>'
+        st.markdown(new_title, unsafe_allow_html=True)
+        # st.text("Buy and Hold Performence :" + str(round(holdPercentage, 2)) + "%")
+        new_title = f'<p style="font-family:sans-serif; font-size: 25px;">{"Performance vs Buy and Hold :" + str(round(vsHoldPercentage, 2)) + "%"}</p>'
+        st.markdown(new_title, unsafe_allow_html=True)
+        # st.text("Performance vs Buy and Hold :" + str(round(vsHoldPercentage, 2)) + "%")
+        new_title = f'<p style="font-family:sans-serif; font-size: 25px;">{"Best trade : " + str(bestTrade) + "%, the" + str(idbest)}</p>'
+        st.markdown(new_title, unsafe_allow_html=True)
+        # st.text("Best trade : " + str(bestTrade) + "%, the" + str(idbest))
+        new_title = f'<p style="font-family:sans-serif; font-size: 25px;">{"Worst trade :" + str(worstTrade) + "%, the" + str(idworst)}</p>'
+        st.markdown(new_title, unsafe_allow_html=True)
+        # st.text("Worst trade :" + str(worstTrade) + "%, the" + str(idworst))
+        lllili = str(100 * round(dt['drawBack'].min(), 2))
+        new_title = f'<p style="font-family:sans-serif; font-size: 25px;">{"Worst drawBack :"+lllili+"%"} </p>'
+        st.markdown(new_title, unsafe_allow_html=True)
+        # st.text("Worst drawBack :" + str(100 * round(dt['drawBack'].min(), 2)) + "%")
+        lllili =  str(round(dt['frais'].sum(), 2))
+        new_title = f'<p style="font-family:sans-serif; font-size: 25px;">{"Total fees : " + lllili+ "$"}</p>'
+        st.markdown(new_title, unsafe_allow_html=True)
+        # st.text("Total fees : " + str(round(dt['frais'].sum(), 2)) + "$")
+        new_title = f'<p style="font-family:sans-serif; font-size: 25px;"><br>{"---- Trades Informations -----"}</p>'
+        st.markdown(new_title, unsafe_allow_html=True)
 
-        st.text("\n----- General Informations -----")
-        st.text("Final balance :" + str(round(wallet, 2)) + "$")
-        st.text("Performance vs US Dollar :" + str(round(algoPercentage, 2)) + "%")
-        st.text("Buy and Hold Performence :" + str(round(holdPercentage, 2)) + "%")
-        st.text("Performance vs Buy and Hold :" + str(round(vsHoldPercentage, 2)) + "%")
-        st.text("Best trade : " + str(bestTrade) + "%, the" + str(idbest))
-        st.text("Worst trade :" + str(worstTrade) + "%, the" + str(idworst))
-        st.text("Worst drawBack :" + str(100 * round(dt['drawBack'].min(), 2)) + "%")
-        st.text("Total fees : " + str(round(dt['frais'].sum(), 2)) + "$")
+        # st.text("\n----- Trades Informations -----")
+        new_title = f'<p style="font-family:sans-serif; font-size: 25px;">{"Total trades on period :" + str(totalTrades)}</p>'
+        st.markdown(new_title, unsafe_allow_html=True)
+        # st.text("Total trades on period :" + str(totalTrades))
+        new_title = f'<p style="font-family:sans-serif; font-size: 25px;">{"Number of positive trades :" + str(totalGoodTrades)}</p>'
+        st.markdown(new_title, unsafe_allow_html=True)
+        # st.text("Number of positive trades :" + str(totalGoodTrades))
+        new_title = f'<p style="font-family:sans-serif; font-size: 25px;">{"Number of negative trades : " + str(totalBadTrades)}</p>'
+        st.markdown(new_title, unsafe_allow_html=True)
+        # st.text("Number of negative trades : " + str(totalBadTrades))
+        new_title = f'<p style="font-family:sans-serif; font-size: 25px;">{"Trades win rate ratio :" + str(round(winRateRatio, 2)) + "%"}</p>'
+        st.markdown(new_title, unsafe_allow_html=True)
+        # st.text("Trades win rate ratio :" + str(round(winRateRatio, 2)) + '%')
+        new_title = f'<p style="font-family:sans-serif; font-size: 25px;">{"Average trades performance :" + str(tradesPerformance) + "%"}</p>'
+        st.markdown(new_title, unsafe_allow_html=True)
+        # st.text("Average trades performance :" + str(tradesPerformance) + "%")
+        new_title = f'<p style="font-family:sans-serif; font-size: 25px;">{"Average positive trades :" + str(AveragePercentagePositivTrades) + "%"}</p>'
+        st.markdown(new_title, unsafe_allow_html=True)
+        # st.text("Average positive trades :" + str(AveragePercentagePositivTrades) + "%")
+        new_title = f'<p style="font-family:sans-serif; font-size: 25px;">{"Average negative trades :" + str(AveragePercentageNegativTrades) + "%"}</p>'
+        st.markdown(new_title, unsafe_allow_html=True)
+        # st.text("Average negative trades :" + str(AveragePercentageNegativTrades) + "%")
+        new_title = f'<p style="font-family:sans-serif; font-size: 25px;"><br>{"----- Trades Reasons -----"}</p>'
+        st.markdown(new_title, unsafe_allow_html=True)
 
-        st.text("\n----- Trades Informations -----")
-        st.text("Total trades on period :" + str(totalTrades))
-        st.text("Number of positive trades :" + str(totalGoodTrades))
-        st.text("Number of negative trades : " + str(totalBadTrades))
-        st.text("Trades win rate ratio :" + str(round(winRateRatio, 2)) + '%')
-        st.text("Average trades performance :" + str(tradesPerformance) + "%")
-        st.text("Average positive trades :" + str(AveragePercentagePositivTrades) + "%")
-        st.text("Average negative trades :" + str(AveragePercentageNegativTrades) + "%")
+        # st.text("\n----- Trades Reasons -----")
 
-        st.text("\n----- Trades Reasons -----")
         reasons = dt['reason'].unique()
         for r in reasons:
-            st.text(r + " number :" + str(dt.groupby('reason')['date'].nunique()[r]))
+            lllili = (r + " number :" + str(dt.groupby('reason')['date'].nunique()[r]))
+            new_title = f'<p style="font-family:sans-serif; font-size: 25px;">{lllili}</p>'
+            st.markdown(new_title, unsafe_allow_html=True)
 
-        st.text("\n----- Plot -----")
+        # st.text("\n----- Plot -----")
+        new_title = f'<p style="font-family:sans-serif; font-size: 25px;"><br>{"----- Plot -----"}</p>'
+        st.markdown(new_title, unsafe_allow_html=True)
         x = dt['date']
         y = dt['wallet']
         fig, ax = plt.subplots()
         fig.set_figwidth(10)
         fig.set_figheight(4)
-        fig.suptitle("wallet",fontsize=25)
-        ax.plot(x, y, linewidth=2.0, color = "red")
+        fig.suptitle("wallet", fontsize=25)
+        ax.plot(x, y, linewidth=2.0, color="red")
         st.pyplot(fig)
         # plot_courbes2(dt[['wallet']], 'wallet','Red')
 
@@ -278,7 +328,7 @@ if st.button("Submit"):
         fig2, ax2 = plt.subplots()
         fig2.set_figwidth(10)
         fig2.set_figheight(4)
-        fig2.suptitle("price",fontsize=25)
+        fig2.suptitle("price", fontsize=25)
         ax2.plot(x, z, linewidth=2.0, color="blue")
         st.pyplot(fig2)
         # plot_courbes2(dt[['price']], 'price','Blue')
