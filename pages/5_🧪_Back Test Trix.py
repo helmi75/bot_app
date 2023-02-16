@@ -264,6 +264,10 @@ if st.button("Submit"):
 
         new_title = f'<p style="font-family:sans-serif; font-size: 25px;">{"Newer Performance vs Buy and Hold :" + str(round(wallet/BuyandHoldperformance,2)) + "%"}</p>'
         st.markdown(new_title, unsafe_allow_html=True)
+        st.text("Final Balance / (closefinal / close initial)")
+        st.text(f"{wallet}/({lastClose}/{iniClose})")
+
+
         # st.text("Performance vs Buy and Hold :" + str(round(vsHoldPercentage, 2)) + "%")
         new_title = f'<p style="font-family:sans-serif; font-size: 25px;">{"Best trade : " + str(bestTrade) + "%, the" + str(idbest)}</p>'
         st.markdown(new_title, unsafe_allow_html=True)
