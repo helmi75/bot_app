@@ -254,16 +254,18 @@ if st.button("Submit"):
         new_title = f'<p style="font-family:sans-serif; font-size: 25px;">{"Final balance :" + str(round(wallet, 2)) + "$"}</p>'
         st.markdown(new_title, unsafe_allow_html=True)
         # st.text("Final balance :" + str(round(wallet, 2)) + "$")
-        new_title = f'<p style="font-family:sans-serif; font-size: 25px;">{"Performance Buy And hold (Dollars) :" + str(round(fadit, 2)) + "$"}</p>'
-        st.markdown(new_title, unsafe_allow_html=True)
 
         new_title = f'<p style="font-family:sans-serif; font-size: 25px;">{"Performance Trix :" + str(round(algoPercentage, 2)) + "%"}</p>'
         st.markdown(new_title, unsafe_allow_html=True)
+
+        new_title = f'<p style="font-family:sans-serif; font-size: 25px;">{"Performance Buy And hold (Dollars) :" + str(round(fadit, 2)) + "$"}</p>'
+        st.markdown(new_title, unsafe_allow_html=True)
+
         # st.text("Performance vs US Dollar :" + str(round(algoPercentage, 2)) + "%")
-        new_title = f'<p style="font-family:sans-serif; font-size: 25px;">{"Buy and Hold Performence :" + str(round(holdPercentage, 2)) + "%"}</p>'
+        new_title = f'<p style="font-family:sans-serif; font-size: 25px;">{"Buy and Hold Performance :" + str(round(holdPercentage, 2)) + "%"}</p>'
         st.markdown(new_title, unsafe_allow_html=True)
         # st.text("Buy and Hold Performence :" + str(round(holdPercentage, 2)) + "%")
-        new_title = f'<p style="font-family:sans-serif; font-size: 25px;">{"Trix vs Buy and Hold :" + str(round(wallet/(fadit),2))}</p>'
+        new_title = f'<p style="font-family:sans-serif; font-size: 25px;"><b>{"Trix vs Buy and Hold :" + str(round(wallet/(fadit),2))}</b></p>'
         st.markdown(new_title, unsafe_allow_html=True)
         st.text(f"FinalBalance({round(wallet,2)})/PerformanceBuyAndHoldPerformance({start_balance}*{round(holdPercentage,2)}%={round(fadit,2)}) #{round(wallet/(fadit),2)}%")
 
