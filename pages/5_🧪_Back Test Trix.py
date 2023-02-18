@@ -357,7 +357,12 @@ if st.button("Submit"):
 
         ax.set_xlabel("Temps")
         ax.set_ylabel(r"Wallet")
+        ax.yaxis.label.set_color('Blue')
+        ax.tick_params(axis='y', colors='blue')
         ax2.set_ylabel(r"Price")
+        ax2.yaxis.label.set_color('red')
+        ax2.tick_params(axis='y', colors='red')
+
 
         st.pyplot(fig)
 
