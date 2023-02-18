@@ -51,7 +51,7 @@ def main():
         for elm in market :
 
             #get the values from binance as they are and convert them to a dataframe we can work with
-            x = elm.lower()
+            x = elm.lower()+'/usdt'
 
             crypto[x] = client.get_historical_klines(x.replace("/", "").upper(), delta_hour, star_time, end_time)
             crypto[x] = pd.DataFrame(data=crypto[x],

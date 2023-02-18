@@ -666,53 +666,64 @@ def to_timestamp(date):
 
 
 def choix_market():
-    liste_crypto = np.array(
-        ['BTC/USDT', 'ETH/USDT', 'ADA/USDT', 'DOGE/USDT', 'BNB/USDT', 'UNI/USDT', 'SOL/USDT', 'KSM/USDT',
-         'LTC/USDT', 'BCH/USDT', 'LINK/USDT', 'VET/USDT', 'XLM/USDT', 'FIL/USDT', 'TRX/USDT',
-         'NEO/USDT', 'EOS/USDT', 'DOT/USDT', 'AAVE/USDT', 'MATIC/USDT', 'LUNA/USDT', 'THETA/USDT',
-         'AXS/USDT', 'ENJ/USDT', 'SAND/USDT', 'WIN/USDT', 'SLP/USDT', 'XRP/USDT', 'EGLD/USDT', 'ATOM/USDT'])
-
-    cols3 = st.columns(3)
-    btc = cols3[0].checkbox('BTC/USDT')
-    eth = cols3[0].checkbox('ETH/USDT')
-    ada = cols3[0].checkbox('ADA/USDT')
-    doge = cols3[0].checkbox('DOGE/USDT')
-    bnb = cols3[0].checkbox('BNB/USDT')
-    uni = cols3[1].checkbox('UNI/USDT')
-    bch = cols3[1].checkbox('BCH/USDT')
-    link = cols3[1].checkbox('LINK/USDT')
-    vet = cols3[1].checkbox('VET/USDT')
-    xlm = cols3[1].checkbox('XLM/USDT')
-    fil = cols3[2].checkbox('FIL/USDT')
-    ltc = cols3[2].checkbox('LTC/USDT')
-    trx = cols3[2].checkbox('TRX/USDT')
-    neo = cols3[2].checkbox('NEO/USDT')
-    eos = cols3[2].checkbox('EOS/USDT')
-    dot = cols3[2].checkbox('DOT/USDT')
-
-    aave = cols3[0].checkbox('AAVE/USDT')
-    matic = cols3[1].checkbox('MATIC/USDT')
-    luna = cols3[0].checkbox('LUNA/USDT')
-    theta = cols3[1].checkbox('THETA/USDT')
-    sol = cols3[1].checkbox('SOL/USDT')
-    ksm = cols3[0].checkbox('KSM/USDT')
-
-    axs = cols3[2].checkbox('AXS/USDT')
-    enj = cols3[2].checkbox('ENJ/USDT')
-    sand = cols3[0].checkbox('SAND/USDT')
-    win = cols3[1].checkbox('WIN/USDT')
-    slp = cols3[2].checkbox('SLP/USDT')
-    xrp = cols3[0].checkbox('XRP/USDT')
-
-    egld = cols3[1].checkbox('EGLD/USDT')
-    atom = cols3[2].checkbox('ATOM/USDT')
-
-    liste_boolean = np.array(
-        [btc, eth, ada, doge, bnb, uni, sol, ksm, ltc, bch, link, vet, xlm, fil, trx, neo, eos, dot, aave, matic,
-         luna,
-         theta,
-         axs, enj, sand, win, slp, xrp, egld, atom])
-
+    con = ConnectBbd('localhost', '3306', 'root', mot_de_passe, 'cryptos', 'mysql_native_password')
+    new_title = f'<p style="font-family:sans-serif; font-size: 25px;">Pool Binance</p>'
+    st.markdown(new_title, unsafe_allow_html=True)
+    # liste_crypto = np.array(
+    #     ['BTC/USDT', 'ETH/USDT', 'ADA/USDT', 'DOGE/USDT', 'BNB/USDT', 'UNI/USDT', 'SOL/USDT', 'KSM/USDT',
+    #      'LTC/USDT', 'BCH/USDT', 'LINK/USDT', 'VET/USDT', 'XLM/USDT', 'FIL/USDT', 'TRX/USDT',
+    #      'NEO/USDT', 'EOS/USDT', 'DOT/USDT', 'AAVE/USDT', 'MATIC/USDT', 'LUNA/USDT', 'THETA/USDT',
+    #      'AXS/USDT', 'ENJ/USDT', 'SAND/USDT', 'WIN/USDT', 'SLP/USDT', 'XRP/USDT', 'EGLD/USDT', 'ATOM/USDT'])
+    #
+    # cols3 = st.columns(3)
+    # btc = cols3[0].checkbox('BTC/USDT')
+    # eth = cols3[0].checkbox('ETH/USDT')
+    # ada = cols3[0].checkbox('ADA/USDT')
+    # doge = cols3[0].checkbox('DOGE/USDT')
+    # bnb = cols3[0].checkbox('BNB/USDT')
+    # uni = cols3[1].checkbox('UNI/USDT')
+    # bch = cols3[1].checkbox('BCH/USDT')
+    # link = cols3[1].checkbox('LINK/USDT')
+    # vet = cols3[1].checkbox('VET/USDT')
+    # xlm = cols3[1].checkbox('XLM/USDT')
+    # fil = cols3[2].checkbox('FIL/USDT')
+    # ltc = cols3[2].checkbox('LTC/USDT')
+    # trx = cols3[2].checkbox('TRX/USDT')
+    # neo = cols3[2].checkbox('NEO/USDT')
+    # eos = cols3[2].checkbox('EOS/USDT')
+    # dot = cols3[2].checkbox('DOT/USDT')
+    #
+    # aave = cols3[0].checkbox('AAVE/USDT')
+    # matic = cols3[1].checkbox('MATIC/USDT')
+    # luna = cols3[0].checkbox('LUNA/USDT')
+    # theta = cols3[1].checkbox('THETA/USDT')
+    # sol = cols3[1].checkbox('SOL/USDT')
+    # ksm = cols3[0].checkbox('KSM/USDT')
+    #
+    # axs = cols3[2].checkbox('AXS/USDT')
+    # enj = cols3[2].checkbox('ENJ/USDT')
+    # sand = cols3[0].checkbox('SAND/USDT')
+    # win = cols3[1].checkbox('WIN/USDT')
+    # slp = cols3[2].checkbox('SLP/USDT')
+    # xrp = cols3[0].checkbox('XRP/USDT')
+    #
+    # egld = cols3[1].checkbox('EGLD/USDT')
+    # atom = cols3[2].checkbox('ATOM/USDT')
+    #
+    # liste_boolean = np.array(
+    #     [btc, eth, ada, doge, bnb, uni, sol, ksm, ltc, bch, link, vet, xlm, fil, trx, neo, eos, dot, aave, matic,
+    #      luna,
+    #      theta,
+    #      axs, enj, sand, win, slp, xrp, egld, atom])
+    #
+    # return liste_crypto[liste_boolean]
+    listacrypto = con.getAllPairSymbolsBinance()[0][0].split(',')
+    liste_crypto = np.array(listacrypto)
+    cols3 = st.columns(5)
+    lista = [x for x in liste_crypto]
+    for i in range(len(liste_crypto)):
+        lista[i] = cols3[i % 5].checkbox(liste_crypto[i])
+    liste_boolean = np.array(lista)
     return liste_crypto[liste_boolean]
 
 
