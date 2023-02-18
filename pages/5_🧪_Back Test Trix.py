@@ -344,6 +344,8 @@ if st.button("Submit"):
         ax.legend()
         col01.pyplot(fig)
         col00.dataframe(dattata)
+
+        st.dataframe(dt.iloc[[0,1,2,3,5,-5,-4,-3,-2,-1],:])
         # plot_courbes2(dt[['wallet']], 'wallet','Red')
 
         # fig2, ax2 = plt.subplots()
