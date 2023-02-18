@@ -267,7 +267,7 @@ if st.button("Submit"):
         # st.text("Buy and Hold Performence :" + str(round(holdPercentage, 2)) + "%")
         new_title = f'<p style="font-family:sans-serif; font-size: 25px;"><b>{"Trix vs Buy and Hold :" + str(round(wallet/(fadit),2))}</b></p>'
         st.markdown(new_title, unsafe_allow_html=True)
-        st.text(f"FinalBalance({round(wallet,2)})/PerformanceBuyAndHoldPerformance({start_balance}*{round(holdPercentage,2)}%={round(fadit,2)}) #{round(wallet/(fadit),2)}%")
+        # st.text(f"FinalBalance({round(wallet,2)})/PerformanceBuyAndHoldPerformance({start_balance}*{round(holdPercentage,2)}%={round(fadit,2)}) #{round(wallet/(fadit),2)}%")
 
 
         # st.text("Performance vs Buy and Hold :" + str(round(vsHoldPercentage, 2)) + "%")
