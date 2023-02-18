@@ -237,6 +237,7 @@ if st.button("Submit"):
             # print("/!\ There is no Bad Trades in your BackTest, maybe a problem...")
         totalTrades = totalBadTrades + totalGoodTrades
         winRateRatio = (totalGoodTrades / totalTrades) * 100
+        fadit = start_balance * (1 + holdPercentage / 100)
         new_title = f'<p style="font-family:sans-serif; font-size: 25px;">{"Pair Symbol :" + pair_symbol}</p>'
         st.markdown(new_title, unsafe_allow_html=True)
         # st.text("Pair Symbol :" + pair_symbol)
@@ -253,21 +254,18 @@ if st.button("Submit"):
         new_title = f'<p style="font-family:sans-serif; font-size: 25px;">{"Final balance :" + str(round(wallet, 2)) + "$"}</p>'
         st.markdown(new_title, unsafe_allow_html=True)
         # st.text("Final balance :" + str(round(wallet, 2)) + "$")
-        new_title = f'<p style="font-family:sans-serif; font-size: 25px;">{"Performance vs US Dollar :" + str(round(algoPercentage, 2)) + "%"}</p>'
+        new_title = f'<p style="font-family:sans-serif; font-size: 25px;">{"Performance Buy And hold (Dollars) :" + str(round(fadit, 2)) + "$"}</p>'
+        st.markdown(new_title, unsafe_allow_html=True)
+
+        new_title = f'<p style="font-family:sans-serif; font-size: 25px;">{"Performance Trix :" + str(round(algoPercentage, 2)) + "%"}</p>'
         st.markdown(new_title, unsafe_allow_html=True)
         # st.text("Performance vs US Dollar :" + str(round(algoPercentage, 2)) + "%")
         new_title = f'<p style="font-family:sans-serif; font-size: 25px;">{"Buy and Hold Performence :" + str(round(holdPercentage, 2)) + "%"}</p>'
         st.markdown(new_title, unsafe_allow_html=True)
         # st.text("Buy and Hold Performence :" + str(round(holdPercentage, 2)) + "%")
-        new_title = f'<p style="font-family:sans-serif; font-size: 25px;">{"Older Performance vs Buy and Hold :" + str(round(vsHoldPercentage, 2)) + "%"}</p>'
+        new_title = f'<p style="font-family:sans-serif; font-size: 25px;">{"Trix vs Buy and Hold :" + str(round(wallet/(fadit),2))}</p>'
         st.markdown(new_title, unsafe_allow_html=True)
-        fadit = start_balance * (1 + holdPercentage / 100)
-        new_title = f'<p style="font-family:sans-serif; font-size: 25px;">{"Newer Performance vs Buy and Hold :" + str(round(wallet/(fadit),2)) + "%"}</p>'
-        st.markdown(new_title, unsafe_allow_html=True)
-
-
         st.text(f"FinalBalance({round(wallet,2)})/PerformanceBuyAndHoldPerformance({start_balance}*{round(holdPercentage,2)}%={round(fadit,2)}) #{round(wallet/(fadit),2)}%")
-        # st.text(f"{wallet}/({algoPercentage})")
 
 
         # st.text("Performance vs Buy and Hold :" + str(round(vsHoldPercentage, 2)) + "%")
@@ -349,10 +347,10 @@ if st.button("Submit"):
         fig.set_figwidth(10)
         fig.set_figheight(4)
         ax = fig.add_subplot(111)
-        ax.plot(x, y, '-', label='Wallet')
+        ax.plot(x, y, color="blue", label='Wallet')
 
         ax2 = ax.twinx()
-        ax2.plot(x, z, '-r', label='Price')
+        ax2.plot(x, z, color="red", label='Price')
         fig.legend(loc="upper right")
 
         ax.set_xlabel("Temps")
