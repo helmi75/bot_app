@@ -261,11 +261,17 @@ if st.button("Submit"):
         # st.text("Buy and Hold Performence :" + str(round(holdPercentage, 2)) + "%")
         new_title = f'<p style="font-family:sans-serif; font-size: 25px;">{"Older Performance vs Buy and Hold :" + str(round(vsHoldPercentage, 2)) + "%"}</p>'
         st.markdown(new_title, unsafe_allow_html=True)
-
-        new_title = f'<p style="font-family:sans-serif; font-size: 25px;">{"Newer Performance vs Buy and Hold :" + str(round(wallet/BuyandHoldperformance,2)) + "%"}</p>'
+        fadit = 0
+        if holdPercentage > 0:
+            fadit = start_balance * (1 + holdPercentage / 100)
+        else:
+            fadit = start_balance * (1 - holdPercentage / 100)
+        new_title = f'<p style="font-family:sans-serif; font-size: 25px;">{"Newer Performance vs Buy and Hold :" + str(round(wallet/(fadit),2)) + "%"}</p>'
         st.markdown(new_title, unsafe_allow_html=True)
-        st.text("Final Balance / (closefinal / close initial)")
-        st.text(f"{wallet}/({lastClose}/{iniClose})")
+
+
+        st.text(f"FinalBalance({round(wallet,2)})/PerformanceBuyAndHoldPerformance({start_balance}*{round(holdPercentage,2)}%={round(fadit,2)}) #{round(wallet/(fadit),2)}%")
+        # st.text(f"{wallet}/({algoPercentage})")
 
 
         # st.text("Performance vs Buy and Hold :" + str(round(vsHoldPercentage, 2)) + "%")
@@ -322,6 +328,10 @@ if st.button("Submit"):
         # st.text("\n----- Plot -----")
         new_title = f'<p style="font-family:sans-serif; font-size: 25px;"><br>{"----- Plot -----"}</p>'
         st.markdown(new_title, unsafe_allow_html=True)
+
+        emplacement = st.empty()
+        col00, col01 = emplacement.columns([3,4])
+        dattata = dt.loc[:,['wallet','price']]
         x = dt['date']
         y = dt['wallet']
         z = dt['price']
@@ -332,7 +342,8 @@ if st.button("Submit"):
         ax.plot(x, y, linewidth=2.0, color="red", label = "wallet")
         ax.plot(x, z, linewidth=2.0, color="blue", label = "price")
         ax.legend()
-        st.pyplot(fig)
+        col01.pyplot(fig)
+        col00.dataframe(dattata)
         # plot_courbes2(dt[['wallet']], 'wallet','Red')
 
         # fig2, ax2 = plt.subplots()
