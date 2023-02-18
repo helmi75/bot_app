@@ -261,11 +261,7 @@ if st.button("Submit"):
         # st.text("Buy and Hold Performence :" + str(round(holdPercentage, 2)) + "%")
         new_title = f'<p style="font-family:sans-serif; font-size: 25px;">{"Older Performance vs Buy and Hold :" + str(round(vsHoldPercentage, 2)) + "%"}</p>'
         st.markdown(new_title, unsafe_allow_html=True)
-        fadit = 0
-        if holdPercentage > 0:
-            fadit = start_balance * (1 + holdPercentage / 100)
-        else:
-            fadit = start_balance * (1 - holdPercentage / 100)
+        fadit = start_balance * (1 + holdPercentage / 100)
         new_title = f'<p style="font-family:sans-serif; font-size: 25px;">{"Newer Performance vs Buy and Hold :" + str(round(wallet/(fadit),2)) + "%"}</p>'
         st.markdown(new_title, unsafe_allow_html=True)
 
@@ -329,21 +325,41 @@ if st.button("Submit"):
         new_title = f'<p style="font-family:sans-serif; font-size: 25px;"><br>{"----- Plot -----"}</p>'
         st.markdown(new_title, unsafe_allow_html=True)
 
-        emplacement = st.empty()
-        col00, col01 = emplacement.columns([3,4])
-        dattata = dt.loc[:,['wallet','price']]
         x = dt['date']
         y = dt['wallet']
         z = dt['price']
-        fig, ax = plt.subplots()
+
+        #
+        # fig, ax = plt.subplots()
+        # fig.set_figwidth(10)
+        # fig.set_figheight(4)
+        # # fig.suptitle("wallet", fontsize=25)
+        # ax.plot(x, y, linewidth=2.0, color="red", label = "wallet")
+        # ax2 = plt.gca().twinx()
+        # ax2.plot(x, z, linewidth=2.0, color="blue", label = "price")
+        # ax.legend()
+        # ax2.legend()
+        # st.pyplot(fig)
+        #
+        # x = np.linspace(0, 10)
+        # y = np.linspace(0, 10)
+        # z = np.sin(x / 3) ** 2 * 98
+
+        fig = plt.figure()
         fig.set_figwidth(10)
         fig.set_figheight(4)
-        # fig.suptitle("wallet", fontsize=25)
-        ax.plot(x, y, linewidth=2.0, color="red", label = "wallet")
-        ax.plot(x, z, linewidth=2.0, color="blue", label = "price")
-        ax.legend()
-        col01.pyplot(fig)
-        col00.dataframe(dattata)
+        ax = fig.add_subplot(111)
+        ax.plot(x, y, '-', label='Wallet')
+
+        ax2 = ax.twinx()
+        ax2.plot(x, z, '-r', label='Price')
+        fig.legend(loc="upper right")
+
+        ax.set_xlabel("Temps")
+        ax.set_ylabel(r"Wallet")
+        ax2.set_ylabel(r"Price")
+
+        st.pyplot(fig)
 
         st.dataframe(dt.iloc[[0,1,2,3,5,-5,-4,-3,-2,-1],:])
         # plot_courbes2(dt[['wallet']], 'wallet','Red')
