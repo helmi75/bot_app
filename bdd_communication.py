@@ -739,6 +739,7 @@ def plot_courbes2(df_tableau_multi):
 
 
 def variationN(cryptos, ni):
+    ni = ni.upper()
     if (ni == 'N'):
         for crypto in cryptos:
             cryptos[crypto]["Variation_" + crypto[:-5]] = cryptos[crypto][crypto[:-5] + "_close"] / cryptos[crypto][
@@ -1012,12 +1013,16 @@ def crypto_a_vendre(exchange, market):
 
         for name_crypto in market:
             name_crypto_up = name_crypto.upper()
+            timing = 0
             while True:
                 try:
                     x = exchange.fetchMyTrades(name_crypto)
                     break
                 except:
+                    timing += 1
                     print("ERROR CONNEXTION RECUPERATION fetchmyTrades Crypto: ", name_crypto)
+                    if (timing == 5):
+                        break
             df_hystoric_order[name_crypto_up] = pd.DataFrame.from_dict(x)
             index_dernier_ordre = df_hystoric_order[name_crypto_up].index.max()
             if not (df_hystoric_order[name_crypto_up].empty):
