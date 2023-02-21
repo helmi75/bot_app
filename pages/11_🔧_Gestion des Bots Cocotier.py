@@ -51,8 +51,8 @@ def modifierCocotierBot(bot_id):
     apii = cocotier_bot[0][1]
     secrets = cocotier_bot[0][2]
     apii,secrets = degenerateApiSecret(apii, secrets, bot_id)
-    apiii = apii[0] + apii[1] + "**************" + apii[-1] + apii[-2]
-    secretss = secrets[0] + secrets[1] + "**************" + secrets[-1] + secrets[-2]
+    apiii = apii[0] + apii[1] + "**************" + apii[-2] + apii[-1]
+    secretss = secrets[0] + secrets[1] + "**************" + secrets[-2] + secrets[-1]
     api_key = st.text_input("enter your api_key", key="cocotier_api_key", value=apiii)
     secret_key = st.text_input("enter  secret key", key="secret_key", value=secretss)
     sub_account = st.text_input("Subaccount", key="sub_account", value=cocotier_bot[0][3])
