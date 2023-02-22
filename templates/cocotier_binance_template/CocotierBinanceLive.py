@@ -35,10 +35,12 @@ for i in myresult:
         name_bot = i[8]
 
         # verify the time for the crontab
-
-        query = f"select dates from get_balence where id_bot ={i[7]} order by dates desc limit 1;"
-        cursor.execute(query)
-        lastDate = datetime.strptime(str(cursor.fetchall()[0][0]),'%Y-%m-%d %H:%M:%S')
+        try :
+            query = f"select dates from get_balence where id_bot ={i[7]} order by dates desc limit 1;"
+            cursor.execute(query)
+            lastDate = datetime.strptime(str(cursor.fetchall()[0][0]),'%Y-%m-%d %H:%M:%S')
+        except :
+            lastDate = datetime.now() - timedelta(hours=(d_hour-1))
         currentDate = datetime.now() - timedelta(hours=(d_hour-1))
         show_time = datetime.now()
         if(currentDate >= lastDate and int(show_time.hour)%d_hour == 0 ):
