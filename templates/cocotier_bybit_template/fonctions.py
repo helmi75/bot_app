@@ -521,13 +521,18 @@ def crypto_a_vendre2(exchange, market):
         liste_name_crypto = []
 
         for name_crypto in market:
+            x = (datetime.now() - timedelta(days=365)).timestamp() * 1000
             name_crypto_up = name_crypto.upper()
+            timing = 0
             while True:
                 try:
                     x = exchange.fetchMyTrades(name_crypto)
                     break
                 except:
+                    timing += 1
                     print("ERROR CONNEXTION RECUPERATION fetchmyTrades Crypto: ", name_crypto)
+                    if (timing == 5):
+                        break
             df_hystoric_order[name_crypto_up] = pd.DataFrame.from_dict(x)
             index_dernier_ordre = df_hystoric_order[name_crypto_up].index.max()
             if not (df_hystoric_order[name_crypto_up].empty):
