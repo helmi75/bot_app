@@ -3,6 +3,7 @@ import ta
 import matplotlib.pyplot as plt
 from binance.client import Client
 from bdd_communication import *
+import seaborn as sns
 
 st.set_page_config(
     page_title="Cocobots",
@@ -376,3 +377,104 @@ if st.button("Submit"):
         # ax2.plot(x, z, linewidth=2.0, color="blue")
         # st.pyplot(fig2)
         # plot_courbes2(dt[['price']], 'price','Blue')
+
+        dd = dt.copy()
+        months = ["Jan", "Fev", "Mar", "Avr", "Mai", "Juin", "Juillet", "Aou", "Sep", "Oct", "Nov", "Dec"]
+        dd.drop(['frais', 'fiat', 'coins', 'drawBack', 'resultat', 'resultat%', 'tradeIs', 'position', 'reason'],
+                axis=1, inplace=True)
+        dd["day"] = 0
+        dd["year"] = 0
+        dd["month"] = ""
+        for i, j in enumerate(dd['date']):
+            dd["day"][i] = dd["date"][i].day
+            dd["year"][i] = dd["date"][i].year
+            dd["month"][i] = months[dd["date"][i].month - 1]
+        dd['Buy And Hold (%)'] = 100 * (dt.iloc[:, 3] - (dt.iloc[0, 3])) / dt.iloc[0, 3]
+        dd['Buy And Hold ($)'] = initalWallet * (1 + dd['Buy And Hold (%)'] / 100)
+
+        performanceDict = {}
+        for i in range(dd["date"][0].year, dd["date"][-1].year + 1):
+            performanceDict[i] = {}
+        for i in performanceDict:
+            performanceDict[i] = dd.loc[dd['year'] == i, :]
+        performYear = {}
+        for i in performanceDict:
+            performYear[i] = {"Performance": 0, "date start": 0, "date end": 0}
+        res = list(performYear.keys())[0]
+        performYear[res]['date start'] = performanceDict[res]['wallet'][0]
+        performYear[res]['date end'] = performanceDict[res]['wallet'][-1]
+        performYear[res]['Performance'] = 100 * (performYear[res]['date end'] - performYear[res]['date start']) / \
+                                          performYear[res]['date start']
+        for i, j in enumerate(performYear):
+            if i == 0:
+                pass
+            else:
+                performYear[j]['date start'] = performanceDict[j - 1]['wallet'][-1]
+                performYear[j]['date end'] = performanceDict[j]['wallet'][-1]
+                performYear[j]['Performance'] = 100 * (performYear[j]['date end'] - performYear[j]['date start']) / \
+                                                performYear[j]['date start']
+
+        performanceDictM = {}
+        for i in range(dd["date"][0].year, dd["date"][-1].year + 1):
+            performanceDictM[i] = {}
+
+        for i in performanceDictM:
+            for j in performanceDict[i]["month"]:
+                performanceDictM[i][j] = dd.loc[(dd['month'] == j) & (dd['year'] == i), :]
+        performMonth = {}
+        for i in performanceDict:
+            performMonth[i] = {}
+        res = list(performMonth.keys())[0]
+
+        for i in performMonth:
+            for j in performanceDict[i]["month"]:
+                performMonth[i][j] = {"Performance": 0, "date start": 0, "date end": 0}
+        resi = list(performMonth[res].keys())[0]
+        performMonth[res][resi]['date start'] = performanceDictM[res][resi]['wallet'][0]
+        performMonth[res][resi]['date end'] = performanceDictM[res][resi]['wallet'][-1]
+        performMonth[res][resi]['Performance'] = 100 * (
+                    performMonth[res][resi]['date end'] - performMonth[res][resi]['date start']) / \
+                                                 performMonth[res][resi]['date start']
+        xx = 0
+        for i, j in enumerate(performMonth):
+            for l, k in enumerate(performMonth[j]):
+                if (l == 0 and i == 0):
+                    xx = performMonth[j][k]['date end']
+                else:
+                    performMonth[j][k]['date start'] = xx
+                    performMonth[j][k]['date end'] = performanceDictM[j][k]['wallet'][-1]
+                    performMonth[j][k]['Performance'] = 100 * (
+                                performMonth[j][k]['date end'] - performMonth[j][k]['date start']) / performMonth[j][k][
+                                                            'date start']
+                    xx = performMonth[j][k]['date end']
+
+        dfYY = pd.DataFrame.from_dict(performYear).T
+        dfYY["years"] = dfYY.index
+        dfY = dfYY.loc[:, ["Performance", "years"]]
+        # fig, ax_left = plt.subplots(figsize=(15, 20), nrows=4, ncols=1)
+        sns.set(font_scale=0.8)
+        fig, ax = plt.subplots(figsize=(10, 5), dpi=100)
+        sns.barplot(data=dfY, y="Performance", x="years", ax=ax)
+        # for index, row in dfY.iterrows():
+        #     if row.Performance >= 0:
+        #         g.text(row.name,row.Performance, '+'+str(round(row.Performance))+'%', color='black', ha="center", va="bottom")
+        #     else:
+        #         g.text(row.name,row.Performance, '-'+str(round(row.Performance))+'%', color='black', ha="center", va="top")
+        ax.set_title('years performance in %')
+        st.pyplot(fig)
+
+        for i in performMonth:
+            dfMM = pd.DataFrame.from_dict(performMonth[i]).T
+            dfMM["years"] = dfMM.index
+            dfMMM = dfMM.loc[:, ["Performance", "years"]]
+            sns.set(font_scale=0.8)
+            fig, ax = plt.subplots(figsize=(10, 5), dpi=100)
+            sns.barplot(data=dfMMM, y="Performance", x="years", ax=ax)
+            # for index, row in dfY.iterrows():
+            #     if row.Performance >= 0:
+            #         g.text(row.name,row.Performance, '+'+str(round(row.Performance))+'%', color='black', ha="center", va="bottom")
+            #     else:
+            #         g.text(row.name,row.Performance, '-'+str(round(row.Performance))+'%', color='black', ha="center", va="top")
+            ax.set_title(f'{i} performance in %')
+            st.pyplot(fig)
+

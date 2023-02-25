@@ -2,6 +2,7 @@
 /__pycache__
 /.idea
 /BackUp
+/MahdiProperty
 pass_secret.py 
 /templates/trix_template/Trix_log.txt
 BackUp/requirements.txt
