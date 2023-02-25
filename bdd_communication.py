@@ -1002,6 +1002,15 @@ def acheter_2(exchange, var2, balence_total, pourcentage):
             pass
     buy = exchange.create_market_buy_order(var2, (montant_USDT * pourcentage) / last)
     return buy
+def last_crypto_buyed(exchange, market1):
+    for elm in market1:
+        etat = pd.DataFrame.from_dict(exchange.fetchMyTrades(elm)).iloc[-1:]
+        try:
+            if etat['side'].values[0] == 'buy':
+                crypto_a_vendre = etat['symbol']
+                return crypto_a_vendre.values[0]
+        except KeyError:
+            pass
 
 def isEmptyDict(di):
     for i in di :
@@ -1033,7 +1042,19 @@ def crypto_a_vendre(exchange, market):
             elif isEmptyDict(df_hystoric_order) :
                 var1 = name_crypto
                 montant_USDT = float(exchange.fetch_balance().get('USDT').get('free'))
-                exchange.create_spot_order(var1,"market","buy",montant_USDT,1)
+                # exchange.create_spot_order(var1,"market","buy",montant_USDT,1)
+                dict = exchange.fetchTicker(var1)
+                last = dict['last']
+                while last == 0:
+                    try:
+                        last = exchange.fetchTicker(var1)['last']
+                    except:
+                        pass
+                try :
+                    exchange.create_market_buy_order(var1, (montant_USDT) / last)
+                except :
+                    #you need to sell all your credit and buy new ones
+                    pass
                 x = exchange.fetchMyTrades(name_crypto)
                 df_hystoric_order[name_crypto_up] = pd.DataFrame.from_dict(x)
                 index_dernier_ordre = df_hystoric_order[name_crypto_up].index.max()
@@ -1052,8 +1073,20 @@ def crypto_a_vendre(exchange, market):
         return crypto_a_vendre
     except IndexError:
         return '0'
-
-
+def findUsedCrypto(exchange):
+    lista = []
+    a = exchange.fetch_balance()['total']
+    for i in a:
+        if a[i] != 0 and i != 'USDT':
+            lista.append((i,a[i]*exchange.fetchTickers([i+"/USDT"])[i+"/USDT"]['ask']))
+    return lista
+def findCurrentCrypto(exchange):
+    lista= findUsedCrypto(exchange)
+    max = lista[0]
+    for i in lista:
+        if i[1] > max[1]:
+            max = i
+    return max[0]
 def get_pair_symbol_for_last_balence_by_id(id):
     con = ConnectBbd('localhost', '3306', 'root', mot_de_passe, 'cryptos', 'mysql_native_password')
     cursor = con.cnx.cursor()

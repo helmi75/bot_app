@@ -85,7 +85,8 @@ for i in myresult:
             nom_crypto_achat = getBotMax(crypto, market, type_computing)
             #Sell Then Buy maybe here we need to do an exception management
             try :
-                nom_crypto_vente = crypto_a_vendre(exchange, market)
+                # nom_crypto_vente = crypto_a_vendre(exchange, market)
+                nom_crypto_vente = findCurrentCrypto(exchange)
                 algo_achat_vente(exchange, nom_crypto_vente, nom_crypto_achat)
 
                 print(" ")
