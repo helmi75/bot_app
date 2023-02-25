@@ -465,6 +465,7 @@ if st.button("Submit"):
             else:
                 ax.text(row.name-res,row.Performance, '-'+str(round(row.Performance))+'%', color='black', ha="center", va="top")
         ax.set_title('years performance in %')
+        ax.legend_.remove()
         st.pyplot(fig)
 
         for i in performMonth:
@@ -486,6 +487,7 @@ if st.button("Submit"):
                     ax.text(months.index(row.months) - firstMonhtPos, row.Performance,
                             '-' + str(round(row.Performance) * 100) + '%', color='black', ha="center", va="top")
             ax.set_title(f'{i} performance in %\n{round(performYear[i]["Performance"]) * 100}%')
+            ax.legend_.remove()
             st.pyplot(fig)
 
             x = dd['date']
