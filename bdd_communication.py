@@ -1086,7 +1086,14 @@ def findCurrentCrypto(exchange):
     for i in lista:
         if i[1] > max[1]:
             max = i
-    return max[0]
+    maxi = max[0]
+    if (maxi == "USDT"):
+        montant_USDT = float(exchange.fetch_balance().get('USDT').get('free'))
+        dict = exchange.fetchTicker("BTC/USDT")
+        last = dict['last']
+        exchange.create_market_buy_order("BTC/USDT", (montant_USDT) / last)
+        maxi = "BTC/USDT"
+    return maxi
 def get_pair_symbol_for_last_balence_by_id(id):
     con = ConnectBbd('localhost', '3306', 'root', mot_de_passe, 'cryptos', 'mysql_native_password')
     cursor = con.cnx.cursor()
