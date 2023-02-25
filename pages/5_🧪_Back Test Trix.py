@@ -391,6 +391,7 @@ if st.button("Submit"):
             dd["month"][i] = months[dd["date"][i].month - 1]
         dd['Buy And Hold (%)'] = 100 * (dt.iloc[:, 3] - (dt.iloc[0, 3])) / dt.iloc[0, 3]
         dd['Buy And Hold ($)'] = initalWallet * (1 + dd['Buy And Hold (%)'] / 100)
+        custom_palette = {'positive': 'green', 'negative': 'red'}
 
         performanceDict = {}
         for i in range(dd["date"][0].year, dd["date"][-1].year + 1):
@@ -454,7 +455,10 @@ if st.button("Submit"):
         # fig, ax_left = plt.subplots(figsize=(15, 20), nrows=4, ncols=1)
         sns.set(font_scale=0.8)
         fig, ax = plt.subplots(figsize=(10, 5), dpi=100)
-        sns.barplot(data=dfY, y="Performance", x="years", ax=ax)
+        custom_palette = {'positive': 'green', 'negative': 'red'}
+
+        sns.barplot(data=dfY, y="Performance", x="years", ax=ax, palette=custom_palette,
+                    hue=np.where(dfY['Performance'] >= 0, 'positive', 'negative'))
         # for index, row in dfY.iterrows():
         #     if row.Performance >= 0:
         #         g.text(row.name,row.Performance, '+'+str(round(row.Performance))+'%', color='black', ha="center", va="bottom")
@@ -469,12 +473,17 @@ if st.button("Submit"):
             dfMMM = dfMM.loc[:, ["Performance", "years"]]
             sns.set(font_scale=0.8)
             fig, ax = plt.subplots(figsize=(10, 5), dpi=100)
-            sns.barplot(data=dfMMM, y="Performance", x="years", ax=ax)
-            # for index, row in dfY.iterrows():
-            #     if row.Performance >= 0:
-            #         g.text(row.name,row.Performance, '+'+str(round(row.Performance))+'%', color='black', ha="center", va="bottom")
-            #     else:
-            #         g.text(row.name,row.Performance, '-'+str(round(row.Performance))+'%', color='black', ha="center", va="top")
+            custom_palette = {'positive': 'green', 'negative': 'red'}
+
+            sns.barplot(data=dfMMM, y="Performance", x="years", ax=ax, palette=custom_palette,
+                        hue=np.where(dfMMM['Performance'] >= 0, 'positive', 'negative'))
+            for index, row in dfY.iterrows():
+                if row.Performance >= 0:
+                    pass
+                #             g.text(row.name,row.Performance, '+'+str(round(row.Performance))+'%', color='black', ha="center", va="bottom")
+                else:
+                    pass
+                    #             g.text(row.name,row.Performance, '-'+str(round(row.Performance))+'%', color='black', ha="center", va="top")
             ax.set_title(f'{i} performance in %')
             st.pyplot(fig)
 
