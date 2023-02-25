@@ -103,7 +103,7 @@ for i in myresult:
             except Exception as exceptions :
                 print("*****Exceptions*****")
                 print(exceptions)
-                # con.insert_balence(datetime.now(),"none" , 0, i[7],"OFF","none")
+                con.insert_balence(datetime.now(),"none" , 0, i[7],"OFF","none")
                 print("********************")
 
 
