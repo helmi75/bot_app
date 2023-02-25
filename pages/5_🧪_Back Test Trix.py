@@ -484,7 +484,7 @@ if st.button("Submit"):
                 else:
                     pass
                     #             g.text(row.name,row.Performance, '-'+str(round(row.Performance))+'%', color='black', ha="center", va="top")
-            ax.set_title(f'{i} performance in %')
+            ax.set_title(f'{i} performance in %\n{performYear[i]["Performance"] * 100}%')
             st.pyplot(fig)
 
             x = dd['date']
