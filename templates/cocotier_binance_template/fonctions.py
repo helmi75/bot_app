@@ -538,7 +538,19 @@ def crypto_a_vendre(exchange, market):
             elif isEmptyDict(df_hystoric_order) :
                 var1 = name_crypto
                 montant_USDT = float(exchange.fetch_balance().get('USDT').get('free'))
-                exchange.create_spot_order(var1,"market","buy",montant_USDT,1)
+                # exchange.create_spot_order(var1,"market","buy",montant_USDT,1)
+                dict = exchange.fetchTicker(var1)
+                last = dict['last']
+                while last == 0:
+                    try:
+                        last = exchange.fetchTicker(var1)['last']
+                    except:
+                        pass
+                try :
+                    exchange.create_market_buy_order(var1, (montant_USDT) / last)
+                except :
+                    #you need to sell all your credit and buy new ones
+                    pass
                 x = exchange.fetchMyTrades(name_crypto)
                 df_hystoric_order[name_crypto_up] = pd.DataFrame.from_dict(x)
                 index_dernier_ordre = df_hystoric_order[name_crypto_up].index.max()
