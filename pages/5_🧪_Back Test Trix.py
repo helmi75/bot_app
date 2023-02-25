@@ -459,31 +459,32 @@ if st.button("Submit"):
 
         sns.barplot(data=dfY, y="Performance", x="years", ax=ax, palette=custom_palette,
                     hue=np.where(dfY['Performance'] >= 0, 'positive', 'negative'))
-        # for index, row in dfY.iterrows():
-        #     if row.Performance >= 0:
-        #         g.text(row.name,row.Performance, '+'+str(round(row.Performance))+'%', color='black', ha="center", va="bottom")
-        #     else:
-        #         g.text(row.name,row.Performance, '-'+str(round(row.Performance))+'%', color='black', ha="center", va="top")
+        for index, row in dfY.iterrows():
+            if row.Performance >= 0:
+                ax.text(row.name-res,row.Performance, '+'+str(round(row.Performance))+'%', color='black', ha="center", va="bottom")
+            else:
+                ax.text(row.name-res,row.Performance, '-'+str(round(row.Performance))+'%', color='black', ha="center", va="top")
         ax.set_title('years performance in %')
         st.pyplot(fig)
 
         for i in performMonth:
             dfMM = pd.DataFrame.from_dict(performMonth[i]).T
-            dfMM["years"] = dfMM.index
-            dfMMM = dfMM.loc[:, ["Performance", "years"]]
+            dfMM["months"] = dfMM.index
+            dfMMM = dfMM.loc[:, ["Performance", "months"]]
             sns.set(font_scale=0.8)
             fig, ax = plt.subplots(figsize=(10, 5), dpi=100)
             custom_palette = {'positive': 'green', 'negative': 'red'}
-
-            sns.barplot(data=dfMMM, y="Performance", x="years", ax=ax, palette=custom_palette,
+            firstMonth = list(dfMMM.months)[0]
+            firstMonhtPos = months.index(firstMonth)
+            sns.barplot(data=dfMMM, y="Performance", x="months", ax=ax, palette=custom_palette,
                         hue=np.where(dfMMM['Performance'] >= 0, 'positive', 'negative'))
-            for index, row in dfY.iterrows():
+            for index, row in dfMMM.iterrows():
                 if row.Performance >= 0:
-                    pass
-                #             g.text(row.name,row.Performance, '+'+str(round(row.Performance))+'%', color='black', ha="center", va="bottom")
+                    ax.text(months.index(row.months) - firstMonhtPos, row.Performance,
+                            '+' + str(round(row.Performance) * 100) + '%', color='black', ha="center", va="bottom")
                 else:
-                    pass
-                    #             g.text(row.name,row.Performance, '-'+str(round(row.Performance))+'%', color='black', ha="center", va="top")
+                    ax.text(months.index(row.months) - firstMonhtPos, row.Performance,
+                            '-' + str(round(row.Performance) * 100) + '%', color='black', ha="center", va="top")
             ax.set_title(f'{i} performance in %\n{performYear[i]["Performance"] * 100}%')
             st.pyplot(fig)
 
