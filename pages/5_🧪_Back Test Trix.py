@@ -478,3 +478,25 @@ if st.button("Submit"):
             ax.set_title(f'{i} performance in %')
             st.pyplot(fig)
 
+            x = dd['date']
+            y = dd['wallet']
+            z = dd['Buy And Hold ($)']
+
+            fig = plt.figure()
+            fig.set_figwidth(10)
+            fig.set_figheight(4)
+            ax = fig.add_subplot(111)
+            ax.plot(x, y, color="blue", label='Wallet')
+
+            ax2 = ax.twinx()
+            ax2.plot(x, z, color="red", label='Buy And Hold ($)')
+            fig.legend(loc="upper right")
+
+            ax.set_xlabel("Temps")
+            ax.set_ylabel(r"Wallet")
+            ax.yaxis.label.set_color('Blue')
+            ax.tick_params(axis='y', colors='blue')
+            ax2.set_ylabel(r"Buy And Hold ($)")
+            ax2.yaxis.label.set_color('red')
+            ax2.tick_params(axis='y', colors='red')
+            ax.set_title('Wallet VS Buy and Hold')
