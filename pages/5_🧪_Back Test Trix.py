@@ -498,10 +498,10 @@ if st.button("Submit"):
         fig0.set_figwidth(10)
         fig0.set_figheight(4)
         ax0 = fig0.add_subplot(111)
-        ax0.plot(x, y, color="blue", label='Wallet')
+        ax0.plot(x0, y0, color="blue", label='Wallet')
 
         ax20 = ax0.twinx()
-        ax20.plot(x, z, color="red", label='Buy And Hold ($)')
+        ax20.plot(x0, z0, color="red", label='Buy And Hold ($)')
         fig0.legend(loc="upper right")
 
         ax0.set_xlabel("Temps")
