@@ -490,26 +490,26 @@ if st.button("Submit"):
             ax.legend_.remove()
             st.pyplot(fig)
 
-        x0 = dd['date']
-        y0 = dd['wallet']
-        z0 = dd['Buy And Hold ($)']
+        x = dd['date']
+        y = dd['wallet']
+        z = dd['Buy And Hold ($)']
 
-        fig0 = plt.figure()
-        fig0.set_figwidth(10)
-        fig0.set_figheight(4)
-        ax0 = fig0.add_subplot(111)
-        ax0.plot(x0, y0, color="blue", label='Wallet')
+        fig = plt.figure()
+        fig.set_figwidth(10)
+        fig.set_figheight(4)
+        ax = fig.add_subplot(111)
+        ax.plot(x, y, color="blue", label='Wallet')
 
-        ax20 = ax0.twinx()
-        ax20.plot(x0, z0, color="red", label='Buy And Hold ($)')
-        fig0.legend(loc="upper right")
+        ax2 = ax.twinx()
+        ax2.plot(x, z, color="red", label='Buy And Hold ($)')
+        fig.legend(loc="upper right")
 
-        ax0.set_xlabel("Temps")
-        ax0.set_ylabel(r"Wallet")
-        ax0.yaxis.label.set_color('Blue')
-        ax0.tick_params(axis='y', colors='blue')
-        ax20.set_ylabel(r"Buy And Hold ($)")
-        ax20.yaxis.label.set_color('red')
-        ax20.tick_params(axis='y', colors='red')
-        ax0.set_title('Wallet VS Buy and Hold')
-        st.pyplot(fig0)
+        ax.set_xlabel("Temps")
+        ax.set_ylabel(r"Wallet")
+        ax.yaxis.label.set_color('Blue')
+        ax.tick_params(axis='y', colors='blue')
+        ax2.set_ylabel(r"Buy And Hold ($)")
+        ax2.yaxis.label.set_color('red')
+        ax2.tick_params(axis='y', colors='red')
+        ax.set_title('Wallet VS Buy and Hold')
+        st.pyplot(fig)
