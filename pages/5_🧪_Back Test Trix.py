@@ -239,6 +239,7 @@ if st.button("Submit"):
         totalTrades = totalBadTrades + totalGoodTrades
         winRateRatio = (totalGoodTrades / totalTrades) * 100
         fadit = start_balance * (1 + holdPercentage / 100)
+        container = st.container()
         new_title = f'<p style="font-family:sans-serif; font-size: 25px;">{"Pair Symbol :" + pair_symbol}</p>'
         st.markdown(new_title, unsafe_allow_html=True)
         # st.text("Pair Symbol :" + pair_symbol)
@@ -329,7 +330,8 @@ if st.button("Submit"):
         x = dt['date']
         y = dt['wallet']
         z = dt['price']
-
+        
+        
         #
         # fig, ax = plt.subplots()
         # fig.set_figwidth(10)
@@ -493,24 +495,24 @@ if st.button("Submit"):
         x = dd['date']
         y = dd['wallet']
         z = dd['Buy And Hold ($)']
+        with container:
+            fig = plt.figure()
+            fig.set_figwidth(10)
+            fig.set_figheight(4)
+            ax = fig.add_subplot(111)
+            ax.plot(x, y, color="blue", label='Wallet ($)')
 
-        fig = plt.figure()
-        fig.set_figwidth(10)
-        fig.set_figheight(4)
-        ax = fig.add_subplot(111)
-        ax.plot(x, y, color="blue", label='Wallet ($)')
+            #ax2 = ax.twinx()
+            ax2=ax
+            ax2.plot(x, z, color="red", label='Buy And Hold ($)')
+            fig.legend(loc="upper right")
 
-        #ax2 = ax.twinx()
-        ax2=ax
-        ax2.plot(x, z, color="red", label='Buy And Hold ($)')
-        fig.legend(loc="upper right")
-
-        ax.set_xlabel("Temps")
-        ax.set_ylabel(r"Value en ($)")
-        #ax.yaxis.label.set_color('Blue')
-        #ax.tick_params(axis='y', colors='blue')
-        #ax2.set_ylabel(r"Buy And Hold ($)")
-        #ax2.yaxis.label.set_color('black')
-        #ax2.tick_params(axis='y', colors='red')
-        ax.set_title('Wallet VS Buy and Hold')
-        st.pyplot(fig)
+            ax.set_xlabel("Temps")
+            ax.set_ylabel(r"Value en ($)")
+            #ax.yaxis.label.set_color('Blue')
+            #ax.tick_params(axis='y', colors='blue')
+            #ax2.set_ylabel(r"Buy And Hold ($)")
+            #ax2.yaxis.label.set_color('black')
+            #ax2.tick_params(axis='y', colors='red')
+            ax.set_title('Wallet VS Buy and Hold')
+            st.pyplot(fig)
