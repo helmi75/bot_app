@@ -100,6 +100,8 @@ for i in myresult:
                 wallet = get_wallet(exchange)
                 print(f"The new crypto wallet is {wallet}")
                 con.insert_balence(datetime.now(),nom_crypto_achat , wallet, i[7],"ONN","none")
+            except ZeroDivisionError :
+                pass
             except Exception as exceptions :
                 print("*****Exceptions*****")
                 print(exceptions)
