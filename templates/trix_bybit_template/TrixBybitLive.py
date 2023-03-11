@@ -205,7 +205,10 @@ for i in myresult:
 
         except Exception as ex:
             print("----Exception----")
-            ex.with_traceback()
+            print(ex)
+            con.insert_balence(datetime.now(),
+                               f"Trix : {i[4]}_len{i[5]}_sign{i[6]}_top{i[7]}_bottom{i[8]}_RSI{i[9]}",
+                               "0", i[10], "OFF", "none")
             print("-----------------")
 
 print("")
