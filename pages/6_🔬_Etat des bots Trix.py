@@ -22,7 +22,7 @@ st.title("Etat des Bots Trix")
 
 
 def status_bots(df_result):
-    df_result = df_result[df_result["transaction"] != "none"]
+    # df_result = df_result[df_result["transaction"] != "none"]
     list_satus_bot = [df_result[df_result['nom_bot'] == bot].iloc[-1:] for bot in df_result['nom_bot'].unique()]
     df_status_bot = pd.concat(list_satus_bot)[
         ['date', 'nom_bot', 'pair_symbol', 'status_bot', 'transaction', 'type_bot','wallet']]
