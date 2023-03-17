@@ -28,7 +28,7 @@ def status_bots(df_result):
         ['date', 'nom_bot', 'pair_symbol', 'status_bot', 'transaction', 'type_bot','wallet']]
     for i, transaction in zip(df_status_bot["transaction"].index, df_status_bot["transaction"]):
         if transaction == "none" :
-            df_status_bot["transaction"].loc[i] = "USDT"
+            df_status_bot["transaction"].loc[i] = "none"
         else:
             df_status_bot["transaction"].loc[i] = transaction
         if transaction == "sell":
