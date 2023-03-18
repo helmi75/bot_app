@@ -241,7 +241,11 @@ if st.button("Submit"):
         totalTrades = totalBadTrades + totalGoodTrades
         winRateRatio = (totalGoodTrades / totalTrades) * 100
         fadit = start_balance * (1 + holdPercentage / 100)
+<<<<<<< HEAD
+        container = st.container()
+=======
 
+>>>>>>> 7e4742edb28bf51ff93cdcf5fe53787e8bad19b0
         new_title = f'<p style="font-family:sans-serif; font-size: 25px;">{"Pair Symbol :" + pair_symbol}</p>'
         st.markdown(new_title, unsafe_allow_html=True)
         # st.text("Pair Symbol :" + pair_symbol)
@@ -331,8 +335,15 @@ if st.button("Submit"):
         x = dt['date']
         y = dt['wallet']
         z = dt['price']
+<<<<<<< HEAD
+        
+        
+        #
+        # fig, ax = plt.subplots()
+=======
 
         # fig = plt.figure()
+>>>>>>> 7e4742edb28bf51ff93cdcf5fe53787e8bad19b0
         # fig.set_figwidth(10)
         # fig.set_figheight(4)
         # ax = fig.add_subplot(111)
@@ -599,13 +610,27 @@ if st.button("Submit"):
             ax = fig.add_subplot(111)
             ax.plot(x, y, color="blue", label='Wallet ($)')
 
+<<<<<<< HEAD
+            #ax2 = ax.twinx()
+            ax2=ax
+=======
             # ax2 = ax.twinx()
             ax2 = ax
+>>>>>>> 7e4742edb28bf51ff93cdcf5fe53787e8bad19b0
             ax2.plot(x, z, color="red", label='Buy And Hold ($)')
             fig.legend(loc="upper right")
 
             ax.set_xlabel("Temps")
             ax.set_ylabel(r"Value en ($)")
+<<<<<<< HEAD
+            #ax.yaxis.label.set_color('Blue')
+            #ax.tick_params(axis='y', colors='blue')
+            #ax2.set_ylabel(r"Buy And Hold ($)")
+            #ax2.yaxis.label.set_color('black')
+            #ax2.tick_params(axis='y', colors='red')
+            ax.set_title('Wallet VS Buy and Hold')
+            st.pyplot(fig)
+=======
             # ax.yaxis.label.set_color('Blue')
             # ax.tick_params(axis='y', colors='blue')
             # ax2.set_ylabel(r"Buy And Hold ($)")
@@ -626,3 +651,4 @@ if st.button("Submit"):
                 xaxis_title="Temps",
                 yaxis_title="Value en ($)")
             st.plotly_chart(fig1)
+>>>>>>> 7e4742edb28bf51ff93cdcf5fe53787e8bad19b0
