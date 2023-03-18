@@ -121,7 +121,7 @@ for i in myresult:
                   crypto_wallet_value = fiatAmount + (cryptoAmount * ticker['last'])
                   con.insert_balence(datetime.now(),
                                      f"Trix : {i[4]}_len{i[5]}_sign{i[6]}_top{i[7]}_bottom{i[8]}_RSI{i[9]}",
-                                     crypto_wallet_value, i[10], "ONN", "buy")
+                                     crypto_wallet_value, i[10], "ONN", "buy","No Problem")
 
               else:
                   fiatAmount = getBalance(client, fiatSymbol)
@@ -130,7 +130,7 @@ for i in myresult:
                   crypto_wallet_value = fiatAmount + (cryptoAmount * ticker['last'])
                   con.insert_balence(datetime.now(),
                                      f"Trix : {i[4]}_len{i[5]}_sign{i[6]}_top{i[7]}_bottom{i[8]}_RSI{i[9]}",
-                                     crypto_wallet_value, i[10], "ONN", "buy")
+                                     crypto_wallet_value, i[10], "ONN", "buy","No Problem")
                   goOn = True
 
           elif sellCondition(df.iloc[-2], i[8]):
@@ -148,7 +148,7 @@ for i in myresult:
                   crypto_wallet_value = fiatAmount + (cryptoAmount * ticker['last'])
                   con.insert_balence(datetime.now(),
                                      f"Trix : {i[4]}_len{i[5]}_sign{i[6]}_top{i[7]}_bottom{i[8]}_RSI{i[9]}",
-                                     crypto_wallet_value, i[10], "ONN", "sell")
+                                     crypto_wallet_value, i[10], "ONN", "sell","No Problem")
               else:
                   fiatAmount = getBalance(client, fiatSymbol)
                   cryptoAmount = getBalance(client, cryptoSymbol)
@@ -156,7 +156,7 @@ for i in myresult:
                   crypto_wallet_value = fiatAmount + (cryptoAmount * ticker['last'])
                   con.insert_balence(datetime.now(),
                                      f"Trix : {i[4]}_len{i[5]}_sign{i[6]}_top{i[7]}_bottom{i[8]}_RSI{i[9]}",
-                                     crypto_wallet_value, i[10], "ONN", "sell")
+                                     crypto_wallet_value, i[10], "ONN", "sell","No Problem")
                   goOn = True
           else:
               goOn = True
@@ -166,7 +166,7 @@ for i in myresult:
               crypto_wallet_value = fiatAmount + (cryptoAmount * ticker['last'])
               con.insert_balence(datetime.now(),
                                  f"Trix : {i[4]}_len{i[5]}_sign{i[6]}_top{i[7]}_bottom{i[8]}_RSI{i[9]}",
-                                 crypto_wallet_value, i[10], "ONN", side)
+                                 crypto_wallet_value, i[10], "ONN", side,"No Problem")
 
           #listBalances = sorted(client.get_balances(),key= lambda d : d['total'], reverse= True)
           df_balences = pd.DataFrame(client.get_balances())
@@ -194,5 +194,5 @@ for i in myresult:
           email_v1.send_mail(i[3], pairSymbol,ex_type.__name__, ex_value, stack_trace)
           con.insert_balence(datetime.now(),
                              f"Trix : {i[4]}_len{i[5]}_sign{i[6]}_top{i[7]}_bottom{i[8]}_RSI{i[9]}",
-                             0, i[10], "OFF", "none")
+                             0, i[10], "OFF", "none",str(ex))
           print("We're done\n\n")
