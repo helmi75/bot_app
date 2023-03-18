@@ -199,7 +199,7 @@ for i in myresult:
                 cryptoAmount = float(get_wallet(client, pairSymbol))
                 ticker = exchangeWallet.fetch_ticker(pairsSymbol)
                 crypto_wallet_value = fiatAmount + (cryptoAmount * ticker['last'])
-                last_status_trix = con.get_last_status_trix(i[10])
+                last_status_trix = con.get_last_status_trix(i[10])[0]
                 con.insert_balence(datetime.now(),
                                    f"Trix : {i[4]}_len{i[5]}_sign{i[6]}_top{i[7]}_bottom{i[8]}_RSI{i[9]}",
                                    crypto_wallet_value, i[10], "ONN", str(last_status_trix),"No Problem")
