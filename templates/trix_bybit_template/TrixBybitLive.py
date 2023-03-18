@@ -204,7 +204,7 @@ for i in myresult:
                                    crypto_wallet_value, i[10], "ONN", "none")
 
         except Exception as ex:
-            print("----Exception----")
+            print(f"----Exception of {i[11]}----")
             print(ex)
             con.insert_balence(datetime.now(),
                                f"Trix : {i[4]}_len{i[5]}_sign{i[6]}_top{i[7]}_bottom{i[8]}_RSI{i[9]}",
