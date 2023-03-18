@@ -2,8 +2,10 @@ import streamlit as st
 import ta
 import matplotlib.pyplot as plt
 from binance.client import Client
+import plotly.graph_objs as go
 from bdd_communication import *
 import seaborn as sns
+import plotly.express as px
 
 st.set_page_config(
     page_title="Cocobots",
@@ -202,7 +204,7 @@ if st.button("Submit"):
         holdPercentage = ((lastClose - iniClose) / iniClose) * 100
         algoPercentage = ((wallet - initalWallet) / initalWallet) * 100
         vsHoldPercentage = ((algoPercentage - holdPercentage) / holdPercentage) * 100
-        BuyandHoldperformance = lastClose/iniClose
+        BuyandHoldperformance = lastClose / iniClose
         try:
             tradesPerformance = round(dt.loc[(dt['tradeIs'] == 'Good') | (dt['tradeIs'] == 'Bad'), 'resultat%'].sum()
                                       / dt.loc[
@@ -239,11 +241,15 @@ if st.button("Submit"):
         totalTrades = totalBadTrades + totalGoodTrades
         winRateRatio = (totalGoodTrades / totalTrades) * 100
         fadit = start_balance * (1 + holdPercentage / 100)
+<<<<<<< HEAD
         container = st.container()
+=======
+
+>>>>>>> 7e4742edb28bf51ff93cdcf5fe53787e8bad19b0
         new_title = f'<p style="font-family:sans-serif; font-size: 25px;">{"Pair Symbol :" + pair_symbol}</p>'
         st.markdown(new_title, unsafe_allow_html=True)
         # st.text("Pair Symbol :" + pair_symbol)
-        new_title = f'<p style="font-family:sans-serif; font-size: 25px;">{"Period : [" + str(dfTest.index[0]) + "] -> [" +str(dfTest.index[len(dfTest) - 1]) + "]"}</p>'
+        new_title = f'<p style="font-family:sans-serif; font-size: 25px;">{"Period : [" + str(dfTest.index[0]) + "] -> [" + str(dfTest.index[len(dfTest) - 1]) + "]"}</p>'
         st.markdown(new_title, unsafe_allow_html=True)
         # st.text("Period : [" + str(dfTest.index[0]) + "] -> [" +
         #         str(dfTest.index[len(dfTest) - 1]) + "]")
@@ -267,10 +273,9 @@ if st.button("Submit"):
         new_title = f'<p style="font-family:sans-serif; font-size: 25px;">{"Buy and Hold Performance :" + str(round(holdPercentage, 2)) + "%"}</p>'
         st.markdown(new_title, unsafe_allow_html=True)
         # st.text("Buy and Hold Performence :" + str(round(holdPercentage, 2)) + "%")
-        new_title = f'<p style="font-family:sans-serif; font-size: 25px;"><b>{"Trix vs Buy and Hold :" + str(round(wallet/(fadit),2))}</b></p>'
+        new_title = f'<p style="font-family:sans-serif; font-size: 25px;"><b>{"Trix vs Buy and Hold :" + str(round(wallet / (fadit), 2))}</b></p>'
         st.markdown(new_title, unsafe_allow_html=True)
         # st.text(f"FinalBalance({round(wallet,2)})/PerformanceBuyAndHoldPerformance({start_balance}*{round(holdPercentage,2)}%={round(fadit,2)}) #{round(wallet/(fadit),2)}%")
-
 
         # st.text("Performance vs Buy and Hold :" + str(round(vsHoldPercentage, 2)) + "%")
         new_title = f'<p style="font-family:sans-serif; font-size: 25px;">{"Best trade : " + str(bestTrade) + "%, the" + str(idbest)}</p>'
@@ -280,11 +285,11 @@ if st.button("Submit"):
         st.markdown(new_title, unsafe_allow_html=True)
         # st.text("Worst trade :" + str(worstTrade) + "%, the" + str(idworst))
         lllili = str(100 * round(dt['drawBack'].min(), 2))
-        new_title = f'<p style="font-family:sans-serif; font-size: 25px;">{"Worst drawBack :"+lllili+"%"} </p>'
+        new_title = f'<p style="font-family:sans-serif; font-size: 25px;">{"Worst drawBack :" + lllili + "%"} </p>'
         st.markdown(new_title, unsafe_allow_html=True)
         # st.text("Worst drawBack :" + str(100 * round(dt['drawBack'].min(), 2)) + "%")
-        lllili =  str(round(dt['frais'].sum(), 2))
-        new_title = f'<p style="font-family:sans-serif; font-size: 25px;">{"Total fees : " + lllili+ "$"}</p>'
+        lllili = str(round(dt['frais'].sum(), 2))
+        new_title = f'<p style="font-family:sans-serif; font-size: 25px;">{"Total fees : " + lllili + "$"}</p>'
         st.markdown(new_title, unsafe_allow_html=True)
         # st.text("Total fees : " + str(round(dt['frais'].sum(), 2)) + "$")
         new_title = f'<p style="font-family:sans-serif; font-size: 25px;"><br>{"---- Trades Informations -----"}</p>'
@@ -326,50 +331,39 @@ if st.button("Submit"):
         # st.text("\n----- Plot -----")
         new_title = f'<p style="font-family:sans-serif; font-size: 25px;"><br>{"----- Plot -----"}</p>'
         st.markdown(new_title, unsafe_allow_html=True)
-
+        container = st.container()
         x = dt['date']
         y = dt['wallet']
         z = dt['price']
+<<<<<<< HEAD
         
         
         #
         # fig, ax = plt.subplots()
+=======
+
+        # fig = plt.figure()
+>>>>>>> 7e4742edb28bf51ff93cdcf5fe53787e8bad19b0
         # fig.set_figwidth(10)
         # fig.set_figheight(4)
-        # # fig.suptitle("wallet", fontsize=25)
-        # ax.plot(x, y, linewidth=2.0, color="red", label = "wallet")
-        # ax2 = plt.gca().twinx()
-        # ax2.plot(x, z, linewidth=2.0, color="blue", label = "price")
-        # ax.legend()
-        # ax2.legend()
-        # st.pyplot(fig)
+        # ax = fig.add_subplot(111)
+        # ax.plot(x, y, color="blue", label='Wallet')
         #
-        # x = np.linspace(0, 10)
-        # y = np.linspace(0, 10)
-        # z = np.sin(x / 3) ** 2 * 98
+        # ax2 = ax.twinx()
+        # ax2.plot(x, z, color="red", label='Price')
+        # fig.legend(loc="upper right")
+        #
+        # ax.set_xlabel("Temps")
+        # ax.set_ylabel(r"Wallet")
+        # ax.yaxis.label.set_color('Blue')
+        # ax.tick_params(axis='y', colors='blue')
+        # ax2.set_ylabel(r"Price")
+        # ax2.yaxis.label.set_color('red')
+        # ax2.tick_params(axis='y', colors='red')
+        #
+        # st.pyplot(fig)
 
-        fig = plt.figure()
-        fig.set_figwidth(10)
-        fig.set_figheight(4)
-        ax = fig.add_subplot(111)
-        ax.plot(x, y, color="blue", label='Wallet')
-
-        ax2 = ax.twinx()
-        ax2.plot(x, z, color="red", label='Price')
-        fig.legend(loc="upper right")
-
-        ax.set_xlabel("Temps")
-        ax.set_ylabel(r"Wallet")
-        ax.yaxis.label.set_color('Blue')
-        ax.tick_params(axis='y', colors='blue')
-        ax2.set_ylabel(r"Price")
-        ax2.yaxis.label.set_color('red')
-        ax2.tick_params(axis='y', colors='red')
-
-
-        st.pyplot(fig)
-
-        st.dataframe(dt.iloc[[0,1,2,3,5,-5,-4,-3,-2,-1],:])
+        st.dataframe(dt.iloc[[0, 1, 2, 3, 5, -5, -4, -3, -2, -1], :])
         # plot_courbes2(dt[['wallet']], 'wallet','Red')
 
         # fig2, ax2 = plt.subplots()
@@ -436,7 +430,7 @@ if st.button("Submit"):
         performMonth[res][resi]['date start'] = performanceDictM[res][resi]['wallet'][0]
         performMonth[res][resi]['date end'] = performanceDictM[res][resi]['wallet'][-1]
         performMonth[res][resi]['Performance'] = 100 * (
-                    performMonth[res][resi]['date end'] - performMonth[res][resi]['date start']) / \
+                performMonth[res][resi]['date end'] - performMonth[res][resi]['date start']) / \
                                                  performMonth[res][resi]['date start']
         xx = 0
         for i, j in enumerate(performMonth):
@@ -447,7 +441,7 @@ if st.button("Submit"):
                     performMonth[j][k]['date start'] = xx
                     performMonth[j][k]['date end'] = performanceDictM[j][k]['wallet'][-1]
                     performMonth[j][k]['Performance'] = 100 * (
-                                performMonth[j][k]['date end'] - performMonth[j][k]['date start']) / performMonth[j][k][
+                            performMonth[j][k]['date end'] - performMonth[j][k]['date start']) / performMonth[j][k][
                                                             'date start']
                     xx = performMonth[j][k]['date end']
 
@@ -455,42 +449,156 @@ if st.button("Submit"):
         dfYY["years"] = dfYY.index
         dfY = dfYY.loc[:, ["Performance", "years"]]
         # fig, ax_left = plt.subplots(figsize=(15, 20), nrows=4, ncols=1)
-        sns.set(font_scale=0.8)
-        fig, ax = plt.subplots(figsize=(10, 5), dpi=100)
+        # sns.set(font_scale=0.8)
+        # fig, ax = plt.subplots(figsize=(10, 5), dpi=100)
+        # custom_palette = {'positive': 'green', 'negative': 'red'}
+        #
+        # sns.barplot(data=dfY, y="Performance", x="years", ax=ax, palette=custom_palette,
+        #             hue=np.where(dfY['Performance'] >= 0, 'positive', 'negative'))
+        # for index, row in dfY.iterrows():
+        #     if row.Performance >= 0:
+        #         ax.text(row.name - res, row.Performance, '+' + str(round(row.Performance)) + '%', color='black',
+        #                 ha="center", va="bottom")
+        #     else:
+        #         ax.text(row.name - res, row.Performance, '-' + str(round(row.Performance)) + '%', color='black',
+        #                 ha="center", va="top")
+        # ax.set_title('years performance in %')
+        # ax.legend_.remove()
+        # st.pyplot(fig)
+
+
+        # Create a custom palette for positive and negative values
         custom_palette = {'positive': 'green', 'negative': 'red'}
 
-        sns.barplot(data=dfY, y="Performance", x="years", ax=ax, palette=custom_palette,
-                    hue=np.where(dfY['Performance'] >= 0, 'positive', 'negative'))
+        # Create a trace for positive values
+        positive_trace = go.Bar(
+            x=dfY[dfY['Performance'] >= 0]['years'],
+            y=dfY[dfY['Performance'] >= 0]['Performance'],
+            marker=dict(color=custom_palette['positive']),
+            name='+'
+        )
+
+        # Create a trace for negative values
+        negative_trace = go.Bar(
+            x=dfY[dfY['Performance'] < 0]['years'],
+            y=dfY[dfY['Performance'] < 0]['Performance'],
+            marker=dict(color=custom_palette['negative']),
+            name='-'
+        )
+
+        # Combine the traces
+        data = [positive_trace, negative_trace]
+
+        # Add the text annotations to the positive and negative bars
         for index, row in dfY.iterrows():
             if row.Performance >= 0:
-                ax.text(row.name-res,row.Performance, '+'+str(round(row.Performance))+'%', color='black', ha="center", va="bottom")
+                text = '+' + str(round(row.Performance)) + '%'
+                text_position = 'bottom center'
             else:
-                ax.text(row.name-res,row.Performance, '-'+str(round(row.Performance))+'%', color='black', ha="center", va="top")
-        ax.set_title('years performance in %')
-        ax.legend_.remove()
-        st.pyplot(fig)
+                text = '-' + str(round(row.Performance)) + '%'
+                text_position = 'top center'
+            data.append(
+                go.Scatter(
+                    x=[row.years],
+                    y=[row.Performance],
+                    text=text,
+                    textposition=text_position,
+                    mode='text'
+                )
+            )
+
+        # Define the layout
+        layout = go.Layout(
+            title='years performance in %',
+            showlegend=False
+        )
+
+        # Create the figure
+        fig = go.Figure(data=data, layout=layout)
+
+        # Show the figure
+        st.plotly_chart(fig)
 
         for i in performMonth:
             dfMM = pd.DataFrame.from_dict(performMonth[i]).T
             dfMM["months"] = dfMM.index
             dfMMM = dfMM.loc[:, ["Performance", "months"]]
-            sns.set(font_scale=0.8)
-            fig, ax = plt.subplots(figsize=(10, 5), dpi=100)
+            # sns.set(font_scale=0.8)
+            # fig, ax = plt.subplots(figsize=(10, 5), dpi=100)
+            # custom_palette = {'positive': 'green', 'negative': 'red'}
+            # firstMonth = list(dfMMM.months)[0]
+            # firstMonhtPos = months.index(firstMonth)
+            # sns.barplot(data=dfMMM, y="Performance", x="months", ax=ax, palette=custom_palette,
+            #             hue=np.where(dfMMM['Performance'] >= 0, 'positive', 'negative'))
+            # for index, row in dfMMM.iterrows():
+            #     if row.Performance >= 0:
+            #         ax.text(months.index(row.months) - firstMonhtPos, row.Performance,
+            #                 '+' + str(round(row.Performance)) + '%', color='black', ha="center", va="bottom")
+            #     else:
+            #         ax.text(months.index(row.months) - firstMonhtPos, row.Performance,
+            #                 '-' + str(round(row.Performance)) + '%', color='black', ha="center", va="top")
+            # ax.set_title(f'{i} performance in %\n{round(performYear[i]["Performance"])}%')
+            # ax.legend_.remove()
+            # st.pyplot(fig)
+
+            # Create a custom palette for positive and negative values
             custom_palette = {'positive': 'green', 'negative': 'red'}
-            firstMonth = list(dfMMM.months)[0]
-            firstMonhtPos = months.index(firstMonth)
-            sns.barplot(data=dfMMM, y="Performance", x="months", ax=ax, palette=custom_palette,
-                        hue=np.where(dfMMM['Performance'] >= 0, 'positive', 'negative'))
+
+            # Determine the first month in the dataset
+            first_month = list(dfMMM.months)[0]
+
+            # Determine the index of the first month in the months list
+            first_month_pos = months.index(first_month)
+
+            # Create traces for positive and negative values
+            traces = []
+            for month in months:
+                df_month = dfMMM[dfMMM['months'] == month]
+                if len(df_month) == 1:
+                    performance = df_month['Performance'].iloc[0]
+                    if performance >= 0:
+                        trace = go.Bar(
+                            x=[month],
+                            y=[performance],
+                            marker=dict(color=custom_palette['positive']),
+                            name='+'
+                        )
+                    else:
+                        trace = go.Bar(
+                            x=[month],
+                            y=[performance],
+                            marker=dict(color=custom_palette['negative']),
+                            name='-'
+                        )
+                    traces.append(trace)
+
+            # Add the text annotations to the positive and negative bars
             for index, row in dfMMM.iterrows():
                 if row.Performance >= 0:
-                    ax.text(months.index(row.months) - firstMonhtPos, row.Performance,
-                            '+' + str(round(row.Performance) * 100) + '%', color='black', ha="center", va="bottom")
+                    text = '+' + str(round(row.Performance)) + '%'
+                    text_position = 'bottom center'
                 else:
-                    ax.text(months.index(row.months) - firstMonhtPos, row.Performance,
-                            '-' + str(round(row.Performance) * 100) + '%', color='black', ha="center", va="top")
-            ax.set_title(f'{i} performance in %\n{round(performYear[i]["Performance"]) * 100}%')
-            ax.legend_.remove()
-            st.pyplot(fig)
+                    text = '' + str(round(row.Performance)) + '%'
+                    text_position = 'top center'
+                trace = go.Scatter(
+                    x=[row.months],
+                    y=[row.Performance],
+                    text=text,
+                    textposition=text_position,
+                    mode='text'
+                )
+                traces.append(trace)
+
+            # Define the layout
+            layout = go.Layout(
+                title=f'{i} performance in %\n{round(performYear[i]["Performance"])}%',
+                showlegend=False
+            )
+
+            # Create the figure
+            fig = go.Figure(data=traces, layout=layout)
+            st.plotly_chart(fig)
+
 
         x = dd['date']
         y = dd['wallet']
@@ -502,13 +610,19 @@ if st.button("Submit"):
             ax = fig.add_subplot(111)
             ax.plot(x, y, color="blue", label='Wallet ($)')
 
+<<<<<<< HEAD
             #ax2 = ax.twinx()
             ax2=ax
+=======
+            # ax2 = ax.twinx()
+            ax2 = ax
+>>>>>>> 7e4742edb28bf51ff93cdcf5fe53787e8bad19b0
             ax2.plot(x, z, color="red", label='Buy And Hold ($)')
             fig.legend(loc="upper right")
 
             ax.set_xlabel("Temps")
             ax.set_ylabel(r"Value en ($)")
+<<<<<<< HEAD
             #ax.yaxis.label.set_color('Blue')
             #ax.tick_params(axis='y', colors='blue')
             #ax2.set_ylabel(r"Buy And Hold ($)")
@@ -516,3 +630,25 @@ if st.button("Submit"):
             #ax2.tick_params(axis='y', colors='red')
             ax.set_title('Wallet VS Buy and Hold')
             st.pyplot(fig)
+=======
+            # ax.yaxis.label.set_color('Blue')
+            # ax.tick_params(axis='y', colors='blue')
+            # ax2.set_ylabel(r"Buy And Hold ($)")
+            # ax2.yaxis.label.set_color('black')
+            # ax2.tick_params(axis='y', colors='red')
+            ax.set_title('Wallet VS Buy and Hold')
+            # st.pyplot(fig)
+
+            # dynamic plot with plotly
+            fig1 = go.Figure()
+            fig1.add_trace(go.Scatter(x=x, y=y, mode='lines', name='Wallet ($)'))
+            fig1.add_trace(go.Scatter(x=x, y=z, mode='lines', name='Buy And Hold ($)'))
+            # fig_.set_title('Wallet VS Buy and Hold')
+            fig1.update_layout(title={
+                'text': 'Wallet VS Buy and Hold',
+                'x': 0.5,
+                'xanchor': 'center'},
+                xaxis_title="Temps",
+                yaxis_title="Value en ($)")
+            st.plotly_chart(fig1)
+>>>>>>> 7e4742edb28bf51ff93cdcf5fe53787e8bad19b0
