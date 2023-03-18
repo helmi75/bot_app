@@ -8,9 +8,11 @@ import mysql.connector
 from binance.client import Client
 # import ta
 
-print(" ")
-print("-----Start the script------")
-
+now = datetime.now()
+current_time = now.strftime("%d/%m/%Y %H:%M:%S")
+print("")
+print("--- Start Execution Time :", current_time, "---")
+print("")
 pwd = mot_de_passe
 cnx = mysql.connector.connect(host='localhost', user='root', password=pwd, port='3306', database='cryptos',
                               auth_plugin='mysql_native_password')
@@ -104,11 +106,12 @@ for i in myresult:
                 pass
             except Exception as exceptions :
                 print("*****Exceptions*****")
-                print(exceptions)
+                print(i[8],exceptions)
                 con.insert_balence(datetime.now(),"none" , 0, i[7],"OFF","none")
                 print("********************")
 
 
 
-print("-----End of the script-----")
-print(" ")
+print("")
+print("--- End Execution Time ---")
+print("")
