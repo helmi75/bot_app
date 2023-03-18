@@ -192,7 +192,7 @@ for i in myresult :
         try :
             processus(i,con,iterations)
         except Exception as ex:
-            if (ex == "APIError(code=-2010): Account has insufficient balance for requested action."):
+            if str(ex) == "APIError(code=-2010)"!=-1:
                 iterations = False
                 for l in range(10):
                     if iterations:
@@ -202,7 +202,7 @@ for i in myresult :
                     except Exception :
                         pass
             else :
-                print("----Exception----")
+                print(f"----Exception of {i[11]}----")
                 con.insert_balence(datetime.now(),
                                    f"Trix : {i[4]}_len{i[5]}_sign{i[6]}_top{i[7]}_bottom{i[8]}_RSI{i[9]}",
                                    "0", i[10], "OFF", "none")
