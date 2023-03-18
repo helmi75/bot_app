@@ -101,13 +101,13 @@ for i in myresult:
                 # Save the wallet value
                 wallet = get_wallet(exchange)
                 print(f"The new crypto wallet is {wallet}")
-                con.insert_balence(datetime.now(),nom_crypto_achat , wallet, i[7],"ONN","none")
+                con.insert_balence(datetime.now(),nom_crypto_achat , wallet, i[7],"ONN","none","No Problem")
             except ZeroDivisionError :
                 pass
             except Exception as exceptions :
                 print("*****Exceptions*****")
                 print(i[8],exceptions)
-                con.insert_balence(datetime.now(),"none" , 0, i[7],"OFF","none")
+                con.insert_balence(datetime.now(),"none" , 0, i[7],"OFF","none",str(exceptions))
                 print("********************")
 
 

@@ -133,10 +133,10 @@ class ConnectBbd:
         cursor.close()
         self.cnx.close()
 
-    def insert_balence(self, date, crypto_name, crypto_wallet, id_bot, status, transaction):
+    def insert_balence(self, date, crypto_name, crypto_wallet, id_bot, status, transaction,notes):
         cursor = self.cnx.cursor()
-        query = """Insert into get_balence (dates, crypto_name,crypto_wallet,id_bot,status_bot,transaction) values ('%s','%s','%s','%s','%s','%s')""" % (
-            date, crypto_name, crypto_wallet, id_bot, status, transaction)
+        query = """Insert into get_balence (dates, crypto_name,crypto_wallet,id_bot,status_bot,transaction,notes) values ('%s','%s','%s','%s','%s','%s','%s')""" % (
+            date, crypto_name, crypto_wallet, id_bot, status, transaction,notes)
         cursor.execute(query)
         self.cnx.commit()
         idd = cursor.lastrowid
@@ -359,6 +359,13 @@ class ConnectBbd:
         # self.cnx.close()
         return result
 
+    def get_last_status_trix(self,id_bot):
+        cursor = self.cnx.cursor()
+        query = f"select transaction, dates from get_balence where id_bot = {id_bot} order by  dates desc limit 1;"
+        cursor.execute(query)
+        result = cursor.fetchall()
+        return result[0]
+
     def get_statusTrixById(self, idBot):
         """
            get bots status information from bdd
@@ -451,7 +458,7 @@ class ConnectBbd:
         crypto_wallet_value = fiatAmount + (cryptoAmount * ticker['last'])
         self.insert_balence(datetime.now(),
                             f"Trix : {result[4]}_len{result[5]}_sign{result[6]}_top{result[7]}_bottom{result[8]}_RSI{result[9]}",
-                            crypto_wallet_value, result[10], "OFF", "sell")
+                            crypto_wallet_value, result[10], "OFF", "sell","No Problem")
 
     def vendreTrixBinance(self, idbot):
         exchangeWallet = ccxt.binance()
@@ -478,7 +485,7 @@ class ConnectBbd:
         crypto_wallet_value = fiatAmount + (cryptoAmount * ticker['last'])
         self.insert_balence(datetime.now(),
                             f"Trix : {result[4]}_len{result[5]}_sign{result[6]}_top{result[7]}_bottom{result[8]}_RSI{result[9]}",
-                            crypto_wallet_value, result[10], "OFF", "sell")
+                            crypto_wallet_value, result[10], "OFF", "sell","No Problem")
 
     def vendreTrixBybit(self, idbot):
         exchangeWallet = ccxt.binance()
@@ -507,7 +514,7 @@ class ConnectBbd:
         crypto_wallet_value = fiatAmount + (cryptoAmount * ticker['last'])
         self.insert_balence(datetime.now(),
                             f"Trix : {result[4]}_len{result[5]}_sign{result[6]}_top{result[7]}_bottom{result[8]}_RSI{result[9]}",
-                            crypto_wallet_value, result[10], "OFF", "sell")
+                            crypto_wallet_value, result[10], "OFF", "sell","No Problem")
 
     def vendreCocotierBinance(self, idbot):
         cursor = self.cnx.cursor()
@@ -527,7 +534,7 @@ class ConnectBbd:
         nom_crypto_vente = crypto_a_vendre(exchange, market)
         sell = vente(exchange, nom_crypto_vente, balence['total'])
         wallet = get_wallet(exchange)
-        self.insert_balence(datetime.now(), "USDT", wallet, idbot, "OFF", "none")
+        self.insert_balence(datetime.now(), "USDT", wallet, idbot, "OFF", "sell","No Problem")
 
     def vendreCocotierBybit(self, idbot):
         cursor = self.cnx.cursor()
@@ -548,7 +555,7 @@ class ConnectBbd:
         balence = exchange.fetch_spot_balance()
         sell = vente(exchange, nom_crypto_vente, balence['total'])
         wallet = get_walletBybit(exchange)
-        self.insert_balence(datetime.now(), "USDT", wallet, idbot, "OFF", "none")
+        self.insert_balence(datetime.now(), "USDT", wallet, idbot, "OFF", "sell","No Problem")
 
     def get_statusCocotier(self):
         """

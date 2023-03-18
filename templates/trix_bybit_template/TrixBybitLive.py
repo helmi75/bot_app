@@ -160,7 +160,7 @@ for i in myresult:
                     crypto_wallet_value = fiatAmount + (cryptoAmount * ticker['last'])
                     con.insert_balence(datetime.now(),
                                        f"Trix : {i[4]}_len{i[5]}_sign{i[6]}_top{i[7]}_bottom{i[8]}_RSI{i[9]}",
-                                       crypto_wallet_value, i[10], "ONN", "buy")
+                                       crypto_wallet_value, i[10], "ONN", "buy","No Problem")
                     print("BUY")
                 else:
                     fiatAmount = float(client.fetch_spot_balance()['total']['USDT'])
@@ -169,7 +169,7 @@ for i in myresult:
                     crypto_wallet_value = fiatAmount + (cryptoAmount * ticker['last'])
                     con.insert_balence(datetime.now(),
                                        f"Trix : {i[4]}_len{i[5]}_sign{i[6]}_top{i[7]}_bottom{i[8]}_RSI{i[9]}",
-                                       crypto_wallet_value, i[10], "ONN", "buy")
+                                       crypto_wallet_value, i[10], "ONN", "buy","No Problem")
                     print("If you  give me more USD I will buy more", cryptoSymbol)
 
             elif sellCondition(df.iloc[-2], df.iloc[-3], stoch_bottom):
@@ -182,7 +182,7 @@ for i in myresult:
                     crypto_wallet_value = fiatAmount + (cryptoAmount * ticker['last'])
                     con.insert_balence(datetime.now(),
                                        f"Trix : {i[4]}_len{i[5]}_sign{i[6]}_top{i[7]}_bottom{i[8]}_RSI{i[9]}",
-                                       crypto_wallet_value, i[10], "ONN", "sell")
+                                       crypto_wallet_value, i[10], "ONN", "sell","No Problem")
                     print("SELL")
                 else:
                     fiatAmount = float(client.fetch_spot_balance()['total']['USDT'])
@@ -191,7 +191,7 @@ for i in myresult:
                     crypto_wallet_value = fiatAmount + (cryptoAmount * ticker['last'])
                     con.insert_balence(datetime.now(),
                                        f"Trix : {i[4]}_len{i[5]}_sign{i[6]}_top{i[7]}_bottom{i[8]}_RSI{i[9]}",
-                                       crypto_wallet_value, i[10], "ONN", "sell")
+                                       crypto_wallet_value, i[10], "ONN", "sell","No Problem")
                     print("If you give me more", cryptoSymbol, "I will sell it")
             else:
                 print("No opportunity to take")
@@ -199,16 +199,17 @@ for i in myresult:
                 cryptoAmount = float(get_wallet(client, pairSymbol))
                 ticker = exchangeWallet.fetch_ticker(pairsSymbol)
                 crypto_wallet_value = fiatAmount + (cryptoAmount * ticker['last'])
+                last_status_trix = con.get_last_status_trix(i[10])
                 con.insert_balence(datetime.now(),
                                    f"Trix : {i[4]}_len{i[5]}_sign{i[6]}_top{i[7]}_bottom{i[8]}_RSI{i[9]}",
-                                   crypto_wallet_value, i[10], "ONN", "none")
+                                   crypto_wallet_value, i[10], "ONN", str(last_status_trix),"No Problem")
 
         except Exception as ex:
             print(f"----Exception of {i[11]}----")
             print(ex)
             con.insert_balence(datetime.now(),
                                f"Trix : {i[4]}_len{i[5]}_sign{i[6]}_top{i[7]}_bottom{i[8]}_RSI{i[9]}",
-                               "0", i[10], "OFF", "none")
+                               "0", i[10], "OFF", "none",str(ex))
             print("-----------------")
 
 print("")

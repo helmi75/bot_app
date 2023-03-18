@@ -107,11 +107,11 @@ for i in myresult:
                     # Save the wallet value
                     wallet = get_wallet(exchange)
                     print(f"The new crypto wallet is {wallet}")
-                    con.insert_balence(datetime.now(), nom_crypto_achat, wallet, i[7], "ONN", "none")
+                    con.insert_balence(datetime.now(), nom_crypto_achat, wallet, i[7], "ONN", "none","No Problem")
                 except Exception as exceptions:
                     print("*****Exceptions*****")
                     print(exceptions)
-                    con.insert_balence(datetime.now(), "none", 0, i[7], "OFF", "none")
+                    con.insert_balence(datetime.now(), "none", 0, i[7], "OFF", "none",str(exceptions))
                     print("********************")
         except ZeroDivisionError :
             pass
@@ -119,10 +119,10 @@ for i in myresult:
             con = ConnectBbd('localhost', '3306', 'root', pwd, 'cryptos', 'mysql_native_password')
             show_time = str(datetime.now())[:19]
             con.insertTime(show_time,i[7])
-            con.insert_balence(datetime.now(), "none", 0, i[7], "OFF", "none")
+            con.insert_balence(datetime.now(), "none", 0, i[7], "OFF", "none",str(eee))
         except Exception as eee :
             con = ConnectBbd('localhost', '3306', 'root', pwd, 'cryptos', 'mysql_native_password')
-            con.insert_balence(datetime.now(), "none", 0, i[7], "OFF", "none")
+            con.insert_balence(datetime.now(), "none", 0, i[7], "OFF", "none",str(eee))
             print(i[8],eee)
 
 
