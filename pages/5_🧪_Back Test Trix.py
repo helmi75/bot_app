@@ -10,7 +10,7 @@ from bdd_communication import *
 import seaborn as sns
 import plotly.express as px
 import requests
-
+import ccxt
 
 st.set_page_config(
     page_title="Cocobots",
@@ -19,6 +19,20 @@ st.set_page_config(
 st.title("Cocobots")
 st.title("Back Test Trix")
 
+
+def getHistorical(client, symbole):
+    klinesT = client.get_historical_klines(
+        symbole, Client.KLINE_INTERVAL_1HOUR, "5 day ago UTC")
+    dataT = pd.DataFrame(klinesT,
+                         columns=['timestamp', 'open', 'high', 'low', 'close', 'volume', 'close_time', 'quote_av',
+                                  'trades', 'tb_base_av', 'tb_quote_av', 'ignore'])
+    dataT['close'] = pd.to_numeric(dataT['close'])
+    dataT['high'] = pd.to_numeric(dataT['high'])
+    dataT['low'] = pd.to_numeric(dataT['low'])
+    dataT['open'] = pd.to_numeric(dataT['open'])
+    dataT['volume'] = pd.to_numeric(dataT['volume'])
+    dataT.drop(dataT.columns.difference(['open', 'high', 'low', 'close', 'volume']), 1, inplace=True)
+    return dataT
 
 @st.cache_data
 def getAllPairSymbolsOfBinance():
@@ -76,10 +90,15 @@ def plot_courbes2(df_tableau_multi, namee, rcolor):
 
 
 bybitBinance = st.checkbox("Bybit")
+
+
 if bybitBinance :
-    getAllPairSymbolsOfBybit()
+    cryptoss = getAllPairSymbolsOfBybit()
+
 else :
-    getAllPairSymbolsOfBinance()
+    cryptoss = getAllPairSymbolsOfBinance()
+    client = Client()
+
 
 
 date_init = datetime.now() - timedelta(days=180)
@@ -124,7 +143,6 @@ stoch_top = col1.number_input("Stoch Top", value=0.8)
 stoch_bottom = col2.number_input("Stoch Bottom", value=0.24)
 stoch_rsi = col3.number_input("Stoch RSI", value=15)
 
-cryptoss = getAllPairSymbolsOfBinance()
 crr = pair_symbol.upper().replace('/', '')
 if not (len(crr) > 4 and crr[-4:] == 'USDT'):
     crr += 'USDT'
@@ -516,10 +534,10 @@ if st.button("Submit"):
         # Add the text annotations to the positive and negative bars
         for index, row in dfY.iterrows():
             if row.Performance >= 0:
-                text = '+' + str(round(row.Performance)) + '%'
+                text = '<b>+' + str(round(row.Performance)) + '%</b>'
                 text_position = 'bottom center'
             else:
-                text = '-' + str(round(row.Performance)) + '%'
+                text = '<b>-' + str(round(row.Performance)) + '%</b>'
                 text_position = 'top center'
             data.append(
                 go.Scatter(
@@ -537,7 +555,7 @@ if st.button("Submit"):
             showlegend=False,
             font=dict(
                 family="Courier New, monospace",
-                size=25,
+                size=20,
                 color="black"
             )
         )
@@ -604,10 +622,10 @@ if st.button("Submit"):
             # Add the text annotations to the positive and negative bars
             for index, row in dfMMM.iterrows():
                 if row.Performance >= 0:
-                    text = '+' + str(round(row.Performance)) + '%'
+                    text = '<b>+' + str(round(row.Performance)) + '%</b>'
                     text_position = 'bottom center'
                 else:
-                    text = '' + str(round(row.Performance)) + '%'
+                    text = '<b>' + str(round(row.Performance)) + '%</b>'
                     text_position = 'top center'
                 trace = go.Scatter(
                     x=[row.months],
@@ -624,7 +642,7 @@ if st.button("Submit"):
                 showlegend=False,
                 font=dict(
                     family="Courier New, monospace",
-                    size=25,
+                    size=20,
                     color="black"
                 )
             )
