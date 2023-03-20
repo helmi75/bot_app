@@ -205,6 +205,15 @@ class ConnectBbd:
         result = cursor.fetchall()
         return result
 
+    def listeTrixActive(self):
+        cursor = self.cnx.cursor()
+        query = "select bot_id from bots where working = 1 and type_bot like upper('TRIX%') ;"
+        cursor.execute(query)
+        result = cursor.fetchall()
+        return result
+
+
+
 
     def nombreTrixInActive(self):
         cursor = self.cnx.cursor()
@@ -220,11 +229,26 @@ class ConnectBbd:
         cursor.execute(query)
         result = cursor.fetchall()
         return result
+    def listeCocotierActive(self):
+        cursor = self.cnx.cursor()
+        query = "select bot_id from bots where working = 1 and type_bot like upper('COCOTIER%') ;"
+        cursor.execute(query)
+        result = cursor.fetchall()
+        return result
 
 
     def nombreCocotierInActive(self):
         cursor = self.cnx.cursor()
         query = "select count(*) from bots where working = 0 and type_bot like upper('COCOTIER%') ;"
+        cursor.execute(query)
+        result = cursor.fetchall()
+        return result
+
+
+
+    def isONNorOFF(self,idd):
+        cursor = self.cnx.cursor()
+        query = f"select status_bot from get_balence where id_bot = {idd} order by dates desc limit 1;"
         cursor.execute(query)
         result = cursor.fetchall()
         return result
@@ -360,8 +384,8 @@ class ConnectBbd:
         # self.cnx.close()
 
     def bot_statusTrix(self, pairSymbol, side, id_bot):
-        """ 
-           insert status bot data to the database 
+        """
+           insert status bot data to the database
         """
         try:
             self.insert_log_info(datetime.now(), pairSymbol, "ONN", side, id_bot)

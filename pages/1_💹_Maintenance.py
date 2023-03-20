@@ -26,11 +26,22 @@ st.header  (f"Free: {round(hdd.free / (2**30),3)} GB")
 st.title("-"*30)
 con = ConnectBbd('localhost', '3306', 'root', mot_de_passe, 'cryptos', 'mysql_native_password')
 
-nbTrixActive = con.nombreTrixActive()[0][0]
+nbTrixActive = 0
 nbTrixInactive = con.nombreTrixInActive()[0][0]
-nbCocotierActive = con.nombreCocotierActive()[0][0]
+TrixActive = con.listeTrixActive()
+for i in TrixActive :
+    if (con.isONNorOFF(i[0]) == "OFF"):
+        nbTrixInactive+=1
+    else:
+        nbTrixActive += 1
+nbCocotierActive = 0
+CocotierActive = con.listeCocotierActive()
 nbCocotierInActive = con.nombreCocotierInActive()[0][0]
-
+for i in CocotierActive :
+    if (con.isONNorOFF(i[0]) == "OFF"):
+        nbCocotierInActive+=1
+    else:
+        nbCocotierActive += 1
 
 st.header(f"Nombre de Bot Trix Active : {nbTrixActive}")
 st.header(f"Nombre de Bot Trix InActive : {nbTrixInactive}")
