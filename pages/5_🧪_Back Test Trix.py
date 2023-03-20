@@ -537,7 +537,7 @@ if st.button("Submit"):
                 text = '<b>+' + str(round(row.Performance)) + '%</b>'
                 text_position = 'bottom center'
             else:
-                text = '<b>-' + str(round(row.Performance)) + '%</b>'
+                text = '<b>' + str(round(row.Performance)) + '%</b>'
                 text_position = 'top center'
             data.append(
                 go.Scatter(
