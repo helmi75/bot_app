@@ -15,7 +15,7 @@ st.title("Pool Bybit Pairs Symbol")
 
 con = ConnectBbd('localhost', '3306', 'root', mot_de_passe, 'cryptos', 'mysql_native_password')
 liste_crypto = con.getAllPairSymbolsBybit()[0][0].split(',')
-@st.cache_data
+@st.cache
 def getAllPairSymbolsOfBybit():
     cryptoss = []
     url = 'https://api.bybit.com/v2/public/symbols'
@@ -26,7 +26,7 @@ def getAllPairSymbolsOfBybit():
             cryptoss.append(s['name'])
     return cryptoss
 
-@st.cache_data
+@st.cache
 def getAllPairSymbolsOfBinance():
     cryptoss = []
     client = Client()

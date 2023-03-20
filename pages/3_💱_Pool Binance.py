@@ -14,7 +14,7 @@ st.title("Pool Binance Pairs Symbol")
 
 con = ConnectBbd('localhost', '3306', 'root', mot_de_passe, 'cryptos', 'mysql_native_password')
 liste_crypto = con.getAllPairSymbolsBinance()[0][0].split(',')
-@st.cache_data
+@st.cache
 def getAllPairSymbolsOfBinance():
     cryptoss = []
     client = Client()
