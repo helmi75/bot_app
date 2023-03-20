@@ -52,8 +52,10 @@ def main():
 
     client = Client()
     crypto = {}
-
-    if (st.button("Submit")):
+    if 'searching' not in st.session_state:
+        st.session_state.searching = False
+    if (st.button("Submit")or st.session_state.searching):
+        st.session_state.searching = True
         for elm in market :
 
             #get the values from binance as they are and convert them to a dataframe we can work with
