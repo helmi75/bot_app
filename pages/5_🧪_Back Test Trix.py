@@ -1,3 +1,6 @@
+import datetime
+from datetime import time
+
 import streamlit as st
 import ta
 import matplotlib.pyplot as plt
@@ -101,6 +104,19 @@ stDate = to_timestamp(str(star_date))
 end_date = col3.date_input('Date de fin')
 enDate = to_timestamp(str(end_date))
 
+
+col1.title("->")
+startHour= col2.time_input("Start Hour", time(0,0))
+endHour = col3.time_input("End Hour", time(0,0))
+
+sttDate = f"{star_date} {startHour}"
+
+ennDate = f"{end_date} {endHour}"
+# stDate = to_timestamp(str(sttDate))
+# st.title(stDate)
+
+
+
 start_balance = col1.number_input("Start Balance", value=1000)
 trix_length = col2.number_input("Trix Length", value=9)
 trix_signal = col3.number_input("Trix Signal", value=21)
@@ -122,7 +138,7 @@ if st.button("Submit"):
             pair_symbol = pair_symbol + 'USDT'
         st.success(pair_symbol)
         client = Client()
-        klinesT = client.get_historical_klines(pair_symbol, timeInterval, str(star_date))
+        klinesT = client.get_historical_klines(pair_symbol, timeInterval, str(sttDate), str(ennDate))
         # -- Define your dataset --
         df = pd.DataFrame(klinesT, columns=['timestamp', 'open', 'high', 'low', 'close', 'volume', 'close_time',
                                             'quote_av', 'trades', 'tb_base_av', 'tb_quote_av', 'ignore'])
@@ -145,9 +161,9 @@ if st.button("Submit"):
         dfTest = None
         # dfTest = df.copy()
 
-        if str(end_date) == "":
-            end_date = None
-        dfTest = df[str(star_date): str(end_date)]
+        if str(ennDate) == "":
+            ennDate = None
+        dfTest = df[str(sttDate): str(ennDate)]
         dt = pd.DataFrame(
             columns=['date', 'position', 'reason', 'price', 'frais', 'fiat', 'coins', 'wallet', 'drawBack'])
         usdt = 1000
