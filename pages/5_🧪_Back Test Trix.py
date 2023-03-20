@@ -499,7 +499,12 @@ if st.button("Submit"):
         # Define the layout
         layout = go.Layout(
             title='years performance in %',
-            showlegend=False
+            showlegend=False,
+            font=dict(
+                family="Courier New, monospace",
+                size=25,
+                color="black"
+            )
         )
 
         # Create the figure
@@ -581,7 +586,12 @@ if st.button("Submit"):
             # Define the layout
             layout = go.Layout(
                 title=f'{i} performance in %\n{round(performYear[i]["Performance"])}%',
-                showlegend=False
+                showlegend=False,
+                font=dict(
+                    family="Courier New, monospace",
+                    size=25,
+                    color="black"
+                )
             )
 
             # Create the figure
