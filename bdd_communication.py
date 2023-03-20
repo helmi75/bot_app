@@ -198,6 +198,39 @@ class ConnectBbd:
         # self.cnx.close()
         return result
 
+    def nombreTrixActive(self):
+        cursor = self.cnx.cursor()
+        query = "select count(*) from bots where working = 1 and type_bot like upper('TRIX%') ;"
+        cursor.execute(query)
+        result = cursor.fetchall()
+        return result
+
+
+    def nombreTrixInActive(self):
+        cursor = self.cnx.cursor()
+        query = "select count(*) from bots where working = 0 and type_bot like upper('TRIX%') ;"
+        cursor.execute(query)
+        result = cursor.fetchall()
+        return result
+
+
+    def nombreCocotierActive(self):
+        cursor = self.cnx.cursor()
+        query = "select count(*) from bots where working = 1 and type_bot like upper('COCOTIER%') ;"
+        cursor.execute(query)
+        result = cursor.fetchall()
+        return result
+
+
+    def nombreCocotierInActive(self):
+        cursor = self.cnx.cursor()
+        query = "select count(*) from bots where working = 0 and type_bot like upper('COCOTIER%') ;"
+        cursor.execute(query)
+        result = cursor.fetchall()
+        return result
+
+
+
     def get_bots(self):
         cursor = self.cnx.cursor()
         query = " SELECT bot_id, nom_bot  FROM bots ;"
