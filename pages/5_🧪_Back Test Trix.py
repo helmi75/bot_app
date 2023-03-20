@@ -17,7 +17,7 @@ st.title("Cocobots")
 st.title("Back Test Trix")
 
 
-@st.cache_data
+@st.cache
 def getAllPairSymbolsOfBinance():
     cryptoss = []
     client = Client()
@@ -27,7 +27,7 @@ def getAllPairSymbolsOfBinance():
             cryptoss.append(s['symbol'])
     return cryptoss
 
-@st.cache_data
+@st.cache
 def getAllPairSymbolsOfBybit():
     cryptoss = []
     url = 'https://api.bybit.com/v2/public/symbols'
