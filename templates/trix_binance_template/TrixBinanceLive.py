@@ -1,4 +1,6 @@
 import sys
+import time
+
 sys.path.insert(0,"/home/anisse9/bot_app")
 import warnings
 warnings.simplefilter(action='ignore', category=FutureWarning)
@@ -191,6 +193,7 @@ for i in myresult :
         con = ConnectBbd('localhost', '3306', 'root', pwd, 'cryptos', 'mysql_native_password')
         iterations = False
         try :
+            time.sleep(10)
             processus(i,con,iterations)
         except Exception as ex:
             if str(ex) == "APIError(code=-2010)"!=-1:
