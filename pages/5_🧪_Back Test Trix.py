@@ -6,6 +6,8 @@ import plotly.graph_objs as go
 from bdd_communication import *
 import seaborn as sns
 import plotly.express as px
+import requests
+
 
 st.set_page_config(
     page_title="Cocobots",
@@ -15,7 +17,7 @@ st.title("Cocobots")
 st.title("Back Test Trix")
 
 
-@st.cache
+@st.cache_data
 def getAllPairSymbolsOfBinance():
     cryptoss = []
     client = Client()
@@ -25,6 +27,16 @@ def getAllPairSymbolsOfBinance():
             cryptoss.append(s['symbol'])
     return cryptoss
 
+@st.cache_data
+def getAllPairSymbolsOfBybit():
+    cryptoss = []
+    url = 'https://api.bybit.com/v2/public/symbols'
+    response = requests.get(url)
+    exchange_info = response.json()
+    for s in exchange_info['result']:
+        if s['name'].endswith('USDT'):
+            cryptoss.append(s['name'])
+    return cryptoss
 
 def buyCondition(row, previousRow):
     if row['TRIX_HISTO'] > 0 and row['STOCH_RSI'] < stoch_top:
@@ -58,6 +70,13 @@ def plot_courbes2(df_tableau_multi, namee, rcolor):
             'yanchor': 'top'},
     )
     return st.plotly_chart(fig)
+
+
+bybitBinance = st.checkbox("Bybit")
+if bybitBinance :
+    getAllPairSymbolsOfBybit()
+else :
+    getAllPairSymbolsOfBinance()
 
 
 date_init = datetime.now() - timedelta(days=180)
