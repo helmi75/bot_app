@@ -5,7 +5,7 @@ import numpy as np
 import pickle as pk
 import matplotlib.pyplot as plt
 from datetime import datetime
-from time import time
+from datetime import time
 from datetime import timedelta
 import plotly.express as px
 import streamlit as st
@@ -38,8 +38,14 @@ liste_crypto = np.array(['ADA/USDT', 'DOGE/USDT', 'BNB/USDT', 'ETH/USDT', 'DOT/U
 
 def main():
     #input
-    star_time = to_timestamp(str(st.date_input('date de début', date_init)))
-    end_time = to_timestamp(str(st.date_input('date de fin')))
+    emplacement = st.empty()
+    col1, col2 = emplacement.columns([5, 5])
+    star_time = col1.date_input('date de début', date_init)
+    end_time = col2.date_input('date de fin')
+    star_hour = col1.time_input("Start Time",time(0,0))
+    end_hour = col2.time_input("End Time",time(0,0))
+    sttDate = f"{star_time} {star_hour}"
+    ennDate = f"{end_time} {end_hour}"
     delta_hour = st.selectbox('selectionner une plage auraire', ['4h', '6h', '8h', '12h'])
     n_i = st.radio("Selectionner l'algorithmique qu'on va travailler avec",("N","N-1","N-2"),horizontal=True)
     market = choix_market()
@@ -53,7 +59,7 @@ def main():
             #get the values from binance as they are and convert them to a dataframe we can work with
             x = elm.lower()+'/usdt'
 
-            crypto[x] = client.get_historical_klines(x.replace("/", "").upper(), delta_hour, star_time, end_time)
+            crypto[x] = client.get_historical_klines(x.replace("/", "").upper(), delta_hour, sttDate, ennDate)
             crypto[x] = pd.DataFrame(data=crypto[x],
                                      columns=['timestamp', x[:-5] + '_open', 'high', 'low', x[:-5] + '_close', 'volume',
                                               'close_time', 'quote_av', 'trades', 'tb_base_av', 'tb_quote_av', 'ignore'])
