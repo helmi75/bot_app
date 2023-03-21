@@ -126,7 +126,7 @@ def processus(i,con,iterations):
 
     if buyCondition(df.iloc[-2], df.iloc[-3], stoch_top):
         if float(fiatAmount) > 5:
-            quantityBuy = convert_amount_to_precision(client, pairSymbol, (float(fiatAmount) / actualPrice))
+            quantityBuy = convert_amount_to_precision(client, pairSymbol, floor(100*(float(fiatAmount) / actualPrice))/100)
             buyOrder = client.order_market_buy(
                 symbol=pairSymbol,
                 quantity=f"{float(quantityBuy):.{decimal_count}f}")
