@@ -43,7 +43,7 @@ def main():
     star_time = col1.date_input('date de début', date_init)
     end_time = col2.date_input('date de fin')
     star_hour = col1.time_input("Start Time",time(0,0))
-    end_hour = col2.time_input("End Time",time(0,0))
+    end_hour = col2.time_input("End Time",time(23,0))
     sttDate = f"{star_time} {star_hour}"
     ennDate = f"{end_time} {end_hour}"
     delta_hour = st.selectbox('selectionner une plage auraire', ['4h', '6h', '8h', '12h'])
