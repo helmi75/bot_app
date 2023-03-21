@@ -126,7 +126,7 @@ enDate = to_timestamp(str(end_date))
 
 col1.title("->")
 startHour= col2.time_input("Start Hour", time(0,0))
-endHour = col3.time_input("End Hour", time(0,0))
+endHour = col3.time_input("End Hour", time(23,0))
 
 sttDate = f"{star_date} {startHour}"
 
