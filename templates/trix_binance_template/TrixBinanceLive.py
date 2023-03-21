@@ -300,7 +300,7 @@ for i in myresult :
                     if iterations:
                         break
                     try :
-                        processus(i,con,iterations)
+                        processus2(i,con,iterations)
                     except Exception :
                         pass
             else :
