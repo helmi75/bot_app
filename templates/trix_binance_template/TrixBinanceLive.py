@@ -126,7 +126,105 @@ def processus(i,con,iterations):
 
     if buyCondition(df.iloc[-2], df.iloc[-3], stoch_top):
         if float(fiatAmount) > 5:
-            quantityBuy = convert_amount_to_precision(client, pairSymbol, floor(100*(float(fiatAmount) / actualPrice))/100)
+            quantityBuy = convert_amount_to_precision(client, pairSymbol, (float(fiatAmount) / actualPrice))
+            buyOrder = client.order_market_buy(
+                symbol=pairSymbol,
+                quantity=f"{float(quantityBuy):.{decimal_count}f}")
+            fiatAmount = float(client.get_asset_balance(asset=fiatSymbol)['free'])
+            cryptoAmount = float(client.get_asset_balance(asset=cryptoSymbol)['free'])
+            ticker = exchangeWallet.fetch_ticker(pairsSymbol)
+            crypto_wallet_value = fiatAmount + (cryptoAmount * ticker['last'])
+            con.insert_balence(datetime.now(),
+                               f"Trix : {i[4]}_len{i[5]}_sign{i[6]}_top{i[7]}_bottom{i[8]}_RSI{i[9]}",
+                               crypto_wallet_value, i[10], "ONN", "buy","No Problem")
+
+            print("BUY")
+            iterations = True
+        else:
+            fiatAmount = float(client.get_asset_balance(asset=fiatSymbol)['free'])
+            cryptoAmount = float(client.get_asset_balance(asset=cryptoSymbol)['free'])
+            ticker = exchangeWallet.fetch_ticker(pairsSymbol)
+            crypto_wallet_value = fiatAmount + (cryptoAmount * ticker['last'])
+            con.insert_balence(datetime.now(),
+                               f"Trix : {i[4]}_len{i[5]}_sign{i[6]}_top{i[7]}_bottom{i[8]}_RSI{i[9]}",
+                               crypto_wallet_value, i[10], "ONN", "buy","No Problem")
+            print("If you  give me more USD I will buy more", cryptoSymbol)
+            iterations = True
+
+    elif sellCondition(df.iloc[-2], df.iloc[-3], stoch_bottom):
+        if float(cryptoAmount) > minToken:
+            sellOrder = client.order_market_sell(
+                symbol=pairSymbol,
+                quantity=f"{float(convert_amount_to_precision(client, pairSymbol, cryptoAmount)):.{decimal_count}f}")
+            fiatAmount = float(client.get_asset_balance(asset=fiatSymbol)['free'])
+            cryptoAmount = float(client.get_asset_balance(asset=cryptoSymbol)['free'])
+            ticker = exchangeWallet.fetch_ticker(pairsSymbol)
+            crypto_wallet_value = fiatAmount + (cryptoAmount * ticker['last'])
+            con.insert_balence(datetime.now(),
+                               f"Trix : {i[4]}_len{i[5]}_sign{i[6]}_top{i[7]}_bottom{i[8]}_RSI{i[9]}",
+                               crypto_wallet_value, i[10], "ONN", "sell","No Problem")
+            print("SELL")
+            iterations = True
+        else:
+            fiatAmount = float(client.get_asset_balance(asset=fiatSymbol)['free'])
+            cryptoAmount = float(client.get_asset_balance(asset=cryptoSymbol)['free'])
+            ticker = exchangeWallet.fetch_ticker(pairsSymbol)
+            crypto_wallet_value = fiatAmount + (cryptoAmount * ticker['last'])
+            con.insert_balence(datetime.now(),
+                               f"Trix : {i[4]}_len{i[5]}_sign{i[6]}_top{i[7]}_bottom{i[8]}_RSI{i[9]}",
+                               crypto_wallet_value, i[10], "ONN", "sell","No Problem")
+            print("If you give me more", cryptoSymbol, "I will sell it")
+            iterations = True
+    else:
+        print("No opportunity to take")
+        fiatAmount = float(client.get_asset_balance(asset=fiatSymbol)['free'])
+        cryptoAmount = float(client.get_asset_balance(asset=cryptoSymbol)['free'])
+        ticker = exchangeWallet.fetch_ticker(pairsSymbol)
+        crypto_wallet_value = fiatAmount + (cryptoAmount * ticker['last'])
+        last_status_trix = con.get_last_status_trix(i[10])[0]
+        con.insert_balence(datetime.now(),
+                           f"Trix : {i[4]}_len{i[5]}_sign{i[6]}_top{i[7]}_bottom{i[8]}_RSI{i[9]}",
+                           crypto_wallet_value, i[10], "ONN", str(last_status_trix),"No Problem")
+        iterations = True
+
+def processus2(i,con,iterations):
+    # CONSTANTS
+    fiatSymbol = 'USDT'
+    cryptoSymbol = (i[4] + "").upper()
+    pairSymbol = cryptoSymbol + 'USDT'
+    pairsSymbol = cryptoSymbol + '/USDT'
+    trixLength = i[5]
+    trixSignal = i[6]
+    decimal_count = 8
+    stoch_top = i[7]
+    stoch_bottom = i[8]
+    stoch_rsi = i[9]
+    # API
+    binance_api_key = i[1]  # Enter your own API-key here
+    binance_api_secret = i[2]  # Enter your own API-secret here
+    idd = i[10]
+    binance_api_key, binance_api_secret = degenerateApiSecret(binance_api_key, binance_api_secret, idd)
+    client = Client(api_key=binance_api_key, api_secret=binance_api_secret)
+    df = getHistorical(client, pairSymbol.replace("/", ""))
+    df['TRIX'] = ta.trend.ema_indicator(
+        ta.trend.ema_indicator(ta.trend.ema_indicator(close=df['close'], window=trixLength), window=trixLength),
+        window=trixLength)
+    df['TRIX_PCT'] = df["TRIX"].pct_change() * 100
+    df['TRIX_SIGNAL'] = ta.trend.sma_indicator(df['TRIX_PCT'], trixSignal)
+    df['TRIX_HISTO'] = df['TRIX_PCT'] - df['TRIX_SIGNAL']
+    df['STOCH_RSI'] = ta.momentum.stochrsi(close=df['close'], window=stoch_rsi, smooth1=3, smooth2=3)
+
+    actualPrice = df['close'].iloc[-1]
+    fiatAmount = float(client.get_asset_balance(asset=fiatSymbol)['free'])
+    cryptoAmount = float(client.get_asset_balance(asset=cryptoSymbol)['free'])
+    minToken = 5 / actualPrice
+    print(" ")
+    print(f"{i[11]} : usd balance = {fiatAmount} ")
+    # print('coin price :', actualPrice, 'usd balance', fiatAmount, 'coin balance :', cryptoAmount)
+
+    if buyCondition(df.iloc[-2], df.iloc[-3], stoch_top):
+        if float(fiatAmount) > 5:
+            quantityBuy = convert_amount_to_precision(client, pairSymbol, floor(100*(float(fiatAmount) / actualPrice))/100*0.98)
             buyOrder = client.order_market_buy(
                 symbol=pairSymbol,
                 quantity=f"{float(quantityBuy):.{decimal_count}f}")
