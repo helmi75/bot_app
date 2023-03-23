@@ -147,7 +147,7 @@ if not (len(crr) > 4 and crr[-4:] == 'USDT'):
     crr += 'USDT'
 countt = cryptoss.count(crr)
 if st.button("Submit"):
-    if (countt == 0):
+    if (countt == 0) and False:
         st.warning("cette crypto n’existe pas")
     else:
         pair_symbol = pair_symbol.upper()
