@@ -222,9 +222,10 @@ def processus2(i,con,iterations):
     # print(f"{i[11]} : usd balance = {fiatAmount} ")
     # print('coin price :', actualPrice, 'usd balance', fiatAmount, 'coin balance :', cryptoAmount)
     print(f"Wallet : {fiatAmount} USDT")
-    print(f"Coin price {cryptoSymbol} = {cryptoAmount}")
-    print(f"Amount {fiatAmount}/{cryptoAmount} = {floor(100*(float(fiatAmount) / actualPrice))/100} => 0.98*{floor(100*(float(fiatAmount) / actualPrice))/100} = {floor(100*(float(fiatAmount) / actualPrice))/100*0.98}")
-    print(f"order buy = {floor(100*(float(fiatAmount) / actualPrice))/100*0.98} * 1.1 = {floor(100*(float(fiatAmount) / actualPrice))/100*0.98*1.1} USDT")
+    print(f"Coin price {cryptoSymbol} = {actualPrice}")
+    print(f"crypot amount  {cryptoSymbol} = {cryptoAmount}")
+    print(f"Amount {fiatAmount}/{actualPrice} = {floor(100*(float(fiatAmount) / actualPrice))/100} => 0.98*{floor(100*(float(fiatAmount) / actualPrice))/100} = {floor(100*(float(fiatAmount) / actualPrice))/100*0.98}")
+    print(f"order buy = {floor(100*(float(fiatAmount) / actualPrice))/100*0.98} * {actualPrice} = {floor(100*(float(fiatAmount) / actualPrice))/100*0.98*actualPrice} USDT")
     if buyCondition(df.iloc[-2], df.iloc[-3], stoch_top):
         if float(fiatAmount) > 5:
             quantityBuy = floor(100*(float(fiatAmount) / actualPrice))/100*0.98
@@ -304,7 +305,8 @@ for i in myresult :
                         break
                     try :
                         time.sleep(10)
-                        print(f"Itération N°{l}")
+                        print("")
+                        print(f"Itération N°{l+1}")
                         processus2(i,con,iterations)
                     except Exception :
                         pass
