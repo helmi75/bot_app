@@ -97,7 +97,6 @@ if bybitBinance :
 
 else :
     cryptoss = getAllPairSymbolsOfBinance()
-    client = Client()
 
 
 
@@ -155,19 +154,49 @@ if st.button("Submit"):
         if len(pair_symbol) < 4 or pair_symbol[-4:] != 'USDT':
             pair_symbol = pair_symbol + 'USDT'
         st.success(pair_symbol)
-        client = Client()
-        klinesT = client.get_historical_klines(pair_symbol, timeInterval, str(sttDate), str(ennDate))
-        # -- Define your dataset --
-        df = pd.DataFrame(klinesT, columns=['timestamp', 'open', 'high', 'low', 'close', 'volume', 'close_time',
-                                            'quote_av', 'trades', 'tb_base_av', 'tb_quote_av', 'ignore'])
-        df['close'] = pd.to_numeric(df['close'])
-        df['high'] = pd.to_numeric(df['high'])
-        df['low'] = pd.to_numeric(df['low'])
-        df['open'] = pd.to_numeric(df['open'])
-        df = df.set_index(df['timestamp'])
-        df.index = pd.to_datetime(df.index, unit='ms')
-        del df['timestamp']
-        df.drop(df.columns.difference(['open', 'high', 'low', 'close', 'volume']), 1, inplace=True)
+        if bybitBinance:
+            cryptoss = getAllPairSymbolsOfBybit()
+            sttDatee = datetime.strptime(sttDate, '%Y-%m-%d %H:%M:%S')
+            sttDatee = sttDatee.strftime("%Y-%m-%dT%H:%M:%SZ")
+            ennDatee = datetime.strptime(ennDate, '%Y-%m-%d %H:%M:%S')
+            ennDatee = ennDatee.strftime("%Y-%m-%dT%H:%M:%SZ")
+            exchange = ccxt.bybit()
+            klinesT = []
+            since = exchange.parse8601(sttDatee)
+            until = exchange.parse8601(ennDatee)
+            while since < until:
+                klines = exchange.fetch_ohlcv(pair_symbol, timeframe=timeInterval, since=since)
+                if len(klines) > 0:
+                    klinesT += klines
+                    since = klines[-1][0] + (int(timeInterval[:-1]) * 60 * 60 * 1000)
+                else:
+                    break
+            df = pd.DataFrame(klinesT, columns=['timestamp', 'open', 'high', 'low', 'close', 'volume'])
+            df['close'] = pd.to_numeric(df['close'])
+            df['close'] = pd.to_numeric(df['close'])
+            df['high'] = pd.to_numeric(df['high'])
+            df['low'] = pd.to_numeric(df['low'])
+            df['open'] = pd.to_numeric(df['open'])
+            df = df.set_index(df['timestamp'])
+            df.index = pd.to_datetime(df.index, unit='ms')
+            del df['timestamp']
+            df.drop(df.columns.difference(['open', 'high', 'low', 'close', 'volume']), 1, inplace=True)
+        else:
+            cryptoss = getAllPairSymbolsOfBinance()
+            client = Client()
+            klinesT = client.get_historical_klines(pair_symbol, timeInterval, str(sttDate), str(ennDate))
+            # -- Define your dataset --
+            df = pd.DataFrame(klinesT, columns=['timestamp', 'open', 'high', 'low', 'close', 'volume', 'close_time',
+                                                'quote_av', 'trades', 'tb_base_av', 'tb_quote_av', 'ignore'])
+            df['close'] = pd.to_numeric(df['close'])
+            df['high'] = pd.to_numeric(df['high'])
+            df['low'] = pd.to_numeric(df['low'])
+            df['open'] = pd.to_numeric(df['open'])
+            df = df.set_index(df['timestamp'])
+            df.index = pd.to_datetime(df.index, unit='ms')
+            del df['timestamp']
+            df.drop(df.columns.difference(['open', 'high', 'low', 'close', 'volume']), 1, inplace=True)
+
         df['EMA200'] = ta.trend.ema_indicator(close=df['close'], window=ema200)
         df['TRIX'] = ta.trend.ema_indicator(
             ta.trend.ema_indicator(ta.trend.ema_indicator(close=df['close'], window=trix_length), window=trix_length),
