@@ -219,12 +219,15 @@ def processus2(i,con,iterations):
     cryptoAmount = float(client.get_asset_balance(asset=cryptoSymbol)['free'])
     minToken = 5 / actualPrice
     print(" ")
-    print(f"{i[11]} : usd balance = {fiatAmount} ")
+    # print(f"{i[11]} : usd balance = {fiatAmount} ")
     # print('coin price :', actualPrice, 'usd balance', fiatAmount, 'coin balance :', cryptoAmount)
-
+    print(f"Wallet : {fiatAmount} USDT")
+    print(f"Coin price {cryptoSymbol} = {cryptoAmount}")
+    print(f"Amount {fiatAmount}/{cryptoAmount} = {floor(100*(float(fiatAmount) / actualPrice))/100} => 0.98*{floor(100*(float(fiatAmount) / actualPrice))/100} = {floor(100*(float(fiatAmount) / actualPrice))/100*0.98}")
+    print(f"order buy = {floor(100*(float(fiatAmount) / actualPrice))/100*0.98} * 1.1 = {floor(100*(float(fiatAmount) / actualPrice))/100*0.98*1.1} USDT")
     if buyCondition(df.iloc[-2], df.iloc[-3], stoch_top):
         if float(fiatAmount) > 5:
-            quantityBuy = convert_amount_to_precision(client, pairSymbol, floor(100*(float(fiatAmount) / actualPrice))/100*0.98)
+            quantityBuy = floor(100*(float(fiatAmount) / actualPrice))/100*0.98
             buyOrder = client.order_market_buy(
                 symbol=pairSymbol,
                 quantity=f"{float(quantityBuy):.{decimal_count}f}")
@@ -301,6 +304,7 @@ for i in myresult :
                         break
                     try :
                         time.sleep(10)
+                        print(f"Itération N°{l}")
                         processus2(i,con,iterations)
                     except Exception :
                         pass
