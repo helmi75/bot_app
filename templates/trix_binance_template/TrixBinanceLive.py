@@ -291,15 +291,16 @@ for i in myresult :
         con = ConnectBbd('localhost', '3306', 'root', pwd, 'cryptos', 'mysql_native_password')
         iterations = False
         try :
-            time.sleep(10)
             processus(i,con,iterations)
         except Exception as ex:
-            if str(ex) == "APIError(code=-2010)"!=-1:
+            if str(ex).startswith("APIError(code=-2010)"):
+
                 iterations = False
                 for l in range(10):
                     if iterations:
                         break
                     try :
+                        time.sleep(10)
                         processus2(i,con,iterations)
                     except Exception :
                         pass
