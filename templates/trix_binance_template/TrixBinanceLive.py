@@ -221,13 +221,15 @@ def processus2(i,con,iterations):
     print(" ")
     # print(f"{i[11]} : usd balance = {fiatAmount} ")
     # print('coin price :', actualPrice, 'usd balance', fiatAmount, 'coin balance :', cryptoAmount)
-    print(f"Wallet : {fiatAmount} USDT")
-    print(f"Coin price {cryptoSymbol} = {actualPrice}")
-    print(f"crypot amount  {cryptoSymbol} = {cryptoAmount}")
-    print(f"Amount {fiatAmount}/{actualPrice} = {floor(100*(float(fiatAmount) / actualPrice))/100} => 0.98*{floor(100*(float(fiatAmount) / actualPrice))/100} = {floor(100*(float(fiatAmount) / actualPrice))/100*0.98}")
-    print(f"order buy = {floor(100*(float(fiatAmount) / actualPrice))/100*0.98} * {actualPrice} = {floor(100*(float(fiatAmount) / actualPrice))/100*0.98*actualPrice} USDT")
     if buyCondition(df.iloc[-2], df.iloc[-3], stoch_top):
         if float(fiatAmount) > 5:
+            print(f"Wallet : {fiatAmount} USDT")
+            print(f"Coin price {cryptoSymbol} = {actualPrice}")
+            print(f"crypot amount  {cryptoSymbol} = {cryptoAmount}")
+            print(
+                f"Amount {fiatAmount}/{actualPrice} = {floor(100 * (float(fiatAmount) / actualPrice)) / 100} => 0.98*{floor(100 * (float(fiatAmount) / actualPrice)) / 100} = {floor(100 * (float(fiatAmount) / actualPrice)) / 100 * 0.98}")
+            print(
+                f"order buy = {floor(100 * (float(fiatAmount) / actualPrice)) / 100 * 0.98} * {actualPrice} = {floor(100 * (float(fiatAmount) / actualPrice)) / 100 * 0.98 * actualPrice} USDT")
             quantityBuy = floor(100*(float(fiatAmount) / actualPrice))/100*0.98
             buyOrder = client.order_market_buy(
                 symbol=pairSymbol,
@@ -255,6 +257,13 @@ def processus2(i,con,iterations):
 
     elif sellCondition(df.iloc[-2], df.iloc[-3], stoch_bottom):
         if float(cryptoAmount) > minToken:
+            print(f"Wallet : {fiatAmount} USDT")
+            print(f"Coin price {cryptoSymbol} = {actualPrice}")
+            print(f"crypot amount  {cryptoSymbol} = {cryptoAmount}")
+            # print(
+            #     f"Amount {fiatAmount}/{actualPrice} = {floor(100 * (float(fiatAmount) / actualPrice)) / 100} => 0.98*{floor(100 * (float(fiatAmount) / actualPrice)) / 100} = {floor(100 * (float(fiatAmount) / actualPrice)) / 100 * 0.98}")
+            # print(
+            #     f"order sell = {floor(100 * (float(fiatAmount) / actualPrice)) / 100 * 0.98} * {actualPrice} = {floor(100 * (float(fiatAmount) / actualPrice)) / 100 * 0.98 * actualPrice} USDT")
             sellOrder = client.order_market_sell(
                 symbol=pairSymbol,
                 quantity=f"{float(convert_amount_to_precision(client, pairSymbol, cryptoAmount)):.{decimal_count}f}")
