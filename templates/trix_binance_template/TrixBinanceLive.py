@@ -260,13 +260,14 @@ def processus2(i,con,iterations):
             print(f"Wallet : {fiatAmount} USDT")
             print(f"Coin price {cryptoSymbol} = {actualPrice}")
             print(f"crypot amount  {cryptoSymbol} = {cryptoAmount}")
-            # print(
-            #     f"Amount {fiatAmount}/{actualPrice} = {floor(100 * (float(fiatAmount) / actualPrice)) / 100} => 0.98*{floor(100 * (float(fiatAmount) / actualPrice)) / 100} = {floor(100 * (float(fiatAmount) / actualPrice)) / 100 * 0.98}")
+            print(
+                f"Amount {cryptoAmount}*{actualPrice} = {floor(100 * (float(cryptoAmount) * actualPrice)) / 100} => 0.98*{floor(100 * (float(cryptoAmount) * actualPrice)) / 100} = {floor(100 * 0.98*(float(fiatAmount) / actualPrice)) / 100}")
             # print(
             #     f"order sell = {floor(100 * (float(fiatAmount) / actualPrice)) / 100 * 0.98} * {actualPrice} = {floor(100 * (float(fiatAmount) / actualPrice)) / 100 * 0.98 * actualPrice} USDT")
+            quantityToSell = floor(100*float(cryptoAmount * actualPrice) * 0.98)/100
             sellOrder = client.order_market_sell(
                 symbol=pairSymbol,
-                quantity=f"{float(convert_amount_to_precision(client, pairSymbol, cryptoAmount)):.{decimal_count}f}")
+                quantity=f"{quantityToSell}")
             fiatAmount = float(client.get_asset_balance(asset=fiatSymbol)['free'])
             cryptoAmount = float(client.get_asset_balance(asset=cryptoSymbol)['free'])
             ticker = exchangeWallet.fetch_ticker(pairsSymbol)
