@@ -657,7 +657,7 @@ class ConnectBbd:
         cursor.execute(query)
         result = cursor.fetchall()[0]
         lastDate = datetime.strptime(str(result[0]), '%Y-%m-%d %H:%M:%S') - timedelta(hours=5)
-        query = f"update get_balence set dates = {lastDate} where id_get_balence = {str(result[1])};"
+        query = f"update get_balence set dates = '{lastDate}' where id_get_balence = {str(result[1])};"
         cursor.execute(query)
         self.cnx.commit()
 
