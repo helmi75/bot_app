@@ -133,10 +133,10 @@ class ConnectBbd:
         cursor.close()
         self.cnx.close()
 
-    def insert_balence(self, date, crypto_name, crypto_wallet, id_bot, status, transaction,notes):
+    def insert_balence(self, date, crypto_name, crypto_wallet, id_bot, status, transaction, notes):
         cursor = self.cnx.cursor()
         query = """Insert into get_balence (dates, crypto_name,crypto_wallet,id_bot,status_bot,transaction,notes) values ('%s','%s','%s','%s','%s','%s','%s')""" % (
-            date, crypto_name, crypto_wallet, id_bot, status, transaction,notes)
+            date, crypto_name, crypto_wallet, id_bot, status, transaction, notes)
         cursor.execute(query)
         self.cnx.commit()
         idd = cursor.lastrowid
@@ -212,9 +212,6 @@ class ConnectBbd:
         result = cursor.fetchall()
         return result
 
-
-
-
     def nombreTrixInActive(self):
         cursor = self.cnx.cursor()
         query = "select count(*) from bots where working = 0 and type_bot like upper('TRIX%') ;"
@@ -222,20 +219,19 @@ class ConnectBbd:
         result = cursor.fetchall()
         return result
 
-
     def nombreCocotierActive(self):
         cursor = self.cnx.cursor()
         query = "select count(*) from bots where working = 1 and type_bot like upper('COCOTIER%') ;"
         cursor.execute(query)
         result = cursor.fetchall()
         return result
+
     def listeCocotierActive(self):
         cursor = self.cnx.cursor()
         query = "select bot_id from bots where working = 1 and type_bot like upper('COCOTIER%') ;"
         cursor.execute(query)
         result = cursor.fetchall()
         return result
-
 
     def nombreCocotierInActive(self):
         cursor = self.cnx.cursor()
@@ -244,16 +240,12 @@ class ConnectBbd:
         result = cursor.fetchall()
         return result
 
-
-
-    def isONNorOFF(self,idd):
+    def isONNorOFF(self, idd):
         cursor = self.cnx.cursor()
         query = f"select status_bot from get_balence where id_bot = {idd} order by dates desc limit 1;"
         cursor.execute(query)
         result = cursor.fetchall()
         return result
-
-
 
     def get_bots(self):
         cursor = self.cnx.cursor()
@@ -416,7 +408,7 @@ class ConnectBbd:
         # self.cnx.close()
         return result
 
-    def get_last_status_trix(self,id_bot):
+    def get_last_status_trix(self, id_bot):
         cursor = self.cnx.cursor()
         query = f"select transaction, dates from get_balence where id_bot = {id_bot} order by  dates desc limit 1;"
         cursor.execute(query)
@@ -515,7 +507,7 @@ class ConnectBbd:
         crypto_wallet_value = fiatAmount + (cryptoAmount * ticker['last'])
         self.insert_balence(datetime.now(),
                             f"Trix : {result[4]}_len{result[5]}_sign{result[6]}_top{result[7]}_bottom{result[8]}_RSI{result[9]}",
-                            crypto_wallet_value, result[10], "OFF", "sell","No Problem")
+                            crypto_wallet_value, result[10], "OFF", "sell", "No Problem")
 
     def vendreTrixBinance(self, idbot):
         exchangeWallet = ccxt.binance()
@@ -542,7 +534,7 @@ class ConnectBbd:
         crypto_wallet_value = fiatAmount + (cryptoAmount * ticker['last'])
         self.insert_balence(datetime.now(),
                             f"Trix : {result[4]}_len{result[5]}_sign{result[6]}_top{result[7]}_bottom{result[8]}_RSI{result[9]}",
-                            crypto_wallet_value, result[10], "OFF", "sell","No Problem")
+                            crypto_wallet_value, result[10], "OFF", "sell", "No Problem")
 
     def vendreTrixBybit(self, idbot):
         exchangeWallet = ccxt.binance()
@@ -571,7 +563,7 @@ class ConnectBbd:
         crypto_wallet_value = fiatAmount + (cryptoAmount * ticker['last'])
         self.insert_balence(datetime.now(),
                             f"Trix : {result[4]}_len{result[5]}_sign{result[6]}_top{result[7]}_bottom{result[8]}_RSI{result[9]}",
-                            crypto_wallet_value, result[10], "OFF", "sell","No Problem")
+                            crypto_wallet_value, result[10], "OFF", "sell", "No Problem")
 
     def vendreCocotierBinance(self, idbot):
         cursor = self.cnx.cursor()
@@ -591,7 +583,7 @@ class ConnectBbd:
         nom_crypto_vente = crypto_a_vendre(exchange, market)
         sell = vente(exchange, nom_crypto_vente, balence['total'])
         wallet = get_wallet(exchange)
-        self.insert_balence(datetime.now(), "USDT", wallet, idbot, "OFF", "sell","No Problem")
+        self.insert_balence(datetime.now(), "USDT", wallet, idbot, "OFF", "sell", "No Problem")
 
     def vendreCocotierBybit(self, idbot):
         cursor = self.cnx.cursor()
@@ -612,7 +604,7 @@ class ConnectBbd:
         balence = exchange.fetch_spot_balance()
         sell = vente(exchange, nom_crypto_vente, balence['total'])
         wallet = get_walletBybit(exchange)
-        self.insert_balence(datetime.now(), "USDT", wallet, idbot, "OFF", "sell","No Problem")
+        self.insert_balence(datetime.now(), "USDT", wallet, idbot, "OFF", "sell", "No Problem")
 
     def get_statusCocotier(self):
         """
@@ -665,15 +657,17 @@ class ConnectBbd:
             query = f"select dates,id_get_balence from get_balence where id_bot ={idBot} order by dates desc limit 1;"
             cursor.execute(query)
             result = cursor.fetchall()[0]
-            lastDate = datetime.strptime(str(result[0]), '%Y-%m-%d %H:%M:%S')-timedelta(hours=5)
+            lastDate = datetime.strptime(str(result[0]), '%Y-%m-%d %H:%M:%S') - timedelta(hours=5)
             query = f"update get_balence set dates = {lastDate} where id_get_balence = {str(result[1])};"
             cursor.execute(query)
             self.cnx.commit()
         except:
-            print("There is a problem in the previous hour! please check this in Bdd_communication line 662 and correct it!")
+            print(
+                "There is a problem in the previous hour! please check this in Bdd_communication line 662 and correct it!")
 
     def updateStopMarche(self, idbot, state):
-        self.previousOneHour(idbot)
+        if state == 1:
+            self.previousOneHour(idbot)
         cursor = self.cnx.cursor()
         query = f"update bots set working = '{state}' where bot_id = {idbot};"
         cursor.execute(query)
@@ -1048,7 +1042,7 @@ def get_wallet(exchange):
                 elm[:-5]]
         except Exception as e:
             print(e)
-    return sum(dict_balence_usdt.values())+usdtt
+    return sum(dict_balence_usdt.values()) + usdtt
 
 
 def get_walletBybit(exchange):
@@ -1065,7 +1059,7 @@ def get_walletBybit(exchange):
                 elm[:-10]]
         except Exception as e:
             print(e)
-    return sum(dict_balence_usdt.values())+usdtt
+    return sum(dict_balence_usdt.values()) + usdtt
 
 
 def acheter_2(exchange, var2, balence_total, pourcentage):
@@ -1080,6 +1074,8 @@ def acheter_2(exchange, var2, balence_total, pourcentage):
             pass
     buy = exchange.create_market_buy_order(var2, (montant_USDT * pourcentage) / last)
     return buy
+
+
 def last_crypto_buyed(exchange, market1):
     for elm in market1:
         etat = pd.DataFrame.from_dict(exchange.fetchMyTrades(elm)).iloc[-1:]
@@ -1090,11 +1086,14 @@ def last_crypto_buyed(exchange, market1):
         except KeyError:
             pass
 
+
 def isEmptyDict(di):
-    for i in di :
+    for i in di:
         if not (di[i].empty):
             return False
     return True
+
+
 def crypto_a_vendre(exchange, market):
     try:
         x = (datetime.now() - timedelta(days=365)).timestamp() * 1000
@@ -1117,7 +1116,7 @@ def crypto_a_vendre(exchange, market):
             index_dernier_ordre = df_hystoric_order[name_crypto_up].index.max()
             if not (df_hystoric_order[name_crypto_up].empty):
                 liste_df.append(df_hystoric_order[name_crypto_up].loc[index_dernier_ordre])
-            elif isEmptyDict(df_hystoric_order) :
+            elif isEmptyDict(df_hystoric_order):
                 var1 = name_crypto
                 montant_USDT = float(exchange.fetch_balance().get('USDT').get('free'))
                 # exchange.create_spot_order(var1,"market","buy",montant_USDT,1)
@@ -1128,10 +1127,10 @@ def crypto_a_vendre(exchange, market):
                         last = exchange.fetchTicker(var1)['last']
                     except:
                         pass
-                try :
+                try:
                     exchange.create_market_buy_order(var1, (montant_USDT) / last)
-                except :
-                    #you need to sell all your credit and buy new ones
+                except:
+                    # you need to sell all your credit and buy new ones
                     pass
                 x = exchange.fetchMyTrades(name_crypto)
                 df_hystoric_order[name_crypto_up] = pd.DataFrame.from_dict(x)
@@ -1151,15 +1150,19 @@ def crypto_a_vendre(exchange, market):
         return crypto_a_vendre
     except IndexError:
         return '0'
+
+
 def findUsedCrypto(exchange):
     lista = []
     a = exchange.fetch_balance()['total']
     for i in a:
         if a[i] != 0 and i != 'USDT':
-            lista.append((i,a[i]*exchange.fetchTickers([i+"/USDT"])[i+"/USDT"]['ask']))
+            lista.append((i, a[i] * exchange.fetchTickers([i + "/USDT"])[i + "/USDT"]['ask']))
     return lista
+
+
 def findCurrentCrypto(exchange):
-    lista= findUsedCrypto(exchange)
+    lista = findUsedCrypto(exchange)
     max = lista[0]
     for i in lista:
         if i[1] > max[1]:
@@ -1172,6 +1175,8 @@ def findCurrentCrypto(exchange):
         exchange.create_market_buy_order("BTC/USDT", (montant_USDT) / last)
         maxi = "BTC/USDT"
     return maxi
+
+
 def get_pair_symbol_for_last_balence_by_id(id):
     con = ConnectBbd('localhost', '3306', 'root', mot_de_passe, 'cryptos', 'mysql_native_password')
     cursor = con.cnx.cursor()
