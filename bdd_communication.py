@@ -653,17 +653,13 @@ class ConnectBbd:
 
     def previousOneHour(self, idBot):
         cursor = self.cnx.cursor()
-        try:
-            query = f"select dates,id_get_balence from get_balence where id_bot ={idBot} order by dates desc limit 1;"
-            cursor.execute(query)
-            result = cursor.fetchall()[0]
-            lastDate = datetime.strptime(str(result[0]), '%Y-%m-%d %H:%M:%S') - timedelta(hours=5)
-            query = f"update get_balence set dates = {lastDate} where id_get_balence = {str(result[1])};"
-            cursor.execute(query)
-            self.cnx.commit()
-        except:
-            print(
-                "There is a problem in the previous hour! please check this in Bdd_communication line 662 and correct it!")
+        query = f"select dates,id_get_balence from get_balence where id_bot ={idBot} order by dates desc limit 1;"
+        cursor.execute(query)
+        result = cursor.fetchall()[0]
+        lastDate = datetime.strptime(str(result[0]), '%Y-%m-%d %H:%M:%S') - timedelta(hours=5)
+        query = f"update get_balence set dates = {lastDate} where id_get_balence = {str(result[1])};"
+        cursor.execute(query)
+        self.cnx.commit()
 
     def updateStopMarche(self, idbot, state):
         if state == 1:
