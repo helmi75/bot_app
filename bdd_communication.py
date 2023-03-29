@@ -543,7 +543,7 @@ class ConnectBbd:
         result = cursor.fetchall()[0]
         lastDate = datetime.strptime(str(result[0]), '%Y-%m-%d %H:%M:%S')
         self.insert_balence(lastDate,
-                            f"Trix : {result[4]}_len{result[5]}_sign{result[6]}_top{result[7]}_bottom{result[8]}_RSI{result[9]}",
+                            f"Trix Binance: ",
                             crypto_wallet_value, result[10], "OFF", "sell", "No Problem")
 
     def vendreTrixBybit(self, idbot):
@@ -577,7 +577,7 @@ class ConnectBbd:
         result = cursor.fetchall()[0]
         lastDate = datetime.strptime(str(result[0]), '%Y-%m-%d %H:%M:%S')
         self.insert_balence(lastDate,
-                            f"Trix : {result[4]}_len{result[5]}_sign{result[6]}_top{result[7]}_bottom{result[8]}_RSI{result[9]}",
+                            f"Trix Bybit :",
                             crypto_wallet_value, result[10], "OFF", "sell", "No Problem")
 
     def vendreCocotierBinance(self, idbot):
