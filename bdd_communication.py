@@ -544,7 +544,7 @@ class ConnectBbd:
         lastDate = datetime.strptime(str(result[0]), '%Y-%m-%d %H:%M:%S')
         self.insert_balence(lastDate,
                             f"Trix Binance: ",
-                            crypto_wallet_value, result[10], "OFF", "sell", "No Problem")
+                            crypto_wallet_value, idbot, "OFF", "sell", "No Problem")
 
     def vendreTrixBybit(self, idbot):
         exchangeWallet = ccxt.binance()
@@ -578,7 +578,7 @@ class ConnectBbd:
         lastDate = datetime.strptime(str(result[0]), '%Y-%m-%d %H:%M:%S')
         self.insert_balence(lastDate,
                             f"Trix Bybit :",
-                            crypto_wallet_value, result[10], "OFF", "sell", "No Problem")
+                            crypto_wallet_value, idbot, "OFF", "sell", "No Problem")
 
     def vendreCocotierBinance(self, idbot):
         cursor = self.cnx.cursor()
