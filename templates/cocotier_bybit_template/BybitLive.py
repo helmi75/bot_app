@@ -46,7 +46,7 @@ for i in myresult:
             cursor.execute(query)
             datea = str(cursor.fetchall()[0][0])[:19]
             lastDate = datetime.strptime(datea, '%Y-%m-%d %H:%M:%S')
-            currentDate = datetime.now() - timedelta(hours=(d_hour - 1))
+            currentDate = datetime.now()
             show_time = datetime.now()
             if (currentDate >= lastDate and int(show_time.hour) % d_hour == 0):
                 start_time = datetime.now() - timedelta(2)

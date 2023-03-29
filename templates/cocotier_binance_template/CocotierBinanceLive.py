@@ -43,7 +43,7 @@ for i in myresult:
             lastDate = datetime.strptime(str(cursor.fetchall()[0][0]),'%Y-%m-%d %H:%M:%S')
         except :
             lastDate = datetime.now() - timedelta(hours=(d_hour-1))
-        currentDate = datetime.now() - timedelta(hours=(d_hour-1))
+        currentDate = datetime.now()
         show_time = datetime.now()
         if(currentDate >= lastDate and int(show_time.hour)%d_hour == 0 ):
             start_time = datetime.now() - timedelta(2)

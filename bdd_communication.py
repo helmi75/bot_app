@@ -505,7 +505,12 @@ class ConnectBbd:
         cryptoAmount = getBalance(client, cryptoSymbol)
         ticker = exchangeWallet.fetch_ticker(pairsSymbol)
         crypto_wallet_value = fiatAmount + (cryptoAmount * ticker['last'])
-        self.insert_balence(datetime.now(),
+        cursor = self.cnx.cursor()
+        query = f"select dates,id_get_balence from get_balence where id_bot ={idbot} order by dates desc limit 1;"
+        cursor.execute(query)
+        result = cursor.fetchall()[0]
+        lastDate = datetime.strptime(str(result[0]), '%Y-%m-%d %H:%M:%S')
+        self.insert_balence(lastDate,
                             f"Trix : {result[4]}_len{result[5]}_sign{result[6]}_top{result[7]}_bottom{result[8]}_RSI{result[9]}",
                             crypto_wallet_value, result[10], "OFF", "sell", "No Problem")
 
@@ -532,7 +537,12 @@ class ConnectBbd:
         cryptoAmount = float(client.get_asset_balance(asset=cryptoSymbol)['free'])
         ticker = exchangeWallet.fetch_ticker(pairsSymbol)
         crypto_wallet_value = fiatAmount + (cryptoAmount * ticker['last'])
-        self.insert_balence(datetime.now(),
+        cursor = self.cnx.cursor()
+        query = f"select dates,id_get_balence from get_balence where id_bot ={idbot} order by dates desc limit 1;"
+        cursor.execute(query)
+        result = cursor.fetchall()[0]
+        lastDate = datetime.strptime(str(result[0]), '%Y-%m-%d %H:%M:%S')
+        self.insert_balence(lastDate,
                             f"Trix : {result[4]}_len{result[5]}_sign{result[6]}_top{result[7]}_bottom{result[8]}_RSI{result[9]}",
                             crypto_wallet_value, result[10], "OFF", "sell", "No Problem")
 
@@ -561,7 +571,12 @@ class ConnectBbd:
         cryptoAmount = float(client.fetch_spot_balance()['total'][pairSymbol[:-4]])
         ticker = exchangeWallet.fetch_ticker(pairsSymbol)
         crypto_wallet_value = fiatAmount + (cryptoAmount * ticker['last'])
-        self.insert_balence(datetime.now(),
+        cursor = self.cnx.cursor()
+        query = f"select dates,id_get_balence from get_balence where id_bot ={idbot} order by dates desc limit 1;"
+        cursor.execute(query)
+        result = cursor.fetchall()[0]
+        lastDate = datetime.strptime(str(result[0]), '%Y-%m-%d %H:%M:%S')
+        self.insert_balence(lastDate,
                             f"Trix : {result[4]}_len{result[5]}_sign{result[6]}_top{result[7]}_bottom{result[8]}_RSI{result[9]}",
                             crypto_wallet_value, result[10], "OFF", "sell", "No Problem")
 
@@ -583,7 +598,12 @@ class ConnectBbd:
         nom_crypto_vente = crypto_a_vendre(exchange, market)
         sell = vente(exchange, nom_crypto_vente, balence['total'])
         wallet = get_wallet(exchange)
-        self.insert_balence(datetime.now(), "USDT", wallet, idbot, "OFF", "sell", "No Problem")
+        cursor = self.cnx.cursor()
+        query = f"select dates,id_get_balence from get_balence where id_bot ={idbot} order by dates desc limit 1;"
+        cursor.execute(query)
+        result = cursor.fetchall()[0]
+        lastDate = datetime.strptime(str(result[0]), '%Y-%m-%d %H:%M:%S')
+        self.insert_balence(lastDate, "USDT", wallet, idbot, "OFF", "sell", "No Problem")
 
     def vendreCocotierBybit(self, idbot):
         cursor = self.cnx.cursor()
@@ -604,7 +624,12 @@ class ConnectBbd:
         balence = exchange.fetch_spot_balance()
         sell = vente(exchange, nom_crypto_vente, balence['total'])
         wallet = get_walletBybit(exchange)
-        self.insert_balence(datetime.now(), "USDT", wallet, idbot, "OFF", "sell", "No Problem")
+        cursor = self.cnx.cursor()
+        query = f"select dates,id_get_balence from get_balence where id_bot ={idbot} order by dates desc limit 1;"
+        cursor.execute(query)
+        result = cursor.fetchall()[0]
+        lastDate = datetime.strptime(str(result[0]), '%Y-%m-%d %H:%M:%S')
+        self.insert_balence(lastDate, "USDT", wallet, idbot, "OFF", "sell", "No Problem")
 
     def get_statusCocotier(self):
         """
@@ -662,8 +687,8 @@ class ConnectBbd:
         self.cnx.commit()
 
     def updateStopMarche(self, idbot, state):
-        if state == 1:
-            self.previousOneHour(idbot)
+        # if state == 1:
+        #     self.previousOneHour(idbot)
         cursor = self.cnx.cursor()
         query = f"update bots set working = '{state}' where bot_id = {idbot};"
         cursor.execute(query)
