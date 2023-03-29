@@ -110,6 +110,7 @@ for i in myresult:
                 print("*****Exceptions*****")
                 print(i[8],exceptions)
                 con.insert_balence(datetime.now(),"none" , 0, i[7],"OFF","none",str(exceptions))
+                traceback.print_exc()
                 print("********************")
 
 
