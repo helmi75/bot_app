@@ -1,4 +1,6 @@
 import sys
+import traceback
+
 sys.path.insert(0,"/home/anisse9/bot_app")
 import ccxt
 from fonctions import *
