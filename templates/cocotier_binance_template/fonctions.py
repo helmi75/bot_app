@@ -267,7 +267,7 @@ def algo_achat_vente(exchange, nom_crypto_vente, nom_crypto_achat):
     else:
         # buy
         if (nom_crypto_vente != '0'):
-            exchange.create_market_sell_order(nom_crypto_vente, balence['total'][nom_crypto_vente])
+            exchange.create_market_sell_order(nom_crypto_vente+'/USDT', balence['total'][nom_crypto_vente])
         print('vendage : ', nom_crypto_vente)
         tm.sleep(5)
 
