@@ -33,7 +33,7 @@ if authentication_status:
                           title='bots showed by date and wallet')
             st.plotly_chart(fig)
         except Exception as e:
-            st.write(e)
+            st.exception(e)
     else :
         st.title('''Please Hold on and visit us next time!''')
         st.warning('''The page is in maintenance!''')

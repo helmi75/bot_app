@@ -46,7 +46,7 @@ def init():
                 # display bot status
                 st.dataframe(status_bots(df_result))
             except Exception as e:
-                st.write(e)
+                st.exception(e)
         else:
             st.title('''Please Hold on and visit us next time!''')
             st.warning('''The page is in maintenance!''')

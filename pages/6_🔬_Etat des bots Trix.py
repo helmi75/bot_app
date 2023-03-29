@@ -51,7 +51,7 @@ def init():
                 df_result['type_bot'] = df_result['type_bot'].str[5:]
                 st.dataframe(status_bots(df_result))
             except Exception as e:
-                st.write(e)
+                st.exception(e)
         else:
             st.title('''Please Hold on and visit us next time!''')
             st.warning('''The page is in maintenance!''')
