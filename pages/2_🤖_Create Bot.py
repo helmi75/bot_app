@@ -168,7 +168,7 @@ if authentication_status:
                         st.error("Ouch There is some problem! Please contact the Engineer!")
 
             except Exception as e:
-                st.write(e)
+                st.exception(e)
     else:
         st.title('''Please Hold on and visit us next time!''')
         st.warning('''The page is in maintenance!''')
