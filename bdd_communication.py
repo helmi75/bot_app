@@ -1178,7 +1178,10 @@ def findUsedCrypto(exchange):
     a = exchange.fetch_balance()['total']
     for i in a:
         if a[i] != 0 and i != 'USDT':
-            lista.append((i, a[i] * exchange.fetchTickers([i + "/USDT"])[i + "/USDT"]['ask']))
+            try :
+                lista.append((i, a[i] * exchange.fetchTickers([i + "/USDT"])[i + "/USDT"]['ask']))
+            except:
+                pass
     return lista
 
 
