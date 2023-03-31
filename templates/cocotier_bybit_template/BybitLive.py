@@ -1,4 +1,5 @@
 import sys
+import traceback
 
 sys.path.insert(0, "/home/anisse9/bot_app")
 import ccxt
@@ -110,7 +111,7 @@ for i in myresult:
                     con.insert_balence(datetime.now(), nom_crypto_achat, wallet, i[7], "ONN", "none","No Problem")
                 except Exception as exceptions:
                     print("*****Exceptions*****")
-                    print(exceptions)
+                    traceback.print_exc()
                     con.insert_balence(datetime.now(), "none", 0, i[7], "OFF", "none",str(exceptions))
                     print("********************")
         except ZeroDivisionError :
