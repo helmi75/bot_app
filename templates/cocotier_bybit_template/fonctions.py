@@ -268,7 +268,7 @@ def algo_achat_vente(exchange, nom_crypto_vente, nom_crypto_achat):
         pass
     else:
         # buy
-        if (nom_crypto_vente != '0'):
+        if (nom_crypto_vente != 'none'):
             sell = vente(exchange, nom_crypto_vente, balence['total'])
         print('vendage : ', nom_crypto_vente)
 
