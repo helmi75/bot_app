@@ -314,7 +314,7 @@ for i in myresult :
                     if iterations:
                         break
                     try :
-                        time.sleep(20)
+                        time.sleep(30)
                         print("")
                         print(f"Itération N°{l+1}")
                         processus2(i,con,iterations)
