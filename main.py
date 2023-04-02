@@ -2,16 +2,17 @@ import streamlit as st
 import auth
 from bdd_communication import ConnectBbd
 from pass_secret import mot_de_passe
+from ProjectSettings import *
 # import pyautogui
 
 pwd = mot_de_passe
 
 st.set_page_config(
-    page_title="Cocobots",
-    page_icon="code.png",
+    page_title= page_title,
+    page_icon= page_icon,
 )
 
-st.title("Cocobots")
+st.title(page_title)
 
 
 

@@ -13,12 +13,15 @@ import plotly.graph_objects as go
 import base64
 from binance.client import Client
 from bdd_communication import *
+from ProjectSettings import  *
 
 st.set_page_config(
-    page_title="Cocobots",
-    page_icon="code.png",
+    page_title= page_title,
+    page_icon= page_icon,
 )
-st.title("Cocobots")
+
+st.title(page_title)
+
 
 st.title("Back Test Cocotier")
 

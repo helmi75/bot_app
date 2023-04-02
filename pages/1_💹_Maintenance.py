@@ -7,13 +7,16 @@
 import streamlit as st
 from bdd_communication import ConnectBbd
 from pass_secret import mot_de_passe
+from ProjectSettings import *
 import psutil
 
 st.set_page_config(
-    page_title="Cocobots",
-    page_icon="code.png",
+    page_title= page_title,
+    page_icon= page_icon,
 )
-st.title("Cocobots")
+
+st.title(page_title)
+
 st.title ("Maintenance")
 
 
