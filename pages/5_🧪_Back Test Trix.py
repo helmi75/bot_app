@@ -37,6 +37,21 @@ def getHistorical(client, symbole):
     dataT.drop(dataT.columns.difference(['open', 'high', 'low', 'close', 'volume']), 1, inplace=True)
     return dataT
 
+def getHistoricalKucoin(client, symbole):
+    klinesT = client.get_historical_klines(
+        symbole, Client.KLINE_INTERVAL_1HOUR, "5 day ago UTC")
+    dataT = pd.DataFrame(klinesT,
+                         columns=['timestamp', 'open', 'high', 'low', 'close', 'volume', 'close_time', 'quote_av',
+                                  'trades', 'tb_base_av', 'tb_quote_av', 'ignore'])
+    dataT['close'] = pd.to_numeric(dataT['close'])
+    dataT['high'] = pd.to_numeric(dataT['high'])
+    dataT['low'] = pd.to_numeric(dataT['low'])
+    dataT['open'] = pd.to_numeric(dataT['open'])
+    dataT['volume'] = pd.to_numeric(dataT['volume'])
+    dataT.drop(dataT.columns.difference(['open', 'high', 'low', 'close', 'volume']), 1, inplace=True)
+    return dataT
+
+
 @st.cache_data
 def getAllPairSymbolsOfBinance():
     cryptoss = []
@@ -51,6 +66,17 @@ def getAllPairSymbolsOfBinance():
 def getAllPairSymbolsOfBybit():
     cryptoss = []
     url = 'https://api.bybit.com/v2/public/symbols'
+    response = requests.get(url)
+    exchange_info = response.json()
+    for s in exchange_info['result']:
+        if s['name'].endswith('USDT'):
+            cryptoss.append(s['name'])
+    return cryptoss
+
+@st.cache_data
+def getAllPairSymbolsOfKucoin():
+    cryptoss = []
+    url = 'https://api.kucoin.com/api/v1/symbols'
     response = requests.get(url)
     exchange_info = response.json()
     for s in exchange_info['result']:
@@ -92,14 +118,15 @@ def plot_courbes2(df_tableau_multi, namee, rcolor):
     return st.plotly_chart(fig)
 
 
-bybitBinance = st.checkbox("Bybit")
+bybitBinance = st.radio("Select API : ",("Binance","Bybit","Kucoin"),horizontal=True)
 
-
-if bybitBinance :
-    cryptoss = getAllPairSymbolsOfBybit()
-
-else :
+if bybitBinance == 'Binance':
     cryptoss = getAllPairSymbolsOfBinance()
+elif bybitBinance == 'Bybit':
+    cryptoss = getAllPairSymbolsOfBybit()
+elif bybitBinance == 'Kucoin':
+    cryptoss = getAllPairSymbolsOfKucoin()
+
 
 
 
@@ -157,7 +184,7 @@ if st.button("Submit"):
         if len(pair_symbol) < 4 or pair_symbol[-4:] != 'USDT':
             pair_symbol = pair_symbol + 'USDT'
         st.success(pair_symbol)
-        if bybitBinance:
+        if bybitBinance == 'Bybit':
             cryptoss = getAllPairSymbolsOfBybit()
             sttDatee = datetime.strptime(sttDate, '%Y-%m-%d %H:%M:%S')
             sttDatee = sttDatee.strftime("%Y-%m-%dT%H:%M:%SZ")
@@ -184,9 +211,25 @@ if st.button("Submit"):
             df.index = pd.to_datetime(df.index, unit='ms')
             del df['timestamp']
             df.drop(df.columns.difference(['open', 'high', 'low', 'close', 'volume']), 1, inplace=True)
-        else:
+        elif bybitBinance == 'Binance':
             cryptoss = getAllPairSymbolsOfBinance()
             client = Client()
+            klinesT = client.get_historical_klines(pair_symbol, timeInterval, str(sttDate), str(ennDate))
+            # -- Define your dataset --
+            df = pd.DataFrame(klinesT, columns=['timestamp', 'open', 'high', 'low', 'close', 'volume', 'close_time',
+                                                'quote_av', 'trades', 'tb_base_av', 'tb_quote_av', 'ignore'])
+            df['close'] = pd.to_numeric(df['close'])
+            df['high'] = pd.to_numeric(df['high'])
+            df['low'] = pd.to_numeric(df['low'])
+            df['open'] = pd.to_numeric(df['open'])
+            df = df.set_index(df['timestamp'])
+            df.index = pd.to_datetime(df.index, unit='ms')
+            del df['timestamp']
+            df.drop(df.columns.difference(['open', 'high', 'low', 'close', 'volume']), 1, inplace=True)
+        elif bybitBinance == 'Kucoin':
+            cryptoss = getAllPairSymbolsOfKucoin()
+            client = ccxt.kucoin()
+
             klinesT = client.get_historical_klines(pair_symbol, timeInterval, str(sttDate), str(ennDate))
             # -- Define your dataset --
             df = pd.DataFrame(klinesT, columns=['timestamp', 'open', 'high', 'low', 'close', 'volume', 'close_time',
