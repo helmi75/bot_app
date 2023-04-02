@@ -3,13 +3,14 @@ import auth
 from bdd_communication import *
 from pass_secret import mot_de_passe
 import numpy as np
+from ProjectSettings import *
 
 st.set_page_config(
-    page_title="Cocobots",
-    page_icon="code.png",
+    page_title= page_title,
+    page_icon= page_icon,
 )
 
-st.title("Cocobots")
+st.title(page_title)
 
 pwd = mot_de_passe
 authenticator = auth.auth_data()

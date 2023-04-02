@@ -3,14 +3,15 @@ import requests
 from bdd_communication import ConnectBbd
 from pass_secret import mot_de_passe
 from binance.client import Client
-
+from ProjectSettings import  *
 
 st.set_page_config(
-    page_title="Cocobots",
-    page_icon="code.png",
+    page_title= page_title,
+    page_icon= page_icon,
 )
 
-st.title("Cocobots")
+st.title(page_title)
+
 st.title("Pool Bybit Pairs Symbol")
 
 con = ConnectBbd('localhost', '3306', 'root', mot_de_passe, 'cryptos', 'mysql_native_password')

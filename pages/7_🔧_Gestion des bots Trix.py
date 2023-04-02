@@ -3,13 +3,15 @@ import auth
 from bdd_communication import *
 from pass_secret import mot_de_passe
 import numpy as np
+from ProjectSettings import  *
 
 st.set_page_config(
-    page_title="Cocobots",
-    page_icon="code.png",
+    page_title= page_title,
+    page_icon= page_icon,
 )
 
-st.title("Cocobots")
+st.title(page_title)
+
 
 pwd = mot_de_passe
 authenticator = auth.auth_data()
@@ -37,7 +39,7 @@ def modifierTrixBot(bot_id):
     secret_key = st.text_input("enter  secret key", key="secret_key_trix", value=secretss)
     sub_account = st.text_input("Subaccount", key="sub_account_trix", value=trix_bot[0][3])
     col1, col2, col3 = st.columns(3)
-    pair_symbol = col1.text_input("FTX Pair symbol", value=f"{trix_bot[0][4].upper()}/USDT",
+    pair_symbol = col1.text_input("Pair symbol", value=f"{trix_bot[0][4].upper()}/USDT",
                                   placeholder="i.e  BTC/USDT",
                                   key="pair_symbol_trix")
     trix_lenght = col2.number_input("Trix Lenght", value=trix_bot[0][5], key="trix_length_trix")
@@ -60,10 +62,10 @@ def modifierTrixBot(bot_id):
                             trix_lenght, trix_signal, stoch_top, stoch_bottom, stoch_rsi)
         # pyautogui.hotkey("ctrl", "F5")
         st.success("vos changements ont été enregistrés ")
+        st.warning("Recharger la page")
     if col02.button("Cancel Changes"):
         # pyautogui.hotkey("ctrl", "F5")
         st.warning("Recharger la page")
-        pass
 
 
 if authentication_status:
@@ -114,6 +116,8 @@ if authentication_status:
                             con.vendreTrixBinance(botsTrix[index][0])
                         elif botsTrix[index][2].lower() == "Trix Bybit".lower():
                             con.vendreTrixBybit(botsTrix[index][0])
+                        elif botsTrix[index][2].lower() == "Trix Kucoin".lower():
+                            con.vendreTrixKucoin(botsTrix[index][0])
                     con.updateStopMarche(botsTrix[index][0], 0)
                     st.error(f"Le bot {item} est stoppé {usdtCrypto}")
                 elif not stopMarche and col222.button("Work", key=f"marche{index}"):

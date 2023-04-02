@@ -32,6 +32,28 @@ class ConnectBbd:
                                            database=self.database,
                                            auth_plugin=self.auth_plugin)
 
+    def create__bot(self, selection_bot, bot_name, user_mail,
+                    api_key, secret_key, sub_account, pair_symbol, trix_lenght, trix_signal, stoch_top, stoch_bottom,
+                    stoch_rsi, delta_hour, n_i):
+        jawekcv = False
+        # create trix bot
+        if selection_bot == "Trix FTX" or selection_bot == "Trix Kucoin" or selection_bot == "Trix Binance" or selection_bot == "Trix Bybit":
+            pair_symbol = pair_symbol[:-5].lower()
+
+            self.insert_new_trix_bot(selection_bot, bot_name, user_mail,
+                                         api_key, secret_key, sub_account, pair_symbol,
+                                         trix_lenght, trix_signal, stoch_top, stoch_bottom, stoch_rsi)
+            jawekcv = True
+        # create cocotier trix
+        elif selection_bot == "Cocotier Binance"or selection_bot == "Cocotier ByBit" :
+            pair_symbol = pair_symbol.lower()
+            n_i = n_i.lower()
+            delta_hour = (int)(delta_hour[:-1])
+            self.insert_new_cocotier_bot(selection_bot,bot_name, api_key, secret_key, sub_account,
+                                             pair_symbol, delta_hour, n_i)
+            jawekcv = True
+        return jawekcv
+
     def insert_new_user(self, user_name, email, password):
         cursor = self.cnx.cursor()
         query = """INSERT INTO users (username, email, password) VALUES ('%s', '%s', '%s')""" % (
@@ -513,6 +535,41 @@ class ConnectBbd:
         self.insert_balence(lastDate,
                             f"Trix : {result[4]}_len{result[5]}_sign{result[6]}_top{result[7]}_bottom{result[8]}_RSI{result[9]}",
                             crypto_wallet_value, result[10], "OFF", "sell", "No Problem")
+
+    def vendreTrixKucoin(self, idbot):
+        exchangeWallet = ccxt.kucoin()
+        cursor = self.cnx.cursor()
+        query = f"select params_bot_trix.* from params_bot_trix where  params_bot_trix.bot_id  ={idbot};"
+        cursor.execute(query)
+        result = cursor.fetchone()
+        apiKey = result[1]
+        secret = result[2]
+        apiKey, secret = degenerateApiSecret(apiKey, secret, idbot)
+        fiatSymbol = 'USDT'
+        cryptoSymbol = (result[4] + "").upper()
+        pairSymbol = cryptoSymbol + 'USDT'
+        pairsSymbol = cryptoSymbol + '/USDT'
+        client = ccxt.kucoin({
+            'apiKey': apiKey,
+            'secret': secret,
+            'password': result[3],
+            'enableRateLimit': True
+        })
+        montant = client.fetch_balance()['total'][pairSymbol[:-4]]
+        sellOrder = client.create_order(pairsSymbol, "market", "sell", montant, 1)
+        fiatAmount = float(client.fetch_balance()['total']['USDT'])
+        cryptoAmount = float(client.fetch_balance()['total'][pairSymbol[:-4]])
+        ticker = exchangeWallet.fetch_ticker(pairsSymbol)
+        crypto_wallet_value = fiatAmount + (cryptoAmount * ticker['last'])
+        cursor = self.cnx.cursor()
+        query = f"select dates,id_get_balence from get_balence where id_bot ={idbot} order by dates desc limit 1;"
+        cursor.execute(query)
+        result = cursor.fetchall()[0]
+        lastDate = datetime.strptime(str(result[0]), '%Y-%m-%d %H:%M:%S')
+        self.insert_balence(lastDate,
+                            f"Trix Bybit :",
+                            crypto_wallet_value, idbot, "OFF", "sell", "No Problem")
+
 
     def vendreTrixBinance(self, idbot):
         exchangeWallet = ccxt.binance()

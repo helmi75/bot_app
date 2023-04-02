@@ -2,13 +2,16 @@ import streamlit as st
 import numpy as np
 from binance.client import Client
 from bdd_communication import ConnectBbd
+from ProjectSettings import *
 from pass_secret import mot_de_passe
 
 st.set_page_config(
-    page_title="Cocobots",
-    page_icon="code.png",
+    page_title= page_title,
+    page_icon= page_icon,
 )
-st.title("Cocobots")
+
+st.title(page_title)
+
 st.title("Pool Binance Pairs Symbol")
 
 

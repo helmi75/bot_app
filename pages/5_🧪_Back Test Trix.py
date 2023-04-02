@@ -11,12 +11,15 @@ import seaborn as sns
 import plotly.express as px
 import requests
 import ccxt
+from ProjectSettings import  *
 
 st.set_page_config(
-    page_title="Cocobots",
-    page_icon="code.png",
+    page_title= page_title,
+    page_icon= page_icon,
 )
-st.title("Cocobots")
+
+st.title(page_title)
+
 st.title("Back Test Trix")
 
 

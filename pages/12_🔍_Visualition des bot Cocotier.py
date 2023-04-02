@@ -3,14 +3,16 @@ import auth
 from bdd_communication import ConnectBbd
 import pandas as pd
 import plotly.express as px
+from ProjectSettings import *
 from pass_secret import mot_de_passe
 
 st.set_page_config(
-    page_title="Cocobots",
-    page_icon="code.png",
+    page_title= page_title,
+    page_icon= page_icon,
 )
 
-st.title("Cocobots")
+st.title(page_title)
+
 
 
 pwd = mot_de_passe
