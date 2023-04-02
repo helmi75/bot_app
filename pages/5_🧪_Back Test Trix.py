@@ -11,11 +11,11 @@ import seaborn as sns
 import plotly.express as px
 import requests
 import ccxt
-from ProjectSettings import  *
+from ProjectSettings import *
 
 st.set_page_config(
-    page_title= page_title,
-    page_icon= page_icon,
+    page_title=page_title,
+    page_icon=page_icon,
 )
 
 st.title(page_title)
@@ -37,18 +37,12 @@ def getHistorical(client, symbole):
     dataT.drop(dataT.columns.difference(['open', 'high', 'low', 'close', 'volume']), 1, inplace=True)
     return dataT
 
-def getHistoricalKucoin(client, symbole):
-    klinesT = client.get_historical_klines(
-        symbole, Client.KLINE_INTERVAL_1HOUR, "5 day ago UTC")
-    dataT = pd.DataFrame(klinesT,
-                         columns=['timestamp', 'open', 'high', 'low', 'close', 'volume', 'close_time', 'quote_av',
-                                  'trades', 'tb_base_av', 'tb_quote_av', 'ignore'])
-    dataT['close'] = pd.to_numeric(dataT['close'])
-    dataT['high'] = pd.to_numeric(dataT['high'])
-    dataT['low'] = pd.to_numeric(dataT['low'])
-    dataT['open'] = pd.to_numeric(dataT['open'])
-    dataT['volume'] = pd.to_numeric(dataT['volume'])
-    dataT.drop(dataT.columns.difference(['open', 'high', 'low', 'close', 'volume']), 1, inplace=True)
+
+def getHistoricalKucoin(client, symbol):
+    klinesT = client.fetch_ohlcv(symbol, '1h', since=(pd.Timestamp('now') - pd.Timedelta(days=5)).timestamp() * 1000)
+    dataT = pd.DataFrame(klinesT, columns=['timestamp', 'open', 'high', 'low', 'close', 'volume'])
+    dataT['timestamp'] = pd.to_datetime(dataT['timestamp'], unit='ms')
+    dataT.set_index('timestamp', inplace=True)
     return dataT
 
 
@@ -62,6 +56,7 @@ def getAllPairSymbolsOfBinance():
             cryptoss.append(s['symbol'])
     return cryptoss
 
+
 @st.cache_data
 def getAllPairSymbolsOfBybit():
     cryptoss = []
@@ -73,16 +68,20 @@ def getAllPairSymbolsOfBybit():
             cryptoss.append(s['name'])
     return cryptoss
 
+
 @st.cache_data
 def getAllPairSymbolsOfKucoin():
-    cryptoss = []
-    url = 'https://api.kucoin.com/api/v1/symbols'
-    response = requests.get(url)
-    exchange_info = response.json()
-    for s in exchange_info['result']:
-        if s['name'].endswith('USDT'):
-            cryptoss.append(s['name'])
-    return cryptoss
+    exchange = ccxt.kucoin()
+    markets = exchange.load_markets()
+    pairs = []
+
+    for market in markets:
+        symbol = markets[market]['symbol']
+        if 'USDT' in symbol:
+            pairs.append(symbol)
+
+    return pairs
+
 
 def buyCondition(row, previousRow):
     if row['TRIX_HISTO'] > 0 and row['STOCH_RSI'] < stoch_top:
@@ -118,7 +117,7 @@ def plot_courbes2(df_tableau_multi, namee, rcolor):
     return st.plotly_chart(fig)
 
 
-bybitBinance = st.radio("Select API : ",("Binance","Bybit","Kucoin"),horizontal=True)
+bybitBinance = st.radio("Select API : ", ("Binance", "Bybit", "Kucoin"), horizontal=True)
 
 if bybitBinance == 'Binance':
     cryptoss = getAllPairSymbolsOfBinance()
@@ -126,9 +125,6 @@ elif bybitBinance == 'Bybit':
     cryptoss = getAllPairSymbolsOfBybit()
 elif bybitBinance == 'Kucoin':
     cryptoss = getAllPairSymbolsOfKucoin()
-
-
-
 
 date_init = datetime.now() - timedelta(days=180)
 timeInterval = '1h'
@@ -152,17 +148,15 @@ stDate = to_timestamp(str(star_date))
 end_date = col3.date_input('Date de fin')
 enDate = to_timestamp(str(end_date))
 
-
 col1.title("->")
-startHour= col2.time_input("Start Hour", time(0,0))
-endHour = col3.time_input("End Hour", time(23,0))
+startHour = col2.time_input("Start Hour", time(0, 0))
+endHour = col3.time_input("End Hour", time(23, 0))
 
 sttDate = f"{star_date} {startHour}"
 
 ennDate = f"{end_date} {endHour}"
 # stDate = to_timestamp(str(sttDate))
 # st.title(stDate)
-
 
 
 start_balance = col1.number_input("Start Balance", value=1000)
@@ -181,8 +175,10 @@ if st.button("Submit"):
         st.warning("cette crypto n’existe pas")
     else:
         pair_symbol = pair_symbol.upper()
+        pairsSymbol = pair_symbol.upper()
         if len(pair_symbol) < 4 or pair_symbol[-4:] != 'USDT':
             pair_symbol = pair_symbol + 'USDT'
+            pairsSymbol = pair_symbol[:-4] + '/USDT'
         st.success(pair_symbol)
         if bybitBinance == 'Bybit':
             cryptoss = getAllPairSymbolsOfBybit()
@@ -229,19 +225,20 @@ if st.button("Submit"):
         elif bybitBinance == 'Kucoin':
             cryptoss = getAllPairSymbolsOfKucoin()
             client = ccxt.kucoin()
+            df = getHistoricalKucoin(client, pairsSymbol)
 
-            klinesT = client.get_historical_klines(pair_symbol, timeInterval, str(sttDate), str(ennDate))
+            # klinesT = client.get_historical_klines(pair_symbol, timeInterval, str(sttDate), str(ennDate))
             # -- Define your dataset --
-            df = pd.DataFrame(klinesT, columns=['timestamp', 'open', 'high', 'low', 'close', 'volume', 'close_time',
-                                                'quote_av', 'trades', 'tb_base_av', 'tb_quote_av', 'ignore'])
-            df['close'] = pd.to_numeric(df['close'])
-            df['high'] = pd.to_numeric(df['high'])
-            df['low'] = pd.to_numeric(df['low'])
-            df['open'] = pd.to_numeric(df['open'])
-            df = df.set_index(df['timestamp'])
-            df.index = pd.to_datetime(df.index, unit='ms')
-            del df['timestamp']
-            df.drop(df.columns.difference(['open', 'high', 'low', 'close', 'volume']), 1, inplace=True)
+            # df = pd.DataFrame(klinesT, columns=['timestamp', 'open', 'high', 'low', 'close', 'volume', 'close_time',
+            #                                     'quote_av', 'trades', 'tb_base_av', 'tb_quote_av', 'ignore'])
+            # df['close'] = pd.to_numeric(df['close'])
+            # df['high'] = pd.to_numeric(df['high'])
+            # df['low'] = pd.to_numeric(df['low'])
+            # df['open'] = pd.to_numeric(df['open'])
+            # df = df.set_index(df['timestamp'])
+            # df.index = pd.to_datetime(df.index, unit='ms')
+            # del df['timestamp']
+            # df.drop(df.columns.difference(['open', 'high', 'low', 'close', 'volume']), 1, inplace=True)
 
         df['EMA200'] = ta.trend.ema_indicator(close=df['close'], window=ema200)
         df['TRIX'] = ta.trend.ema_indicator(
@@ -479,8 +476,13 @@ if st.button("Submit"):
         # ax2.tick_params(axis='y', colors='red')
         #
         # st.pyplot(fig)
-
-        st.dataframe(dt.iloc[[0, 1, 2, 3, 5, -5, -4, -3, -2, -1], :])
+        try:
+            st.dataframe(dt.iloc[[0, 1, 2, 3, 5, -5, -4, -3, -2, -1], :])
+        except:
+            try:
+                st.dataframe(dt)
+            except:
+                pass
         # plot_courbes2(dt[['wallet']], 'wallet','Red')
 
         # fig2, ax2 = plt.subplots()
@@ -582,7 +584,6 @@ if st.button("Submit"):
         # ax.set_title('years performance in %')
         # ax.legend_.remove()
         # st.pyplot(fig)
-
 
         # Create a custom palette for positive and negative values
         custom_palette = {'positive': 'green', 'negative': 'red'}
@@ -725,7 +726,6 @@ if st.button("Submit"):
             # Create the figure
             fig = go.Figure(data=traces, layout=layout)
             st.plotly_chart(fig)
-
 
         x = dd['date']
         y = dd['wallet']
