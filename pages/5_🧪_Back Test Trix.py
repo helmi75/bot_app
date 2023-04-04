@@ -176,9 +176,11 @@ if st.button("Submit"):
     else:
         pair_symbol = pair_symbol.upper()
         pairsSymbol = pair_symbol.upper()
+        if len(pair_symbol) >= 5 and pairsSymbol[-5:] == '/USDT':
+            pair_symbol = pair_symbol.replace('/', '')
         if len(pair_symbol) < 4 or pair_symbol[-4:] != 'USDT':
-            pair_symbol = pair_symbol + 'USDT'
-            pairsSymbol = pair_symbol[:-4] + '/USDT'
+            pair_symbol = pair_symbol+ 'USDT'
+        pairsSymbol = pair_symbol[:-4] + '/USDT'
         st.success(pair_symbol)
         if bybitBinance == 'Bybit':
             cryptoss = getAllPairSymbolsOfBybit()
