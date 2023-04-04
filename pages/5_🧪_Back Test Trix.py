@@ -1,4 +1,5 @@
 import datetime
+import math
 from datetime import time
 
 import streamlit as st
@@ -25,7 +26,7 @@ st.title("Back Test Trix")
 
 def getHistorical(client, symbole):
     klinesT = client.get_historical_klines(
-        symbole, Client.KLINE_INTERVAL_1HOUR, "5 day ago UTC")
+        symbole, Client.KLINE_INTERVAL_1HOUR)
     dataT = pd.DataFrame(klinesT,
                          columns=['timestamp', 'open', 'high', 'low', 'close', 'volume', 'close_time', 'quote_av',
                                   'trades', 'tb_base_av', 'tb_quote_av', 'ignore'])
@@ -38,13 +39,31 @@ def getHistorical(client, symbole):
     return dataT
 
 
+def getHistoricalBybit(client, symbol, start_time=None, end_time=None):
+    timeframe = '1h'
+    limit = 1000  # maximum number of candles returned by the exchange API
+    if end_time is None:
+        end_time = int(time.time() * 1000)  # current time in milliseconds
+    if start_time is None:
+        start_time = end_time - (365 * 24 * 60 * 60 * 1000)  # 1 year ago
+    ohlcv = client.fetch_ohlcv(symbol, timeframe, since=start_time, limit=limit)
+    dataT = pd.DataFrame(ohlcv, columns=['timestamp', 'open', 'high', 'low', 'close', 'volume'])
+    dataT['timestamp'] = pd.to_datetime(dataT['timestamp'], unit='ms')
+    dataT.set_index('timestamp', inplace=True)
+    dataT.sort_index(inplace=True)
+    dataT.index = dataT.index.tz_localize(None)  # remove timezone information from index
+
+    return dataT
+
+
 def getHistoricalKucoin(client, symbol):
-    klinesT = client.fetch_ohlcv(symbol, '1h', since=(pd.Timestamp('now') - pd.Timedelta(days=5)).timestamp() * 1000)
+    timeframe = '1h'
+    limit = 15000
+    klinesT = client.fetch_ohlcv(symbol, timeframe, limit=limit)
     dataT = pd.DataFrame(klinesT, columns=['timestamp', 'open', 'high', 'low', 'close', 'volume'])
     dataT['timestamp'] = pd.to_datetime(dataT['timestamp'], unit='ms')
     dataT.set_index('timestamp', inplace=True)
     return dataT
-
 
 @st.cache_data
 def getAllPairSymbolsOfBinance():
@@ -189,18 +208,16 @@ if st.button("Submit"):
             ennDatee = datetime.strptime(ennDate, '%Y-%m-%d %H:%M:%S')
             ennDatee = ennDatee.strftime("%Y-%m-%dT%H:%M:%SZ")
             exchange = ccxt.bybit()
-            klinesT = []
             since = exchange.parse8601(sttDatee)
-            until = exchange.parse8601(ennDatee)
-            while since < until:
+            klinesT = []
+            while since < exchange.parse8601(ennDatee):
                 klines = exchange.fetch_ohlcv(pair_symbol, timeframe=timeInterval, since=since)
                 if len(klines) > 0:
                     klinesT += klines
                     since = klines[-1][0] + (int(timeInterval[:-1]) * 60 * 60 * 1000)
                 else:
-                    break
+                    since += (int(timeInterval[:-1]) * 60 * 60 * 1000)
             df = pd.DataFrame(klinesT, columns=['timestamp', 'open', 'high', 'low', 'close', 'volume'])
-            df['close'] = pd.to_numeric(df['close'])
             df['close'] = pd.to_numeric(df['close'])
             df['high'] = pd.to_numeric(df['high'])
             df['low'] = pd.to_numeric(df['low'])
@@ -226,8 +243,33 @@ if st.button("Submit"):
             df.drop(df.columns.difference(['open', 'high', 'low', 'close', 'volume']), 1, inplace=True)
         elif bybitBinance == 'Kucoin':
             cryptoss = getAllPairSymbolsOfKucoin()
-            client = ccxt.kucoin()
-            df = getHistoricalKucoin(client, pairsSymbol)
+            # client = ccxt.kucoin()
+            # df = getHistoricalKucoin(client, pairsSymbol)
+
+            exchange = ccxt.kucoin()
+            start_unix_time = exchange.parse8601(sttDate)
+            end_unix_time = exchange.parse8601(ennDate)
+            klines = []
+            since = start_unix_time
+            while since < end_unix_time:
+                klines_chunk = exchange.fetch_ohlcv(symbol=pairsSymbol, timeframe=timeInterval, since=since)
+                if len(klines_chunk) == 0:
+                    break
+                klines += klines_chunk
+                since = klines_chunk[-1][0] + (int(timeInterval[:-1]) * 60 * 60 * 1000)
+
+            # Convert the klines to a pandas DataFrame
+            df = pd.DataFrame(klines, columns=['timestamp', 'open', 'high', 'low', 'close', 'volume'])
+
+            # Clean up the DataFrame
+            df['close'] = pd.to_numeric(df['close'])
+            df['high'] = pd.to_numeric(df['high'])
+            df['low'] = pd.to_numeric(df['low'])
+            df['open'] = pd.to_numeric(df['open'])
+            df = df.set_index(df['timestamp'])
+            df.index = pd.to_datetime(df.index, unit='ms')
+            del df['timestamp']
+            df.drop(df.columns.difference(['open', 'high', 'low', 'close', 'volume']), 1, inplace=True)
 
             # klinesT = client.get_historical_klines(pair_symbol, timeInterval, str(sttDate), str(ennDate))
             # -- Define your dataset --
@@ -366,7 +408,10 @@ if st.button("Submit"):
             worstTrade = 0
             # print("/!\ There is no Bad Trades in your BackTest, maybe a problem...")
         totalTrades = totalBadTrades + totalGoodTrades
-        winRateRatio = (totalGoodTrades / totalTrades) * 100
+        try :
+            winRateRatio = (totalGoodTrades / totalTrades) * 100
+        except :
+            winRateRatio = math.inf
         fadit = start_balance * (1 + holdPercentage / 100)
 
         new_title = f'<p style="font-family:sans-serif; font-size: 25px;">{"Pair Symbol :" + pair_symbol}</p>'
