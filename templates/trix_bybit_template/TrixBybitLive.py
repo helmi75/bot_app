@@ -1,4 +1,5 @@
 import sys
+import traceback
 
 sys.path.insert(0, "/home/anisse9/bot_app")
 import warnings
@@ -14,7 +15,7 @@ from bdd_communication import *
 import ta
 import ccxt
 
-exchangeWallet = ccxt.binance()
+exchangeWallet = ccxt.bybit()
 
 now = datetime.now()
 current_time = now.strftime("%d/%m/%Y %H:%M:%S")
@@ -31,18 +32,48 @@ myresult = cursor.fetchall()
 
 
 def getHistorical(client, symbole):
-    klinesT = client.get_historical_klines(
-        symbole, Client.KLINE_INTERVAL_1HOUR, "5 day ago UTC")
-    dataT = pd.DataFrame(klinesT,
-                         columns=['timestamp', 'open', 'high', 'low', 'close', 'volume', 'close_time', 'quote_av',
-                                  'trades', 'tb_base_av', 'tb_quote_av', 'ignore'])
-    dataT['close'] = pd.to_numeric(dataT['close'])
-    dataT['high'] = pd.to_numeric(dataT['high'])
-    dataT['low'] = pd.to_numeric(dataT['low'])
-    dataT['open'] = pd.to_numeric(dataT['open'])
-    dataT['volume'] = pd.to_numeric(dataT['volume'])
-    dataT.drop(dataT.columns.difference(['open', 'high', 'low', 'close', 'volume']), 1, inplace=True)
-    return dataT
+    timeInterval = '1h'
+    ennDatee = datetime.utcnow().strftime("%Y-%m-%dT%H:%M:%SZ")
+    sttDatee = datetime.utcnow() - timedelta(days=5)
+    sttDatee = sttDatee.strftime("%Y-%m-%dT%H:%M:%SZ")
+    # sttDatee = datetime.strptime(sttDate, '%Y-%m-%d %H:%M:%S')
+    # sttDatee = sttDatee.strftime("%Y-%m-%dT%H:%M:%SZ")
+    # ennDatee = datetime.strptime(ennDate, '%Y-%m-%d %H:%M:%S')
+    # ennDatee = ennDatee.strftime("%Y-%m-%dT%H:%M:%SZ")
+    exchange = ccxt.bybit()
+    since = exchange.parse8601(sttDatee)
+    klinesT = []
+    while since < exchange.parse8601(ennDatee):
+        klines = exchange.fetch_ohlcv(symbole, timeframe=timeInterval, since=since)
+        if len(klines) > 0:
+            klinesT += klines
+            since = klines[-1][0] + (int(timeInterval[:-1]) * 60 * 60 * 1000)
+        else:
+            since += (int(timeInterval[:-1]) * 60 * 60 * 1000)
+    df = pd.DataFrame(klinesT, columns=['timestamp', 'open', 'high', 'low', 'close', 'volume'])
+    df['close'] = pd.to_numeric(df['close'])
+    df['high'] = pd.to_numeric(df['high'])
+    df['low'] = pd.to_numeric(df['low'])
+    df['open'] = pd.to_numeric(df['open'])
+    df = df.set_index(df['timestamp'])
+    df.index = pd.to_datetime(df.index, unit='ms')
+    del df['timestamp']
+    df.drop(df.columns.difference(['open', 'high', 'low', 'close', 'volume']), 1, inplace=True)
+    return df
+
+# def getHistorical(client, symbole):
+#     klinesT = client.get_historical_klines(
+#         symbole, Client.KLINE_INTERVAL_1HOUR, "5 day ago UTC")
+#     dataT = pd.DataFrame(klinesT,
+#                          columns=['timestamp', 'open', 'high', 'low', 'close', 'volume', 'close_time', 'quote_av',
+#                                   'trades', 'tb_base_av', 'tb_quote_av', 'ignore'])
+#     dataT['close'] = pd.to_numeric(dataT['close'])
+#     dataT['high'] = pd.to_numeric(dataT['high'])
+#     dataT['low'] = pd.to_numeric(dataT['low'])
+#     dataT['open'] = pd.to_numeric(dataT['open'])
+#     dataT['volume'] = pd.to_numeric(dataT['volume'])
+#     dataT.drop(dataT.columns.difference(['open', 'high', 'low', 'close', 'volume']), 1, inplace=True)
+#     return dataT
 
 
 def getBalance(myclient, coin):
