@@ -240,7 +240,7 @@ def processus2(i,con,iterations):
             crypto_wallet_value = fiatAmount + (cryptoAmount * ticker['last'])
             con.insert_balence(datetime.now(),
                                f"Trix : {i[4]}_len{i[5]}_sign{i[6]}_top{i[7]}_bottom{i[8]}_RSI{i[9]}",
-                               crypto_wallet_value, i[10], "ONN", "buy","No Problem")
+                               crypto_wallet_value, i[10], "ONN", "buy","insuffience balance")
 
             print("BUY")
             iterations = True
@@ -251,7 +251,7 @@ def processus2(i,con,iterations):
             crypto_wallet_value = fiatAmount + (cryptoAmount * ticker['last'])
             con.insert_balence(datetime.now(),
                                f"Trix : {i[4]}_len{i[5]}_sign{i[6]}_top{i[7]}_bottom{i[8]}_RSI{i[9]}",
-                               crypto_wallet_value, i[10], "ONN", "buy","No Problem")
+                               crypto_wallet_value, i[10], "ONN", "buy","insuffience balance")
             print("If you  give me more USD I will buy more", cryptoSymbol)
             iterations = True
 
@@ -274,7 +274,7 @@ def processus2(i,con,iterations):
             crypto_wallet_value = fiatAmount + (cryptoAmount * ticker['last'])
             con.insert_balence(datetime.now(),
                                f"Trix : {i[4]}_len{i[5]}_sign{i[6]}_top{i[7]}_bottom{i[8]}_RSI{i[9]}",
-                               crypto_wallet_value, i[10], "ONN", "sell","No Problem")
+                               crypto_wallet_value, i[10], "ONN", "sell","insuffience balance")
             print("SELL")
             iterations = True
         else:
@@ -284,7 +284,7 @@ def processus2(i,con,iterations):
             crypto_wallet_value = fiatAmount + (cryptoAmount * ticker['last'])
             con.insert_balence(datetime.now(),
                                f"Trix : {i[4]}_len{i[5]}_sign{i[6]}_top{i[7]}_bottom{i[8]}_RSI{i[9]}",
-                               crypto_wallet_value, i[10], "ONN", "sell","No Problem")
+                               crypto_wallet_value, i[10], "ONN", "sell","insuffience balance")
             print("If you give me more", cryptoSymbol, "I will sell it")
             iterations = True
     else:
@@ -296,7 +296,7 @@ def processus2(i,con,iterations):
         last_status_trix = con.get_last_status_trix(i[10])[0]
         con.insert_balence(datetime.now(),
                            f"Trix : {i[4]}_len{i[5]}_sign{i[6]}_top{i[7]}_bottom{i[8]}_RSI{i[9]}",
-                           crypto_wallet_value, i[10], "ONN", str(last_status_trix),"No Problem")
+                           crypto_wallet_value, i[10], "ONN", str(last_status_trix),"insuffience balance")
         iterations = True
 
 
@@ -310,11 +310,11 @@ for i in myresult :
             if str(ex).startswith("APIError(code=-2010)"):
 
                 iterations = False
-                for l in range(10):
+                for l in range(100):
                     if iterations:
                         break
                     try :
-                        time.sleep(30)
+                        time.sleep(1)
                         print("")
                         print(f"Itération N°{l+1}")
                         processus2(i,con,iterations)
