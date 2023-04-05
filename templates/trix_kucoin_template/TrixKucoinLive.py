@@ -150,7 +150,36 @@ for i in myresult:
             print(" ")
             print(f"{i[11]} : usd balance = {fiatAmount} ")
             # print('coin price :', actualPrice, 'usd balance', fiatAmount, 'coin balance :', cryptoAmount)
-            if buyCondition(df.iloc[-2], df.iloc[-3], stoch_top):
+            if sellCondition(df.iloc[-2], df.iloc[-3], stoch_bottom):
+                if float(cryptoAmount) > minToken:
+                    montant = client.fetch_balance()['total'][pairSymbol[:-4]]
+                    sleep(5)
+                    sellOrder = client.create_order(pairsSymbol, "market", "sell", montant, 1)
+                    sleep(5)
+                    fiatAmount = float(client.fetch_balance()['total']['USDT'])
+                    sleep(5)
+                    cryptoAmount = float(get_wallet(client, pairSymbol))
+                    sleep(5)
+                    ticker = exchangeWallet.fetch_ticker(pairsSymbol)
+                    sleep(5)
+                    crypto_wallet_value = fiatAmount + (cryptoAmount * ticker['last'])
+                    con.insert_balence(datetime.now(),
+                                       f"Trix : {i[4]}_len{i[5]}_sign{i[6]}_top{i[7]}_bottom{i[8]}_RSI{i[9]}",
+                                       crypto_wallet_value, i[10], "ONN", "sell","No Problem")
+                    print("SELL")
+                else:
+                    fiatAmount = float(client.fetch_balance()['total']['USDT'])
+                    sleep(5)
+                    cryptoAmount = float(get_wallet(client, pairSymbol))
+                    sleep(5)
+                    ticker = exchangeWallet.fetch_ticker(pairsSymbol)
+                    sleep(5)
+                    crypto_wallet_value = fiatAmount + (cryptoAmount * ticker['last'])
+                    con.insert_balence(datetime.now(),
+                                       f"Trix : {i[4]}_len{i[5]}_sign{i[6]}_top{i[7]}_bottom{i[8]}_RSI{i[9]}",
+                                       crypto_wallet_value, i[10], "ONN", "sell","No Problem")
+                    print("If you give me more", cryptoSymbol, "I will sell it")
+            elif buyCondition(df.iloc[-2], df.iloc[-3], stoch_top):
                 if float(fiatAmount) > 5:
                     try:
                         while(True):
