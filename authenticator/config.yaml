@@ -26,7 +26,13 @@ credentials:
      password : '$2b$12$8h8vT9ecTFoD.4ow0ZD82el30c5nQvxt.pKbg9K4e12Ejfve60.iK'
      adresse : 'Bois colombes'
      CP: '92'
-  
+    Visitor2023:
+      email: aminzit@gmail.com
+      name : VISITOR 
+      password : '$2b$12$8h8vT9ecTFoD.4ow0ZD82el30c5nQvxt.pKbg9K4e12Ejfve60.iK'
+      adresse : 'Visitor'
+      CP: 'Visitor'
+
 
 
 cookie:
