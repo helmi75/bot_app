@@ -1,6 +1,8 @@
 import sys
 import traceback
 
+import emailing
+
 sys.path.insert(0, "/home/anisse9/bot_app")
 import ccxt
 from fonctions import *
@@ -112,6 +114,14 @@ for i in myresult:
                 except Exception as exceptions:
                     print("*****Exceptions*****")
                     traceback.print_exc()
+                    emailing.send_mail("hadjsassiscompany@gmail.com", name_bot, "Cocotier Bybit", exceptions,
+                                       traceback.format_exc())
+                    emailing.send_mail("helmichiha@gmail.com ", name_bot, "Cocotier Bybit", exceptions,
+                                       traceback.format_exc())
+                    emailing.send_mail("aitmoummad.anisse@gmail.com", name_bot, "Cocotier Bybit", exceptions,
+                                       traceback.format_exc())
+                    emailing.send_mail("aitmoummad.yassine@gmail.com", name_bot, "Cocotier Bybit", exceptions,
+                                       traceback.format_exc())
                     con.insert_balence(datetime.now(), "none", 0, i[7], "OFF", "none",str(exceptions))
                     print("********************")
         except ZeroDivisionError :
@@ -120,11 +130,29 @@ for i in myresult:
             con = ConnectBbd('localhost', '3306', 'root', pwd, 'cryptos', 'mysql_native_password')
             show_time = str(datetime.now())[:19]
             con.insertTime(show_time,i[7])
+            name_bot = i[8]
+            emailing.send_mail("hadjsassiscompany@gmail.com", name_bot, "Cocotier Bybit", eee,
+                               traceback.format_exc())
+            emailing.send_mail("helmichiha@gmail.com ", name_bot, "Cocotier Bybit", eee,
+                               traceback.format_exc())
+            emailing.send_mail("aitmoummad.anisse@gmail.com", name_bot, "Cocotier Bybit", eee,
+                               traceback.format_exc())
+            emailing.send_mail("aitmoummad.yassine@gmail.com", name_bot, "Cocotier Bybit", eee,
+                               traceback.format_exc())
             con.insert_balence(datetime.now(), "none", 0, i[7], "OFF", "none",str(eee))
         except Exception as eee :
             con = ConnectBbd('localhost', '3306', 'root', pwd, 'cryptos', 'mysql_native_password')
             con.insert_balence(datetime.now(), "none", 0, i[7], "OFF", "none",str(eee))
             print(i[8],eee)
+            name_bot = i[8]
+            emailing.send_mail("hadjsassiscompany@gmail.com", name_bot, "Cocotier Bybit", eee,
+                               traceback.format_exc())
+            emailing.send_mail("helmichiha@gmail.com ", name_bot, "Cocotier Bybit", eee,
+                               traceback.format_exc())
+            emailing.send_mail("aitmoummad.anisse@gmail.com", name_bot, "Cocotier Bybit", eee,
+                               traceback.format_exc())
+            emailing.send_mail("aitmoummad.yassine@gmail.com", name_bot, "Cocotier Bybit", eee,
+                               traceback.format_exc())
 
 
 print("")

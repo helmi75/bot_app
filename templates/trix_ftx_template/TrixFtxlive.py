@@ -14,7 +14,7 @@ from datetime import datetime
 import time
 from math import *
 import ta
-import email_v1
+import emailing
 import ccxt
 
 exchangeWallet = ccxt.binance()
@@ -191,7 +191,7 @@ for i in myresult:
           print("Exception type : %s " % ex_type.__name__)
           print("Exception message : %s" %ex_value)
           print("Stack trace : %s \n" %stack_trace)
-          email_v1.send_mail(i[3], pairSymbol,ex_type.__name__, ex_value, stack_trace)
+          # emailing.send_mail(i[3], pairSymbol,ex_type.__name__, ex_value, stack_trace)
           con.insert_balence(datetime.now(),
                              f"Trix : {i[4]}_len{i[5]}_sign{i[6]}_top{i[7]}_bottom{i[8]}_RSI{i[9]}",
                              0, i[10], "OFF", "none",str(ex))
