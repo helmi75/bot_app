@@ -1,1507 +1,2349 @@
- 
------Start the script------
------End of the script-----
- 
- 
------Start the script------
------End of the script-----
- 
- 
------Start the script------
------End of the script-----
- 
- 
------Start the script------
------End of the script-----
- 
- 
------Start the script------
------End of the script-----
- 
- 
------Start the script------
------End of the script-----
- 
- 
------Start the script------
------End of the script-----
- 
- 
------Start the script------
------End of the script-----
- 
- 
------Start the script------
------End of the script-----
- 
- 
------Start the script------
------End of the script-----
- 
- 
------Start the script------
------End of the script-----
- 
- 
------Start the script------
------End of the script-----
- 
- 
------Start the script------
+--- Start Execution Time : 28/03/2023 ---
  
 ///////////////
-ByBit Bot : bybit cocotier test 
+ByBit Bot : bybit_cocotier_test
  
 ============= the dataframe=============
-                    eth/usdt           ada/usdt           doge/usdt            bnb/usdt           dot/usdt          
-                    eth_open eth_close ada_open ada_close doge_open doge_close bnb_open bnb_close dot_open dot_close
-timestamp                                                                                                           
-2023-01-08 08:00:00  1263.65   1274.25   0.2766    0.2880   0.07178    0.07242    261.0     267.0    4.638     4.752
-2023-01-08 16:00:00  1274.25   1290.16   0.2881    0.2974   0.07243    0.07363    267.0     274.9    4.752     4.826
-2023-01-09 00:00:00  1290.15   1311.92   0.2975    0.3256   0.07362    0.07492    274.9     277.7    4.826     4.912
+                    matic/usdt             aave/usdt            atom/usdt            apt/usdt           rndr/usdt            ldo/usdt          
+                    matic_open matic_close aave_open aave_close atom_open atom_close apt_open apt_close rndr_open rndr_close ldo_open ldo_close
+timestamp                                                                                                                                      
+2023-03-27 00:00:00     1.1039      1.0773      72.9       71.8    11.327     11.089  11.8510   11.6023     1.233      1.176    2.150     2.128
+2023-03-27 08:00:00     1.0772      1.0469      71.7       69.5    11.090     10.798  11.6030   11.0942     1.176      1.149    2.128     2.122
+2023-03-27 16:00:00     1.0468      1.0455      69.5       69.8    10.800     10.838  11.0954   11.1310     1.149      1.148    2.123     2.101
 ============= the dataframe=============
-## Wallet amount (USDT) 0.00555625121
+We'll buy MATIC/USDT for now just for the start !
+## Wallet amount (USDT) 0.00898392113
+vendage :  MATIC/USDT
+ 
+Plage Horraire = 8h
+ 
+computing = n-1
+ 
+2023-03-28 00:00:14 , la meilleur crypto est LDO/USDT, je vends MATIC/USDT et j'achete LDO/USDT
+The new crypto wallet is 10.398244100929999
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 28/03/2023 01:00:13 ---
+
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 28/03/2023 02:00:13 ---
+
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 28/03/2023 03:00:13 ---
+
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 28/03/2023 04:00:13 ---
+
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 28/03/2023 05:00:13 ---
+
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 28/03/2023 06:00:15 ---
+
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 28/03/2023 07:00:15 ---
+
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 28/03/2023 08:00:14 ---
+
+ 
+///////////////
+ByBit Bot : bybit_cocotier_test
+ 
+============= the dataframe=============
+                    matic/usdt             aave/usdt            atom/usdt            apt/usdt           rndr/usdt            ldo/usdt          
+                    matic_open matic_close aave_open aave_close atom_open atom_close apt_open apt_close rndr_open rndr_close ldo_open ldo_close
+timestamp                                                                                                                                      
+2023-03-27 08:00:00     1.0772      1.0469      71.7       69.5    11.090     10.798  11.6030   11.0942     1.176      1.149    2.128     2.122
+2023-03-27 16:00:00     1.0468      1.0455      69.5       69.8    10.800     10.838  11.0954   11.1310     1.149      1.148    2.123     2.101
+2023-03-28 00:00:00     1.0454      1.0462      69.8       69.4    10.837     10.859  11.1315   10.9470     1.147      1.124    2.100     2.077
+============= the dataframe=============
+## Wallet amount (USDT) 0.01014600113
+vendage :  LDO/USDT
+ 
+Plage Horraire = 8h
+ 
+computing = n-1
+ 
+2023-03-28 08:00:14 , la meilleur crypto est ATOM/USDT, je vends LDO/USDT et j'achete ATOM/USDT
+The new crypto wallet is 10.24095990753
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 28/03/2023 09:00:14 ---
+
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 28/03/2023 10:00:15 ---
+
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 28/03/2023 11:00:14 ---
+
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 28/03/2023 12:00:14 ---
+
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 28/03/2023 13:00:14 ---
+
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 28/03/2023 14:00:15 ---
+
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 28/03/2023 15:00:14 ---
+
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 28/03/2023 16:00:15 ---
+
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 28/03/2023 17:00:14 ---
+
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 28/03/2023 18:00:16 ---
+
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 28/03/2023 19:00:14 ---
+
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 28/03/2023 20:00:14 ---
+
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 28/03/2023 21:00:13 ---
+
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 28/03/2023 22:00:13 ---
+
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 28/03/2023 23:00:13 ---
+
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 29/03/2023 00:00:13 ---
+
+ 
+///////////////
+ByBit Bot : bybit_cocotier_test
+ 
+============= the dataframe=============
+                    matic/usdt             aave/usdt            atom/usdt            apt/usdt           rndr/usdt            ldo/usdt          
+                    matic_open matic_close aave_open aave_close atom_open atom_close apt_open apt_close rndr_open rndr_close ldo_open ldo_close
+timestamp                                                                                                                                      
+2023-03-28 00:00:00     1.0454      1.0462      69.8       69.4    10.837     10.859  11.1315   10.9470     1.147      1.124    2.100     2.077
+2023-03-28 08:00:00     1.0462      1.0619      69.5       70.2    10.863     11.329  10.9472   11.1000     1.124      1.141    2.078     2.199
+2023-03-28 16:00:00     1.0619      1.0860      70.2       70.6    11.330     11.212  11.0978   11.2683     1.140      1.178    2.199     2.332
+============= the dataframe=============
+We'll buy ATOM/USDT for now just for the start !
+## Wallet amount (USDT) 0.00857342783
+vendage :  ATOM/USDT
+ 
+Plage Horraire = 8h
+ 
+computing = n-1
+ 
+2023-03-29 00:00:13 , la meilleur crypto est LDO/USDT, je vends ATOM/USDT et j'achete LDO/USDT
+The new crypto wallet is 10.50945746173
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 29/03/2023 01:00:13 ---
+
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 29/03/2023 02:00:13 ---
+
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 29/03/2023 03:00:11 ---
+
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 29/03/2023 04:00:11 ---
+
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 29/03/2023 05:00:12 ---
+
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 29/03/2023 06:00:13 ---
+
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 29/03/2023 07:00:13 ---
+
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 29/03/2023 08:00:12 ---
+
+ 
+///////////////
+ByBit Bot : bybit_cocotier_test
+ 
+============= the dataframe=============
+                    matic/usdt             aave/usdt            atom/usdt            apt/usdt           rndr/usdt            ldo/usdt          
+                    matic_open matic_close aave_open aave_close atom_open atom_close apt_open apt_close rndr_open rndr_close ldo_open ldo_close
+timestamp                                                                                                                                      
+2023-03-28 08:00:00     1.0462      1.0619      69.5       70.2    10.863     11.329  10.9472   11.1000     1.124      1.141    2.078     2.199
+2023-03-28 16:00:00     1.0619      1.0860      70.2       70.6    11.330     11.212  11.0978   11.2683     1.140      1.178    2.199     2.332
+2023-03-29 00:00:00     1.0859      1.1347      70.6       72.1    11.213     11.259  11.2690   11.5524     1.178      1.228    2.333     2.381
+============= the dataframe=============
+## Wallet amount (USDT) 0.02442323933
 ## Staying on the same cryptocurency
  
 Plage Horraire = 8h
  
 computing = n-1
  
-2023-01-09 08:00:05 , la meilleur crypto est ADA/USDT, je vends ADA/USDT et j'achete ADA/USDT
-The new crypto wallet is 22.838022986000002
-idd :  8069
-bot_id :  46
-max :  22.838022986000002
-*****Exceptions*****
-1365 (22012): Division by 0
-********************
------End of the script-----
- 
- 
------Start the script------
------End of the script-----
- 
- 
------Start the script------
------End of the script-----
- 
- 
------Start the script------
------End of the script-----
- 
- 
------Start the script------
------End of the script-----
- 
- 
------Start the script------
------End of the script-----
- 
- 
------Start the script------
------End of the script-----
- 
- 
------Start the script------
------End of the script-----
- 
- 
------Start the script------
+2023-03-29 08:00:12 , la meilleur crypto est LDO/USDT, je vends LDO/USDT et j'achete LDO/USDT
+The new crypto wallet is 10.743454949329998
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 29/03/2023 09:00:12 ---
+
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 29/03/2023 10:00:13 ---
+
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 29/03/2023 11:00:13 ---
+
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 29/03/2023 12:00:11 ---
+
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 29/03/2023 13:00:13 ---
+
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 29/03/2023 14:00:11 ---
+
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 29/03/2023 15:00:12 ---
+
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 29/03/2023 16:00:11 ---
+
  
 ///////////////
-ByBit Bot : bybit cocotier test 
+ByBit Bot : bybit_cocotier_test
  
 ============= the dataframe=============
-                    eth/usdt           ada/usdt           doge/usdt            bnb/usdt           dot/usdt          
-                    eth_open eth_close ada_open ada_close doge_open doge_close bnb_open bnb_close dot_open dot_close
-timestamp                                                                                                           
-2023-01-08 16:00:00  1274.25   1290.16   0.2881    0.2974   0.07243    0.07363    267.0     274.9    4.752     4.826
-2023-01-09 00:00:00  1290.15   1311.92   0.2975    0.3256   0.07362    0.07492    274.9     277.7    4.826     4.912
-2023-01-09 08:00:00  1311.93   1335.68   0.3255    0.3207   0.07492    0.07820    277.7     280.3    4.911     5.039
+                    matic/usdt             aave/usdt            atom/usdt            apt/usdt           rndr/usdt            ldo/usdt          
+                    matic_open matic_close aave_open aave_close atom_open atom_close apt_open apt_close rndr_open rndr_close ldo_open ldo_close
+timestamp                                                                                                                                      
+2023-03-28 16:00:00     1.0619      1.0860      70.2       70.6    11.330     11.212  11.0978   11.2683     1.140      1.178    2.199     2.332
+2023-03-29 00:00:00     1.0859      1.1347      70.6       72.1    11.213     11.259  11.2690   11.5524     1.178      1.228    2.333     2.381
+2023-03-29 08:00:00     1.1347      1.1225      72.1       73.1    11.259     11.226  11.5524   11.5727     1.227      1.221    2.382     2.458
 ============= the dataframe=============
-## Wallet amount (USDT) 0.00555625121
+We'll buy LDO/USDT for now just for the start !
+## Wallet amount (USDT) 0.02577233733
 ## Staying on the same cryptocurency
  
 Plage Horraire = 8h
  
 computing = n-1
  
-2023-01-09 16:00:05 , la meilleur crypto est ADA/USDT, je vends ADA/USDT et j'achete ADA/USDT
-The new crypto wallet is 22.487553514
-idd :  8071
-bot_id :  46
-max :  22.838022986000002
-*****Exceptions*****
-1365 (22012): Division by 0
-********************
------End of the script-----
- 
- 
------Start the script------
------End of the script-----
- 
- 
------Start the script------
------End of the script-----
- 
- 
------Start the script------
------End of the script-----
- 
- 
------Start the script------
------End of the script-----
- 
- 
------Start the script------
------End of the script-----
- 
- 
------Start the script------
------End of the script-----
- 
- 
------Start the script------
------End of the script-----
- 
- 
------Start the script------
+2023-03-29 16:00:11 , la meilleur crypto est LDO/USDT, je vends LDO/USDT et j'achete LDO/USDT
+The new crypto wallet is 11.11257453383
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 29/03/2023 17:00:11 ---
+
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 29/03/2023 18:00:11 ---
+
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 29/03/2023 19:00:11 ---
+
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 29/03/2023 20:00:12 ---
+
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 29/03/2023 21:00:11 ---
+
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 29/03/2023 22:00:12 ---
+
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 29/03/2023 23:00:11 ---
+
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 30/03/2023 00:00:12 ---
+
  
 ///////////////
-ByBit Bot : bybit cocotier test 
+ByBit Bot : bybit_cocotier_test
  
 ============= the dataframe=============
-                    eth/usdt           ada/usdt           doge/usdt            bnb/usdt           dot/usdt          
-                    eth_open eth_close ada_open ada_close doge_open doge_close bnb_open bnb_close dot_open dot_close
-timestamp                                                                                                           
-2023-01-09 00:00:00  1290.15   1311.92   0.2975    0.3256   0.07362    0.07492    274.9     277.7    4.826     4.912
-2023-01-09 08:00:00  1311.93   1335.68   0.3255    0.3207   0.07492    0.07820    277.7     280.3    4.911     5.039
-2023-01-09 16:00:00  1335.69   1320.39   0.3207    0.3168   0.07818    0.07566    280.4     272.6    5.039     4.887
+                    matic/usdt             aave/usdt            atom/usdt            apt/usdt           rndr/usdt            ldo/usdt          
+                    matic_open matic_close aave_open aave_close atom_open atom_close apt_open apt_close rndr_open rndr_close ldo_open ldo_close
+timestamp                                                                                                                                      
+2023-03-29 00:00:00     1.0859      1.1347      70.6       72.1    11.213     11.259  11.2690   11.5524     1.178      1.228    2.333     2.381
+2023-03-29 08:00:00     1.1347      1.1225      72.1       73.1    11.259     11.226  11.5524   11.5727     1.227      1.221    2.382     2.458
+2023-03-29 16:00:00     1.1224      1.1223      73.2       72.9    11.225     11.430  11.5727   11.6318     1.220      1.293    2.457     2.380
 ============= the dataframe=============
-## Wallet amount (USDT) 0.00555625121
-vendage :  ADA/USDT
+We'll buy LDO/USDT for now just for the start !
+We'll buy btc for now just for the start !
+*****Exceptions*****
+bybit {"retCode":33004,"retMsg":"Your api key has expired.","result":{},"retExtInfo":{},"time":1680134418127}
+********************
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 30/03/2023 01:00:12 ---
+
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 30/03/2023 02:00:14 ---
+
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 30/03/2023 03:00:13 ---
+
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 30/03/2023 04:00:11 ---
+
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 30/03/2023 05:00:13 ---
+
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 30/03/2023 06:00:13 ---
+
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 30/03/2023 07:00:13 ---
+
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 30/03/2023 08:00:12 ---
+
+ 
+///////////////
+ByBit Bot : bybit_cocotier_test
+ 
+============= the dataframe=============
+                    matic/usdt             aave/usdt            atom/usdt            apt/usdt           rndr/usdt            ldo/usdt          
+                    matic_open matic_close aave_open aave_close atom_open atom_close apt_open apt_close rndr_open rndr_close ldo_open ldo_close
+timestamp                                                                                                                                      
+2023-03-29 08:00:00     1.1347      1.1225      72.1       73.1    11.259     11.226  11.5524   11.5727     1.227      1.221    2.382     2.458
+2023-03-29 16:00:00     1.1224      1.1223      73.2       72.9    11.225     11.430  11.5727   11.6318     1.220      1.293    2.457     2.380
+2023-03-30 00:00:00     1.1222      1.1202      72.9       72.9    11.429     11.213  11.6318   11.3146     1.291      1.295    2.381     2.372
+============= the dataframe=============
+*****Exceptions*****
+bybit {"retCode":33004,"retMsg":"Your api key has expired.","result":{},"retExtInfo":{},"time":1680163218188}
+********************
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 30/03/2023 09:00:13 ---
+
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 30/03/2023 10:00:14 ---
+
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 30/03/2023 11:00:12 ---
+
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 30/03/2023 12:00:13 ---
+
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 30/03/2023 13:00:12 ---
+
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 30/03/2023 14:00:12 ---
+
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 30/03/2023 15:00:12 ---
+
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 30/03/2023 16:00:12 ---
+
+ 
+///////////////
+ByBit Bot : bybit_cocotier_test
+ 
+============= the dataframe=============
+                    matic/usdt             aave/usdt            atom/usdt            apt/usdt           rndr/usdt            ldo/usdt          
+                    matic_open matic_close aave_open aave_close atom_open atom_close apt_open apt_close rndr_open rndr_close ldo_open ldo_close
+timestamp                                                                                                                                      
+2023-03-29 16:00:00     1.1224      1.1223      73.2       72.9    11.225     11.430  11.5727   11.6318     1.220      1.293    2.457     2.380
+2023-03-30 00:00:00     1.1222      1.1202      72.9       72.9    11.429     11.213  11.6318   11.3146     1.291      1.295    2.381     2.372
+2023-03-30 08:00:00     1.1201      1.0967      72.8       71.2    11.212     11.057  11.3105   11.0653     1.295      1.240    2.372     2.280
+============= the dataframe=============
+## Wallet amount (USDT) 10.68881462133
+*****Exceptions*****
+''
+********************
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 30/03/2023 17:00:11 ---
+
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 30/03/2023 18:00:12 ---
+
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 30/03/2023 19:00:11 ---
+
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 30/03/2023 20:00:11 ---
+
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 30/03/2023 21:00:12 ---
+
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 30/03/2023 22:00:13 ---
+
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 30/03/2023 23:00:12 ---
+
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 31/03/2023 00:00:13 ---
+
+ 
+///////////////
+ByBit Bot : bybit_cocotier_test
+ 
+============= the dataframe=============
+                    matic/usdt             aave/usdt            atom/usdt            apt/usdt           rndr/usdt            ldo/usdt          
+                    matic_open matic_close aave_open aave_close atom_open atom_close apt_open apt_close rndr_open rndr_close ldo_open ldo_close
+timestamp                                                                                                                                      
+2023-03-30 00:00:00     1.1222      1.1202      72.9       72.9    11.429     11.213  11.6318   11.3146     1.291      1.295    2.381     2.372
+2023-03-30 08:00:00     1.1201      1.0967      72.8       71.2    11.212     11.057  11.3105   11.0653     1.295      1.240    2.372     2.280
+2023-03-30 16:00:00     1.0967      1.0930      71.2       71.3    11.057     11.149  11.0652   11.1596     1.240      1.262    2.280     2.330
+============= the dataframe=============
+## Wallet amount (USDT) 10.68881462133
+*****Exceptions*****
+''
+********************
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 31/03/2023 01:00:12 ---
+
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 31/03/2023 02:00:11 ---
+
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 31/03/2023 03:00:14 ---
+
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 31/03/2023 04:00:11 ---
+
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 31/03/2023 05:00:13 ---
+
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 31/03/2023 06:00:13 ---
+
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 31/03/2023 07:00:11 ---
+
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 31/03/2023 08:00:11 ---
+
+ 
+///////////////
+ByBit Bot : bybit_cocotier_test
+ 
+============= the dataframe=============
+                    matic/usdt             aave/usdt            atom/usdt            apt/usdt           rndr/usdt            ldo/usdt          
+                    matic_open matic_close aave_open aave_close atom_open atom_close apt_open apt_close rndr_open rndr_close ldo_open ldo_close
+timestamp                                                                                                                                      
+2023-03-30 08:00:00     1.1201      1.0967      72.8       71.2    11.212     11.057  11.3105   11.0653     1.295      1.240    2.372     2.280
+2023-03-30 16:00:00     1.0967      1.0930      71.2       71.3    11.057     11.149  11.0652   11.1596     1.240      1.262    2.280     2.330
+2023-03-31 00:00:00     1.0930      1.0850      71.4       71.4    11.149     11.102  11.1589   11.2500     1.261      1.220    2.330     2.348
+============= the dataframe=============
+## Wallet amount (USDT) 10.68881462133
+*****Exceptions*****
+''
+********************
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 31/03/2023 09:00:13 ---
+
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 31/03/2023 10:00:14 ---
+
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 31/03/2023 11:00:13 ---
+
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 31/03/2023 12:00:12 ---
+
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 31/03/2023 13:00:13 ---
+
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 31/03/2023 14:00:11 ---
+
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 31/03/2023 15:00:11 ---
+
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 31/03/2023 16:00:11 ---
+
+ 
+///////////////
+ByBit Bot : bybit_cocotier_test
+ 
+============= the dataframe=============
+                    matic/usdt             aave/usdt            atom/usdt            apt/usdt           rndr/usdt            ldo/usdt          
+                    matic_open matic_close aave_open aave_close atom_open atom_close apt_open apt_close rndr_open rndr_close ldo_open ldo_close
+timestamp                                                                                                                                      
+2023-03-30 16:00:00     1.0967       1.093      71.2       71.3    11.057     11.149  11.0652   11.1596     1.240      1.262    2.280     2.330
+2023-03-31 00:00:00     1.0930       1.085      71.4       71.4    11.149     11.102  11.1589   11.2500     1.261      1.220    2.330     2.348
+2023-03-31 08:00:00     1.0850       1.109      71.4       73.7    11.101     11.284  11.2500   11.3395     1.220      1.284    2.348     2.476
+============= the dataframe=============
+## Wallet amount (USDT) 10.68881462133
+*****Exceptions*****
+''
+********************
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 31/03/2023 17:00:11 ---
+
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 31/03/2023 18:00:14 ---
+
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 31/03/2023 19:00:12 ---
+
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 31/03/2023 20:00:12 ---
+
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 31/03/2023 21:00:12 ---
+
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 31/03/2023 22:00:13 ---
+
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 31/03/2023 23:00:12 ---
+
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 01/04/2023 00:00:13 ---
+
+ 
+///////////////
+ByBit Bot : bybit_cocotier_test
+ 
+============= the dataframe=============
+                    matic/usdt             aave/usdt            atom/usdt            apt/usdt           rndr/usdt            ldo/usdt          
+                    matic_open matic_close aave_open aave_close atom_open atom_close apt_open apt_close rndr_open rndr_close ldo_open ldo_close
+timestamp                                                                                                                                      
+2023-03-31 00:00:00     1.0930      1.0850      71.4       71.4    11.149     11.102  11.1589   11.2500     1.261      1.220    2.330     2.348
+2023-03-31 08:00:00     1.0850      1.1090      71.4       73.7    11.101     11.284  11.2500   11.3395     1.220      1.284    2.348     2.476
+2023-03-31 16:00:00     1.1089      1.1176      73.7       74.2    11.284     11.188  11.3391   11.3838     1.284      1.373    2.475     2.453
+============= the dataframe=============
+We'll buy LDO/USDT for now just for the start !
+## Wallet amount (USDT) 0.02114598133
+vendage :  LDO/USDT
  
 Plage Horraire = 8h
  
 computing = n-1
  
-2023-01-10 00:00:06 , la meilleur crypto est DOGE/USDT, je vends ADA/USDT et j'achete DOGE/USDT
-The new crypto wallet is 22.146629452
-idd :  8073
-bot_id :  46
-max :  22.838022986000002
-*****Exceptions*****
-1365 (22012): Division by 0
-********************
------End of the script-----
- 
- 
------Start the script------
------End of the script-----
- 
- 
------Start the script------
------End of the script-----
- 
- 
------Start the script------
------End of the script-----
- 
- 
------Start the script------
------End of the script-----
- 
- 
------Start the script------
------End of the script-----
- 
- 
------Start the script------
------End of the script-----
- 
- 
------Start the script------
------End of the script-----
- 
- 
------Start the script------
- 
-///////////////
-ByBit Bot : bybit cocotier test 
- 
-============= the dataframe=============
-                    eth/usdt           ada/usdt           doge/usdt            bnb/usdt           dot/usdt          
-                    eth_open eth_close ada_open ada_close doge_open doge_close bnb_open bnb_close dot_open dot_close
-timestamp                                                                                                           
-2023-01-09 08:00:00  1311.93   1335.68   0.3255    0.3207   0.07492    0.07820    277.7     280.3    4.911     5.039
-2023-01-09 16:00:00  1335.69   1320.39   0.3207    0.3168   0.07818    0.07566    280.4     272.6    5.039     4.887
-2023-01-10 00:00:00  1320.40   1323.23   0.3168    0.3151   0.07565    0.07572    272.6     274.4    4.886     4.885
-============= the dataframe=============
-## Wallet amount (USDT) 0.03529634121
-vendage :  DOGE/USDT
- 
-Plage Horraire = 8h
- 
-computing = n-1
- 
-2023-01-10 08:00:05 , la meilleur crypto est ETH/USDT, je vends DOGE/USDT et j'achete ETH/USDT
-The new crypto wallet is 22.1203992405
-idd :  8075
-bot_id :  46
-max :  22.838022986000002
-*****Exceptions*****
-1365 (22012): Division by 0
-********************
------End of the script-----
- 
- 
------Start the script------
------End of the script-----
- 
- 
------Start the script------
------End of the script-----
- 
- 
------Start the script------
------End of the script-----
- 
- 
------Start the script------
------End of the script-----
- 
- 
------Start the script------
------End of the script-----
- 
- 
------Start the script------
------End of the script-----
- 
- 
------Start the script------
------End of the script-----
- 
- 
------Start the script------
+2023-04-01 00:00:13 , la meilleur crypto est RNDR/USDT, je vends LDO/USDT et j'achete RNDR/USDT
+The new crypto wallet is 10.98972487663
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 01/04/2023 01:00:12 ---
+
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 01/04/2023 02:00:12 ---
+
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 01/04/2023 03:00:11 ---
+
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 01/04/2023 04:00:12 ---
+
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 01/04/2023 05:00:12 ---
+
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 01/04/2023 06:00:12 ---
+
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 01/04/2023 07:00:13 ---
+
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 01/04/2023 08:00:12 ---
+
  
 ///////////////
-ByBit Bot : bybit cocotier test 
+ByBit Bot : bybit_cocotier_test
  
 ============= the dataframe=============
-                    eth/usdt           ada/usdt           doge/usdt            bnb/usdt           dot/usdt          
-                    eth_open eth_close ada_open ada_close doge_open doge_close bnb_open bnb_close dot_open dot_close
-timestamp                                                                                                           
-2023-01-09 16:00:00  1335.69   1320.39   0.3207    0.3168   0.07818    0.07566    280.4     272.6    5.039     4.887
-2023-01-10 00:00:00  1320.40   1323.23   0.3168    0.3151   0.07565    0.07572    272.6     274.4    4.886     4.885
-2023-01-10 08:00:00  1323.22   1333.97   0.3151    0.3203   0.07573    0.07663    274.5     275.9    4.886     4.922
+                    matic/usdt             aave/usdt            atom/usdt            apt/usdt           rndr/usdt            ldo/usdt          
+                    matic_open matic_close aave_open aave_close atom_open atom_close apt_open apt_close rndr_open rndr_close ldo_open ldo_close
+timestamp                                                                                                                                      
+2023-03-31 08:00:00     1.0850      1.1090      71.4       73.7    11.101     11.284  11.2500   11.3395     1.220      1.284    2.348     2.476
+2023-03-31 16:00:00     1.1089      1.1176      73.7       74.2    11.284     11.188  11.3391   11.3838     1.284      1.373    2.475     2.453
+2023-04-01 00:00:00     1.1176      1.1101      74.2       73.7    11.188     11.098  11.3843   11.2256     1.374      1.340    2.454     2.429
 ============= the dataframe=============
-## Wallet amount (USDT) 0.00186322121
-vendage :  ETH/USDT
- 
-Plage Horraire = 8h
- 
-computing = n-1
- 
-2023-01-10 16:00:06 , la meilleur crypto est DOGE/USDT, je vends ETH/USDT et j'achete DOGE/USDT
-The new crypto wallet is 22.2459032135
-idd :  8077
-bot_id :  46
-max :  22.838022986000002
-*****Exceptions*****
-1365 (22012): Division by 0
-********************
------End of the script-----
- 
- 
------Start the script------
------End of the script-----
- 
- 
------Start the script------
------End of the script-----
- 
- 
------Start the script------
------End of the script-----
- 
- 
------Start the script------
------End of the script-----
- 
- 
------Start the script------
------End of the script-----
- 
- 
------Start the script------
------End of the script-----
- 
- 
------Start the script------
------End of the script-----
- 
- 
------Start the script------
- 
-///////////////
-ByBit Bot : bybit cocotier test 
- 
-============= the dataframe=============
-                    eth/usdt           ada/usdt           doge/usdt            bnb/usdt           dot/usdt          
-                    eth_open eth_close ada_open ada_close doge_open doge_close bnb_open bnb_close dot_open dot_close
-timestamp                                                                                                           
-2023-01-10 00:00:00  1320.40   1323.23   0.3168    0.3151   0.07565    0.07572    272.6     274.4    4.886     4.885
-2023-01-10 08:00:00  1323.22   1333.97   0.3151    0.3203   0.07573    0.07663    274.5     275.9    4.886     4.922
-2023-01-10 16:00:00  1333.97   1335.62   0.3203    0.3222   0.07664    0.07782    275.9     277.1    4.923     4.920
-============= the dataframe=============
-## Wallet amount (USDT) 0.02032402841
+We'll buy RNDR/USDT for now just for the start !
+## Wallet amount (USDT) 0.00530135533
 ## Staying on the same cryptocurency
  
 Plage Horraire = 8h
  
 computing = n-1
  
-2023-01-11 00:00:05 , la meilleur crypto est DOGE/USDT, je vends DOGE/USDT et j'achete DOGE/USDT
-The new crypto wallet is 22.582655945500004
-idd :  8079
-bot_id :  46
-max :  22.838022986000002
-*****Exceptions*****
-1365 (22012): Division by 0
-********************
------End of the script-----
- 
- 
------Start the script------
------End of the script-----
- 
- 
------Start the script------
------End of the script-----
- 
- 
------Start the script------
------End of the script-----
- 
- 
------Start the script------
------End of the script-----
- 
- 
------Start the script------
------End of the script-----
- 
- 
------Start the script------
------End of the script-----
- 
- 
------Start the script------
------End of the script-----
- 
- 
------Start the script------
+2023-04-01 08:00:12 , la meilleur crypto est RNDR/USDT, je vends RNDR/USDT et j'achete RNDR/USDT
+The new crypto wallet is 10.964917592430002
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 01/04/2023 09:00:13 ---
+
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 01/04/2023 10:00:12 ---
+
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 01/04/2023 11:00:13 ---
+
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 01/04/2023 12:00:12 ---
+
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 01/04/2023 13:00:12 ---
+
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 01/04/2023 14:00:12 ---
+
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 01/04/2023 15:00:12 ---
+
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 01/04/2023 16:00:12 ---
+
  
 ///////////////
-ByBit Bot : bybit cocotier test 
+ByBit Bot : bybit_cocotier_test
  
 ============= the dataframe=============
-                    eth/usdt           ada/usdt           doge/usdt            bnb/usdt           dot/usdt          
-                    eth_open eth_close ada_open ada_close doge_open doge_close bnb_open bnb_close dot_open dot_close
-timestamp                                                                                                           
-2023-01-10 08:00:00  1323.22   1333.97   0.3151    0.3203   0.07573    0.07663    274.5     275.9    4.886     4.922
-2023-01-10 16:00:00  1333.97   1335.62   0.3203    0.3222   0.07664    0.07782    275.9     277.1    4.923     4.920
-2023-01-11 00:00:00  1335.63   1335.52   0.3222    0.3157   0.07782    0.07705    277.2     277.8    4.920     4.884
+                    matic/usdt             aave/usdt            atom/usdt            apt/usdt           rndr/usdt            ldo/usdt          
+                    matic_open matic_close aave_open aave_close atom_open atom_close apt_open apt_close rndr_open rndr_close ldo_open ldo_close
+timestamp                                                                                                                                      
+2023-03-31 16:00:00     1.1089      1.1176      73.7       74.2    11.284     11.188  11.3391   11.3838     1.284      1.373    2.475     2.453
+2023-04-01 00:00:00     1.1176      1.1101      74.2       73.7    11.188     11.098  11.3843   11.2256     1.374      1.340    2.454     2.429
+2023-04-01 08:00:00     1.1101      1.1046      73.7       74.0    11.098     11.158  11.2256   11.1754     1.339      1.334    2.429     2.390
 ============= the dataframe=============
-## Wallet amount (USDT) 0.02032402841
-vendage :  DOGE/USDT
+## Wallet amount (USDT) 0.00530135533
+vendage :  RNDR/USDT
  
 Plage Horraire = 8h
  
 computing = n-1
  
-2023-01-11 08:00:06 , la meilleur crypto est BNB/USDT, je vends DOGE/USDT et j'achete BNB/USDT
-The new crypto wallet is 22.191271287000003
-idd :  8081
-bot_id :  46
-max :  22.838022986000002
-*****Exceptions*****
-1365 (22012): Division by 0
-********************
------End of the script-----
- 
- 
------Start the script------
------End of the script-----
- 
- 
------Start the script------
------End of the script-----
- 
- 
------Start the script------
------End of the script-----
- 
- 
------Start the script------
------End of the script-----
- 
- 
------Start the script------
------End of the script-----
- 
- 
------Start the script------
------End of the script-----
- 
- 
------Start the script------
------End of the script-----
- 
- 
------Start the script------
+2023-04-01 16:00:12 , la meilleur crypto est ATOM/USDT, je vends RNDR/USDT et j'achete ATOM/USDT
+The new crypto wallet is 10.885200263329999
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 01/04/2023 17:00:12 ---
+
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 01/04/2023 18:00:12 ---
+
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 01/04/2023 19:00:11 ---
+
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 01/04/2023 20:00:11 ---
+
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 01/04/2023 21:00:16 ---
+
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 01/04/2023 22:00:12 ---
+
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 01/04/2023 23:00:12 ---
+
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 02/04/2023 00:00:14 ---
+
  
 ///////////////
-ByBit Bot : bybit cocotier test 
+ByBit Bot : bybit_cocotier_test
  
 ============= the dataframe=============
-                    eth/usdt           ada/usdt           doge/usdt            bnb/usdt           dot/usdt          
-                    eth_open eth_close ada_open ada_close doge_open doge_close bnb_open bnb_close dot_open dot_close
-timestamp                                                                                                           
-2023-01-10 16:00:00  1333.97   1335.62   0.3203    0.3222   0.07664    0.07782    275.9     277.1    4.923     4.920
-2023-01-11 00:00:00  1335.63   1335.52   0.3222    0.3157   0.07782    0.07705    277.2     277.8    4.920     4.884
-2023-01-11 08:00:00  1335.53   1323.04   0.3157    0.3090   0.07705    0.07512    277.7     276.8    4.883     4.847
+                    matic/usdt             aave/usdt            atom/usdt            apt/usdt           rndr/usdt            ldo/usdt          
+                    matic_open matic_close aave_open aave_close atom_open atom_close apt_open apt_close rndr_open rndr_close ldo_open ldo_close
+timestamp                                                                                                                                      
+2023-04-01 00:00:00     1.1176      1.1101      74.2       73.7    11.188     11.098  11.3843   11.2256     1.374      1.340    2.454     2.429
+2023-04-01 08:00:00     1.1101      1.1046      73.7       74.0    11.098     11.158  11.2256   11.1754     1.339      1.334    2.429     2.390
+2023-04-01 16:00:00     1.1046      1.1120      74.0       74.1    11.159     11.383  11.1788   11.2682     1.333      1.346    2.388     2.406
 ============= the dataframe=============
-## Wallet amount (USDT) 0.12417299641
+## Wallet amount (USDT) 0.01185038533
 ## Staying on the same cryptocurency
  
 Plage Horraire = 8h
  
 computing = n-1
  
-2023-01-11 16:00:06 , la meilleur crypto est BNB/USDT, je vends BNB/USDT et j'achete BNB/USDT
-The new crypto wallet is 22.1071978155
-idd :  8083
-bot_id :  46
-max :  22.838022986000002
-*****Exceptions*****
-1365 (22012): Division by 0
-********************
------End of the script-----
- 
- 
------Start the script------
------End of the script-----
- 
- 
------Start the script------
------End of the script-----
- 
- 
------Start the script------
------End of the script-----
- 
- 
------Start the script------
------End of the script-----
- 
- 
------Start the script------
------End of the script-----
- 
- 
------Start the script------
------End of the script-----
- 
- 
------Start the script------
------End of the script-----
- 
- 
------Start the script------
+2023-04-02 00:00:14 , la meilleur crypto est ATOM/USDT, je vends ATOM/USDT et j'achete ATOM/USDT
+The new crypto wallet is 11.091232658629995
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 02/04/2023 01:00:14 ---
+
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 02/04/2023 02:00:13 ---
+
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 02/04/2023 03:00:12 ---
+
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 02/04/2023 04:00:12 ---
+
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 02/04/2023 05:00:11 ---
+
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 02/04/2023 06:00:11 ---
+
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 02/04/2023 07:00:12 ---
+
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 02/04/2023 08:00:12 ---
+
  
 ///////////////
-ByBit Bot : bybit cocotier test 
+ByBit Bot : bybit_cocotier_test
  
 ============= the dataframe=============
-                    eth/usdt           ada/usdt           doge/usdt            bnb/usdt           dot/usdt          
-                    eth_open eth_close ada_open ada_close doge_open doge_close bnb_open bnb_close dot_open dot_close
-timestamp                                                                                                           
-2023-01-11 00:00:00  1335.63   1335.52   0.3222    0.3157   0.07782    0.07705    277.2     277.8    4.920     4.884
-2023-01-11 08:00:00  1335.53   1323.04   0.3157    0.3090   0.07705    0.07512    277.7     276.8    4.883     4.847
-2023-01-11 16:00:00  1323.05   1389.39   0.3090    0.3230   0.07511    0.07814    276.8     284.8    4.847     5.135
+                    matic/usdt             aave/usdt            atom/usdt            apt/usdt           rndr/usdt            ldo/usdt          
+                    matic_open matic_close aave_open aave_close atom_open atom_close apt_open apt_close rndr_open rndr_close ldo_open ldo_close
+timestamp                                                                                                                                      
+2023-04-01 08:00:00     1.1101      1.1046      73.7       74.0    11.098     11.158  11.2256   11.1754     1.339      1.334    2.429     2.390
+2023-04-01 16:00:00     1.1046      1.1120      74.0       74.1    11.159     11.383  11.1788   11.2682     1.333      1.346    2.388     2.406
+2023-04-02 00:00:00     1.1120      1.1175      74.2       74.5    11.384     11.411  11.2684   11.4419     1.347      1.319    2.406     2.401
 ============= the dataframe=============
-## Wallet amount (USDT) 0.12417299641
-vendage :  BNB/USDT
+## Wallet amount (USDT) 0.01185038533
+vendage :  ATOM/USDT
  
 Plage Horraire = 8h
  
 computing = n-1
  
-2023-01-12 00:00:06 , la meilleur crypto est DOT/USDT, je vends BNB/USDT et j'achete DOT/USDT
-The new crypto wallet is 22.823943531
-idd :  8085
-bot_id :  46
-max :  22.838022986000002
-*****Exceptions*****
-1365 (22012): Division by 0
-********************
------End of the script-----
- 
- 
------Start the script------
------End of the script-----
- 
- 
------Start the script------
------End of the script-----
- 
- 
------Start the script------
------End of the script-----
- 
- 
------Start the script------
------End of the script-----
- 
- 
------Start the script------
------End of the script-----
- 
- 
------Start the script------
------End of the script-----
- 
- 
------Start the script------
------End of the script-----
- 
- 
------Start the script------
- 
-///////////////
-ByBit Bot : bybit cocotier test 
- 
-============= the dataframe=============
-                    eth/usdt           ada/usdt           doge/usdt            bnb/usdt           dot/usdt          
-                    eth_open eth_close ada_open ada_close doge_open doge_close bnb_open bnb_close dot_open dot_close
-timestamp                                                                                                           
-2023-01-11 08:00:00  1335.53   1323.04   0.3157    0.3090   0.07705    0.07512    277.7     276.8    4.883     4.847
-2023-01-11 16:00:00  1323.05   1389.39   0.3090    0.3230   0.07511    0.07814    276.8     284.8    4.847     5.135
-2023-01-12 00:00:00  1389.40   1398.45   0.3230    0.3247   0.07816    0.07912    284.9     285.1    5.134     5.121
-============= the dataframe=============
-## Wallet amount (USDT) 0.00142236671
-vendage :  DOT/USDT
- 
-Plage Horraire = 8h
- 
-computing = n-1
- 
-2023-01-12 08:00:05 , la meilleur crypto est ETH/USDT, je vends DOT/USDT et j'achete ETH/USDT
-The new crypto wallet is 22.691864059500002
-idd :  8087
-bot_id :  46
-max :  22.838022986000002
-*****Exceptions*****
-1365 (22012): Division by 0
-********************
------End of the script-----
- 
- 
------Start the script------
------End of the script-----
- 
- 
------Start the script------
------End of the script-----
- 
- 
------Start the script------
------End of the script-----
- 
- 
------Start the script------
------End of the script-----
- 
- 
------Start the script------
------End of the script-----
- 
- 
------Start the script------
------End of the script-----
- 
- 
------Start the script------
------End of the script-----
- 
- 
------Start the script------
+2023-04-02 08:00:12 , la meilleur crypto est APT/USDT, je vends ATOM/USDT et j'achete APT/USDT
+The new crypto wallet is 11.109819499030001
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 02/04/2023 09:00:12 ---
+
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 02/04/2023 10:00:12 ---
+
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 02/04/2023 11:00:12 ---
+
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 02/04/2023 12:00:13 ---
+
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 02/04/2023 13:00:11 ---
+
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 02/04/2023 14:00:13 ---
+
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 02/04/2023 15:00:10 ---
+
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 02/04/2023 16:00:12 ---
+
  
 ///////////////
-ByBit Bot : bybit cocotier test 
+ByBit Bot : bybit_cocotier_test
  
 ============= the dataframe=============
-                    eth/usdt           ada/usdt           doge/usdt            bnb/usdt           dot/usdt          
-                    eth_open eth_close ada_open ada_close doge_open doge_close bnb_open bnb_close dot_open dot_close
-timestamp                                                                                                           
-2023-01-11 16:00:00  1323.05   1389.39   0.3090    0.3230   0.07511    0.07814    276.8     284.8    4.847     5.135
-2023-01-12 00:00:00  1389.40   1398.45   0.3230    0.3247   0.07816    0.07912    284.9     285.1    5.134     5.121
-2023-01-12 08:00:00  1398.44   1386.07   0.3247    0.3223   0.07912    0.07728    285.1     281.6    5.119     5.072
+                    matic/usdt             aave/usdt            atom/usdt            apt/usdt           rndr/usdt            ldo/usdt          
+                    matic_open matic_close aave_open aave_close atom_open atom_close apt_open apt_close rndr_open rndr_close ldo_open ldo_close
+timestamp                                                                                                                                      
+2023-04-01 16:00:00     1.1046      1.1120      74.0       74.1    11.159     11.383  11.1788   11.2682     1.333      1.346    2.388     2.406
+2023-04-02 00:00:00     1.1120      1.1175      74.2       74.5    11.384     11.411  11.2684   11.4419     1.347      1.319    2.406     2.401
+2023-04-02 08:00:00     1.1174      1.0928      74.4       72.5    11.411     11.071  11.4397   12.1328     1.317      1.296    2.402     2.392
 ============= the dataframe=============
-## Wallet amount (USDT) 0.01211034271
-vendage :  ETH/USDT
- 
-Plage Horraire = 8h
- 
-computing = n-1
- 
-2023-01-12 16:00:05 , la meilleur crypto est ADA/USDT, je vends ETH/USDT et j'achete ADA/USDT
-The new crypto wallet is 22.44252402
-idd :  8089
-bot_id :  46
-max :  22.838022986000002
-*****Exceptions*****
-1365 (22012): Division by 0
-********************
------End of the script-----
- 
- 
------Start the script------
------End of the script-----
- 
- 
------Start the script------
------End of the script-----
- 
- 
------Start the script------
------End of the script-----
- 
- 
------Start the script------
------End of the script-----
- 
- 
------Start the script------
------End of the script-----
- 
- 
------Start the script------
------End of the script-----
- 
- 
------Start the script------
------End of the script-----
- 
- 
------Start the script------
- 
-///////////////
-ByBit Bot : bybit cocotier test 
- 
-============= the dataframe=============
-                    eth/usdt           ada/usdt           doge/usdt            bnb/usdt           dot/usdt          
-                    eth_open eth_close ada_open ada_close doge_open doge_close bnb_open bnb_close dot_open dot_close
-timestamp                                                                                                           
-2023-01-12 00:00:00  1389.40   1398.45   0.3230    0.3247   0.07816    0.07912    284.9     285.1    5.134     5.121
-2023-01-12 08:00:00  1398.44   1386.07   0.3247    0.3223   0.07912    0.07728    285.1     281.6    5.119     5.072
-2023-01-12 16:00:00  1386.07   1415.92   0.3223    0.3293   0.07728    0.08025    281.6     287.7    5.071     5.232
-============= the dataframe=============
-## Wallet amount (USDT) 0.00919810471
-vendage :  ADA/USDT
- 
-Plage Horraire = 8h
- 
-computing = n-1
- 
-2023-01-13 00:00:06 , la meilleur crypto est DOT/USDT, je vends ADA/USDT et j'achete DOT/USDT
-The new crypto wallet is 22.9160520305
-idd :  8091
-bot_id :  46
-max :  22.9160520305
-*****Exceptions*****
-1365 (22012): Division by 0
-********************
------End of the script-----
- 
- 
------Start the script------
------End of the script-----
- 
- 
------Start the script------
------End of the script-----
- 
- 
------Start the script------
------End of the script-----
- 
- 
------Start the script------
------End of the script-----
- 
- 
------Start the script------
------End of the script-----
- 
- 
------Start the script------
------End of the script-----
- 
- 
------Start the script------
------End of the script-----
- 
- 
------Start the script------
- 
-///////////////
-ByBit Bot : bybit cocotier test 
- 
-============= the dataframe=============
-                    eth/usdt           ada/usdt           doge/usdt            bnb/usdt           dot/usdt          
-                    eth_open eth_close ada_open ada_close doge_open doge_close bnb_open bnb_close dot_open dot_close
-timestamp                                                                                                           
-2023-01-12 08:00:00  1398.44   1386.07   0.3247    0.3223   0.07912    0.07728    285.1     281.6    5.119     5.072
-2023-01-12 16:00:00  1386.07   1415.92   0.3223    0.3293   0.07728    0.08025    281.6     287.7    5.071     5.232
-2023-01-13 00:00:00  1415.91   1408.12   0.3293    0.3279   0.08025    0.08002    287.8     287.9    5.233     5.219
-============= the dataframe=============
-## Wallet amount (USDT) 0.00175573871
-vendage :  DOT/USDT
- 
-Plage Horraire = 8h
- 
-computing = n-1
- 
-2023-01-13 08:00:06 , la meilleur crypto est DOGE/USDT, je vends DOT/USDT et j'achete DOGE/USDT
-The new crypto wallet is 22.735683963999996
-idd :  8093
-bot_id :  46
-max :  22.9160520305
-*****Exceptions*****
-1365 (22012): Division by 0
-********************
------End of the script-----
- 
- 
------Start the script------
------End of the script-----
- 
- 
------Start the script------
------End of the script-----
- 
- 
------Start the script------
------End of the script-----
- 
- 
------Start the script------
------End of the script-----
- 
- 
------Start the script------
------End of the script-----
- 
- 
------Start the script------
------End of the script-----
- 
- 
------Start the script------
------End of the script-----
- 
- 
------Start the script------
- 
-///////////////
-ByBit Bot : bybit cocotier test 
- 
-============= the dataframe=============
-                    eth/usdt           ada/usdt           doge/usdt            bnb/usdt           dot/usdt          
-                    eth_open eth_close ada_open ada_close doge_open doge_close bnb_open bnb_close dot_open dot_close
-timestamp                                                                                                           
-2023-01-12 16:00:00  1386.07   1415.92   0.3223    0.3293   0.07728    0.08025    281.6     287.7    5.071     5.232
-2023-01-13 00:00:00  1415.91   1408.12   0.3293    0.3279   0.08025    0.08002    287.8     287.9    5.233     5.219
-2023-01-13 08:00:00  1408.11   1421.98   0.3279    0.3320   0.08001    0.08039    288.0     288.8    5.220     5.287
-============= the dataframe=============
-## Wallet amount (USDT) 0.08274514471
-vendage :  DOGE/USDT
- 
-Plage Horraire = 8h
- 
-computing = n-1
- 
-2023-01-13 16:00:05 , la meilleur crypto est DOT/USDT, je vends DOGE/USDT et j'achete DOT/USDT
-The new crypto wallet is 22.875145895000003
-idd :  8095
-bot_id :  46
-max :  22.9160520305
-*****Exceptions*****
-1365 (22012): Division by 0
-********************
------End of the script-----
- 
- 
------Start the script------
------End of the script-----
- 
- 
------Start the script------
------End of the script-----
- 
- 
------Start the script------
------End of the script-----
- 
- 
------Start the script------
------End of the script-----
- 
- 
------Start the script------
------End of the script-----
- 
- 
------Start the script------
------End of the script-----
- 
- 
------Start the script------
------End of the script-----
- 
- 
------Start the script------
- 
-///////////////
-ByBit Bot : bybit cocotier test 
- 
-============= the dataframe=============
-                    eth/usdt           ada/usdt           doge/usdt            bnb/usdt           dot/usdt          
-                    eth_open eth_close ada_open ada_close doge_open doge_close bnb_open bnb_close dot_open dot_close
-timestamp                                                                                                           
-2023-01-13 00:00:00  1415.91   1408.12   0.3293    0.3279   0.08025    0.08002    287.8     287.9    5.233     5.219
-2023-01-13 08:00:00  1408.11   1421.98   0.3279    0.3320   0.08001    0.08039    288.0     288.8    5.220     5.287
-2023-01-13 16:00:00  1421.98   1451.20   0.3321    0.3456   0.08039    0.08450    288.7     293.7    5.286     5.401
-============= the dataframe=============
-## Wallet amount (USDT) 0.00159082471
-vendage :  DOT/USDT
- 
-Plage Horraire = 8h
- 
-computing = n-1
- 
-2023-01-14 00:00:06 , la meilleur crypto est DOGE/USDT, je vends DOT/USDT et j'achete DOGE/USDT
-The new crypto wallet is 23.259850684
-idd :  8097
-bot_id :  46
-max :  23.259850684
-*****Exceptions*****
-1365 (22012): Division by 0
-********************
------End of the script-----
- 
- 
------Start the script------
------End of the script-----
- 
- 
------Start the script------
------End of the script-----
- 
- 
------Start the script------
------End of the script-----
- 
- 
------Start the script------
------End of the script-----
- 
- 
------Start the script------
------End of the script-----
- 
- 
------Start the script------
------End of the script-----
- 
- 
------Start the script------
------End of the script-----
- 
- 
------Start the script------
- 
-///////////////
-ByBit Bot : bybit cocotier test 
- 
-============= the dataframe=============
-                    eth/usdt           ada/usdt           doge/usdt            bnb/usdt           dot/usdt          
-                    eth_open eth_close ada_open ada_close doge_open doge_close bnb_open bnb_close dot_open dot_close
-timestamp                                                                                                           
-2023-01-13 08:00:00  1408.11   1421.98   0.3279    0.3320   0.08001    0.08039    288.0     288.8    5.220     5.287
-2023-01-13 16:00:00  1421.98   1451.20   0.3321    0.3456   0.08039    0.08450    288.7     293.7    5.286     5.401
-2023-01-14 00:00:00  1451.21   1553.43   0.3455    0.3634   0.08449    0.08908    293.7     310.8    5.401     6.212
-============= the dataframe=============
-## Wallet amount (USDT) 0.05243989771
-vendage :  DOGE/USDT
- 
-Plage Horraire = 8h
- 
-computing = n-1
- 
-2023-01-14 08:00:06 , la meilleur crypto est DOT/USDT, je vends DOGE/USDT et j'achete DOT/USDT
-The new crypto wallet is 24.572471169499998
-idd :  8099
-bot_id :  46
-max :  24.572471169499998
-*****Exceptions*****
-1365 (22012): Division by 0
-********************
------End of the script-----
- 
- 
------Start the script------
------End of the script-----
- 
- 
------Start the script------
------End of the script-----
- 
- 
------Start the script------
------End of the script-----
- 
- 
------Start the script------
------End of the script-----
- 
- 
------Start the script------
------End of the script-----
- 
- 
------Start the script------
------End of the script-----
- 
- 
------Start the script------
------End of the script-----
- 
- 
------Start the script------
- 
-///////////////
-ByBit Bot : bybit cocotier test 
- 
-============= the dataframe=============
-                    eth/usdt           ada/usdt           doge/usdt            bnb/usdt           dot/usdt          
-                    eth_open eth_close ada_open ada_close doge_open doge_close bnb_open bnb_close dot_open dot_close
-timestamp                                                                                                           
-2023-01-13 16:00:00  1421.98   1451.20   0.3321    0.3456   0.08039    0.08450    288.7     293.7    5.286     5.401
-2023-01-14 00:00:00  1451.21   1553.43   0.3455    0.3634   0.08449    0.08908    293.7     310.8    5.401     6.212
-2023-01-14 08:00:00  1553.43   1525.18   0.3635    0.3516   0.08907    0.08695    310.9     304.2    6.213     6.115
-============= the dataframe=============
-## Wallet amount (USDT) 0.00508090371
+## Wallet amount (USDT) 0.11206731193
 ## Staying on the same cryptocurency
  
 Plage Horraire = 8h
  
 computing = n-1
  
-2023-01-14 16:00:05 , la meilleur crypto est DOT/USDT, je vends DOT/USDT et j'achete DOT/USDT
-The new crypto wallet is 24.195515209
-idd :  8101
-bot_id :  46
-max :  24.572471169499998
-*****Exceptions*****
-1365 (22012): Division by 0
-********************
------End of the script-----
- 
- 
------Start the script------
------End of the script-----
- 
- 
------Start the script------
------End of the script-----
- 
- 
------Start the script------
------End of the script-----
- 
- 
------Start the script------
------End of the script-----
- 
- 
------Start the script------
------End of the script-----
- 
- 
------Start the script------
------End of the script-----
- 
- 
------Start the script------
------End of the script-----
- 
- 
------Start the script------
- 
-///////////////
-ByBit Bot : bybit_cocotier_test
- 
-============= the dataframe=============
-                    eth/usdt           ada/usdt           doge/usdt            bnb/usdt           dot/usdt          
-                    eth_open eth_close ada_open ada_close doge_open doge_close bnb_open bnb_close dot_open dot_close
-timestamp                                                                                                           
-2023-01-14 00:00:00  1451.21   1553.43   0.3455    0.3634   0.08449    0.08908    293.7     310.8    5.401     6.212
-2023-01-14 08:00:00  1553.43   1525.18   0.3635    0.3516   0.08907    0.08695    310.9     304.2    6.213     6.115
-2023-01-14 16:00:00  1525.19   1549.90   0.3515    0.3525   0.08696    0.08729    304.2     305.1    6.115     6.026
-============= the dataframe=============
-## Wallet amount (USDT) 0.00508090371
-vendage :  DOT/USDT
- 
-Plage Horraire = 8h
- 
-computing = n-1
- 
-2023-01-15 00:00:06 , la meilleur crypto est ETH/USDT, je vends DOT/USDT et j'achete ETH/USDT
-The new crypto wallet is 23.7886817215
-idd :  8103
-bot_id :  46
-max :  24.572471169499998
-*****Exceptions*****
-1365 (22012): Division by 0
-********************
------End of the script-----
- 
- 
------Start the script------
------End of the script-----
- 
- 
------Start the script------
------End of the script-----
- 
- 
------Start the script------
------End of the script-----
- 
- 
------Start the script------
------End of the script-----
- 
- 
------Start the script------
------End of the script-----
- 
- 
------Start the script------
------End of the script-----
- 
- 
------Start the script------
------End of the script-----
- 
- 
------Start the script------
+2023-04-02 16:00:12 , la meilleur crypto est APT/USDT, je vends APT/USDT et j'achete APT/USDT
+The new crypto wallet is 11.72517265493
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 02/04/2023 17:00:17 ---
+
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 02/04/2023 18:00:15 ---
+
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 02/04/2023 19:00:14 ---
+
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 02/04/2023 20:00:14 ---
+
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 02/04/2023 21:00:14 ---
+
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 02/04/2023 22:00:14 ---
+
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 02/04/2023 23:00:14 ---
+
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 03/04/2023 00:00:16 ---
+
  
 ///////////////
 ByBit Bot : bybit_cocotier_test
  
 ============= the dataframe=============
-                    eth/usdt           ada/usdt           doge/usdt            bnb/usdt           dot/usdt          
-                    eth_open eth_close ada_open ada_close doge_open doge_close bnb_open bnb_close dot_open dot_close
-timestamp                                                                                                           
-2023-01-14 08:00:00  1553.43   1525.18   0.3635    0.3516   0.08907    0.08695    310.9     304.2    6.213     6.115
-2023-01-14 16:00:00  1525.19   1549.90   0.3515    0.3525   0.08696    0.08729    304.2     305.1    6.115     6.026
-2023-01-15 00:00:00  1549.91   1529.16   0.3526    0.3462   0.08729    0.08440    305.2     297.4    6.026     5.875
+                    matic/usdt             aave/usdt            atom/usdt            apt/usdt           rndr/usdt            ldo/usdt          
+                    matic_open matic_close aave_open aave_close atom_open atom_close apt_open apt_close rndr_open rndr_close ldo_open ldo_close
+timestamp                                                                                                                                      
+2023-04-02 00:00:00     1.1120      1.1175      74.2       74.5    11.384     11.411  11.2684   11.4419     1.347      1.319    2.406     2.401
+2023-04-02 08:00:00     1.1174      1.0928      74.4       72.5    11.411     11.071  11.4397   12.1328     1.317      1.296    2.402     2.392
+2023-04-02 16:00:00     1.0928      1.0953      72.4       73.0    11.069     11.120  12.1312   12.1596     1.296      1.275    2.392     2.337
 ============= the dataframe=============
-## Wallet amount (USDT) 0.00499807971
+## Wallet amount (USDT) 0.11206731193
 ## Staying on the same cryptocurency
  
 Plage Horraire = 8h
  
 computing = n-1
  
-2023-01-15 08:00:06 , la meilleur crypto est ETH/USDT, je vends ETH/USDT et j'achete ETH/USDT
-The new crypto wallet is 23.479802178
-idd :  8105
-bot_id :  46
-max :  24.572471169499998
-*****Exceptions*****
-1365 (22012): Division by 0
-********************
------End of the script-----
- 
- 
------Start the script------
------End of the script-----
- 
- 
------Start the script------
------End of the script-----
- 
- 
------Start the script------
------End of the script-----
- 
- 
------Start the script------
------End of the script-----
- 
- 
------Start the script------
------End of the script-----
- 
- 
------Start the script------
------End of the script-----
- 
- 
------Start the script------
------End of the script-----
- 
- 
------Start the script------
+2023-04-03 00:00:16 , la meilleur crypto est APT/USDT, je vends APT/USDT et j'achete APT/USDT
+The new crypto wallet is 11.76873478323
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 03/04/2023 01:00:16 ---
+
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 03/04/2023 02:00:14 ---
+
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 03/04/2023 03:00:14 ---
+
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 03/04/2023 04:00:19 ---
+
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 03/04/2023 05:00:15 ---
+
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 03/04/2023 06:00:15 ---
+
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 03/04/2023 07:00:15 ---
+
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 03/04/2023 08:00:15 ---
+
  
 ///////////////
 ByBit Bot : bybit_cocotier_test
  
 ============= the dataframe=============
-                    eth/usdt           ada/usdt           doge/usdt            bnb/usdt           dot/usdt          
-                    eth_open eth_close ada_open ada_close doge_open doge_close bnb_open bnb_close dot_open dot_close
-timestamp                                                                                                           
-2023-01-14 16:00:00  1525.19   1549.90   0.3515    0.3525   0.08696    0.08729    304.2     305.1    6.115     6.026
-2023-01-15 00:00:00  1549.91   1529.16   0.3526    0.3462   0.08729    0.08440    305.2     297.4    6.026     5.875
-2023-01-15 08:00:00  1529.16   1556.35   0.3462    0.3507   0.08440    0.08585    297.4     302.7    5.874     6.024
+                    matic/usdt             aave/usdt            atom/usdt            apt/usdt           rndr/usdt            ldo/usdt          
+                    matic_open matic_close aave_open aave_close atom_open atom_close apt_open apt_close rndr_open rndr_close ldo_open ldo_close
+timestamp                                                                                                                                      
+2023-04-02 08:00:00     1.1174      1.0928      74.4       72.5    11.411     11.071  11.4397   12.1328     1.317      1.296    2.402     2.392
+2023-04-02 16:00:00     1.0928      1.0953      72.4       73.0    11.069     11.120  12.1312   12.1596     1.296      1.275    2.392     2.337
+2023-04-03 00:00:00     1.0953      1.0928      73.0       73.4    11.121     11.056  12.1579   11.5725     1.275      1.255    2.338     2.372
 ============= the dataframe=============
-## Wallet amount (USDT) 0.00499807971
+## Wallet amount (USDT) 0.11206731193
+vendage :  APT/USDT
+ 
+Plage Horraire = 8h
+ 
+computing = n-1
+ 
+2023-04-03 08:00:15 , la meilleur crypto est AAVE/USDT, je vends APT/USDT et j'achete AAVE/USDT
+The new crypto wallet is 11.20452254743
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 03/04/2023 09:00:16 ---
+
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 03/04/2023 10:00:15 ---
+
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 03/04/2023 11:00:15 ---
+
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 03/04/2023 12:00:15 ---
+
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 03/04/2023 13:00:16 ---
+
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 03/04/2023 14:00:14 ---
+
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 03/04/2023 15:00:15 ---
+
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 03/04/2023 16:00:14 ---
+
+ 
+///////////////
+ByBit Bot : bybit_cocotier_test
+ 
+============= the dataframe=============
+                    matic/usdt             aave/usdt            atom/usdt            apt/usdt           rndr/usdt            ldo/usdt          
+                    matic_open matic_close aave_open aave_close atom_open atom_close apt_open apt_close rndr_open rndr_close ldo_open ldo_close
+timestamp                                                                                                                                      
+2023-04-02 16:00:00     1.0928      1.0953      72.4       73.0    11.069     11.120  12.1312   12.1596     1.296      1.275    2.392     2.337
+2023-04-03 00:00:00     1.0953      1.0928      73.0       73.4    11.121     11.056  12.1579   11.5725     1.275      1.255    2.338     2.372
+2023-04-03 08:00:00     1.0927      1.0982      73.4       73.6    11.056     11.042  11.5728   11.4359     1.255      1.307    2.372     2.414
+============= the dataframe=============
+## Wallet amount (USDT) 0.04373529693
+vendage :  AAVE/USDT
+ 
+Plage Horraire = 8h
+ 
+computing = n-1
+ 
+2023-04-03 16:00:14 , la meilleur crypto est LDO/USDT, je vends AAVE/USDT et j'achete LDO/USDT
+The new crypto wallet is 11.18668627613
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 03/04/2023 17:00:15 ---
+
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 03/04/2023 18:00:14 ---
+
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 03/04/2023 19:00:17 ---
+
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 03/04/2023 20:00:15 ---
+
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 03/04/2023 21:00:15 ---
+
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 03/04/2023 22:00:15 ---
+
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 03/04/2023 23:00:14 ---
+
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 04/04/2023 00:00:15 ---
+
+ 
+///////////////
+ByBit Bot : bybit_cocotier_test
+ 
+============= the dataframe=============
+                    matic/usdt             aave/usdt            atom/usdt            apt/usdt           rndr/usdt            ldo/usdt          
+                    matic_open matic_close aave_open aave_close atom_open atom_close apt_open apt_close rndr_open rndr_close ldo_open ldo_close
+timestamp                                                                                                                                      
+2023-04-03 00:00:00     1.0953      1.0928      73.0       73.4    11.121     11.056  12.1579   11.5725     1.275      1.255    2.338     2.372
+2023-04-03 08:00:00     1.0927      1.0982      73.4       73.6    11.056     11.042  11.5728   11.4359     1.255      1.307    2.372     2.414
+2023-04-03 16:00:00     1.0982      1.0969      73.6       73.7    11.040     11.147  11.4377   11.3385     1.308      1.293    2.414     2.401
+============= the dataframe=============
+## Wallet amount (USDT) 0.00761539713
+vendage :  LDO/USDT
+ 
+Plage Horraire = 8h
+ 
+computing = n-1
+ 
+2023-04-04 00:00:15 , la meilleur crypto est RNDR/USDT, je vends LDO/USDT et j'achete RNDR/USDT
+The new crypto wallet is 11.120564846629998
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 04/04/2023 01:00:16 ---
+
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 04/04/2023 02:00:14 ---
+
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 04/04/2023 03:00:15 ---
+
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 04/04/2023 04:00:16 ---
+
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 04/04/2023 05:00:18 ---
+
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 04/04/2023 06:00:14 ---
+
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 04/04/2023 07:00:15 ---
+
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 04/04/2023 08:00:14 ---
+
+ 
+///////////////
+ByBit Bot : bybit_cocotier_test
+ 
+============= the dataframe=============
+                    matic/usdt             aave/usdt            atom/usdt            apt/usdt           rndr/usdt            ldo/usdt          
+                    matic_open matic_close aave_open aave_close atom_open atom_close apt_open apt_close rndr_open rndr_close ldo_open ldo_close
+timestamp                                                                                                                                      
+2023-04-03 08:00:00     1.0927      1.0982      73.4       73.6    11.056     11.042  11.5728   11.4359     1.255      1.307    2.372     2.414
+2023-04-03 16:00:00     1.0982      1.0969      73.6       73.7    11.040     11.147  11.4377   11.3385     1.308      1.293    2.414     2.401
+2023-04-04 00:00:00     1.0969      1.1053      73.8       74.2    11.147     11.209  11.3369   11.3104     1.293      1.302    2.401     2.399
+============= the dataframe=============
+## Wallet amount (USDT) 0.01413735513
+vendage :  RNDR/USDT
+ 
+Plage Horraire = 8h
+ 
+computing = n-1
+ 
+2023-04-04 08:00:14 , la meilleur crypto est ATOM/USDT, je vends RNDR/USDT et j'achete ATOM/USDT
+The new crypto wallet is 11.128731410729998
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 04/04/2023 09:00:15 ---
+
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 04/04/2023 10:00:15 ---
+
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 04/04/2023 11:00:15 ---
+
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 04/04/2023 12:00:15 ---
+
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 04/04/2023 13:00:15 ---
+
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 04/04/2023 14:00:15 ---
+
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 04/04/2023 15:00:15 ---
+
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 04/04/2023 16:00:15 ---
+
+ 
+///////////////
+ByBit Bot : bybit_cocotier_test
+ 
+============= the dataframe=============
+                    matic/usdt             aave/usdt            atom/usdt            apt/usdt           rndr/usdt            ldo/usdt          
+                    matic_open matic_close aave_open aave_close atom_open atom_close apt_open apt_close rndr_open rndr_close ldo_open ldo_close
+timestamp                                                                                                                                      
+2023-04-03 16:00:00     1.0982      1.0969      73.6       73.7    11.040     11.147  11.4377   11.3385     1.308      1.293    2.414     2.401
+2023-04-04 00:00:00     1.0969      1.1053      73.8       74.2    11.147     11.209  11.3369   11.3104     1.293      1.302    2.401     2.399
+2023-04-04 08:00:00     1.1054      1.1280      74.3       75.7    11.207     11.283  11.3129   11.4380     1.301      1.334    2.400     2.550
+============= the dataframe=============
+## Wallet amount (USDT) 0.00920800013
+vendage :  ATOM/USDT
+ 
+Plage Horraire = 8h
+ 
+computing = n-1
+ 
+2023-04-04 16:00:15 , la meilleur crypto est LDO/USDT, je vends ATOM/USDT et j'achete LDO/USDT
+The new crypto wallet is 11.166914549230002
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 04/04/2023 17:00:15 ---
+
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 04/04/2023 18:00:16 ---
+
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 04/04/2023 19:00:15 ---
+
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 04/04/2023 20:00:15 ---
+
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 04/04/2023 21:00:16 ---
+
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 04/04/2023 22:00:15 ---
+
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 04/04/2023 23:00:16 ---
+
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 05/04/2023 00:00:16 ---
+
+ 
+///////////////
+ByBit Bot : bybit_cocotier_test
+ 
+============= the dataframe=============
+                    matic/usdt             aave/usdt            atom/usdt            apt/usdt           rndr/usdt            ldo/usdt          
+                    matic_open matic_close aave_open aave_close atom_open atom_close apt_open apt_close rndr_open rndr_close ldo_open ldo_close
+timestamp                                                                                                                                      
+2023-04-04 00:00:00     1.0969      1.1053      73.8       74.2    11.147     11.209  11.3369   11.3104     1.293      1.302    2.401     2.399
+2023-04-04 08:00:00     1.1054      1.1280      74.3       75.7    11.207     11.283  11.3129   11.4380     1.301      1.334    2.400     2.550
+2023-04-04 16:00:00     1.1281      1.1388      75.6       76.4    11.284     11.285  11.4380   11.4669     1.334      1.331    2.550     2.583
+============= the dataframe=============
+## Wallet amount (USDT) 0.01996422413
 ## Staying on the same cryptocurency
  
 Plage Horraire = 8h
  
 computing = n-1
  
-2023-01-15 16:00:05 , la meilleur crypto est ETH/USDT, je vends ETH/USDT et j'achete ETH/USDT
-The new crypto wallet is 23.9055819555
-idd :  8107
-bot_id :  46
-max :  24.572471169499998
-*****Exceptions*****
-1365 (22012): Division by 0
-********************
------End of the script-----
- 
- 
------Start the script------
------End of the script-----
- 
- 
------Start the script------
------End of the script-----
- 
- 
------Start the script------
------End of the script-----
- 
- 
------Start the script------
------End of the script-----
- 
- 
------Start the script------
------End of the script-----
- 
- 
------Start the script------
------End of the script-----
- 
- 
------Start the script------
------End of the script-----
- 
- 
------Start the script------
- 
-///////////////
-ByBit Bot : bybit_cocotier_test
- 
-============= the dataframe=============
-                    eth/usdt           ada/usdt           doge/usdt            bnb/usdt           dot/usdt          
-                    eth_open eth_close ada_open ada_close doge_open doge_close bnb_open bnb_close dot_open dot_close
-timestamp                                                                                                           
-2023-01-15 00:00:00  1549.91   1529.16   0.3526    0.3462   0.08729    0.08440    305.2     297.4    6.026     5.875
-2023-01-15 08:00:00  1529.16   1556.35   0.3462    0.3507   0.08440    0.08585    297.4     302.7    5.874     6.024
-2023-01-15 16:00:00  1556.35   1552.52   0.3506    0.3507   0.08585    0.08608    302.7     302.2    6.024     5.929
-============= the dataframe=============
-## Wallet amount (USDT) 0.00499807971
-vendage :  ETH/USDT
- 
-Plage Horraire = 8h
- 
-computing = n-1
- 
-2023-01-16 00:00:06 , la meilleur crypto est DOGE/USDT, je vends ETH/USDT et j'achete DOGE/USDT
-The new crypto wallet is 23.7768694415
-idd :  8109
-bot_id :  46
-max :  24.572471169499998
-*****Exceptions*****
-1365 (22012): Division by 0
-********************
------End of the script-----
- 
- 
------Start the script------
------End of the script-----
- 
- 
------Start the script------
------End of the script-----
- 
- 
------Start the script------
------End of the script-----
- 
- 
------Start the script------
------End of the script-----
- 
- 
------Start the script------
------End of the script-----
- 
- 
------Start the script------
------End of the script-----
- 
- 
------Start the script------
------End of the script-----
- 
- 
------Start the script------
+2023-04-05 00:00:16 , la meilleur crypto est LDO/USDT, je vends LDO/USDT et j'achete LDO/USDT
+The new crypto wallet is 11.27752680903
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 05/04/2023 01:00:15 ---
+
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 05/04/2023 02:00:14 ---
+
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 05/04/2023 03:00:15 ---
+
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 05/04/2023 04:00:15 ---
+
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 05/04/2023 05:00:15 ---
+
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 05/04/2023 06:00:15 ---
+
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 05/04/2023 07:00:15 ---
+
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 05/04/2023 08:00:17 ---
+
  
 ///////////////
 ByBit Bot : bybit_cocotier_test
  
 ============= the dataframe=============
-                    eth/usdt           ada/usdt           doge/usdt            bnb/usdt           dot/usdt          
-                    eth_open eth_close ada_open ada_close doge_open doge_close bnb_open bnb_close dot_open dot_close
-timestamp                                                                                                           
-2023-01-15 08:00:00  1529.16   1556.35   0.3462    0.3507   0.08440    0.08585    297.4     302.7    5.874     6.024
-2023-01-15 16:00:00  1556.35   1552.52   0.3506    0.3507   0.08585    0.08608    302.7     302.2    6.024     5.929
-2023-01-16 00:00:00  1552.52   1565.95   0.3508    0.3576   0.08607    0.08632    302.2     303.0    5.928     5.968
+                    matic/usdt             aave/usdt            atom/usdt            apt/usdt           rndr/usdt            ldo/usdt          
+                    matic_open matic_close aave_open aave_close atom_open atom_close apt_open apt_close rndr_open rndr_close ldo_open ldo_close
+timestamp                                                                                                                                      
+2023-04-04 08:00:00     1.1054      1.1280      74.3       75.7    11.207     11.283  11.3129   11.4380     1.301      1.334    2.400     2.550
+2023-04-04 16:00:00     1.1281      1.1388      75.6       76.4    11.284     11.285  11.4380   11.4669     1.334      1.331    2.550     2.583
+2023-04-05 00:00:00     1.1387      1.1513      76.4       78.7    11.283     11.535  11.4669   11.8011     1.331      1.361    2.582     2.684
 ============= the dataframe=============
-## Wallet amount (USDT) 0.01182127211
-vendage :  DOGE/USDT
- 
-Plage Horraire = 8h
- 
-computing = n-1
- 
-2023-01-16 08:00:05 , la meilleur crypto est ADA/USDT, je vends DOGE/USDT et j'achete ADA/USDT
-The new crypto wallet is 23.80886123
-idd :  8111
-bot_id :  46
-max :  24.572471169499998
-*****Exceptions*****
-1365 (22012): Division by 0
-********************
------End of the script-----
- 
- 
------Start the script------
------End of the script-----
- 
- 
------Start the script------
------End of the script-----
- 
- 
------Start the script------
------End of the script-----
- 
- 
------Start the script------
------End of the script-----
- 
- 
------Start the script------
------End of the script-----
- 
- 
------Start the script------
------End of the script-----
- 
- 
------Start the script------
------End of the script-----
- 
- 
------Start the script------
- 
-///////////////
-ByBit Bot : bybit_cocotier_test
- 
-============= the dataframe=============
-                    eth/usdt           ada/usdt           doge/usdt            bnb/usdt           dot/usdt          
-                    eth_open eth_close ada_open ada_close doge_open doge_close bnb_open bnb_close dot_open dot_close
-timestamp                                                                                                           
-2023-01-15 16:00:00  1556.35   1552.52   0.3506    0.3507   0.08585    0.08608    302.7     302.2    6.024     5.929
-2023-01-16 00:00:00  1552.52   1565.95   0.3508    0.3576   0.08607    0.08632    302.2     303.0    5.928     5.968
-2023-01-16 08:00:00  1565.96   1549.97   0.3577    0.3472   0.08632    0.08358    303.0     298.0    5.968     5.763
-============= the dataframe=============
-## Wallet amount (USDT) 0.00986517611
-vendage :  ADA/USDT
- 
-Plage Horraire = 8h
- 
-computing = n-1
- 
-2023-01-16 16:00:05 , la meilleur crypto est ETH/USDT, je vends ADA/USDT et j'achete ETH/USDT
-The new crypto wallet is 23.0396694935
-idd :  8113
-bot_id :  46
-max :  24.572471169499998
-*****Exceptions*****
-1365 (22012): Division by 0
-********************
------End of the script-----
- 
- 
------Start the script------
------End of the script-----
- 
- 
------Start the script------
------End of the script-----
- 
- 
------Start the script------
------End of the script-----
- 
- 
------Start the script------
------End of the script-----
- 
- 
------Start the script------
------End of the script-----
- 
- 
------Start the script------
------End of the script-----
- 
- 
------Start the script------
------End of the script-----
- 
- 
------Start the script------
- 
-///////////////
-ByBit Bot : bybit_cocotier_test
- 
-============= the dataframe=============
-                    eth/usdt           ada/usdt           doge/usdt            bnb/usdt           dot/usdt          
-                    eth_open eth_close ada_open ada_close doge_open doge_close bnb_open bnb_close dot_open dot_close
-timestamp                                                                                                           
-2023-01-16 00:00:00  1552.52   1565.95   0.3508    0.3576   0.08607    0.08632    302.2     303.0    5.928     5.968
-2023-01-16 08:00:00  1565.96   1549.97   0.3577    0.3472   0.08632    0.08358    303.0     298.0    5.968     5.763
-2023-01-16 16:00:00  1549.97   1576.94   0.3472    0.3504   0.08356    0.08368    297.9     299.0    5.762     5.812
-============= the dataframe=============
-## Wallet amount (USDT) 0.01469133611
+## Wallet amount (USDT) 0.01996422413
 ## Staying on the same cryptocurency
  
 Plage Horraire = 8h
  
 computing = n-1
  
-2023-01-17 00:00:06 , la meilleur crypto est ETH/USDT, je vends ETH/USDT et j'achete ETH/USDT
-The new crypto wallet is 23.434517712500003
-idd :  8115
-bot_id :  46
-max :  24.572471169499998
-*****Exceptions*****
-1365 (22012): Division by 0
-********************
------End of the script-----
- 
- 
------Start the script------
------End of the script-----
- 
- 
------Start the script------
------End of the script-----
- 
- 
------Start the script------
------End of the script-----
- 
- 
------Start the script------
------End of the script-----
- 
- 
------Start the script------
------End of the script-----
- 
- 
------Start the script------
------End of the script-----
- 
- 
------Start the script------
------End of the script-----
- 
- 
------Start the script------
+2023-04-05 08:00:17 , la meilleur crypto est LDO/USDT, je vends LDO/USDT et j'achete LDO/USDT
+The new crypto wallet is 11.742680694829996
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 05/04/2023 09:00:16 ---
+
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 05/04/2023 10:00:16 ---
+
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 05/04/2023 11:00:16 ---
+
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 05/04/2023 12:00:15 ---
+
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 05/04/2023 13:00:16 ---
+
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 05/04/2023 14:00:16 ---
+
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 05/04/2023 15:00:16 ---
+
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 05/04/2023 16:00:15 ---
+
  
 ///////////////
 ByBit Bot : bybit_cocotier_test
  
 ============= the dataframe=============
-                    eth/usdt           ada/usdt           doge/usdt            bnb/usdt           dot/usdt          
-                    eth_open eth_close ada_open ada_close doge_open doge_close bnb_open bnb_close dot_open dot_close
-timestamp                                                                                                           
-2023-01-16 08:00:00  1565.96   1549.97   0.3577    0.3472   0.08632    0.08358    303.0     298.0    5.968     5.763
-2023-01-16 16:00:00  1549.97   1576.94   0.3472    0.3504   0.08356    0.08368    297.9     299.0    5.762     5.812
-2023-01-17 00:00:00  1576.94   1563.35   0.3505    0.3508   0.08369    0.08419    299.0     301.0    5.812     6.004
+                    matic/usdt             aave/usdt            atom/usdt            apt/usdt           rndr/usdt            ldo/usdt          
+                    matic_open matic_close aave_open aave_close atom_open atom_close apt_open apt_close rndr_open rndr_close ldo_open ldo_close
+timestamp                                                                                                                                      
+2023-04-04 16:00:00     1.1281      1.1388      75.6       76.4    11.284     11.285  11.4380   11.4669     1.334      1.331    2.550     2.583
+2023-04-05 00:00:00     1.1387      1.1513      76.4       78.7    11.283     11.535  11.4669   11.8011     1.331      1.361    2.582     2.684
+2023-04-05 08:00:00     1.1513      1.1315      78.8       77.7    11.535     11.288  11.7988   11.2920     1.362      1.331    2.685     2.651
 ============= the dataframe=============
-## Wallet amount (USDT) 0.01469133611
-vendage :  ETH/USDT
+## Wallet amount (USDT) 6.422413e-05
+## Staying on the same cryptocurency
  
 Plage Horraire = 8h
  
 computing = n-1
  
-2023-01-17 08:00:06 , la meilleur crypto est DOT/USDT, je vends ETH/USDT et j'achete DOT/USDT
-The new crypto wallet is 23.1879452013
-idd :  8117
-bot_id :  46
-max :  24.572471169499998
-*****Exceptions*****
-1365 (22012): Division by 0
-********************
------End of the script-----
+2023-04-05 16:00:15 , la meilleur crypto est LDO/USDT, je vends LDO/USDT et j'achete LDO/USDT
+The new crypto wallet is 11.552931081329998
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 05/04/2023 17:00:15 ---
+
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 05/04/2023 18:00:15 ---
+
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 05/04/2023 19:00:15 ---
+
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 05/04/2023 20:00:17 ---
+
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 05/04/2023 21:00:16 ---
+
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 05/04/2023 22:00:15 ---
+
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 05/04/2023 23:00:16 ---
+
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 06/04/2023 00:00:15 ---
+
  
+///////////////
+ByBit Bot : bybit_cocotier_test
  
------Start the script------
------End of the script-----
+============= the dataframe=============
+                    matic/usdt             aave/usdt            atom/usdt            apt/usdt           rndr/usdt            ldo/usdt          
+                    matic_open matic_close aave_open aave_close atom_open atom_close apt_open apt_close rndr_open rndr_close ldo_open ldo_close
+timestamp                                                                                                                                      
+2023-04-05 00:00:00     1.1387      1.1513      76.4       78.7    11.283     11.535  11.4669   11.8011     1.331      1.361    2.582     2.684
+2023-04-05 08:00:00     1.1513      1.1315      78.8       77.7    11.535     11.288  11.7988   11.2920     1.362      1.331    2.685     2.651
+2023-04-05 16:00:00     1.1314      1.1403      77.7       78.2    11.287     11.523  11.2918   11.5456     1.331      1.342    2.651     2.595
+============= the dataframe=============
+## Wallet amount (USDT) 6.422413e-05
+vendage :  LDO/USDT
  
+Plage Horraire = 8h
  
------Start the script------
------End of the script-----
+computing = n-1
  
+2023-04-06 00:00:15 , la meilleur crypto est ATOM/USDT, je vends LDO/USDT et j'achete ATOM/USDT
+The new crypto wallet is 11.305663846729999
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 06/04/2023 01:00:14 ---
+
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 06/04/2023 02:00:17 ---
+
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 06/04/2023 03:00:14 ---
+
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 06/04/2023 04:00:14 ---
+
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 06/04/2023 05:00:14 ---
+
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 06/04/2023 06:00:15 ---
+
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 06/04/2023 07:00:18 ---
+
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 06/04/2023 08:00:15 ---
+
  
------Start the script------
------End of the script-----
+///////////////
+ByBit Bot : bybit_cocotier_test
  
+============= the dataframe=============
+                    matic/usdt             aave/usdt            atom/usdt            apt/usdt           rndr/usdt            ldo/usdt          
+                    matic_open matic_close aave_open aave_close atom_open atom_close apt_open apt_close rndr_open rndr_close ldo_open ldo_close
+timestamp                                                                                                                                      
+2023-04-05 08:00:00     1.1513      1.1315      78.8       77.7    11.535     11.288  11.7988   11.2920     1.362      1.331    2.685     2.651
+2023-04-05 16:00:00     1.1314      1.1403      77.7       78.2    11.287     11.523  11.2918   11.5456     1.331      1.342    2.651     2.595
+2023-04-06 00:00:00     1.1402      1.1164      78.3       78.3    11.523     11.273  11.5439   11.4852     1.343      1.289    2.593     2.527
+============= the dataframe=============
+## Wallet amount (USDT) 0.00469979713
+vendage :  ATOM/USDT
+ 
+Plage Horraire = 8h
+ 
+computing = n-1
+ 
+2023-04-06 08:00:15 , la meilleur crypto est APT/USDT, je vends ATOM/USDT et j'achete APT/USDT
+The new crypto wallet is 11.01339293163
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 06/04/2023 09:00:15 ---
+
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 06/04/2023 10:00:15 ---
+
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 06/04/2023 11:00:15 ---
+
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 06/04/2023 12:00:15 ---
+
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 06/04/2023 13:00:15 ---
+
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 06/04/2023 14:00:18 ---
+
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 06/04/2023 15:00:14 ---
+
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 06/04/2023 16:00:15 ---
+
+ 
+///////////////
+ByBit Bot : bybit_cocotier_test
+ 
+============= the dataframe=============
+                    matic/usdt             aave/usdt            atom/usdt            apt/usdt           rndr/usdt            ldo/usdt          
+                    matic_open matic_close aave_open aave_close atom_open atom_close apt_open apt_close rndr_open rndr_close ldo_open ldo_close
+timestamp                                                                                                                                      
+2023-04-05 16:00:00     1.1314      1.1403      77.7       78.2    11.287     11.523  11.2918   11.5456     1.331      1.342    2.651     2.595
+2023-04-06 00:00:00     1.1402      1.1164      78.3       78.3    11.523     11.273  11.5439   11.4852     1.343      1.289    2.593     2.527
+2023-04-06 08:00:00     1.1165      1.1214      78.4       79.5    11.274     11.435  11.4834   11.5052     1.290      1.309    2.526     2.540
+============= the dataframe=============
+## Wallet amount (USDT) 0.01600205713
+vendage :  APT/USDT
+ 
+Plage Horraire = 8h
+ 
+computing = n-1
+ 
+2023-04-06 16:00:15 , la meilleur crypto est AAVE/USDT, je vends APT/USDT et j'achete AAVE/USDT
+The new crypto wallet is 11.02572477423
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 06/04/2023 17:00:15 ---
+
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 06/04/2023 18:00:14 ---
+
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 06/04/2023 19:00:14 ---
+
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 06/04/2023 20:00:14 ---
+
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 06/04/2023 21:00:14 ---
+
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 06/04/2023 22:00:14 ---
+
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 06/04/2023 23:00:15 ---
+
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 07/04/2023 00:00:21 ---
+
+ 
+///////////////
+ByBit Bot : bybit_cocotier_test
+ 
+============= the dataframe=============
+                    matic/usdt             aave/usdt            atom/usdt            apt/usdt           rndr/usdt            ldo/usdt          
+                    matic_open matic_close aave_open aave_close atom_open atom_close apt_open apt_close rndr_open rndr_close ldo_open ldo_close
+timestamp                                                                                                                                      
+2023-04-06 00:00:00     1.1402      1.1164      78.3       78.3    11.523     11.273  11.5439   11.4852     1.343      1.289    2.593     2.527
+2023-04-06 08:00:00     1.1165      1.1214      78.4       79.5    11.274     11.435  11.4834   11.5052     1.290      1.309    2.526     2.540
+2023-04-06 16:00:00     1.1215      1.1148      79.5       80.6    11.436     11.334  11.5052   11.4630     1.308      1.307    2.539     2.596
+============= the dataframe=============
+## Wallet amount (USDT) 0.05806188413
+## Staying on the same cryptocurency
+ 
+Plage Horraire = 8h
+ 
+computing = n-1
+ 
+2023-04-07 00:00:21 , la meilleur crypto est AAVE/USDT, je vends AAVE/USDT et j'achete AAVE/USDT
+The new crypto wallet is 11.17617554293
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 07/04/2023 01:00:15 ---
+
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 07/04/2023 02:00:15 ---
+
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 07/04/2023 03:00:15 ---
+
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 07/04/2023 04:00:14 ---
+
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 07/04/2023 05:00:15 ---
+
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 07/04/2023 06:00:15 ---
+
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 07/04/2023 07:00:15 ---
+
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 07/04/2023 08:00:16 ---
+
+ 
+///////////////
+ByBit Bot : bybit_cocotier_test
+ 
+============= the dataframe=============
+                    matic/usdt             aave/usdt            atom/usdt            apt/usdt           rndr/usdt            ldo/usdt          
+                    matic_open matic_close aave_open aave_close atom_open atom_close apt_open apt_close rndr_open rndr_close ldo_open ldo_close
+timestamp                                                                                                                                      
+2023-04-06 08:00:00     1.1165      1.1214      78.4       79.5    11.274     11.435  11.4834   11.5052     1.290      1.309    2.526     2.540
+2023-04-06 16:00:00     1.1215      1.1148      79.5       80.6    11.436     11.334  11.5052   11.4630     1.308      1.307    2.539     2.596
+2023-04-07 00:00:00     1.1147      1.1000      80.6       79.1    11.334     10.982  11.4612   11.1789     1.305      1.274    2.596     2.539
+============= the dataframe=============
+## Wallet amount (USDT) 0.05806188413
+vendage :  AAVE/USDT
+ 
+Plage Horraire = 8h
+ 
+computing = n-1
+ 
+2023-04-07 08:00:16 , la meilleur crypto est LDO/USDT, je vends AAVE/USDT et j'achete LDO/USDT
+The new crypto wallet is 10.96191926063
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 07/04/2023 09:00:15 ---
+
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 07/04/2023 10:00:17 ---
+
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 07/04/2023 11:00:15 ---
+
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 07/04/2023 12:00:15 ---
+
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 07/04/2023 13:00:15 ---
+
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 07/04/2023 14:00:16 ---
+
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 07/04/2023 15:00:15 ---
+
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 07/04/2023 16:00:15 ---
+
+ 
+///////////////
+ByBit Bot : bybit_cocotier_test
+ 
+============= the dataframe=============
+                    matic/usdt             aave/usdt            atom/usdt            apt/usdt           rndr/usdt            ldo/usdt          
+                    matic_open matic_close aave_open aave_close atom_open atom_close apt_open apt_close rndr_open rndr_close ldo_open ldo_close
+timestamp                                                                                                                                      
+2023-04-06 16:00:00     1.1215      1.1148      79.5       80.6    11.436     11.334  11.5052   11.4630     1.308      1.307    2.539     2.596
+2023-04-07 00:00:00     1.1147      1.1000      80.6       79.1    11.334     10.982  11.4612   11.1789     1.305      1.274    2.596     2.539
+2023-04-07 08:00:00     1.0997      1.1104      79.0       78.5    10.982     11.070  11.1762   11.1603     1.274      1.297    2.537     2.524
+============= the dataframe=============
+## Wallet amount (USDT) 0.02165700433
+vendage :  LDO/USDT
+ 
+Plage Horraire = 8h
+ 
+computing = n-1
+ 
+2023-04-07 16:00:15 , la meilleur crypto est MATIC/USDT, je vends LDO/USDT et j'achete MATIC/USDT
+The new crypto wallet is 10.90080442653
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 07/04/2023 17:00:16 ---
+
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 07/04/2023 18:00:15 ---
+
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 07/04/2023 19:00:16 ---
+
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 07/04/2023 20:00:14 ---
+
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 07/04/2023 21:00:15 ---
+
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 07/04/2023 22:00:15 ---
+
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 07/04/2023 23:00:14 ---
+
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 08/04/2023 00:00:16 ---
+
+ 
+///////////////
+ByBit Bot : bybit_cocotier_test
+ 
+============= the dataframe=============
+                    matic/usdt             aave/usdt            atom/usdt            apt/usdt           rndr/usdt            ldo/usdt          
+                    matic_open matic_close aave_open aave_close atom_open atom_close apt_open apt_close rndr_open rndr_close ldo_open ldo_close
+timestamp                                                                                                                                      
+2023-04-07 00:00:00     1.1147      1.1000      80.6       79.1    11.334     10.982  11.4612   11.1789     1.305      1.274    2.596     2.539
+2023-04-07 08:00:00     1.0997      1.1104      79.0       78.5    10.982     11.070  11.1762   11.1603     1.274      1.297    2.537     2.524
+2023-04-07 16:00:00     1.1105      1.1069      78.5       78.3    11.067     11.046  11.1638   11.1573     1.297      1.303    2.525     2.486
+============= the dataframe=============
+## Wallet amount (USDT) 0.01299964533
+vendage :  MATIC/USDT
+ 
+Plage Horraire = 8h
+ 
+computing = n-1
+ 
+2023-04-08 00:00:16 , la meilleur crypto est RNDR/USDT, je vends MATIC/USDT et j'achete RNDR/USDT
+The new crypto wallet is 10.79473009613
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 08/04/2023 01:00:16 ---
+
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 08/04/2023 02:00:15 ---
+
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 08/04/2023 03:00:18 ---
+
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 08/04/2023 04:00:16 ---
+
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 08/04/2023 05:00:15 ---
+
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 08/04/2023 06:00:15 ---
+
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 08/04/2023 07:00:15 ---
+
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 08/04/2023 08:00:15 ---
+
+ 
+///////////////
+ByBit Bot : bybit_cocotier_test
+ 
+============= the dataframe=============
+                    matic/usdt             aave/usdt            atom/usdt            apt/usdt           rndr/usdt            ldo/usdt          
+                    matic_open matic_close aave_open aave_close atom_open atom_close apt_open apt_close rndr_open rndr_close ldo_open ldo_close
+timestamp                                                                                                                                      
+2023-04-07 08:00:00     1.0997      1.1104      79.0       78.5    10.982     11.070  11.1762   11.1603     1.274      1.297    2.537     2.524
+2023-04-07 16:00:00     1.1105      1.1069      78.5       78.3    11.067     11.046  11.1638   11.1573     1.297      1.303    2.525     2.486
+2023-04-08 00:00:00     1.1069      1.1145      78.2       78.6    11.045     11.094  11.1563   11.2341     1.304      1.303    2.485     2.514
+============= the dataframe=============
+## Wallet amount (USDT) 0.01506687933
+vendage :  RNDR/USDT
+ 
+Plage Horraire = 8h
+ 
+computing = n-1
+ 
+2023-04-08 08:00:15 , la meilleur crypto est APT/USDT, je vends RNDR/USDT et j'achete APT/USDT
+The new crypto wallet is 10.82434389093
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 08/04/2023 09:00:14 ---
+
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 08/04/2023 10:00:15 ---
+
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 08/04/2023 11:00:15 ---
+
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 08/04/2023 12:00:14 ---
+
+
+--- End Execution Time ---
+

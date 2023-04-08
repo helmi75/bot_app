@@ -1252,3 +1252,12 @@ If you give me more UOS I will sell it
 
 --- End Execution Time ---
 
+
+--- Start Execution Time : 08/04/2023 12:00:14 ---
+
+ 
+TRIXUOSKUCANI : usd balance = 8.23205636 
+If you give me more UOS I will sell it
+
+--- End Execution Time ---
+
