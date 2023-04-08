@@ -12,6 +12,26 @@ credentials:
       password: '$2b$12$8h8vT9ecTFoD.4ow0ZD82el30c5nQvxt.pKbg9K4e12Ejfve60.iK'
       adresse: 'Kerkennah Sfax Tunisia'
       CP: '2021'
+    
+    anisse9:
+      email: anisse9@gmail.com
+      name: Anisse AIT MOUMMAD 
+      password: '$2b$12$8h8vT9ecTFoD.4ow0ZD82el30c5nQvxt.pKbg9K4e12Ejfve60.iK'
+      adresse: '190 bi' 
+      CP: '75017'
+    
+    amin9:
+     email: aminzit@gmail.com
+     name : Amin ZITOUNI
+     password : '$2b$12$8h8vT9ecTFoD.4ow0ZD82el30c5nQvxt.pKbg9K4e12Ejfve60.iK'
+     adresse : 'Bois colombes'
+     CP: '92'
+    Visitor2023:
+      email: aminzit@gmail.com
+      name : VISITOR 
+      password : '$2b$12$8h8vT9ecTFoD.4ow0ZD82el30c5nQvxt.pKbg9K4e12Ejfve60.iK'
+      adresse : 'Visitor'
+      CP: 'Visitor'
 
 
 

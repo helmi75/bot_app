@@ -1,0 +1,1507 @@
+ 
+-----Start the script------
+-----End of the script-----
+ 
+ 
+-----Start the script------
+-----End of the script-----
+ 
+ 
+-----Start the script------
+-----End of the script-----
+ 
+ 
+-----Start the script------
+-----End of the script-----
+ 
+ 
+-----Start the script------
+-----End of the script-----
+ 
+ 
+-----Start the script------
+-----End of the script-----
+ 
+ 
+-----Start the script------
+-----End of the script-----
+ 
+ 
+-----Start the script------
+-----End of the script-----
+ 
+ 
+-----Start the script------
+-----End of the script-----
+ 
+ 
+-----Start the script------
+-----End of the script-----
+ 
+ 
+-----Start the script------
+-----End of the script-----
+ 
+ 
+-----Start the script------
+-----End of the script-----
+ 
+ 
+-----Start the script------
+ 
+///////////////
+ByBit Bot : bybit cocotier test 
+ 
+============= the dataframe=============
+                    eth/usdt           ada/usdt           doge/usdt            bnb/usdt           dot/usdt          
+                    eth_open eth_close ada_open ada_close doge_open doge_close bnb_open bnb_close dot_open dot_close
+timestamp                                                                                                           
+2023-01-08 08:00:00  1263.65   1274.25   0.2766    0.2880   0.07178    0.07242    261.0     267.0    4.638     4.752
+2023-01-08 16:00:00  1274.25   1290.16   0.2881    0.2974   0.07243    0.07363    267.0     274.9    4.752     4.826
+2023-01-09 00:00:00  1290.15   1311.92   0.2975    0.3256   0.07362    0.07492    274.9     277.7    4.826     4.912
+============= the dataframe=============
+## Wallet amount (USDT) 0.00555625121
+## Staying on the same cryptocurency
+ 
+Plage Horraire = 8h
+ 
+computing = n-1
+ 
+2023-01-09 08:00:05 , la meilleur crypto est ADA/USDT, je vends ADA/USDT et j'achete ADA/USDT
+The new crypto wallet is 22.838022986000002
+idd :  8069
+bot_id :  46
+max :  22.838022986000002
+*****Exceptions*****
+1365 (22012): Division by 0
+********************
+-----End of the script-----
+ 
+ 
+-----Start the script------
+-----End of the script-----
+ 
+ 
+-----Start the script------
+-----End of the script-----
+ 
+ 
+-----Start the script------
+-----End of the script-----
+ 
+ 
+-----Start the script------
+-----End of the script-----
+ 
+ 
+-----Start the script------
+-----End of the script-----
+ 
+ 
+-----Start the script------
+-----End of the script-----
+ 
+ 
+-----Start the script------
+-----End of the script-----
+ 
+ 
+-----Start the script------
+ 
+///////////////
+ByBit Bot : bybit cocotier test 
+ 
+============= the dataframe=============
+                    eth/usdt           ada/usdt           doge/usdt            bnb/usdt           dot/usdt          
+                    eth_open eth_close ada_open ada_close doge_open doge_close bnb_open bnb_close dot_open dot_close
+timestamp                                                                                                           
+2023-01-08 16:00:00  1274.25   1290.16   0.2881    0.2974   0.07243    0.07363    267.0     274.9    4.752     4.826
+2023-01-09 00:00:00  1290.15   1311.92   0.2975    0.3256   0.07362    0.07492    274.9     277.7    4.826     4.912
+2023-01-09 08:00:00  1311.93   1335.68   0.3255    0.3207   0.07492    0.07820    277.7     280.3    4.911     5.039
+============= the dataframe=============
+## Wallet amount (USDT) 0.00555625121
+## Staying on the same cryptocurency
+ 
+Plage Horraire = 8h
+ 
+computing = n-1
+ 
+2023-01-09 16:00:05 , la meilleur crypto est ADA/USDT, je vends ADA/USDT et j'achete ADA/USDT
+The new crypto wallet is 22.487553514
+idd :  8071
+bot_id :  46
+max :  22.838022986000002
+*****Exceptions*****
+1365 (22012): Division by 0
+********************
+-----End of the script-----
+ 
+ 
+-----Start the script------
+-----End of the script-----
+ 
+ 
+-----Start the script------
+-----End of the script-----
+ 
+ 
+-----Start the script------
+-----End of the script-----
+ 
+ 
+-----Start the script------
+-----End of the script-----
+ 
+ 
+-----Start the script------
+-----End of the script-----
+ 
+ 
+-----Start the script------
+-----End of the script-----
+ 
+ 
+-----Start the script------
+-----End of the script-----
+ 
+ 
+-----Start the script------
+ 
+///////////////
+ByBit Bot : bybit cocotier test 
+ 
+============= the dataframe=============
+                    eth/usdt           ada/usdt           doge/usdt            bnb/usdt           dot/usdt          
+                    eth_open eth_close ada_open ada_close doge_open doge_close bnb_open bnb_close dot_open dot_close
+timestamp                                                                                                           
+2023-01-09 00:00:00  1290.15   1311.92   0.2975    0.3256   0.07362    0.07492    274.9     277.7    4.826     4.912
+2023-01-09 08:00:00  1311.93   1335.68   0.3255    0.3207   0.07492    0.07820    277.7     280.3    4.911     5.039
+2023-01-09 16:00:00  1335.69   1320.39   0.3207    0.3168   0.07818    0.07566    280.4     272.6    5.039     4.887
+============= the dataframe=============
+## Wallet amount (USDT) 0.00555625121
+vendage :  ADA/USDT
+ 
+Plage Horraire = 8h
+ 
+computing = n-1
+ 
+2023-01-10 00:00:06 , la meilleur crypto est DOGE/USDT, je vends ADA/USDT et j'achete DOGE/USDT
+The new crypto wallet is 22.146629452
+idd :  8073
+bot_id :  46
+max :  22.838022986000002
+*****Exceptions*****
+1365 (22012): Division by 0
+********************
+-----End of the script-----
+ 
+ 
+-----Start the script------
+-----End of the script-----
+ 
+ 
+-----Start the script------
+-----End of the script-----
+ 
+ 
+-----Start the script------
+-----End of the script-----
+ 
+ 
+-----Start the script------
+-----End of the script-----
+ 
+ 
+-----Start the script------
+-----End of the script-----
+ 
+ 
+-----Start the script------
+-----End of the script-----
+ 
+ 
+-----Start the script------
+-----End of the script-----
+ 
+ 
+-----Start the script------
+ 
+///////////////
+ByBit Bot : bybit cocotier test 
+ 
+============= the dataframe=============
+                    eth/usdt           ada/usdt           doge/usdt            bnb/usdt           dot/usdt          
+                    eth_open eth_close ada_open ada_close doge_open doge_close bnb_open bnb_close dot_open dot_close
+timestamp                                                                                                           
+2023-01-09 08:00:00  1311.93   1335.68   0.3255    0.3207   0.07492    0.07820    277.7     280.3    4.911     5.039
+2023-01-09 16:00:00  1335.69   1320.39   0.3207    0.3168   0.07818    0.07566    280.4     272.6    5.039     4.887
+2023-01-10 00:00:00  1320.40   1323.23   0.3168    0.3151   0.07565    0.07572    272.6     274.4    4.886     4.885
+============= the dataframe=============
+## Wallet amount (USDT) 0.03529634121
+vendage :  DOGE/USDT
+ 
+Plage Horraire = 8h
+ 
+computing = n-1
+ 
+2023-01-10 08:00:05 , la meilleur crypto est ETH/USDT, je vends DOGE/USDT et j'achete ETH/USDT
+The new crypto wallet is 22.1203992405
+idd :  8075
+bot_id :  46
+max :  22.838022986000002
+*****Exceptions*****
+1365 (22012): Division by 0
+********************
+-----End of the script-----
+ 
+ 
+-----Start the script------
+-----End of the script-----
+ 
+ 
+-----Start the script------
+-----End of the script-----
+ 
+ 
+-----Start the script------
+-----End of the script-----
+ 
+ 
+-----Start the script------
+-----End of the script-----
+ 
+ 
+-----Start the script------
+-----End of the script-----
+ 
+ 
+-----Start the script------
+-----End of the script-----
+ 
+ 
+-----Start the script------
+-----End of the script-----
+ 
+ 
+-----Start the script------
+ 
+///////////////
+ByBit Bot : bybit cocotier test 
+ 
+============= the dataframe=============
+                    eth/usdt           ada/usdt           doge/usdt            bnb/usdt           dot/usdt          
+                    eth_open eth_close ada_open ada_close doge_open doge_close bnb_open bnb_close dot_open dot_close
+timestamp                                                                                                           
+2023-01-09 16:00:00  1335.69   1320.39   0.3207    0.3168   0.07818    0.07566    280.4     272.6    5.039     4.887
+2023-01-10 00:00:00  1320.40   1323.23   0.3168    0.3151   0.07565    0.07572    272.6     274.4    4.886     4.885
+2023-01-10 08:00:00  1323.22   1333.97   0.3151    0.3203   0.07573    0.07663    274.5     275.9    4.886     4.922
+============= the dataframe=============
+## Wallet amount (USDT) 0.00186322121
+vendage :  ETH/USDT
+ 
+Plage Horraire = 8h
+ 
+computing = n-1
+ 
+2023-01-10 16:00:06 , la meilleur crypto est DOGE/USDT, je vends ETH/USDT et j'achete DOGE/USDT
+The new crypto wallet is 22.2459032135
+idd :  8077
+bot_id :  46
+max :  22.838022986000002
+*****Exceptions*****
+1365 (22012): Division by 0
+********************
+-----End of the script-----
+ 
+ 
+-----Start the script------
+-----End of the script-----
+ 
+ 
+-----Start the script------
+-----End of the script-----
+ 
+ 
+-----Start the script------
+-----End of the script-----
+ 
+ 
+-----Start the script------
+-----End of the script-----
+ 
+ 
+-----Start the script------
+-----End of the script-----
+ 
+ 
+-----Start the script------
+-----End of the script-----
+ 
+ 
+-----Start the script------
+-----End of the script-----
+ 
+ 
+-----Start the script------
+ 
+///////////////
+ByBit Bot : bybit cocotier test 
+ 
+============= the dataframe=============
+                    eth/usdt           ada/usdt           doge/usdt            bnb/usdt           dot/usdt          
+                    eth_open eth_close ada_open ada_close doge_open doge_close bnb_open bnb_close dot_open dot_close
+timestamp                                                                                                           
+2023-01-10 00:00:00  1320.40   1323.23   0.3168    0.3151   0.07565    0.07572    272.6     274.4    4.886     4.885
+2023-01-10 08:00:00  1323.22   1333.97   0.3151    0.3203   0.07573    0.07663    274.5     275.9    4.886     4.922
+2023-01-10 16:00:00  1333.97   1335.62   0.3203    0.3222   0.07664    0.07782    275.9     277.1    4.923     4.920
+============= the dataframe=============
+## Wallet amount (USDT) 0.02032402841
+## Staying on the same cryptocurency
+ 
+Plage Horraire = 8h
+ 
+computing = n-1
+ 
+2023-01-11 00:00:05 , la meilleur crypto est DOGE/USDT, je vends DOGE/USDT et j'achete DOGE/USDT
+The new crypto wallet is 22.582655945500004
+idd :  8079
+bot_id :  46
+max :  22.838022986000002
+*****Exceptions*****
+1365 (22012): Division by 0
+********************
+-----End of the script-----
+ 
+ 
+-----Start the script------
+-----End of the script-----
+ 
+ 
+-----Start the script------
+-----End of the script-----
+ 
+ 
+-----Start the script------
+-----End of the script-----
+ 
+ 
+-----Start the script------
+-----End of the script-----
+ 
+ 
+-----Start the script------
+-----End of the script-----
+ 
+ 
+-----Start the script------
+-----End of the script-----
+ 
+ 
+-----Start the script------
+-----End of the script-----
+ 
+ 
+-----Start the script------
+ 
+///////////////
+ByBit Bot : bybit cocotier test 
+ 
+============= the dataframe=============
+                    eth/usdt           ada/usdt           doge/usdt            bnb/usdt           dot/usdt          
+                    eth_open eth_close ada_open ada_close doge_open doge_close bnb_open bnb_close dot_open dot_close
+timestamp                                                                                                           
+2023-01-10 08:00:00  1323.22   1333.97   0.3151    0.3203   0.07573    0.07663    274.5     275.9    4.886     4.922
+2023-01-10 16:00:00  1333.97   1335.62   0.3203    0.3222   0.07664    0.07782    275.9     277.1    4.923     4.920
+2023-01-11 00:00:00  1335.63   1335.52   0.3222    0.3157   0.07782    0.07705    277.2     277.8    4.920     4.884
+============= the dataframe=============
+## Wallet amount (USDT) 0.02032402841
+vendage :  DOGE/USDT
+ 
+Plage Horraire = 8h
+ 
+computing = n-1
+ 
+2023-01-11 08:00:06 , la meilleur crypto est BNB/USDT, je vends DOGE/USDT et j'achete BNB/USDT
+The new crypto wallet is 22.191271287000003
+idd :  8081
+bot_id :  46
+max :  22.838022986000002
+*****Exceptions*****
+1365 (22012): Division by 0
+********************
+-----End of the script-----
+ 
+ 
+-----Start the script------
+-----End of the script-----
+ 
+ 
+-----Start the script------
+-----End of the script-----
+ 
+ 
+-----Start the script------
+-----End of the script-----
+ 
+ 
+-----Start the script------
+-----End of the script-----
+ 
+ 
+-----Start the script------
+-----End of the script-----
+ 
+ 
+-----Start the script------
+-----End of the script-----
+ 
+ 
+-----Start the script------
+-----End of the script-----
+ 
+ 
+-----Start the script------
+ 
+///////////////
+ByBit Bot : bybit cocotier test 
+ 
+============= the dataframe=============
+                    eth/usdt           ada/usdt           doge/usdt            bnb/usdt           dot/usdt          
+                    eth_open eth_close ada_open ada_close doge_open doge_close bnb_open bnb_close dot_open dot_close
+timestamp                                                                                                           
+2023-01-10 16:00:00  1333.97   1335.62   0.3203    0.3222   0.07664    0.07782    275.9     277.1    4.923     4.920
+2023-01-11 00:00:00  1335.63   1335.52   0.3222    0.3157   0.07782    0.07705    277.2     277.8    4.920     4.884
+2023-01-11 08:00:00  1335.53   1323.04   0.3157    0.3090   0.07705    0.07512    277.7     276.8    4.883     4.847
+============= the dataframe=============
+## Wallet amount (USDT) 0.12417299641
+## Staying on the same cryptocurency
+ 
+Plage Horraire = 8h
+ 
+computing = n-1
+ 
+2023-01-11 16:00:06 , la meilleur crypto est BNB/USDT, je vends BNB/USDT et j'achete BNB/USDT
+The new crypto wallet is 22.1071978155
+idd :  8083
+bot_id :  46
+max :  22.838022986000002
+*****Exceptions*****
+1365 (22012): Division by 0
+********************
+-----End of the script-----
+ 
+ 
+-----Start the script------
+-----End of the script-----
+ 
+ 
+-----Start the script------
+-----End of the script-----
+ 
+ 
+-----Start the script------
+-----End of the script-----
+ 
+ 
+-----Start the script------
+-----End of the script-----
+ 
+ 
+-----Start the script------
+-----End of the script-----
+ 
+ 
+-----Start the script------
+-----End of the script-----
+ 
+ 
+-----Start the script------
+-----End of the script-----
+ 
+ 
+-----Start the script------
+ 
+///////////////
+ByBit Bot : bybit cocotier test 
+ 
+============= the dataframe=============
+                    eth/usdt           ada/usdt           doge/usdt            bnb/usdt           dot/usdt          
+                    eth_open eth_close ada_open ada_close doge_open doge_close bnb_open bnb_close dot_open dot_close
+timestamp                                                                                                           
+2023-01-11 00:00:00  1335.63   1335.52   0.3222    0.3157   0.07782    0.07705    277.2     277.8    4.920     4.884
+2023-01-11 08:00:00  1335.53   1323.04   0.3157    0.3090   0.07705    0.07512    277.7     276.8    4.883     4.847
+2023-01-11 16:00:00  1323.05   1389.39   0.3090    0.3230   0.07511    0.07814    276.8     284.8    4.847     5.135
+============= the dataframe=============
+## Wallet amount (USDT) 0.12417299641
+vendage :  BNB/USDT
+ 
+Plage Horraire = 8h
+ 
+computing = n-1
+ 
+2023-01-12 00:00:06 , la meilleur crypto est DOT/USDT, je vends BNB/USDT et j'achete DOT/USDT
+The new crypto wallet is 22.823943531
+idd :  8085
+bot_id :  46
+max :  22.838022986000002
+*****Exceptions*****
+1365 (22012): Division by 0
+********************
+-----End of the script-----
+ 
+ 
+-----Start the script------
+-----End of the script-----
+ 
+ 
+-----Start the script------
+-----End of the script-----
+ 
+ 
+-----Start the script------
+-----End of the script-----
+ 
+ 
+-----Start the script------
+-----End of the script-----
+ 
+ 
+-----Start the script------
+-----End of the script-----
+ 
+ 
+-----Start the script------
+-----End of the script-----
+ 
+ 
+-----Start the script------
+-----End of the script-----
+ 
+ 
+-----Start the script------
+ 
+///////////////
+ByBit Bot : bybit cocotier test 
+ 
+============= the dataframe=============
+                    eth/usdt           ada/usdt           doge/usdt            bnb/usdt           dot/usdt          
+                    eth_open eth_close ada_open ada_close doge_open doge_close bnb_open bnb_close dot_open dot_close
+timestamp                                                                                                           
+2023-01-11 08:00:00  1335.53   1323.04   0.3157    0.3090   0.07705    0.07512    277.7     276.8    4.883     4.847
+2023-01-11 16:00:00  1323.05   1389.39   0.3090    0.3230   0.07511    0.07814    276.8     284.8    4.847     5.135
+2023-01-12 00:00:00  1389.40   1398.45   0.3230    0.3247   0.07816    0.07912    284.9     285.1    5.134     5.121
+============= the dataframe=============
+## Wallet amount (USDT) 0.00142236671
+vendage :  DOT/USDT
+ 
+Plage Horraire = 8h
+ 
+computing = n-1
+ 
+2023-01-12 08:00:05 , la meilleur crypto est ETH/USDT, je vends DOT/USDT et j'achete ETH/USDT
+The new crypto wallet is 22.691864059500002
+idd :  8087
+bot_id :  46
+max :  22.838022986000002
+*****Exceptions*****
+1365 (22012): Division by 0
+********************
+-----End of the script-----
+ 
+ 
+-----Start the script------
+-----End of the script-----
+ 
+ 
+-----Start the script------
+-----End of the script-----
+ 
+ 
+-----Start the script------
+-----End of the script-----
+ 
+ 
+-----Start the script------
+-----End of the script-----
+ 
+ 
+-----Start the script------
+-----End of the script-----
+ 
+ 
+-----Start the script------
+-----End of the script-----
+ 
+ 
+-----Start the script------
+-----End of the script-----
+ 
+ 
+-----Start the script------
+ 
+///////////////
+ByBit Bot : bybit cocotier test 
+ 
+============= the dataframe=============
+                    eth/usdt           ada/usdt           doge/usdt            bnb/usdt           dot/usdt          
+                    eth_open eth_close ada_open ada_close doge_open doge_close bnb_open bnb_close dot_open dot_close
+timestamp                                                                                                           
+2023-01-11 16:00:00  1323.05   1389.39   0.3090    0.3230   0.07511    0.07814    276.8     284.8    4.847     5.135
+2023-01-12 00:00:00  1389.40   1398.45   0.3230    0.3247   0.07816    0.07912    284.9     285.1    5.134     5.121
+2023-01-12 08:00:00  1398.44   1386.07   0.3247    0.3223   0.07912    0.07728    285.1     281.6    5.119     5.072
+============= the dataframe=============
+## Wallet amount (USDT) 0.01211034271
+vendage :  ETH/USDT
+ 
+Plage Horraire = 8h
+ 
+computing = n-1
+ 
+2023-01-12 16:00:05 , la meilleur crypto est ADA/USDT, je vends ETH/USDT et j'achete ADA/USDT
+The new crypto wallet is 22.44252402
+idd :  8089
+bot_id :  46
+max :  22.838022986000002
+*****Exceptions*****
+1365 (22012): Division by 0
+********************
+-----End of the script-----
+ 
+ 
+-----Start the script------
+-----End of the script-----
+ 
+ 
+-----Start the script------
+-----End of the script-----
+ 
+ 
+-----Start the script------
+-----End of the script-----
+ 
+ 
+-----Start the script------
+-----End of the script-----
+ 
+ 
+-----Start the script------
+-----End of the script-----
+ 
+ 
+-----Start the script------
+-----End of the script-----
+ 
+ 
+-----Start the script------
+-----End of the script-----
+ 
+ 
+-----Start the script------
+ 
+///////////////
+ByBit Bot : bybit cocotier test 
+ 
+============= the dataframe=============
+                    eth/usdt           ada/usdt           doge/usdt            bnb/usdt           dot/usdt          
+                    eth_open eth_close ada_open ada_close doge_open doge_close bnb_open bnb_close dot_open dot_close
+timestamp                                                                                                           
+2023-01-12 00:00:00  1389.40   1398.45   0.3230    0.3247   0.07816    0.07912    284.9     285.1    5.134     5.121
+2023-01-12 08:00:00  1398.44   1386.07   0.3247    0.3223   0.07912    0.07728    285.1     281.6    5.119     5.072
+2023-01-12 16:00:00  1386.07   1415.92   0.3223    0.3293   0.07728    0.08025    281.6     287.7    5.071     5.232
+============= the dataframe=============
+## Wallet amount (USDT) 0.00919810471
+vendage :  ADA/USDT
+ 
+Plage Horraire = 8h
+ 
+computing = n-1
+ 
+2023-01-13 00:00:06 , la meilleur crypto est DOT/USDT, je vends ADA/USDT et j'achete DOT/USDT
+The new crypto wallet is 22.9160520305
+idd :  8091
+bot_id :  46
+max :  22.9160520305
+*****Exceptions*****
+1365 (22012): Division by 0
+********************
+-----End of the script-----
+ 
+ 
+-----Start the script------
+-----End of the script-----
+ 
+ 
+-----Start the script------
+-----End of the script-----
+ 
+ 
+-----Start the script------
+-----End of the script-----
+ 
+ 
+-----Start the script------
+-----End of the script-----
+ 
+ 
+-----Start the script------
+-----End of the script-----
+ 
+ 
+-----Start the script------
+-----End of the script-----
+ 
+ 
+-----Start the script------
+-----End of the script-----
+ 
+ 
+-----Start the script------
+ 
+///////////////
+ByBit Bot : bybit cocotier test 
+ 
+============= the dataframe=============
+                    eth/usdt           ada/usdt           doge/usdt            bnb/usdt           dot/usdt          
+                    eth_open eth_close ada_open ada_close doge_open doge_close bnb_open bnb_close dot_open dot_close
+timestamp                                                                                                           
+2023-01-12 08:00:00  1398.44   1386.07   0.3247    0.3223   0.07912    0.07728    285.1     281.6    5.119     5.072
+2023-01-12 16:00:00  1386.07   1415.92   0.3223    0.3293   0.07728    0.08025    281.6     287.7    5.071     5.232
+2023-01-13 00:00:00  1415.91   1408.12   0.3293    0.3279   0.08025    0.08002    287.8     287.9    5.233     5.219
+============= the dataframe=============
+## Wallet amount (USDT) 0.00175573871
+vendage :  DOT/USDT
+ 
+Plage Horraire = 8h
+ 
+computing = n-1
+ 
+2023-01-13 08:00:06 , la meilleur crypto est DOGE/USDT, je vends DOT/USDT et j'achete DOGE/USDT
+The new crypto wallet is 22.735683963999996
+idd :  8093
+bot_id :  46
+max :  22.9160520305
+*****Exceptions*****
+1365 (22012): Division by 0
+********************
+-----End of the script-----
+ 
+ 
+-----Start the script------
+-----End of the script-----
+ 
+ 
+-----Start the script------
+-----End of the script-----
+ 
+ 
+-----Start the script------
+-----End of the script-----
+ 
+ 
+-----Start the script------
+-----End of the script-----
+ 
+ 
+-----Start the script------
+-----End of the script-----
+ 
+ 
+-----Start the script------
+-----End of the script-----
+ 
+ 
+-----Start the script------
+-----End of the script-----
+ 
+ 
+-----Start the script------
+ 
+///////////////
+ByBit Bot : bybit cocotier test 
+ 
+============= the dataframe=============
+                    eth/usdt           ada/usdt           doge/usdt            bnb/usdt           dot/usdt          
+                    eth_open eth_close ada_open ada_close doge_open doge_close bnb_open bnb_close dot_open dot_close
+timestamp                                                                                                           
+2023-01-12 16:00:00  1386.07   1415.92   0.3223    0.3293   0.07728    0.08025    281.6     287.7    5.071     5.232
+2023-01-13 00:00:00  1415.91   1408.12   0.3293    0.3279   0.08025    0.08002    287.8     287.9    5.233     5.219
+2023-01-13 08:00:00  1408.11   1421.98   0.3279    0.3320   0.08001    0.08039    288.0     288.8    5.220     5.287
+============= the dataframe=============
+## Wallet amount (USDT) 0.08274514471
+vendage :  DOGE/USDT
+ 
+Plage Horraire = 8h
+ 
+computing = n-1
+ 
+2023-01-13 16:00:05 , la meilleur crypto est DOT/USDT, je vends DOGE/USDT et j'achete DOT/USDT
+The new crypto wallet is 22.875145895000003
+idd :  8095
+bot_id :  46
+max :  22.9160520305
+*****Exceptions*****
+1365 (22012): Division by 0
+********************
+-----End of the script-----
+ 
+ 
+-----Start the script------
+-----End of the script-----
+ 
+ 
+-----Start the script------
+-----End of the script-----
+ 
+ 
+-----Start the script------
+-----End of the script-----
+ 
+ 
+-----Start the script------
+-----End of the script-----
+ 
+ 
+-----Start the script------
+-----End of the script-----
+ 
+ 
+-----Start the script------
+-----End of the script-----
+ 
+ 
+-----Start the script------
+-----End of the script-----
+ 
+ 
+-----Start the script------
+ 
+///////////////
+ByBit Bot : bybit cocotier test 
+ 
+============= the dataframe=============
+                    eth/usdt           ada/usdt           doge/usdt            bnb/usdt           dot/usdt          
+                    eth_open eth_close ada_open ada_close doge_open doge_close bnb_open bnb_close dot_open dot_close
+timestamp                                                                                                           
+2023-01-13 00:00:00  1415.91   1408.12   0.3293    0.3279   0.08025    0.08002    287.8     287.9    5.233     5.219
+2023-01-13 08:00:00  1408.11   1421.98   0.3279    0.3320   0.08001    0.08039    288.0     288.8    5.220     5.287
+2023-01-13 16:00:00  1421.98   1451.20   0.3321    0.3456   0.08039    0.08450    288.7     293.7    5.286     5.401
+============= the dataframe=============
+## Wallet amount (USDT) 0.00159082471
+vendage :  DOT/USDT
+ 
+Plage Horraire = 8h
+ 
+computing = n-1
+ 
+2023-01-14 00:00:06 , la meilleur crypto est DOGE/USDT, je vends DOT/USDT et j'achete DOGE/USDT
+The new crypto wallet is 23.259850684
+idd :  8097
+bot_id :  46
+max :  23.259850684
+*****Exceptions*****
+1365 (22012): Division by 0
+********************
+-----End of the script-----
+ 
+ 
+-----Start the script------
+-----End of the script-----
+ 
+ 
+-----Start the script------
+-----End of the script-----
+ 
+ 
+-----Start the script------
+-----End of the script-----
+ 
+ 
+-----Start the script------
+-----End of the script-----
+ 
+ 
+-----Start the script------
+-----End of the script-----
+ 
+ 
+-----Start the script------
+-----End of the script-----
+ 
+ 
+-----Start the script------
+-----End of the script-----
+ 
+ 
+-----Start the script------
+ 
+///////////////
+ByBit Bot : bybit cocotier test 
+ 
+============= the dataframe=============
+                    eth/usdt           ada/usdt           doge/usdt            bnb/usdt           dot/usdt          
+                    eth_open eth_close ada_open ada_close doge_open doge_close bnb_open bnb_close dot_open dot_close
+timestamp                                                                                                           
+2023-01-13 08:00:00  1408.11   1421.98   0.3279    0.3320   0.08001    0.08039    288.0     288.8    5.220     5.287
+2023-01-13 16:00:00  1421.98   1451.20   0.3321    0.3456   0.08039    0.08450    288.7     293.7    5.286     5.401
+2023-01-14 00:00:00  1451.21   1553.43   0.3455    0.3634   0.08449    0.08908    293.7     310.8    5.401     6.212
+============= the dataframe=============
+## Wallet amount (USDT) 0.05243989771
+vendage :  DOGE/USDT
+ 
+Plage Horraire = 8h
+ 
+computing = n-1
+ 
+2023-01-14 08:00:06 , la meilleur crypto est DOT/USDT, je vends DOGE/USDT et j'achete DOT/USDT
+The new crypto wallet is 24.572471169499998
+idd :  8099
+bot_id :  46
+max :  24.572471169499998
+*****Exceptions*****
+1365 (22012): Division by 0
+********************
+-----End of the script-----
+ 
+ 
+-----Start the script------
+-----End of the script-----
+ 
+ 
+-----Start the script------
+-----End of the script-----
+ 
+ 
+-----Start the script------
+-----End of the script-----
+ 
+ 
+-----Start the script------
+-----End of the script-----
+ 
+ 
+-----Start the script------
+-----End of the script-----
+ 
+ 
+-----Start the script------
+-----End of the script-----
+ 
+ 
+-----Start the script------
+-----End of the script-----
+ 
+ 
+-----Start the script------
+ 
+///////////////
+ByBit Bot : bybit cocotier test 
+ 
+============= the dataframe=============
+                    eth/usdt           ada/usdt           doge/usdt            bnb/usdt           dot/usdt          
+                    eth_open eth_close ada_open ada_close doge_open doge_close bnb_open bnb_close dot_open dot_close
+timestamp                                                                                                           
+2023-01-13 16:00:00  1421.98   1451.20   0.3321    0.3456   0.08039    0.08450    288.7     293.7    5.286     5.401
+2023-01-14 00:00:00  1451.21   1553.43   0.3455    0.3634   0.08449    0.08908    293.7     310.8    5.401     6.212
+2023-01-14 08:00:00  1553.43   1525.18   0.3635    0.3516   0.08907    0.08695    310.9     304.2    6.213     6.115
+============= the dataframe=============
+## Wallet amount (USDT) 0.00508090371
+## Staying on the same cryptocurency
+ 
+Plage Horraire = 8h
+ 
+computing = n-1
+ 
+2023-01-14 16:00:05 , la meilleur crypto est DOT/USDT, je vends DOT/USDT et j'achete DOT/USDT
+The new crypto wallet is 24.195515209
+idd :  8101
+bot_id :  46
+max :  24.572471169499998
+*****Exceptions*****
+1365 (22012): Division by 0
+********************
+-----End of the script-----
+ 
+ 
+-----Start the script------
+-----End of the script-----
+ 
+ 
+-----Start the script------
+-----End of the script-----
+ 
+ 
+-----Start the script------
+-----End of the script-----
+ 
+ 
+-----Start the script------
+-----End of the script-----
+ 
+ 
+-----Start the script------
+-----End of the script-----
+ 
+ 
+-----Start the script------
+-----End of the script-----
+ 
+ 
+-----Start the script------
+-----End of the script-----
+ 
+ 
+-----Start the script------
+ 
+///////////////
+ByBit Bot : bybit_cocotier_test
+ 
+============= the dataframe=============
+                    eth/usdt           ada/usdt           doge/usdt            bnb/usdt           dot/usdt          
+                    eth_open eth_close ada_open ada_close doge_open doge_close bnb_open bnb_close dot_open dot_close
+timestamp                                                                                                           
+2023-01-14 00:00:00  1451.21   1553.43   0.3455    0.3634   0.08449    0.08908    293.7     310.8    5.401     6.212
+2023-01-14 08:00:00  1553.43   1525.18   0.3635    0.3516   0.08907    0.08695    310.9     304.2    6.213     6.115
+2023-01-14 16:00:00  1525.19   1549.90   0.3515    0.3525   0.08696    0.08729    304.2     305.1    6.115     6.026
+============= the dataframe=============
+## Wallet amount (USDT) 0.00508090371
+vendage :  DOT/USDT
+ 
+Plage Horraire = 8h
+ 
+computing = n-1
+ 
+2023-01-15 00:00:06 , la meilleur crypto est ETH/USDT, je vends DOT/USDT et j'achete ETH/USDT
+The new crypto wallet is 23.7886817215
+idd :  8103
+bot_id :  46
+max :  24.572471169499998
+*****Exceptions*****
+1365 (22012): Division by 0
+********************
+-----End of the script-----
+ 
+ 
+-----Start the script------
+-----End of the script-----
+ 
+ 
+-----Start the script------
+-----End of the script-----
+ 
+ 
+-----Start the script------
+-----End of the script-----
+ 
+ 
+-----Start the script------
+-----End of the script-----
+ 
+ 
+-----Start the script------
+-----End of the script-----
+ 
+ 
+-----Start the script------
+-----End of the script-----
+ 
+ 
+-----Start the script------
+-----End of the script-----
+ 
+ 
+-----Start the script------
+ 
+///////////////
+ByBit Bot : bybit_cocotier_test
+ 
+============= the dataframe=============
+                    eth/usdt           ada/usdt           doge/usdt            bnb/usdt           dot/usdt          
+                    eth_open eth_close ada_open ada_close doge_open doge_close bnb_open bnb_close dot_open dot_close
+timestamp                                                                                                           
+2023-01-14 08:00:00  1553.43   1525.18   0.3635    0.3516   0.08907    0.08695    310.9     304.2    6.213     6.115
+2023-01-14 16:00:00  1525.19   1549.90   0.3515    0.3525   0.08696    0.08729    304.2     305.1    6.115     6.026
+2023-01-15 00:00:00  1549.91   1529.16   0.3526    0.3462   0.08729    0.08440    305.2     297.4    6.026     5.875
+============= the dataframe=============
+## Wallet amount (USDT) 0.00499807971
+## Staying on the same cryptocurency
+ 
+Plage Horraire = 8h
+ 
+computing = n-1
+ 
+2023-01-15 08:00:06 , la meilleur crypto est ETH/USDT, je vends ETH/USDT et j'achete ETH/USDT
+The new crypto wallet is 23.479802178
+idd :  8105
+bot_id :  46
+max :  24.572471169499998
+*****Exceptions*****
+1365 (22012): Division by 0
+********************
+-----End of the script-----
+ 
+ 
+-----Start the script------
+-----End of the script-----
+ 
+ 
+-----Start the script------
+-----End of the script-----
+ 
+ 
+-----Start the script------
+-----End of the script-----
+ 
+ 
+-----Start the script------
+-----End of the script-----
+ 
+ 
+-----Start the script------
+-----End of the script-----
+ 
+ 
+-----Start the script------
+-----End of the script-----
+ 
+ 
+-----Start the script------
+-----End of the script-----
+ 
+ 
+-----Start the script------
+ 
+///////////////
+ByBit Bot : bybit_cocotier_test
+ 
+============= the dataframe=============
+                    eth/usdt           ada/usdt           doge/usdt            bnb/usdt           dot/usdt          
+                    eth_open eth_close ada_open ada_close doge_open doge_close bnb_open bnb_close dot_open dot_close
+timestamp                                                                                                           
+2023-01-14 16:00:00  1525.19   1549.90   0.3515    0.3525   0.08696    0.08729    304.2     305.1    6.115     6.026
+2023-01-15 00:00:00  1549.91   1529.16   0.3526    0.3462   0.08729    0.08440    305.2     297.4    6.026     5.875
+2023-01-15 08:00:00  1529.16   1556.35   0.3462    0.3507   0.08440    0.08585    297.4     302.7    5.874     6.024
+============= the dataframe=============
+## Wallet amount (USDT) 0.00499807971
+## Staying on the same cryptocurency
+ 
+Plage Horraire = 8h
+ 
+computing = n-1
+ 
+2023-01-15 16:00:05 , la meilleur crypto est ETH/USDT, je vends ETH/USDT et j'achete ETH/USDT
+The new crypto wallet is 23.9055819555
+idd :  8107
+bot_id :  46
+max :  24.572471169499998
+*****Exceptions*****
+1365 (22012): Division by 0
+********************
+-----End of the script-----
+ 
+ 
+-----Start the script------
+-----End of the script-----
+ 
+ 
+-----Start the script------
+-----End of the script-----
+ 
+ 
+-----Start the script------
+-----End of the script-----
+ 
+ 
+-----Start the script------
+-----End of the script-----
+ 
+ 
+-----Start the script------
+-----End of the script-----
+ 
+ 
+-----Start the script------
+-----End of the script-----
+ 
+ 
+-----Start the script------
+-----End of the script-----
+ 
+ 
+-----Start the script------
+ 
+///////////////
+ByBit Bot : bybit_cocotier_test
+ 
+============= the dataframe=============
+                    eth/usdt           ada/usdt           doge/usdt            bnb/usdt           dot/usdt          
+                    eth_open eth_close ada_open ada_close doge_open doge_close bnb_open bnb_close dot_open dot_close
+timestamp                                                                                                           
+2023-01-15 00:00:00  1549.91   1529.16   0.3526    0.3462   0.08729    0.08440    305.2     297.4    6.026     5.875
+2023-01-15 08:00:00  1529.16   1556.35   0.3462    0.3507   0.08440    0.08585    297.4     302.7    5.874     6.024
+2023-01-15 16:00:00  1556.35   1552.52   0.3506    0.3507   0.08585    0.08608    302.7     302.2    6.024     5.929
+============= the dataframe=============
+## Wallet amount (USDT) 0.00499807971
+vendage :  ETH/USDT
+ 
+Plage Horraire = 8h
+ 
+computing = n-1
+ 
+2023-01-16 00:00:06 , la meilleur crypto est DOGE/USDT, je vends ETH/USDT et j'achete DOGE/USDT
+The new crypto wallet is 23.7768694415
+idd :  8109
+bot_id :  46
+max :  24.572471169499998
+*****Exceptions*****
+1365 (22012): Division by 0
+********************
+-----End of the script-----
+ 
+ 
+-----Start the script------
+-----End of the script-----
+ 
+ 
+-----Start the script------
+-----End of the script-----
+ 
+ 
+-----Start the script------
+-----End of the script-----
+ 
+ 
+-----Start the script------
+-----End of the script-----
+ 
+ 
+-----Start the script------
+-----End of the script-----
+ 
+ 
+-----Start the script------
+-----End of the script-----
+ 
+ 
+-----Start the script------
+-----End of the script-----
+ 
+ 
+-----Start the script------
+ 
+///////////////
+ByBit Bot : bybit_cocotier_test
+ 
+============= the dataframe=============
+                    eth/usdt           ada/usdt           doge/usdt            bnb/usdt           dot/usdt          
+                    eth_open eth_close ada_open ada_close doge_open doge_close bnb_open bnb_close dot_open dot_close
+timestamp                                                                                                           
+2023-01-15 08:00:00  1529.16   1556.35   0.3462    0.3507   0.08440    0.08585    297.4     302.7    5.874     6.024
+2023-01-15 16:00:00  1556.35   1552.52   0.3506    0.3507   0.08585    0.08608    302.7     302.2    6.024     5.929
+2023-01-16 00:00:00  1552.52   1565.95   0.3508    0.3576   0.08607    0.08632    302.2     303.0    5.928     5.968
+============= the dataframe=============
+## Wallet amount (USDT) 0.01182127211
+vendage :  DOGE/USDT
+ 
+Plage Horraire = 8h
+ 
+computing = n-1
+ 
+2023-01-16 08:00:05 , la meilleur crypto est ADA/USDT, je vends DOGE/USDT et j'achete ADA/USDT
+The new crypto wallet is 23.80886123
+idd :  8111
+bot_id :  46
+max :  24.572471169499998
+*****Exceptions*****
+1365 (22012): Division by 0
+********************
+-----End of the script-----
+ 
+ 
+-----Start the script------
+-----End of the script-----
+ 
+ 
+-----Start the script------
+-----End of the script-----
+ 
+ 
+-----Start the script------
+-----End of the script-----
+ 
+ 
+-----Start the script------
+-----End of the script-----
+ 
+ 
+-----Start the script------
+-----End of the script-----
+ 
+ 
+-----Start the script------
+-----End of the script-----
+ 
+ 
+-----Start the script------
+-----End of the script-----
+ 
+ 
+-----Start the script------
+ 
+///////////////
+ByBit Bot : bybit_cocotier_test
+ 
+============= the dataframe=============
+                    eth/usdt           ada/usdt           doge/usdt            bnb/usdt           dot/usdt          
+                    eth_open eth_close ada_open ada_close doge_open doge_close bnb_open bnb_close dot_open dot_close
+timestamp                                                                                                           
+2023-01-15 16:00:00  1556.35   1552.52   0.3506    0.3507   0.08585    0.08608    302.7     302.2    6.024     5.929
+2023-01-16 00:00:00  1552.52   1565.95   0.3508    0.3576   0.08607    0.08632    302.2     303.0    5.928     5.968
+2023-01-16 08:00:00  1565.96   1549.97   0.3577    0.3472   0.08632    0.08358    303.0     298.0    5.968     5.763
+============= the dataframe=============
+## Wallet amount (USDT) 0.00986517611
+vendage :  ADA/USDT
+ 
+Plage Horraire = 8h
+ 
+computing = n-1
+ 
+2023-01-16 16:00:05 , la meilleur crypto est ETH/USDT, je vends ADA/USDT et j'achete ETH/USDT
+The new crypto wallet is 23.0396694935
+idd :  8113
+bot_id :  46
+max :  24.572471169499998
+*****Exceptions*****
+1365 (22012): Division by 0
+********************
+-----End of the script-----
+ 
+ 
+-----Start the script------
+-----End of the script-----
+ 
+ 
+-----Start the script------
+-----End of the script-----
+ 
+ 
+-----Start the script------
+-----End of the script-----
+ 
+ 
+-----Start the script------
+-----End of the script-----
+ 
+ 
+-----Start the script------
+-----End of the script-----
+ 
+ 
+-----Start the script------
+-----End of the script-----
+ 
+ 
+-----Start the script------
+-----End of the script-----
+ 
+ 
+-----Start the script------
+ 
+///////////////
+ByBit Bot : bybit_cocotier_test
+ 
+============= the dataframe=============
+                    eth/usdt           ada/usdt           doge/usdt            bnb/usdt           dot/usdt          
+                    eth_open eth_close ada_open ada_close doge_open doge_close bnb_open bnb_close dot_open dot_close
+timestamp                                                                                                           
+2023-01-16 00:00:00  1552.52   1565.95   0.3508    0.3576   0.08607    0.08632    302.2     303.0    5.928     5.968
+2023-01-16 08:00:00  1565.96   1549.97   0.3577    0.3472   0.08632    0.08358    303.0     298.0    5.968     5.763
+2023-01-16 16:00:00  1549.97   1576.94   0.3472    0.3504   0.08356    0.08368    297.9     299.0    5.762     5.812
+============= the dataframe=============
+## Wallet amount (USDT) 0.01469133611
+## Staying on the same cryptocurency
+ 
+Plage Horraire = 8h
+ 
+computing = n-1
+ 
+2023-01-17 00:00:06 , la meilleur crypto est ETH/USDT, je vends ETH/USDT et j'achete ETH/USDT
+The new crypto wallet is 23.434517712500003
+idd :  8115
+bot_id :  46
+max :  24.572471169499998
+*****Exceptions*****
+1365 (22012): Division by 0
+********************
+-----End of the script-----
+ 
+ 
+-----Start the script------
+-----End of the script-----
+ 
+ 
+-----Start the script------
+-----End of the script-----
+ 
+ 
+-----Start the script------
+-----End of the script-----
+ 
+ 
+-----Start the script------
+-----End of the script-----
+ 
+ 
+-----Start the script------
+-----End of the script-----
+ 
+ 
+-----Start the script------
+-----End of the script-----
+ 
+ 
+-----Start the script------
+-----End of the script-----
+ 
+ 
+-----Start the script------
+ 
+///////////////
+ByBit Bot : bybit_cocotier_test
+ 
+============= the dataframe=============
+                    eth/usdt           ada/usdt           doge/usdt            bnb/usdt           dot/usdt          
+                    eth_open eth_close ada_open ada_close doge_open doge_close bnb_open bnb_close dot_open dot_close
+timestamp                                                                                                           
+2023-01-16 08:00:00  1565.96   1549.97   0.3577    0.3472   0.08632    0.08358    303.0     298.0    5.968     5.763
+2023-01-16 16:00:00  1549.97   1576.94   0.3472    0.3504   0.08356    0.08368    297.9     299.0    5.762     5.812
+2023-01-17 00:00:00  1576.94   1563.35   0.3505    0.3508   0.08369    0.08419    299.0     301.0    5.812     6.004
+============= the dataframe=============
+## Wallet amount (USDT) 0.01469133611
+vendage :  ETH/USDT
+ 
+Plage Horraire = 8h
+ 
+computing = n-1
+ 
+2023-01-17 08:00:06 , la meilleur crypto est DOT/USDT, je vends ETH/USDT et j'achete DOT/USDT
+The new crypto wallet is 23.1879452013
+idd :  8117
+bot_id :  46
+max :  24.572471169499998
+*****Exceptions*****
+1365 (22012): Division by 0
+********************
+-----End of the script-----
+ 
+ 
+-----Start the script------
+-----End of the script-----
+ 
+ 
+-----Start the script------
+-----End of the script-----
+ 
+ 
+-----Start the script------
+-----End of the script-----
+ 
