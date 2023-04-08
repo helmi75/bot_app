@@ -1,0 +1,1254 @@
+
+--- Start Execution Time : 02/04/2023 17:00:17 ---
+
+ 
+TRIXUOSKUCANI : usd balance = 0.00012221 
+No opportunity to take
+----Exception of TRIXUOSKUCANI----
+list index out of range
+-----------------
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 02/04/2023 18:00:15 ---
+
+ 
+TRIXUOSKUCANI : usd balance = 0.00012221 
+No opportunity to take
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 02/04/2023 19:00:14 ---
+
+ 
+TRIXUOSKUCANI : usd balance = 0.00012221 
+If you give me more UOS I will sell it
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 02/04/2023 20:00:14 ---
+
+ 
+TRIXUOSKUCANI : usd balance = 0.00012221 
+No opportunity to take
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 02/04/2023 21:00:14 ---
+
+----Exception of TRIXUOSKUCANI----
+kucoin GET https://api.kucoin.com/api/v1/market/candles?symbol=UOS-USDT&type=1hour&startAt=1680037214&endAt=1685437214 429 Too Many Requests {"code":"429000","msg":"Too Many Requests"}
+-----------------
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 02/04/2023 22:00:14 ---
+
+----Exception of TRIXUOSKUCANI----
+kucoin GET https://api.kucoin.com/api/v1/market/candles?symbol=UOS-USDT&type=1hour&startAt=1680040814&endAt=1685440814 429 Too Many Requests {"code":"429000","msg":"Too Many Requests"}
+-----------------
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 02/04/2023 23:00:14 ---
+
+----Exception of TRIXUOSKUCANI----
+kucoin GET https://api.kucoin.com/api/v1/market/candles?symbol=UOS-USDT&type=1hour&startAt=1680044414&endAt=1685444414 429 Too Many Requests {"code":"429000","msg":"Too Many Requests"}
+-----------------
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 03/04/2023 00:00:16 ---
+
+ 
+TRIXUOSKUCANI : usd balance = 0.00012221 
+No opportunity to take
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 03/04/2023 01:00:16 ---
+
+ 
+TRIXUOSKUCANI : usd balance = 0.00012221 
+No opportunity to take
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 03/04/2023 02:00:13 ---
+
+----Exception of TRIXUOSKUCANI----
+kucoin GET https://api.kucoin.com/api/v1/market/candles?symbol=UOS-USDT&type=1hour&startAt=1680055214&endAt=1685455214 429 Too Many Requests {"code":"429000","msg":"Too Many Requests"}
+-----------------
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 03/04/2023 03:00:14 ---
+
+----Exception of TRIXUOSKUCANI----
+kucoin GET https://api.kucoin.com/api/v1/market/candles?symbol=UOS-USDT&type=1hour&startAt=1680058814&endAt=1685458814 429 Too Many Requests {"code":"429000","msg":"Too Many Requests"}
+-----------------
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 03/04/2023 04:00:19 ---
+
+ 
+TRIXUOSKUCANI : usd balance = 0.00012221 
+No opportunity to take
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 03/04/2023 05:00:15 ---
+
+ 
+TRIXUOSKUCANI : usd balance = 0.00012221 
+No opportunity to take
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 03/04/2023 06:00:15 ---
+
+ 
+TRIXUOSKUCANI : usd balance = 0.00012221 
+No opportunity to take
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 03/04/2023 07:00:15 ---
+
+ 
+TRIXUOSKUCANI : usd balance = 0.00012221 
+No opportunity to take
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 03/04/2023 08:00:15 ---
+
+ 
+TRIXUOSKUCANI : usd balance = 0.00012221 
+If you give me more UOS I will sell it
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 03/04/2023 09:00:16 ---
+
+ 
+TRIXUOSKUCANI : usd balance = 0.00012221 
+If you give me more UOS I will sell it
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 03/04/2023 10:00:15 ---
+
+ 
+TRIXUOSKUCANI : usd balance = 0.00012221 
+If you give me more UOS I will sell it
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 03/04/2023 11:00:15 ---
+
+ 
+TRIXUOSKUCANI : usd balance = 0.00012221 
+If you give me more UOS I will sell it
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 03/04/2023 12:00:15 ---
+
+ 
+TRIXUOSKUCANI : usd balance = 0.00012221 
+No opportunity to take
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 03/04/2023 13:00:16 ---
+
+ 
+TRIXUOSKUCANI : usd balance = 0.00012221 
+No opportunity to take
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 03/04/2023 14:00:14 ---
+
+ 
+TRIXUOSKUCANI : usd balance = 0.00012221 
+No opportunity to take
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 03/04/2023 15:00:15 ---
+
+ 
+TRIXUOSKUCANI : usd balance = 0.00012221 
+If you  give me more USD I will buy more UOS
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 03/04/2023 16:00:14 ---
+
+----Exception of TRIXUOSKUCANI----
+kucoin GET https://api.kucoin.com/api/v1/market/candles?symbol=UOS-USDT&type=1hour&startAt=1680105614&endAt=1685505614 429 Too Many Requests {"code":"429000","msg":"Too Many Requests"}
+-----------------
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 03/04/2023 17:00:15 ---
+
+ 
+TRIXUOSKUCANI : usd balance = 0.00012221 
+If you  give me more USD I will buy more UOS
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 03/04/2023 18:00:14 ---
+
+ 
+TRIXUOSKUCANI : usd balance = 0.00012221 
+If you  give me more USD I will buy more UOS
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 03/04/2023 19:00:16 ---
+
+ 
+TRIXUOSKUCANI : usd balance = 0.00012221 
+No opportunity to take
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 03/04/2023 20:00:15 ---
+
+----Exception of TRIXUOSKUCANI----
+kucoin GET https://api.kucoin.com/api/v1/market/candles?symbol=UOS-USDT&type=1hour&startAt=1680120015&endAt=1685520015 429 Too Many Requests {"code":"429000","msg":"Too Many Requests"}
+-----------------
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 03/04/2023 21:00:15 ---
+
+ 
+TRIXUOSKUCANI : usd balance = 0.00012221 
+No opportunity to take
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 03/04/2023 22:00:15 ---
+
+ 
+TRIXUOSKUCANI : usd balance = 0.00012221 
+If you  give me more USD I will buy more UOS
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 03/04/2023 23:00:14 ---
+
+ 
+TRIXUOSKUCANI : usd balance = 0.00012221 
+If you  give me more USD I will buy more UOS
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 04/04/2023 00:00:15 ---
+
+ 
+TRIXUOSKUCANI : usd balance = 0.00012221 
+If you  give me more USD I will buy more UOS
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 04/04/2023 01:00:16 ---
+
+ 
+TRIXUOSKUCANI : usd balance = 0.00012221 
+If you  give me more USD I will buy more UOS
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 04/04/2023 02:00:14 ---
+
+----Exception of TRIXUOSKUCANI----
+kucoin GET https://api.kucoin.com/api/v1/market/candles?symbol=UOS-USDT&type=1hour&startAt=1680141614&endAt=1685541614 429 Too Many Requests {"code":"429000","msg":"Too Many Requests"}
+-----------------
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 04/04/2023 03:00:15 ---
+
+ 
+TRIXUOSKUCANI : usd balance = 0.00012221 
+If you  give me more USD I will buy more UOS
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 04/04/2023 04:00:16 ---
+
+ 
+TRIXUOSKUCANI : usd balance = 0.00012221 
+If you  give me more USD I will buy more UOS
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 04/04/2023 05:00:18 ---
+
+----Exception of TRIXUOSKUCANI----
+kucoin GET https://api.kucoin.com/api/v1/market/candles?symbol=UOS-USDT&type=1hour&startAt=1680152418&endAt=1685552418 429 Too Many Requests {"code":"429000","msg":"Too Many Requests"}
+-----------------
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 04/04/2023 06:00:14 ---
+
+ 
+TRIXUOSKUCANI : usd balance = 0.00012221 
+No opportunity to take
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 04/04/2023 07:00:15 ---
+
+ 
+TRIXUOSKUCANI : usd balance = 0.00012221 
+If you give me more UOS I will sell it
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 04/04/2023 08:00:14 ---
+
+----Exception of TRIXUOSKUCANI----
+kucoin GET https://api.kucoin.com/api/v1/market/candles?symbol=UOS-USDT&type=1hour&startAt=1680163214&endAt=1685563214 429 Too Many Requests {"code":"429000","msg":"Too Many Requests"}
+-----------------
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 04/04/2023 09:00:15 ---
+
+ 
+TRIXUOSKUCANI : usd balance = 0.00012221 
+If you give me more UOS I will sell it
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 04/04/2023 10:00:15 ---
+
+ 
+TRIXUOSKUCANI : usd balance = 0.00012221 
+If you give me more UOS I will sell it
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 04/04/2023 11:00:15 ---
+
+ 
+TRIXUOSKUCANI : usd balance = 0.00012221 
+If you give me more UOS I will sell it
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 04/04/2023 12:00:15 ---
+
+ 
+TRIXUOSKUCANI : usd balance = 0.00012221 
+If you  give me more USD I will buy more UOS
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 04/04/2023 13:00:15 ---
+
+----Exception of TRIXUOSKUCANI----
+kucoin GET https://api.kucoin.com/api/v1/market/candles?symbol=UOS-USDT&type=1hour&startAt=1680181215&endAt=1685581215 429 Too Many Requests {"code":"429000","msg":"Too Many Requests"}
+-----------------
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 04/04/2023 14:00:15 ---
+
+ 
+TRIXUOSKUCANI : usd balance = 0.00012221 
+If you  give me more USD I will buy more UOS
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 04/04/2023 15:00:15 ---
+
+ 
+TRIXUOSKUCANI : usd balance = 0.00012221 
+If you  give me more USD I will buy more UOS
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 04/04/2023 16:00:15 ---
+
+ 
+TRIXUOSKUCANI : usd balance = 0.00012221 
+If you give me more UOS I will sell it
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 04/04/2023 17:00:15 ---
+
+ 
+TRIXUOSKUCANI : usd balance = 0.00012221 
+If you give me more UOS I will sell it
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 04/04/2023 18:00:16 ---
+
+ 
+TRIXUOSKUCANI : usd balance = 0.00012221 
+If you give me more UOS I will sell it
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 04/04/2023 19:00:15 ---
+
+----Exception of TRIXUOSKUCANI----
+kucoin GET https://api.kucoin.com/api/v1/market/candles?symbol=UOS-USDT&type=1hour&startAt=1680202815&endAt=1685602815 429 Too Many Requests {"code":"429000","msg":"Too Many Requests"}
+-----------------
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 04/04/2023 20:00:15 ---
+
+ 
+TRIXUOSKUCANI : usd balance = 0.00012221 
+If you  give me more USD I will buy more UOS
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 04/04/2023 21:00:16 ---
+
+ 
+TRIXUOSKUCANI : usd balance = 0.00012221 
+If you  give me more USD I will buy more UOS
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 04/04/2023 22:00:15 ---
+
+ 
+TRIXUOSKUCANI : usd balance = 0.00012221 
+No opportunity to take
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 04/04/2023 23:00:16 ---
+
+ 
+TRIXUOSKUCANI : usd balance = 0.00012221 
+No opportunity to take
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 05/04/2023 00:00:16 ---
+
+ 
+TRIXUOSKUCANI : usd balance = 0.00012221 
+No opportunity to take
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 05/04/2023 01:00:15 ---
+
+ 
+TRIXUOSKUCANI : usd balance = 0.00012221 
+No opportunity to take
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 05/04/2023 02:00:14 ---
+
+ 
+TRIXUOSKUCANI : usd balance = 0.00012221 
+No opportunity to take
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 05/04/2023 03:00:15 ---
+
+ 
+TRIXUOSKUCANI : usd balance = 0.00012221 
+No opportunity to take
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 05/04/2023 04:00:15 ---
+
+ 
+TRIXUOSKUCANI : usd balance = 0.00012221 
+No opportunity to take
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 05/04/2023 05:00:15 ---
+
+ 
+TRIXUOSKUCANI : usd balance = 0.00012221 
+No opportunity to take
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 05/04/2023 06:00:15 ---
+
+ 
+TRIXUOSKUCANI : usd balance = 0.00012221 
+No opportunity to take
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 05/04/2023 07:00:15 ---
+
+ 
+TRIXUOSKUCANI : usd balance = 0.00012221 
+If you  give me more USD I will buy more UOS
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 05/04/2023 08:00:17 ---
+
+----Exception of TRIXUOSKUCANI----
+kucoin GET https://api.kucoin.com/api/v1/market/candles?symbol=UOS-USDT&type=1hour&startAt=1680249617&endAt=1685649617 429 Too Many Requests {"code":"429000","msg":"Too Many Requests"}
+-----------------
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 05/04/2023 09:00:16 ---
+
+ 
+TRIXUOSKUCANI : usd balance = 0.00012221 
+No opportunity to take
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 05/04/2023 10:00:16 ---
+
+ 
+TRIXUOSKUCANI : usd balance = 0.00012221 
+No opportunity to take
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 05/04/2023 11:00:16 ---
+
+ 
+TRIXUOSKUCANI : usd balance = 0.00012221 
+No opportunity to take
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 05/04/2023 12:00:15 ---
+
+ 
+TRIXUOSKUCANI : usd balance = 0.00012221 
+No opportunity to take
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 05/04/2023 13:00:16 ---
+
+ 
+TRIXUOSKUCANI : usd balance = 0.00012221 
+No opportunity to take
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 05/04/2023 14:00:16 ---
+
+ 
+TRIXUOSKUCANI : usd balance = 0.00012221 
+If you  give me more USD I will buy more UOS
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 05/04/2023 15:00:16 ---
+
+ 
+TRIXUOSKUCANI : usd balance = 0.00012221 
+If you  give me more USD I will buy more UOS
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 05/04/2023 16:00:15 ---
+
+ 
+TRIXUOSKUCANI : usd balance = 0.00012221 
+If you  give me more USD I will buy more UOS
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 05/04/2023 17:00:15 ---
+
+ 
+TRIXUOSKUCANI : usd balance = 8.57841606 
+BUY
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 05/04/2023 18:00:15 ---
+
+ 
+TRIXUOSKUCANI : usd balance = 0.23159575 
+If you  give me more USD I will buy more UOS
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 05/04/2023 19:00:15 ---
+
+ 
+TRIXUOSKUCANI : usd balance = 0.23159575 
+If you  give me more USD I will buy more UOS
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 05/04/2023 20:00:16 ---
+
+ 
+TRIXUOSKUCANI : usd balance = 0.23159575 
+If you  give me more USD I will buy more UOS
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 05/04/2023 21:00:16 ---
+
+ 
+TRIXUOSKUCANI : usd balance = 0.23159575 
+If you  give me more USD I will buy more UOS
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 05/04/2023 22:00:15 ---
+
+ 
+TRIXUOSKUCANI : usd balance = 0.23159575 
+If you  give me more USD I will buy more UOS
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 05/04/2023 23:00:16 ---
+
+ 
+TRIXUOSKUCANI : usd balance = 0.23159575 
+If you  give me more USD I will buy more UOS
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 06/04/2023 00:00:14 ---
+
+----Exception of TRIXUOSKUCANI----
+kucoin GET https://api.kucoin.com/api/v1/market/candles?symbol=UOS-USDT&type=1hour&startAt=1680307219&endAt=1685707219 429 Too Many Requests {"code":"429000","msg":"Too Many Requests"}
+-----------------
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 06/04/2023 01:00:14 ---
+
+ 
+TRIXUOSKUCANI : usd balance = 0.23159575 
+No opportunity to take
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 06/04/2023 02:00:17 ---
+
+ 
+TRIXUOSKUCANI : usd balance = 0.23159575 
+No opportunity to take
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 06/04/2023 03:00:14 ---
+
+ 
+TRIXUOSKUCANI : usd balance = 0.23159575 
+No opportunity to take
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 06/04/2023 04:00:14 ---
+
+----Exception of TRIXUOSKUCANI----
+kucoin GET https://api.kucoin.com/api/v1/market/candles?symbol=UOS-USDT&type=1hour&startAt=1680321619&endAt=1685721619 429 Too Many Requests {"code":"429000","msg":"Too Many Requests"}
+-----------------
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 06/04/2023 05:00:14 ---
+
+----Exception of TRIXUOSKUCANI----
+kucoin GET https://api.kucoin.com/api/v1/market/candles?symbol=UOS-USDT&type=1hour&startAt=1680325219&endAt=1685725219 429 Too Many Requests {"code":"429000","msg":"Too Many Requests"}
+-----------------
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 06/04/2023 06:00:15 ---
+
+ 
+TRIXUOSKUCANI : usd balance = 0.23159575 
+No opportunity to take
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 06/04/2023 07:00:18 ---
+
+ 
+TRIXUOSKUCANI : usd balance = 0.23159575 
+No opportunity to take
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 06/04/2023 08:00:15 ---
+
+ 
+TRIXUOSKUCANI : usd balance = 0.23159575 
+No opportunity to take
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 06/04/2023 09:00:15 ---
+
+----Exception of TRIXUOSKUCANI----
+kucoin GET https://api.kucoin.com/api/v1/market/candles?symbol=UOS-USDT&type=1hour&startAt=1680339620&endAt=1685739620 429 Too Many Requests {"code":"429000","msg":"Too Many Requests"}
+-----------------
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 06/04/2023 10:00:15 ---
+
+ 
+TRIXUOSKUCANI : usd balance = 0.23159575 
+SELL
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 06/04/2023 11:00:15 ---
+
+ 
+TRIXUOSKUCANI : usd balance = 7.98303534 
+If you give me more UOS I will sell it
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 06/04/2023 12:00:15 ---
+
+----Exception of TRIXUOSKUCANI----
+kucoin GET https://api.kucoin.com/api/v1/market/candles?symbol=UOS-USDT&type=1hour&startAt=1680350420&endAt=1685750420 429 Too Many Requests {"code":"429000","msg":"Too Many Requests"}
+-----------------
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 06/04/2023 13:00:14 ---
+
+ 
+TRIXUOSKUCANI : usd balance = 7.98303534 
+No opportunity to take
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 06/04/2023 14:00:18 ---
+
+ 
+TRIXUOSKUCANI : usd balance = 7.98303534 
+If you give me more UOS I will sell it
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 06/04/2023 15:00:14 ---
+
+ 
+TRIXUOSKUCANI : usd balance = 7.98303534 
+If you give me more UOS I will sell it
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 06/04/2023 16:00:15 ---
+
+----Exception of TRIXUOSKUCANI----
+kucoin GET https://api.kucoin.com/api/v1/market/candles?symbol=UOS-USDT&type=1hour&startAt=1680364820&endAt=1685764820 429 Too Many Requests {"code":"429000","msg":"Too Many Requests"}
+-----------------
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 06/04/2023 17:00:15 ---
+
+ 
+TRIXUOSKUCANI : usd balance = 7.98303534 
+If you give me more UOS I will sell it
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 06/04/2023 18:00:14 ---
+
+ 
+TRIXUOSKUCANI : usd balance = 7.98303534 
+If you give me more UOS I will sell it
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 06/04/2023 19:00:14 ---
+
+----Exception of TRIXUOSKUCANI----
+kucoin GET https://api.kucoin.com/api/v1/market/candles?symbol=UOS-USDT&type=1hour&startAt=1680375619&endAt=1685775619 429 Too Many Requests {"code":"429000","msg":"Too Many Requests"}
+-----------------
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 06/04/2023 20:00:14 ---
+
+----Exception of TRIXUOSKUCANI----
+kucoin GET https://api.kucoin.com/api/v1/market/candles?symbol=UOS-USDT&type=1hour&startAt=1680379219&endAt=1685779219 429 Too Many Requests {"code":"429000","msg":"Too Many Requests"}
+-----------------
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 06/04/2023 21:00:14 ---
+
+ 
+TRIXUOSKUCANI : usd balance = 7.98303534 
+No opportunity to take
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 06/04/2023 22:00:14 ---
+
+----Exception of TRIXUOSKUCANI----
+kucoin GET https://api.kucoin.com/api/v1/market/candles?symbol=UOS-USDT&type=1hour&startAt=1680386419&endAt=1685786419 429 Too Many Requests {"code":"429000","msg":"Too Many Requests"}
+-----------------
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 06/04/2023 23:00:15 ---
+
+ 
+TRIXUOSKUCANI : usd balance = 7.98303534 
+No opportunity to take
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 07/04/2023 00:00:20 ---
+
+ 
+TRIXUOSKUCANI : usd balance = 7.98303534 
+No opportunity to take
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 07/04/2023 01:00:15 ---
+
+ 
+TRIXUOSKUCANI : usd balance = 7.98303534 
+No opportunity to take
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 07/04/2023 02:00:15 ---
+
+----Exception of TRIXUOSKUCANI----
+kucoin GET https://api.kucoin.com/api/v1/market/candles?symbol=UOS-USDT&type=1hour&startAt=1680400820&endAt=1685800820 429 Too Many Requests {"code":"429000","msg":"Too Many Requests"}
+-----------------
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 07/04/2023 03:00:15 ---
+
+ 
+TRIXUOSKUCANI : usd balance = 7.98303534 
+No opportunity to take
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 07/04/2023 04:00:14 ---
+
+ 
+TRIXUOSKUCANI : usd balance = 7.98303534 
+No opportunity to take
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 07/04/2023 05:00:15 ---
+
+ 
+TRIXUOSKUCANI : usd balance = 7.98303534 
+No opportunity to take
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 07/04/2023 06:00:15 ---
+
+ 
+TRIXUOSKUCANI : usd balance = 7.98303534 
+BUY
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 07/04/2023 07:00:15 ---
+
+ 
+TRIXUOSKUCANI : usd balance = 0.2962823 
+If you  give me more USD I will buy more UOS
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 07/04/2023 08:00:16 ---
+
+ 
+TRIXUOSKUCANI : usd balance = 0.2962823 
+If you  give me more USD I will buy more UOS
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 07/04/2023 09:00:15 ---
+
+----Exception of TRIXUOSKUCANI----
+kucoin GET https://api.kucoin.com/api/v1/market/candles?symbol=UOS-USDT&type=1hour&startAt=1680426020&endAt=1685826020 429 Too Many Requests {"code":"429000","msg":"Too Many Requests"}
+-----------------
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 07/04/2023 10:00:17 ---
+
+ 
+TRIXUOSKUCANI : usd balance = 0.2962823 
+No opportunity to take
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 07/04/2023 11:00:14 ---
+
+ 
+TRIXUOSKUCANI : usd balance = 0.2962823 
+If you  give me more USD I will buy more UOS
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 07/04/2023 12:00:15 ---
+
+ 
+TRIXUOSKUCANI : usd balance = 0.2962823 
+If you  give me more USD I will buy more UOS
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 07/04/2023 13:00:14 ---
+
+ 
+TRIXUOSKUCANI : usd balance = 0.2962823 
+No opportunity to take
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 07/04/2023 14:00:16 ---
+
+ 
+TRIXUOSKUCANI : usd balance = 0.2962823 
+No opportunity to take
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 07/04/2023 15:00:15 ---
+
+ 
+TRIXUOSKUCANI : usd balance = 0.2962823 
+If you  give me more USD I will buy more UOS
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 07/04/2023 16:00:15 ---
+
+ 
+TRIXUOSKUCANI : usd balance = 0.2962823 
+If you  give me more USD I will buy more UOS
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 07/04/2023 17:00:16 ---
+
+ 
+TRIXUOSKUCANI : usd balance = 0.2962823 
+If you  give me more USD I will buy more UOS
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 07/04/2023 18:00:15 ---
+
+ 
+TRIXUOSKUCANI : usd balance = 0.2962823 
+If you  give me more USD I will buy more UOS
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 07/04/2023 19:00:16 ---
+
+ 
+TRIXUOSKUCANI : usd balance = 0.2962823 
+If you  give me more USD I will buy more UOS
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 07/04/2023 20:00:14 ---
+
+ 
+TRIXUOSKUCANI : usd balance = 0.2962823 
+If you  give me more USD I will buy more UOS
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 07/04/2023 21:00:15 ---
+
+ 
+TRIXUOSKUCANI : usd balance = 0.2962823 
+If you  give me more USD I will buy more UOS
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 07/04/2023 22:00:15 ---
+
+ 
+TRIXUOSKUCANI : usd balance = 0.2962823 
+If you  give me more USD I will buy more UOS
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 07/04/2023 23:00:14 ---
+
+ 
+TRIXUOSKUCANI : usd balance = 0.2962823 
+If you  give me more USD I will buy more UOS
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 08/04/2023 00:00:16 ---
+
+ 
+TRIXUOSKUCANI : usd balance = 0.2962823 
+No opportunity to take
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 08/04/2023 01:00:16 ---
+
+ 
+TRIXUOSKUCANI : usd balance = 0.2962823 
+No opportunity to take
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 08/04/2023 02:00:15 ---
+
+ 
+TRIXUOSKUCANI : usd balance = 0.2962823 
+No opportunity to take
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 08/04/2023 03:00:18 ---
+
+ 
+TRIXUOSKUCANI : usd balance = 0.2962823 
+No opportunity to take
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 08/04/2023 04:00:16 ---
+
+ 
+TRIXUOSKUCANI : usd balance = 0.2962823 
+No opportunity to take
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 08/04/2023 05:00:15 ---
+
+ 
+TRIXUOSKUCANI : usd balance = 0.2962823 
+No opportunity to take
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 08/04/2023 06:00:15 ---
+
+ 
+TRIXUOSKUCANI : usd balance = 0.2962823 
+No opportunity to take
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 08/04/2023 07:00:15 ---
+
+ 
+TRIXUOSKUCANI : usd balance = 0.2962823 
+No opportunity to take
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 08/04/2023 08:00:15 ---
+
+----Exception of TRIXUOSKUCANI----
+kucoin GET https://api.kucoin.com/api/v1/market/candles?symbol=UOS-USDT&type=1hour&startAt=1680508820&endAt=1685908820 429 Too Many Requests {"code":"429000","msg":"Too Many Requests"}
+-----------------
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 08/04/2023 09:00:14 ---
+
+----Exception of TRIXUOSKUCANI----
+kucoin GET https://api.kucoin.com/api/v1/market/candles?symbol=UOS-USDT&type=1hour&startAt=1680512419&endAt=1685912419 429 Too Many Requests {"code":"429000","msg":"Too Many Requests"}
+-----------------
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 08/04/2023 10:00:15 ---
+
+ 
+TRIXUOSKUCANI : usd balance = 0.2962823 
+SELL
+
+--- End Execution Time ---
+
+
+--- Start Execution Time : 08/04/2023 11:00:14 ---
+
+ 
+TRIXUOSKUCANI : usd balance = 8.23205636 
+If you give me more UOS I will sell it
+
+--- End Execution Time ---
+
