@@ -2,9 +2,10 @@ import sys
 import traceback
 from time import sleep
 
-import emailing
 
 sys.path.insert(0, "/home/anisse9/bot_app")
+import emailing
+
 import warnings
 
 warnings.simplefilter(action='ignore', category=FutureWarning)
