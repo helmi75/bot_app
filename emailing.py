@@ -4,7 +4,7 @@ import smtplib
 def send_mail(receiver, sub_account, bot_type, value, stack_trace):
     TO = receiver
     SUBJECT = f'[IMPORTANT] COCOBOT Error : {sub_account}'
-    TEXT = f'Bot {bot_type}: {sub_account} got an error:\n{value}\n{stack_trace}'
+    TEXT = f'Bot {bot_type}: {sub_account} got an error:\n{value}\n'
 
     # Gmail Sign In
     gmail_sender = 'hadjsassiscompany@gmail.com'
