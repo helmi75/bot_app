@@ -324,6 +324,15 @@ for i in myresult :
                         processus2(i,con,iterations)
                     except Exception :
                         pass
+                    if l == 100:
+                        name_bot = i[11]
+                        ex = "Insuffisance Balence Itération 100 séparé par 1s atteint."
+                        emailing.send_mail("helmichiha@gmail.com ", name_bot, "Trix Binance", ex,
+                                           traceback.format_exc())
+                        emailing.send_mail("aitmoummad.anisse@gmail.com", name_bot, "Trix Binance", ex,
+                                           traceback.format_exc())
+                        emailing.send_mail("aitmoummad.yassine@gmail.com", name_bot, "Trix Binance", ex,
+                                           traceback.format_exc())
             else :
                 print(f"----Exception of {i[11]}----")
                 con.insert_balence(datetime.now(),
