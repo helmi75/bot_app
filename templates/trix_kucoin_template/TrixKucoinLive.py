@@ -36,7 +36,9 @@ myresult = cursor.fetchall()
 
 
 def getHistorical(client, symbol):
+    sleep(10)
     klinesT = client.fetch_ohlcv(symbol, '1h', since=(pd.Timestamp('now') - pd.Timedelta(days=5)).timestamp() * 1000)
+    sleep(10)
     dataT = pd.DataFrame(klinesT, columns=['timestamp', 'open', 'high', 'low', 'close', 'volume'])
     dataT['timestamp'] = pd.to_datetime(dataT['timestamp'], unit='ms')
     dataT.set_index('timestamp', inplace=True)
@@ -72,20 +74,19 @@ def get_price_step(client, symbol):
 
 def convert_amount_to_precision(client, symbol, amount):
     stepSize = get_step_size(client, symbol)
-    sleep(10)
     return (amount // stepSize) * stepSize
 
 
 def convert_price_to_precision(client, symbol, price):
     stepSize = get_price_step(client, symbol)
-    sleep(10)
+    
     return (price // stepSize) * stepSize
 
 
 def get_wallet(exchange, pairSymbol):
     try:
         montant = client.fetch_balance()['total'][pairSymbol[:-4]]
-        sleep(10)
+        
     except Exception as exz:
         montant = 0
     return montant
@@ -132,9 +133,9 @@ for i in myresult:
                 'password': password_api_secret,
                 'enableRateLimit': True
             })
-            sleep(10)
+            
             df = getHistorical(client, pairsSymbol)
-            sleep(10)
+            
             df['TRIX'] = ta.trend.ema_indicator(
                 ta.trend.ema_indicator(ta.trend.ema_indicator(close=df['close'], window=trixLength), window=trixLength),
                 window=trixLength)
@@ -145,10 +146,10 @@ for i in myresult:
 
             actualPrice = df['close'].iloc[-1]
             fiatAmount = float(client.fetch_balance()['total']['USDT'])
-            sleep(10)
+            
             # fiatAmount = float(client.get_asset_balance(asset=fiatSymbol)['free'])  # 23.45
             cryptoAmount = float(get_wallet(client, pairSymbol))
-            sleep(10)
+            
             # cryptoAmount = float(client.get_asset_balance(asset=cryptoSymbol)['free'])  # 5.24e-05
             minToken = 5 / actualPrice
             print(" ")
@@ -157,15 +158,15 @@ for i in myresult:
             if sellCondition(df.iloc[-2], df.iloc[-3], stoch_bottom):
                 if float(cryptoAmount) > minToken:
                     montant = client.fetch_balance()['total'][pairSymbol[:-4]]
-                    sleep(10)
+                    
                     sellOrder = client.create_order(pairsSymbol, "market", "sell", montant, 1)
-                    sleep(10)
+                    
                     fiatAmount = float(client.fetch_balance()['total']['USDT'])
-                    sleep(10)
+                    
                     cryptoAmount = float(get_wallet(client, pairSymbol))
-                    sleep(10)
+                    
                     ticker = exchangeWallet.fetch_ticker(pairsSymbol)
-                    sleep(10)
+                    
                     crypto_wallet_value = fiatAmount + (cryptoAmount * ticker['last'])
                     con.insert_balence(datetime.now(),
                                        f"Trix : {i[4]}_len{i[5]}_sign{i[6]}_top{i[7]}_bottom{i[8]}_RSI{i[9]}",
@@ -173,11 +174,11 @@ for i in myresult:
                     print("SELL")
                 else:
                     fiatAmount = float(client.fetch_balance()['total']['USDT'])
-                    sleep(10)
+                    
                     cryptoAmount = float(get_wallet(client, pairSymbol))
-                    sleep(10)
+                    
                     ticker = exchangeWallet.fetch_ticker(pairsSymbol)
-                    sleep(10)
+                    
                     crypto_wallet_value = fiatAmount + (cryptoAmount * ticker['last'])
                     con.insert_balence(datetime.now(),
                                        f"Trix : {i[4]}_len{i[5]}_sign{i[6]}_top{i[7]}_bottom{i[8]}_RSI{i[9]}",
@@ -188,18 +189,18 @@ for i in myresult:
                     try:
                         while(True):
                             buyOrder = client.create_order(pairsSymbol, "market", "buy", fiatAmount, 1)
-                            sleep(10)
+                            
                             fiatAmount = float(client.fetch_balance()['total']['USDT'])
-                            sleep(10)
+                            
                     except:
                         pass
                     # buyOrder = client.create_order(pairsSymbol, "market", "buy", fiatAmount, 1)
                     fiatAmount = float(client.fetch_balance()['total']['USDT'])
-                    sleep(10)
+                    
                     cryptoAmount = float(get_wallet(client, pairSymbol))
-                    sleep(10)
+                    
                     ticker = exchangeWallet.fetch_ticker(pairsSymbol)
-                    sleep(10)
+                    
                     crypto_wallet_value = fiatAmount + (cryptoAmount * ticker['last'])
                     con.insert_balence(datetime.now(),
                                        f"Trix : {i[4]}_len{i[5]}_sign{i[6]}_top{i[7]}_bottom{i[8]}_RSI{i[9]}",
@@ -207,11 +208,11 @@ for i in myresult:
                     print("BUY")
                 else:
                     fiatAmount = float(client.fetch_balance()['total']['USDT'])
-                    sleep(10)
+                    
                     cryptoAmount = float(get_wallet(client, pairSymbol))
-                    sleep(10)
+                    
                     ticker = exchangeWallet.fetch_ticker(pairsSymbol)
-                    sleep(10)
+                    
                     crypto_wallet_value = fiatAmount + (cryptoAmount * ticker['last'])
                     con.insert_balence(datetime.now(),
                                        f"Trix : {i[4]}_len{i[5]}_sign{i[6]}_top{i[7]}_bottom{i[8]}_RSI{i[9]}",
@@ -221,15 +222,15 @@ for i in myresult:
             elif sellCondition(df.iloc[-2], df.iloc[-3], stoch_bottom):
                 if float(cryptoAmount) > minToken:
                     montant = client.fetch_balance()['total'][pairSymbol[:-4]]
-                    sleep(10)
+                    
                     sellOrder = client.create_order(pairsSymbol, "market", "sell", montant, 1)
-                    sleep(10)
+                    
                     fiatAmount = float(client.fetch_balance()['total']['USDT'])
-                    sleep(10)
+                    
                     cryptoAmount = float(get_wallet(client, pairSymbol))
-                    sleep(10)
+                    
                     ticker = exchangeWallet.fetch_ticker(pairsSymbol)
-                    sleep(10)
+                    
                     crypto_wallet_value = fiatAmount + (cryptoAmount * ticker['last'])
                     con.insert_balence(datetime.now(),
                                        f"Trix : {i[4]}_len{i[5]}_sign{i[6]}_top{i[7]}_bottom{i[8]}_RSI{i[9]}",
@@ -237,11 +238,11 @@ for i in myresult:
                     print("SELL")
                 else:
                     fiatAmount = float(client.fetch_balance()['total']['USDT'])
-                    sleep(10)
+                    
                     cryptoAmount = float(get_wallet(client, pairSymbol))
-                    sleep(10)
+                    
                     ticker = exchangeWallet.fetch_ticker(pairsSymbol)
-                    sleep(10)
+                    
                     crypto_wallet_value = fiatAmount + (cryptoAmount * ticker['last'])
                     con.insert_balence(datetime.now(),
                                        f"Trix : {i[4]}_len{i[5]}_sign{i[6]}_top{i[7]}_bottom{i[8]}_RSI{i[9]}",
@@ -250,11 +251,11 @@ for i in myresult:
             else:
                 print("No opportunity to take")
                 fiatAmount = float(client.fetch_balance()['total']['USDT'])
-                sleep(10)
+                
                 cryptoAmount = float(get_wallet(client, pairSymbol))
-                sleep(10)
+                
                 ticker = exchangeWallet.fetch_ticker(pairsSymbol)
-                sleep(10)
+                
                 crypto_wallet_value = fiatAmount + (cryptoAmount * ticker['last'])
                 last_status_trix = con.get_last_status_trix(i[10])[0]
                 con.insert_balence(datetime.now(),
