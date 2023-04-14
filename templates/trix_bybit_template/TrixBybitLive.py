@@ -64,20 +64,6 @@ def getHistorical(client, symbole):
     df.drop(df.columns.difference(['open', 'high', 'low', 'close', 'volume']), 1, inplace=True)
     return df
 
-# def getHistorical(client, symbole):
-#     klinesT = client.get_historical_klines(
-#         symbole, Client.KLINE_INTERVAL_1HOUR, "5 day ago UTC")
-#     dataT = pd.DataFrame(klinesT,
-#                          columns=['timestamp', 'open', 'high', 'low', 'close', 'volume', 'close_time', 'quote_av',
-#                                   'trades', 'tb_base_av', 'tb_quote_av', 'ignore'])
-#     dataT['close'] = pd.to_numeric(dataT['close'])
-#     dataT['high'] = pd.to_numeric(dataT['high'])
-#     dataT['low'] = pd.to_numeric(dataT['low'])
-#     dataT['open'] = pd.to_numeric(dataT['open'])
-#     dataT['volume'] = pd.to_numeric(dataT['volume'])
-#     dataT.drop(dataT.columns.difference(['open', 'high', 'low', 'close', 'volume']), 1, inplace=True)
-#     return dataT
-
 
 def getBalance(myclient, coin):
     jsonBalance = myclient.get_balances()
