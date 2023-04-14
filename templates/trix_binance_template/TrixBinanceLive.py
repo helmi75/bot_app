@@ -320,10 +320,10 @@ for i in myresult :
                     try :
                         time.sleep(1)
                         print("")
-                        print(f"Itération N°{l+1}")
+                        print(f"Itération N°{l+1} a commencé")
                         processus2(i,con,iterations)
                     except Exception :
-                        pass
+                        print(f"Itération N°{l+1} echoué")
                     if l == 100:
                         name_bot = i[11]
                         con.insert_balence(datetime.now(),
