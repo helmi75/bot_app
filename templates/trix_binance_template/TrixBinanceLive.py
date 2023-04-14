@@ -78,9 +78,6 @@ def convert_price_to_precision(client,symbol, price):
     stepSize = get_price_step(client,symbol)
     return (price//stepSize)*stepSize
 
-
-
-
 def buyCondition(row, previousRow,stochRsiTop):
     if row['TRIX_HISTO'] > 0 and row['STOCH_RSI'] <= stochRsiTop:#stoch RSI top
         return True
@@ -314,7 +311,8 @@ for i in myresult :
             if str(ex).startswith("APIError(code=-2010)"):
 
                 iterations = False
-                for l in range(100):
+                Nbiterations = 100
+                for l in range(Nbiterations):
                     if iterations:
                         break
                     try :
@@ -324,7 +322,7 @@ for i in myresult :
                         processus2(i,con,iterations)
                     except Exception :
                         print(f"Itération N°{l+1} echoué")
-                    if l == 100:
+                    if l == Nbiterations:
                         name_bot = i[11]
                         con.insert_balence(datetime.now(),
                                            f"Trix : {i[4]}_len{i[5]}_sign{i[6]}_top{i[7]}_bottom{i[8]}_RSI{i[9]}",
