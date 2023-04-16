@@ -322,7 +322,7 @@ for i in myresult :
                         processus2(i,con,iterations)
                     except Exception :
                         print(f"Itération N°{l+1} echoué")
-                    if l == Nbiterations:
+                    if l == Nbiterations-1:
                         name_bot = i[11]
                         con.insert_balence(datetime.now(),
                                            f"Trix : {i[4]}_len{i[5]}_sign{i[6]}_top{i[7]}_bottom{i[8]}_RSI{i[9]}",
