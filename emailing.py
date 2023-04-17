@@ -23,7 +23,7 @@ def send_mail(receiver, sub_account, bot_type, value, stack_trace):
     try:
         server.sendmail(gmail_sender, [TO], BODY)
         print('email sent')
-    except:
-        print('error sending mail')
+    except Exception as ee:
+        print('error sending mail',ee)
 
     server.quit()
