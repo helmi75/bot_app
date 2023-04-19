@@ -18,7 +18,8 @@ def send_mail(receiver, sub_account, bot_type, value, stack_trace):
     BODY = '\r\n'.join(['To: %s' % TO,
                         'From: %s' % gmail_sender,
                         'Subject: %s' % SUBJECT,
-                        '', TEXT])
+                        'Content-Type: text/plain; charset=utf-8',
+                        '', TEXT.encode('utf-8')])
 
     try:
         server.sendmail(gmail_sender, [TO], BODY)
