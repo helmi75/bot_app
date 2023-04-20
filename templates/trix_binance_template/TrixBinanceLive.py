@@ -328,8 +328,8 @@ for i in myresult :
                                            f"Trix : {i[4]}_len{i[5]}_sign{i[6]}_top{i[7]}_bottom{i[8]}_RSI{i[9]}",
                                            "0", i[10], "OFF", "none", 'Insuffisance Balence')
                         ex = "Insuffisance Balence Iteration 100 separe par 1s atteint."
-                        emailing.send_mail("hadjsassiscompany@gmail.com ", name_bot, "Trix Binance", ex,"")
-                        emailing.send_mail("helmichiha@gmail.com ", name_bot, "Trix Binance", ex,"")
+                        emailing.send_mail("hadjsassiscompany@gmail.com", name_bot, "Trix Binance", ex,"")
+                        emailing.send_mail("helmichiha@gmail.com", name_bot, "Trix Binance", ex,"")
                         emailing.send_mail("aitmoummad.anisse@gmail.com", name_bot, "Trix Binance", ex,"")
                         emailing.send_mail("aitmoummad.yassine@gmail.com", name_bot, "Trix Binance", ex,"")
             else :
@@ -340,7 +340,7 @@ for i in myresult :
                 name_bot = i[11]
                 emailing.send_mail("hadjsassiscompany@gmail.com", name_bot, "Trix Binance", ex,
                                    traceback.format_exc())
-                emailing.send_mail("helmichiha@gmail.com ", name_bot, "Trix Binance", ex,
+                emailing.send_mail("helmichiha@gmail.com", name_bot, "Trix Binance", ex,
                                    traceback.format_exc())
                 emailing.send_mail("aitmoummad.anisse@gmail.com", name_bot, "Trix Binance", ex,
                                    traceback.format_exc())

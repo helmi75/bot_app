@@ -117,7 +117,7 @@ for i in myresult:
                     traceback.print_exc()
                     emailing.send_mail("hadjsassiscompany@gmail.com", name_bot, "Cocotier Bybit", exceptions,
                                        traceback.format_exc())
-                    emailing.send_mail("helmichiha@gmail.com ", name_bot, "Cocotier Bybit", exceptions,
+                    emailing.send_mail("helmichiha@gmail.com", name_bot, "Cocotier Bybit", exceptions,
                                        traceback.format_exc())
                     emailing.send_mail("aitmoummad.anisse@gmail.com", name_bot, "Cocotier Bybit", exceptions,
                                        traceback.format_exc())
@@ -134,7 +134,7 @@ for i in myresult:
             name_bot = i[8]
             emailing.send_mail("hadjsassiscompany@gmail.com", name_bot, "Cocotier Bybit", eee,
                                traceback.format_exc())
-            emailing.send_mail("helmichiha@gmail.com ", name_bot, "Cocotier Bybit", eee,
+            emailing.send_mail("helmichiha@gmail.com", name_bot, "Cocotier Bybit", eee,
                                traceback.format_exc())
             emailing.send_mail("aitmoummad.anisse@gmail.com", name_bot, "Cocotier Bybit", eee,
                                traceback.format_exc())
@@ -148,7 +148,7 @@ for i in myresult:
             name_bot = i[8]
             emailing.send_mail("hadjsassiscompany@gmail.com", name_bot, "Cocotier Bybit", eee,
                                traceback.format_exc())
-            emailing.send_mail("helmichiha@gmail.com ", name_bot, "Cocotier Bybit", eee,
+            emailing.send_mail("helmichiha@gmail.com", name_bot, "Cocotier Bybit", eee,
                                traceback.format_exc())
             emailing.send_mail("aitmoummad.anisse@gmail.com", name_bot, "Cocotier Bybit", eee,
                                traceback.format_exc())

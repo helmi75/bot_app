@@ -113,7 +113,7 @@ for i in myresult:
                 print("*****Exceptions*****")
                 con.insert_balence(datetime.now(),"none" , 0, i[7],"OFF","none",str(exceptions))
                 emailing.send_mail("hadjsassiscompany@gmail.com",name_bot,"Cocotier Binance",exceptions,traceback.format_exc())
-                emailing.send_mail("helmichiha@gmail.com ",name_bot,"Cocotier Binance",exceptions,traceback.format_exc())
+                emailing.send_mail("helmichiha@gmail.com",name_bot,"Cocotier Binance",exceptions,traceback.format_exc())
                 emailing.send_mail("aitmoummad.anisse@gmail.com",name_bot,"Cocotier Binance",exceptions,traceback.format_exc())
                 emailing.send_mail("aitmoummad.yassine@gmail.com",name_bot,"Cocotier Binance",exceptions,traceback.format_exc())
                 traceback.print_exc()
