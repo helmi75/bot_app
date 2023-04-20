@@ -260,7 +260,7 @@ for i in myresult:
                         name_bot = i[11]
                         emailing.send_mail("hadjsassiscompany@gmail.com", name_bot, "Trix Kucoin", ex,
                                            traceback.format_exc())
-                        emailing.send_mail("helmichiha@gmail.com ", name_bot, "Trix Kucoin", ex,
+                        emailing.send_mail("helmichiha@gmail.com", name_bot, "Trix Kucoin", ex,
                                            traceback.format_exc())
                         emailing.send_mail("aitmoummad.anisse@gmail.com", name_bot, "Trix Kucoin", ex,
                                            traceback.format_exc())
@@ -276,7 +276,7 @@ for i in myresult:
                 name_bot = i[11]
                 emailing.send_mail("hadjsassiscompany@gmail.com", name_bot, "Trix Kucoin", ex,
                                    traceback.format_exc())
-                emailing.send_mail("helmichiha@gmail.com ", name_bot, "Trix Kucoin", ex,
+                emailing.send_mail("helmichiha@gmail.com", name_bot, "Trix Kucoin", ex,
                                    traceback.format_exc())
                 emailing.send_mail("aitmoummad.anisse@gmail.com", name_bot, "Trix Kucoin", ex,
                                    traceback.format_exc())
