@@ -311,12 +311,12 @@ for i in myresult :
             if str(ex).startswith("APIError(code=-2010)"):
 
                 iterations = False
-                Nbiterations = 100
+                Nbiterations = 50
                 for l in range(Nbiterations):
                     if iterations:
                         break
                     try :
-                        time.sleep(1)
+                        time.sleep(5)
                         print("")
                         print(f"Itération N°{l+1} a commencé")
                         processus2(i,con,iterations)
