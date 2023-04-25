@@ -26,7 +26,7 @@ def status_bots(df_result):
     list_satus_bot = [df_result[df_result['nom_bot'] == bot].iloc[-1:] for bot in df_result['nom_bot'].unique()]
     df_status_bot = pd.concat(list_satus_bot)[
         ['date','nom_bot', 'type_bot', 'crypto_name', 'wallet', 'pair_symbol',  'delta_hour',
-         'n_computing', 'status_bot','notes']]
+         'n_computing', 'status_bot','creation','notes']]
     df_status_bot = df_status_bot.rename(columns={"type_bot": "exchange"})
     for i in range(len(df_status_bot["exchange"])):
         df_status_bot.iloc[i, 2] = df_status_bot.iloc[i,2][len("cocotier")+1 :]
@@ -43,7 +43,7 @@ def init():
                 result = con.get_statusCocotier()
                 df_result = pd.DataFrame(result, columns=['date', 'wallet', 'status_bot',
                                                           'nom_bot', 'type_bot', 'pair_symbol', 'crypto_name',
-                                                          'delta_hour', 'n_computing','notes'])
+                                                          'delta_hour', 'n_computing','creation','notes'])
                 # display bot status
                 st.dataframe(status_bots(df_result))
             except Exception as e:
