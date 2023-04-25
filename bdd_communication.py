@@ -89,7 +89,7 @@ class ConnectBbd:
     def insert_new_cocotier_bot(self, selection, bot_name, api_key, secret_key, sub_account,
                                 pair_symbol, delta_hour, n_i):
         cursor = self.cnx.cursor()
-        query = """Insert into bots (nom_bot,type_bot) values ('%s','%s')""" % (bot_name, selection)
+        query = """Insert into bots (nom_bot,type_bot,createdDate) values ('%s','%s','%s')""" % (bot_name, selection,datetime.now())
         cursor.execute(query)
         idd = cursor.lastrowid
         self.cnx.commit()
@@ -106,7 +106,7 @@ class ConnectBbd:
                             api_key, secret_key, sub_account, pair_symbol,
                             trix_lenght, trix_signal, stoch_top, stoch_bottom, stoch_rsi):
         cursor = self.cnx.cursor()
-        query = """Insert into bots (nom_bot,type_bot) values ('%s','%s')""" % (bot_name, selection_bot)
+        query = """Insert into bots (nom_bot,type_bot,createdDate) values ('%s','%s','%s')""" % (bot_name, selection_bot,datetime.now())
         cursor.execute(query)
         idd = cursor.lastrowid
         self.cnx.commit()
