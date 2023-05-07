@@ -25,9 +25,21 @@ def status_bots(df_result):
     # df_result = df_result[df_result["transaction"] != "none"]
     list_satus_bot = [df_result[df_result['nom_bot'] == bot].iloc[-1:] for bot in df_result['nom_bot'].unique()]
     df_status_bot = pd.concat(list_satus_bot)[
-        ['date', 'nom_bot', 'pair_symbol', 'status_bot', 'transaction', 'type_bot','wallet','creation','notes']]
+        ['date', 'nom_bot', 'pair_symbol', 'status_bot', 'transaction', 'type_bot', 'wallet', 'creation', 'notes']]
+
+    # Add 'min' and 'max' columns
+    min_list = []
+    max_list = []
+    for bot in df_result['id_bot'].unique():
+        min_balance = con.get_min_balance(bot)  # Call the new method to get min balance
+        max_balance = con.get_max_balance(bot)  # Call the new method to get max balance
+        min_list.append(min_balance)
+        max_list.append(max_balance)
+    df_status_bot['min'] = min_list
+    df_status_bot['max'] = max_list
+
     for i, transaction in zip(df_status_bot["transaction"].index, df_status_bot["transaction"]):
-        if transaction == "none" :
+        if transaction == "none":
             df_status_bot["transaction"].loc[i] = "none"
         else:
             df_status_bot["transaction"].loc[i] = transaction
@@ -46,7 +58,7 @@ def init():
             try:
                 result = con.get_statusTrix()
                 df_result = pd.DataFrame(result, columns=['date', 'wallet', 'status_bot',
-                                                          'transaction', 'nom_bot', 'type_bot', 'pair_symbol','creation','notes'])
+                                                          'transaction', 'nom_bot', 'type_bot', 'pair_symbol','creation','notes','id_bot'])
                 # display bot status
                 df_result['type_bot'] = df_result['type_bot'].str[5:]
                 st.dataframe(status_bots(df_result))

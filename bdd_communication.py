@@ -423,7 +423,7 @@ class ConnectBbd:
         """
         cursor = self.cnx.cursor()
         # query = "select * from log_execution;"
-        query = "select g.dates,g.crypto_wallet,g.status_bot,g.transaction,b.nom_bot,b.type_bot,p.pair_symbol,b.createdDate,g.notes from get_balence as g, bots as b, params_bot_trix as p where p.bot_id = g.id_bot and g.id_bot = b.bot_id;"
+        query = "select g.dates,g.crypto_wallet,g.status_bot,g.transaction,b.nom_bot,b.type_bot,p.pair_symbol,b.createdDate,g.notes,g.id_bot from get_balence as g, bots as b, params_bot_trix as p where p.bot_id = g.id_bot and g.id_bot = b.bot_id;"
         cursor.execute(query)
         result = cursor.fetchall()
         wallets = {}
@@ -437,6 +437,18 @@ class ConnectBbd:
         result = cursor.fetchall()
         return result[0]
 
+    def get_min_balance(self,id_bot):
+        cursor = self.cnx.cursor()
+        query = f"select min(crypto_wallet) from get_balence where id_bot={id_bot}"
+        cursor.execute(query)
+        result = cursor.fetchall()
+        return result[0]
+    def get_max_balance(self,id_bot):
+        cursor = self.cnx.cursor()
+        query = f"select max(crypto_wallet) from get_balence where id_bot={id_bot}"
+        cursor.execute(query)
+        result = cursor.fetchall()
+        return result[0]
     def get_statusTrixById(self, idBot):
         """
            get bots status information from bdd
@@ -694,7 +706,7 @@ class ConnectBbd:
         """
         cursor = self.cnx.cursor()
         # query = "select * from log_execution;"
-        query = "select g.dates,g.crypto_wallet,g.status_bot,b.nom_bot,b.type_bot,p.pair_symbol,g.crypto_name,p.delta_hour,p.type_computing,b.createdDate,g.notes from get_balence as g, bots as b, Params_bot_Cocotier as p where p.bot_id = g.id_bot and g.id_bot = b.bot_id;"
+        query = "select g.dates,g.crypto_wallet,g.status_bot,b.nom_bot,b.type_bot,p.pair_symbol,g.crypto_name,p.delta_hour,p.type_computing,b.createdDate,g.notes,g.id_bot from get_balence as g, bots as b, Params_bot_Cocotier as p where p.bot_id = g.id_bot and g.id_bot = b.bot_id;"
         cursor.execute(query)
         result = cursor.fetchall()
         # self.cnx.close()
