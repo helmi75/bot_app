@@ -27,6 +27,16 @@ def status_bots(df_result):
     df_status_bot = pd.concat(list_satus_bot)[
         ['date','nom_bot', 'type_bot', 'crypto_name', 'wallet', 'pair_symbol',  'delta_hour',
          'n_computing', 'status_bot','creation','notes']]
+    # Add 'min' and 'max' columns
+    min_list = []
+    max_list = []
+    for bot in df_result['id_bot'].unique():
+        min_balance = con.get_min_balance(bot)  # Call the new method to get min balance
+        max_balance = con.get_max_balance(bot)  # Call the new method to get max balance
+        min_list.append(min_balance)
+        max_list.append(max_balance)
+    df_status_bot['min'] = min_list
+    df_status_bot['max'] = max_list
     df_status_bot = df_status_bot.rename(columns={"type_bot": "exchange"})
     for i in range(len(df_status_bot["exchange"])):
         df_status_bot.iloc[i, 2] = df_status_bot.iloc[i,2][len("cocotier")+1 :]
@@ -43,7 +53,7 @@ def init():
                 result = con.get_statusCocotier()
                 df_result = pd.DataFrame(result, columns=['date', 'wallet', 'status_bot',
                                                           'nom_bot', 'type_bot', 'pair_symbol', 'crypto_name',
-                                                          'delta_hour', 'n_computing','creation','notes'])
+                                                          'delta_hour', 'n_computing','creation','notes','id_bot'])
                 # display bot status
                 st.dataframe(status_bots(df_result))
             except Exception as e:
