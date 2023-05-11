@@ -439,7 +439,7 @@ class ConnectBbd:
 
     def get_min_balance(self,id_bot):
         cursor = self.cnx.cursor()
-        query = f"select min(crypto_wallet) from get_balence where id_bot={id_bot}"
+        query = f"select min(crypto_wallet) from get_balence where crypto_wallet != 0 and id_bot={id_bot}"
         cursor.execute(query)
         result = cursor.fetchall()
         return result[0]
