@@ -524,7 +524,8 @@ if st.button("Submit"):
         #
         # st.pyplot(fig)
         try:
-            st.dataframe(dt.iloc[[0, 1, 2, 3, 5, -5, -4, -3, -2, -1], :])
+            #st.dataframe(dt.iloc[[0, 1, 2, 3, 5, -5, -4, -3, -2, -1], :])
+             st.dataframe(dt)
         except:
             try:
                 st.dataframe(dt)
