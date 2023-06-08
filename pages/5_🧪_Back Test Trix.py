@@ -300,11 +300,11 @@ if st.button("Submit"):
         dfTest = df[str(sttDate): str(ennDate)]
         dt = pd.DataFrame(
             columns=['date', 'position', 'reason', 'price', 'frais', 'fiat', 'coins', 'wallet', 'drawBack'])
-        usdt = 1000
+        usdt = start_balance
         makerFee = 0.0002
         takerFee = 0.0007
         # -- Do not touch these values --
-        initalWallet = usdt
+        initalWallet = start_balance
         wallet = usdt
         coin = 0
         lastAth = 0
