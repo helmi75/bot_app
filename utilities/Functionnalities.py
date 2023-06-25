@@ -224,42 +224,48 @@ def execute_terminal_command(command):
     try:
         result = subprocess.run(command, shell=True, capture_output=True, text=True)
         # Print the standard output of the command
-        print(result.stdout)
+        # print(result.stdout)
 
         # If you want to capture the standard error as well, uncomment the line below
         # print(result.stderr)
 
         # Check the return code
         if result.returncode == 0:
-            print("Command executed successfully.")
+            # print("Command executed successfully.")
+            pass
         else:
-            print(f"Command execution failed with return code: {result.returncode}")
+            # print(f"Command execution failed with return code: {result.returncode}")
+            pass
     except subprocess.CalledProcessError as e:
-        print(f"Error executing command: {e}")
+        pass
+        # print(f"Error executing command: {e}")
 
 
 def execute_terminal_command2(command, start_date, start_hour):
     try:
         # Modify the command to include the start date and hour
         command = f'{command} "{start_date}" "{start_hour}"'
-        print (command)
-        print("Downloading Started, Please wait!")
+        # print (command)
+        # print("Downloading Started, Please wait!")
         # Run the command in the shell, capture the output and text mode for string output
         result = subprocess.run(command, shell=True, capture_output=True, text=True)
 
         # Print the standard output of the command
-        print(result.stdout)
-        print("Donwloading Finished")
+        # print(result.stdout)
+        # print("Donwloading Finished")
         # If you want to capture the standard error as well, uncomment the line below
         # print(result.stderr)
 
         # Check the return code
         if result.returncode == 0:
-            print("Command executed successfully.")
+            pass
+            # print("Command executed successfully.")
         else:
-            print(f"Command execution failed with return code: {result.returncode}")
+            pass
+            # print(f"Command execution failed with return code: {result.returncode}")
     except subprocess.CalledProcessError as e:
-        print(f"Error executing command: {e}")
+        pass
+        # print(f"Error executing command: {e}")
 
 
 def install_package_if_needed(package):
@@ -268,24 +274,24 @@ def install_package_if_needed(package):
         subprocess.run(['node', '-e', 'require.resolve("{}")'.format(package)], check=True, capture_output=True)
     except subprocess.CalledProcessError as e:
         # Package not found, install it
-        print(f"{package} is not installed. Installing...")
+        # print(f"{package} is not installed. Installing...")
         try:
             command = f'npm install {package}'
             execute_terminal_command(command)
-            print(f"{package} installed successfully.")
+            # print(f"{package} installed successfully.")
         except subprocess.CalledProcessError as e:
-            print(f"Error installing {package}: {e}")
-
+            # print(f"Error installing {package}: {e}")
+            pass
 
 def remove_non_csv_files(directory):
     directory = directory
-    print(directory)
+    # print(directory)
     for filename in os.listdir(directory):
         if not filename.endswith(".csv"):
             file_path = os.path.join(directory, filename)
             if os.path.isfile(file_path):
                 os.remove(file_path)
-                print(f"Removed file: {file_path}")
+                # print(f"Removed file: {file_path}")
 
 
 def get_analyisis_from_window(df_list,window=24):
