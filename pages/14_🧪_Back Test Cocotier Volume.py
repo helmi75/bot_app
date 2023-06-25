@@ -252,7 +252,6 @@ def pools(progressText):
     while start <= end:
         current_date = start.strftime("%Y-%m-%d")
         progressText.text(current_date)
-        progressText.value = current_date
         # Filter the dataframes to keep only the specific date
         filtered_dataframes = {}
         for key, df in df_list.items():
@@ -346,6 +345,9 @@ def main():
     st.markdown(
         "<span style='color:red'>It's important to know that downloading phase needs <b>time</b> \nand excellent <b>internet connection</b></span>",
         unsafe_allow_html=True)
+    st.markdown(
+        "<span style='color:yellow'>When you select the current date, it's not sure it will work, because it's not finished yet!</b></span>",
+        unsafe_allow_html=True)
     date_init = datetime.now() - timedelta(days=10)
     # Entries
     global dateObservation
@@ -357,7 +359,7 @@ def main():
     global hour
     hour = st.time_input("Time", time(0, 0))
     global ending_time
-    ending_time = st.date_input('date de fin', datetime.now())
+    ending_time = st.date_input('date de fin', datetime.now() - timedelta(days=1))
     global ennDate
     ennDate = f"{ending_time} {hour}"
     global sttDate
