@@ -18,3 +18,4 @@ venv
 help.py
 output
 database/quick_analysis
+database/pools.csv
