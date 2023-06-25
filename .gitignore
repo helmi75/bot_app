@@ -6,3 +6,15 @@
 pass_secret.py 
 /templates/trix_template/Trix_log.txt
 BackUp/requirements.txt
+backtest_tools-main.zip
+backtest_tools-main
+database/node_modules
+node_modules
+package-lock.json
+package.json
+venv
+.ipynb_checkpoints
+.idea
+help.py
+output
+database/quick_analysis

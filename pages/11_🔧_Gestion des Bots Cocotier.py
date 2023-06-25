@@ -1,6 +1,5 @@
-import streamlit as st
 import auth
-from bdd_communication import *
+from utilities.bdd_communication import *
 from pass_secret import mot_de_passe
 import numpy as np
 from ProjectSettings import *

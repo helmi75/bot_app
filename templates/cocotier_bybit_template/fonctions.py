@@ -1,14 +1,7 @@
 # -*- coding: utf-8 -*-
-import plotly.graph_objects as go
-from datetime import datetime
-from time import time
-from datetime import timedelta
-import numpy as np
-import pandas as pd
-from pass_secret import mot_de_passe
 import time as tm
 import mysql.connector
-from bdd_communication import *
+from utilities.bdd_communication import *
 
 
 # Calcul  de la variation

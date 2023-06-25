@@ -9,12 +9,7 @@ import warnings
 
 warnings.simplefilter(action='ignore', category=FutureWarning)
 
-from binance.client import Client
-import pandas as pd
-from datetime import datetime
-from pass_secret import mot_de_passe
-import mysql.connector
-from bdd_communication import *
+from utilities.bdd_communication import *
 import ta
 import ccxt
 

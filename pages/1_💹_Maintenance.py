@@ -5,7 +5,7 @@
 # nb de bot cocotier active / nb de bot cocotier non actives
 
 import streamlit as st
-from bdd_communication import ConnectBbd
+from utilities.bdd_communication import ConnectBbd
 from pass_secret import mot_de_passe
 from ProjectSettings import *
 import psutil

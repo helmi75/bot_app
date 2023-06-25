@@ -5,10 +5,9 @@ import traceback
 sys.path.insert(0, "/home/anisse9/bot_app")
 import emailing
 
-import ccxt
 from fonctions import *
 from pass_secret import mot_de_passe
-from bdd_communication import ConnectBbd
+from utilities.bdd_communication import ConnectBbd
 import mysql.connector
 from binance.client import Client
 

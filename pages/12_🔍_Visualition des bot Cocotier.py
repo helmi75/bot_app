@@ -1,6 +1,6 @@
 import streamlit as st
 import auth
-from bdd_communication import ConnectBbd
+from utilities.bdd_communication import ConnectBbd
 import pandas as pd
 import plotly.express as px
 from ProjectSettings import *

@@ -8,7 +8,7 @@ import pandas as pd
 import ftx
 import sys
 sys.path.insert(0,"/home/anisse9/bot_app")
-from bdd_communication import ConnectBbd
+from utilities.bdd_communication import ConnectBbd
 from pass_secret import mot_de_passe
 from datetime import datetime
 import time

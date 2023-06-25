@@ -1,0 +1,8 @@
+jupyter
+pandas
+ccxt
+matplotlib
+ta
+python-binance
+binance
+plotly

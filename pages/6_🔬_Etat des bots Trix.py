@@ -1,6 +1,6 @@
 import streamlit as st
 import auth
-from bdd_communication import ConnectBbd
+from utilities.bdd_communication import ConnectBbd
 import pandas as pd
 from pass_secret import mot_de_passe
 from ProjectSettings import  *

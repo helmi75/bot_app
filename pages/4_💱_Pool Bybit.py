@@ -1,6 +1,6 @@
 import streamlit as st
 import requests
-from bdd_communication import ConnectBbd
+from utilities.bdd_communication import ConnectBbd
 from pass_secret import mot_de_passe
 from binance.client import Client
 from ProjectSettings import  *

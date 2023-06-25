@@ -1,15 +1,10 @@
-import datetime
 import math
 from datetime import time
 
-import streamlit as st
 import ta
 import matplotlib.pyplot as plt
-from binance.client import Client
 import plotly.graph_objs as go
-from bdd_communication import *
-import seaborn as sns
-import plotly.express as px
+from utilities.bdd_communication import *
 import requests
 import ccxt
 from ProjectSettings import *

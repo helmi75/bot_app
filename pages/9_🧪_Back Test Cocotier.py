@@ -1,18 +1,5 @@
-import ccxt
-import pandas as pd
-import os
-import numpy as np
-import pickle as pk
-import matplotlib.pyplot as plt
-from datetime import datetime
 from datetime import time
-from datetime import timedelta
-import plotly.express as px
-import streamlit as st
-import plotly.graph_objects as go
-import base64
-from binance.client import Client
-from bdd_communication import *
+from utilities.bdd_communication import *
 from ProjectSettings import  *
 
 st.set_page_config(
