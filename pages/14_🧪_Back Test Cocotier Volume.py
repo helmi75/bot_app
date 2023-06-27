@@ -14,7 +14,6 @@ st.title(page_title)
 
 st.title("Back Test Cocotier Volume")
 
-#Entries todo
 dateObservation = 24
 nbPool = 6
 star_time = "2021-08-08"
@@ -258,7 +257,9 @@ def pools(progressText):
             filtered_df = df.loc[df.index.date == pd.to_datetime(start).date()]
             filtered_dataframes[key] = filtered_df
         df_metric = get_analyisis_from_window(filtered_dataframes, dateObservation).sort_values(by="volume_evolution",
-                                                                                                ascending=False)
+                                                                                                   ascending=False)
+        st.text(current_date)
+        st.dataframe(df_metric.iloc[:,0:3])
         dfVe = df_metric.iloc[:nbPool]
         market = list(dfVe.index)
         dff.loc[datetime.strptime(current_date, "%Y-%m-%d")] = [list(dfVe['volume_evolution'].index)]
