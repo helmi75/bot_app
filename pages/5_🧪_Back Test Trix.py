@@ -350,10 +350,9 @@ if st.button("Submit"):
                          'frais': fee,
                          'fiat': usdt, 'coins': coin, 'wallet': wallet, 'drawBack': (wallet - lastAth) / lastAth}
                 dt = dt.append(myrow, ignore_index=True)
-
+                dt['date'] = pd.to_datetime(dt['date'])
+                dt['date'] = dt['date'] + timedelta(hours=3)
             previousRow = row
-        dt = dt.set_index(dt['date'])
-        dt.index = pd.to_datetime(dt.index)
         dt['resultat'] = dt['wallet'].diff()
         dt['resultat%'] = dt['wallet'].pct_change() * 100
         dt.loc[dt['position'] == 'Buy', 'resultat'] = None
@@ -520,9 +519,15 @@ if st.button("Submit"):
         # st.pyplot(fig)
         try:
             #st.dataframe(dt.iloc[[0, 1, 2, 3, 5, -5, -4, -3, -2, -1], :])
-             st.dataframe(dt)
+            dt['date'] = dt['date'] + timedelta(hours=3)
+            dt = dt.set_index(dt['date'])
+            dt.index = pd.to_datetime(dt.index)
+            st.dataframe(dt)
         except:
             try:
+                dt['date'] = dt['date'] + timedelta(hours=3)
+                dt = dt.set_index(dt['date'])
+                dt.index = pd.to_datetime(dt.index)
                 st.dataframe(dt)
             except:
                 pass
