@@ -1,16 +1,19 @@
+import streamlit
+
 from utilities.bdd_communication import *
 from utilities.Functionnalities import *
+import plotly.express as px
 import warnings
+
 warnings.filterwarnings("ignore")
-from ProjectSettings import  *
+from ProjectSettings import *
 
 st.set_page_config(
-    page_title= page_title,
-    page_icon= page_icon,
+    page_title=page_title,
+    page_icon=page_icon,
 )
 
 st.title(page_title)
-
 
 st.title("Back Test Cocotier Volume")
 
@@ -21,10 +24,13 @@ hour = "00:00:00"
 ending_time = "2021-08-11"
 ennDate = f"{ending_time} {hour}"
 sttDate = f"{star_time} {hour}"
-start_date = datetime.strptime(sttDate, "%Y-%m-%d %H:%M:%S")
-end_date = datetime.strptime(ennDate, "%Y-%m-%d %H:%M:%S")
+date_format = "%Y-%m-%d %H:%M:%S"
+start_date = datetime.strptime(sttDate, date_format)
+end_date = datetime.strptime(ennDate, date_format)
+start_date_prime = start_date - timedelta(hours=1000)
+stttDAte = start_date_prime.strftime(date_format)
+current_date = start_date_prime
 
-current_date = start_date
 # Define the maximum number of threads
 MAX_THREADS = 10
 
@@ -35,12 +41,14 @@ command = 'node database/dl_for_quick_analysis.js'
 path = "database/quick_analysis"
 
 # 1] Data Collection
-#variables
+# variables
 data = {'current_date': pd.to_datetime(['2020-01-02']),
         'pool': [['BNB', 'ATD', 'ACC']]}
 dff = pd.DataFrame(data)
 dff.set_index('current_date', inplace=True)
 dff.drop(dff.index, inplace=True)
+
+
 ### Download all the OHLCV
 def downloadingDate(current_date):
     # Acquire the semaphore
@@ -52,7 +60,8 @@ def downloadingDate(current_date):
     # Release the semaphore
     semaphore.release()
 
-def get_historical_klines(x,deltahour,sttDate,ennDate):
+
+def get_historical_klines(x, deltahour, sttDate, ennDate):
     # Open the CSV file
     file_path = f"./database/quick_analysis/{x}.csv"
     df = pd.read_csv(file_path)
@@ -83,24 +92,25 @@ def get_historical_klines(x,deltahour,sttDate,ennDate):
 
     return new_df
 
-def cocotier(combination,combo):
+
+def cocotier(combination, combo):
     semaphore.acquire()
     crypto = {}
     x = ""
-    for elm in combination[0][1] :
-        try :
-            x = elm.replace("'","")
-            try :
-                crypto[x] = get_historical_klines(x,combination[1],sttDate,ennDate)
-            except :
-                x = x+'-USDT'
-                crypto[x] = get_historical_klines(x,combination[1],sttDate,ennDate)
-            crypto[x] = crypto[x].astype({x.lower()+ '_open': 'float64',x.lower()+ '_close': 'float64'})
+    for elm in combination[0][1]:
+        try:
+            x = elm.replace("'", "")
+            try:
+                crypto[x] = get_historical_klines(x, combination[1], sttDate, ennDate)
+            except:
+                x = x + '-USDT'
+                crypto[x] = get_historical_klines(x, combination[1], sttDate, ennDate)
+            crypto[x] = crypto[x].astype({x.lower() + '_open': 'float64', x.lower() + '_close': 'float64'})
             crypto[x] = crypto[x].set_index('timestamp')
         except Exception as ll:
             print(f"{ll}\n{x}!")
             traceback.format_exc()
-    try :
+    try:
         array_mauvais_shape = detection_mauvais_shape(crypto)
         # crypto = correction_shape(crypto, array_mauvais_shape)
         # for elm in array_mauvais_shape:
@@ -115,26 +125,28 @@ def cocotier(combination,combo):
         crypto = botMaxVariation2(crypto, maxis)
         crypto = coeffMultiBotMax(crypto)
         coefMulti = coefmultiFinal(crypto)
-        combination.append(coefMulti.tail(1).iloc[-1,-1])
+        combination.append(coefMulti.tail(1).iloc[-1, -1])
     except Exception as ll:
         print(f"{ll}\n")
     semaphore.release()
 
+
 def getData(progressText):
     progressText.text("Downloading")
-    current_date = start_date
+    current_date = start_date_prime
     try:
         shutil.rmtree(path)
     except:
         pass
     threads = []
     while current_date <= end_date:
-        progressText.text(current_date)
+        percentage = (current_date - start_date_prime) / (end_date - start_date_prime) * 100
+        progressText.text(f"The percentage is: {percentage:.2f}%")
         # thread = threading.Thread(target=downloadingDate, args=(current_date,))
         # thread.start()
         # threads.append(thread)
         downloadingDate(current_date)
-        current_date += timedelta(days=1)
+        current_date += timedelta(hours=1000)
 
     # Wait for all threads to finish
     # for thread in threads:
@@ -232,34 +244,36 @@ def getData(progressText):
             file.writelines(unique_lines)
     # pools(progressText)
 
+
 def pools(progressText):
     # 2] Data Preprocessing
     progressText.text("Starting Extracting")
     file_list = [f for f in listdir(path) if isfile(join(path, f))]
     df_list = {}
     for file in file_list:
-        progressText.text(path+'/'+file)
+        progressText.text(path + '/' + file)
         df_list[file[:-9]] = get_historical_from_path(path + "/" + file)
     # Convert the start and end times to datetime objects
-    start = star_time
+    start = start_date
     # start = datetime.strptime(star_time, "%Y-%m-%d")
-    end = ending_time
-    # end = datetime.strptime(ending_time, "%Y-%m-%d")
     # Define the timedelta for incrementing the date
     delta = timedelta(days=1)
     # Loop through the dates between start and end
-    while start <= end:
+    while start <= end_date:
+        previous_date = start - timedelta(hours=1000)
         current_date = start.strftime("%Y-%m-%d")
         progressText.text(current_date)
         # Filter the dataframes to keep only the specific date
         filtered_dataframes = {}
         for key, df in df_list.items():
-            filtered_df = df.loc[df.index.date == pd.to_datetime(start).date()]
+            # filtered_df = df.loc[df.index >= previous_date]
+            filtered_df = df.loc[(df.index >= previous_date) & (df.index <= start)]
+            # filtered_df = df.loc[df.index.date == pd.to_datetime(start).date()]
             filtered_dataframes[key] = filtered_df
         df_metric = get_analyisis_from_window(filtered_dataframes, dateObservation).sort_values(by="volume_evolution",
-                                                                                                   ascending=False)
+                                                                                                ascending=False)
         st.text(current_date)
-        st.dataframe(df_metric.iloc[:,0:3])
+        st.dataframe(df_metric.iloc[:, 0:3])
         dfVe = df_metric.iloc[:nbPool]
         market = list(dfVe.index)
         dff.loc[datetime.strptime(current_date, "%Y-%m-%d")] = [list(dfVe['volume_evolution'].index)]
@@ -271,13 +285,14 @@ def pools(progressText):
     progressText.text("Pool Saved")
     # finish(progressText)
 
+
 def finish(progressText):
     # 3] Generate All Combinations
     progressText.text("Generate All combinations")
 
     crypto = {}
-    deltaHours = ["2h","4h","8h","12h"]
-    Ni = ["N","N-1","N-2"]
+    deltaHours = ["2h", "4h", "8h", "12h"]
+    Ni = ["N", "N-1", "N-2"]
     array1 = []
     with open('database/pools.csv', 'r') as file:
         reader = csv.reader(file)
@@ -294,17 +309,15 @@ def finish(progressText):
     # Launch a thread for each iteration
     threads = []
     combinations = list(combinations)
-    for combo,combination in enumerate(combinations):
+    for combo, combination in enumerate(combinations):
         progressText.text(f"Cocotier Process Combiation N°{combo}")
-        thread = threading.Thread(target=cocotier, args=(combination,combo))
+        thread = threading.Thread(target=cocotier, args=(combination, combo))
         thread.start()
         threads.append(thread)
-
 
     # Wait for all threads to finish
     for thread in threads:
         thread.join()
-
 
     # 5] Presenting the First DataFrame
     progressText.text("First DataFrame")
@@ -319,7 +332,7 @@ def finish(progressText):
         BotMax = combination[3]
         flat_data.append([datetime, deltahour, Ni, BotMax, pool])
 
-    df = pd.DataFrame(flat_data, columns=['datetime', 'deltahour', 'Ni', 'BotMax','pool'])
+    df = pd.DataFrame(flat_data, columns=['datetime', 'deltahour', 'Ni', 'BotMax', 'pool'])
     st.dataframe(df)
     # 6] Produit Cumulée and final Dataframe
     progressText.text("Produit cumulé")
@@ -336,9 +349,28 @@ def finish(progressText):
     df_grouped['startDate'] = df_grouped['startDate'].dt.strftime('%Y-%m-%d %H:%M:%S')
     df_grouped['endingDate'] = df_grouped['endingDate'].dt.strftime('%Y-%m-%d %H:%M:%S')
 
-
     st.dataframe(df_grouped)
     progressText.text("")
+    # Assuming your DataFrame is named 'df_grouped'
+    df_grouped['deltahour_Ni'] = df_grouped['deltahour'] + ' ' + df_grouped['Ni']
+
+    # Find the maximum BotMax value
+    max_botmax = df_grouped['BotMax'].max()
+
+    # Create a new column for color
+    df_grouped['color'] = ['MaxValue' if x == max_botmax else 'Normal' for x in df_grouped['BotMax']]
+
+    fig = px.histogram(df_grouped, x='deltahour_Ni', y='BotMax', color='color',
+                       color_discrete_map={'MaxValue': 'blue', 'Normal': 'lightgray'})
+
+    fig.update_layout(
+        yaxis_title="BotMax"
+    )
+
+    # Display the plot using Streamlit
+    st.plotly_chart(fig)
+
+
 
 def main():
     st.text("In this Section, you can store the data in the local database, \nand just run the script on"
@@ -369,6 +401,10 @@ def main():
     start_date = datetime.strptime(sttDate, "%Y-%m-%d %H:%M:%S")
     global end_date
     end_date = datetime.strptime(ennDate, "%Y-%m-%d %H:%M:%S")
+    global start_date_prime
+    start_date_prime = start_date - timedelta(hours=1000)
+    global stttDAte
+    stttDAte = start_date_prime.strftime(date_format)
     progressText = st.text("")
     try:
         install_package_if_needed("ccxt")
@@ -406,6 +442,7 @@ def main():
         finish_button_placeholder.empty()
 
         finish(progressText)
+
 
 if __name__ == '__main__':
     main()
