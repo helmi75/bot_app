@@ -181,8 +181,8 @@ def botMaxVariation2(cryptos, maxis):
     return cryptos
 
 
-def coeffMultiBotMax(cryptos):
-    cryptos["BOT_MAX"]["Coeff_mult_BOTMAX"][0] = 1.000
+def coeffMultiBotMax(cryptos,initialValue=1.000):
+    cryptos["BOT_MAX"]["Coeff_mult_BOTMAX"][0] = initialValue
     for i in range(1, len(cryptos)):
         cryptos["BOT_MAX"]["Coeff_mult_BOTMAX"][i] = cryptos["BOT_MAX"]["Coeff_mult_BOTMAX"][i - 1] * \
                                                      cryptos["BOT_MAX"]["Variation2BOTMAX"][i]

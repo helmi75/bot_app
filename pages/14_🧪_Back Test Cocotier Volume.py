@@ -30,7 +30,10 @@ end_date = datetime.strptime(ennDate, date_format)
 start_date_prime = start_date - timedelta(hours=1000)
 stttDAte = start_date_prime.strftime(date_format)
 current_date = start_date_prime
-
+newerBotMax = 1.000
+N = "N-1"
+delta = "4h"
+array1 = []
 # Define the maximum number of threads
 MAX_THREADS = 10
 
@@ -67,8 +70,8 @@ def get_historical_klines(x, deltahour, sttDate, ennDate):
     df = pd.read_csv(file_path)
 
     # Convert sttDate and ennDate to datetime objects
-    stt_date = pd.to_datetime(sttDate, format="%Y-%m-%d %H:%M:%S")
-    enn_date = pd.to_datetime(ennDate, format="%Y-%m-%d %H:%M:%S")
+    stt_date = pd.to_datetime(sttDate, format=date_format)
+    enn_date = pd.to_datetime(ennDate, format=date_format)
 
     # Convert the 'date' column to datetime
     df['date'] = pd.to_datetime(df['date'], unit='ms')
@@ -92,8 +95,22 @@ def get_historical_klines(x, deltahour, sttDate, ennDate):
 
     return new_df
 
+def findPreviousBotMax(combination,combinations):
+    target_2h = combination[1]  # Get the '2h' value from the current combination
+    target_N = combination[2]  # Get the 'N' value from the current combination
+    current_date = combination[0][0]  # Get the date from the current combination
+    for i in range(len(combinations) - 1, -1, -1):
+        prev_combination = combinations[i]
+        prev_2h = prev_combination[1]  # Get the '2h' value from the previous combination
+        prev_N = prev_combination[2]   # Get the 'N' value from the previous combination
+        prev_date = prev_combination[0][0]  # Get the date from the previous combination
 
-def cocotier(combination, combo):
+        if prev_2h == target_2h and prev_N == target_N and prev_date < current_date:
+            return prev_combination[-1]  # Return the last element of the previous combination
+
+    return 1  # Return None if no previous value is found
+
+def cocotier(combination, combo,previous,sttDate,ennDate):
     semaphore.acquire()
     crypto = {}
     x = ""
@@ -123,13 +140,51 @@ def cocotier(combination, combo):
         crypto = mergeCryptoTogether(crypto)
         crypto, maxis = botMax(crypto)
         crypto = botMaxVariation2(crypto, maxis)
-        crypto = coeffMultiBotMax(crypto)
+        crypto = coeffMultiBotMax(crypto,initialValue=previous)
         coefMulti = coefmultiFinal(crypto)
         combination.append(coefMulti.tail(1).iloc[-1, -1])
     except Exception as ll:
         print(f"{ll}\n")
     semaphore.release()
 
+def cocotierSingle(pool, delta, N, sttDate, ennDate):
+    global newerBotMax
+    crypto = {}
+    x = ""
+    for elm in pool:
+        try:
+            x = elm.replace("'", "")
+            try:
+                crypto[x] = get_historical_klines(x, delta, sttDate, ennDate)
+            except:
+                x = x + '-USDT'
+                crypto[x] = get_historical_klines(x, delta, sttDate, ennDate)
+            crypto[x] = crypto[x].astype({x.lower() + '_open': 'float64', x.lower() + '_close': 'float64'})
+            crypto[x] = crypto[x].set_index('timestamp')
+        except Exception as ll:
+            print(f"{ll}\n{x}!")
+            traceback.format_exc()
+    try:
+        array_mauvais_shape = detection_mauvais_shape(crypto)
+        # crypto = correction_shape(crypto, array_mauvais_shape)
+        # for elm in array_mauvais_shape:
+        #     crypto[elm]['timestamp'] = generation_date(crypto[elm], int(delta_hour[:1]))
+        #     crypto[elm] = crypto[elm].set_index('timestamp')
+        for i in array_mauvais_shape:
+            del crypto[i]
+        crypto = variationN(crypto, N)
+        crypto = coeffMulti(crypto)
+        crypto = mergeCryptoTogether(crypto)
+        crypto, maxis = botMax(crypto)
+        crrrr = crypto
+        crypto = botMaxVariation2(crypto, maxis)
+        crypto = coeffMultiBotMax(crypto,initialValue=newerBotMax)
+        coefMulti = coefmultiFinal(crypto)
+        for i,j in enumerate(crrrr.index):
+            newerBotMax = coefMulti.iloc[i,-1]
+            st.text(f"{j}\t{pool[maxis[i]]}\t{newerBotMax}")
+    except Exception as ll:
+        st.error(f"{ll}\n")
 
 def getData(progressText):
     progressText.text("Downloading")
@@ -210,13 +265,19 @@ def getData(progressText):
     # Iterate over the file names
     for file_name in file_names:
         # Check if the file name contains the '$' character
-        if '$' in file_name:
+        if '$' in file_name or file_name.endswith(":USDT.csv"):
             # Create the file path
             file_path = os.path.join(path, file_name)
-
             # Remove the file
             os.remove(file_path)
+    file_names = os.listdir(path)
+    for file_name in file_names:
+        # Check if the file name contains the '$' character
+        if file_name.endswith(":USDT.csv"):
+            file_path = os.path.join(path, file_name)
 
+            # print(file_path)
+            os.remove(file_path)
     ### Remove redudancy in the csv files
     progressText.text("Remove redundancy in the newer csv files")
     # Get the list of file names in the directory
@@ -261,7 +322,7 @@ def pools(progressText):
     # Loop through the dates between start and end
     while start <= end_date:
         previous_date = start - timedelta(hours=1000)
-        current_date = start.strftime("%Y-%m-%d")
+        current_date = start.strftime(date_format)
         progressText.text(current_date)
         # Filter the dataframes to keep only the specific date
         filtered_dataframes = {}
@@ -276,24 +337,26 @@ def pools(progressText):
         st.dataframe(df_metric.iloc[:, 0:3])
         dfVe = df_metric.iloc[:nbPool]
         market = list(dfVe.index)
-        dff.loc[datetime.strptime(current_date, "%Y-%m-%d")] = [list(dfVe['volume_evolution'].index)]
+        dff.loc[datetime.strptime(current_date, date_format)] = [list(dfVe['volume_evolution'].index)]
         start += delta
 
     ### Save the Pools By day dataframe
-    dff.to_csv('./database/pools.csv', header=False)
+    dff.to_csv('./database/pools.csv', header=False,date_format=date_format)
     st.dataframe(dff)
     progressText.text("Pool Saved")
     # finish(progressText)
 
 
 def finish(progressText):
+    global array1
+    array1 = []
     # 3] Generate All Combinations
     progressText.text("Generate All combinations")
 
     crypto = {}
     deltaHours = ["2h", "4h", "8h", "12h"]
     Ni = ["N", "N-1", "N-2"]
-    array1 = []
+
     with open('database/pools.csv', 'r') as file:
         reader = csv.reader(file)
         for row in reader:
@@ -307,17 +370,21 @@ def finish(progressText):
     progressText.text("Cocotier Process")
 
     # Launch a thread for each iteration
-    threads = []
+    # threads = []
     combinations = list(combinations)
     for combo, combination in enumerate(combinations):
         progressText.text(f"Cocotier Process Combiation N°{combo}")
-        thread = threading.Thread(target=cocotier, args=(combination, combo))
-        thread.start()
-        threads.append(thread)
+        previouslyBot = findPreviousBotMax(combination,combinations)
+        # thread = threading.Thread(target=cocotier, args=(combination, combo,previouslyBot))
+        from datetime import datetime,timedelta
+        previousDate = ((datetime.strptime(combination[0][0], date_format)) - timedelta(days=1)).strftime(date_format)
+        cocotier(combination,combo,previouslyBot,previousDate,combination[0][0])
+        # thread.start()
+        # threads.append(thread)
 
-    # Wait for all threads to finish
-    for thread in threads:
-        thread.join()
+    # # Wait for all threads to finish
+    # for thread in threads:
+    #     thread.join()
 
     # 5] Presenting the First DataFrame
     progressText.text("First DataFrame")
@@ -346,8 +413,8 @@ def finish(progressText):
     df_grouped.columns = ['deltahour', 'Ni', 'startDate', 'endingDate', 'BotMax']
 
     # Convert 'startDate' and 'endingDate' columns to desired format
-    df_grouped['startDate'] = df_grouped['startDate'].dt.strftime('%Y-%m-%d %H:%M:%S')
-    df_grouped['endingDate'] = df_grouped['endingDate'].dt.strftime('%Y-%m-%d %H:%M:%S')
+    df_grouped['startDate'] = df_grouped['startDate'].dt.strftime(date_format)
+    df_grouped['endingDate'] = df_grouped['endingDate'].dt.strftime(date_format)
 
     st.dataframe(df_grouped)
     progressText.text("")
@@ -356,7 +423,9 @@ def finish(progressText):
 
     # Find the maximum BotMax value
     max_botmax = df_grouped['BotMax'].max()
-
+    max_row = df_grouped.loc[df_grouped['BotMax'] == max_botmax, ['deltahour', 'Ni']]
+    max_deltahour = max_row['deltahour'].values[0]
+    max_Ni = max_row['Ni'].values[0]
     # Create a new column for color
     df_grouped['color'] = ['MaxValue' if x == max_botmax else 'Normal' for x in df_grouped['BotMax']]
 
@@ -369,8 +438,18 @@ def finish(progressText):
 
     # Display the plot using Streamlit
     st.plotly_chart(fig)
+    return max_deltahour, max_Ni
 
 
+def verif(delta, Ni):
+    st.header(f"-> Cocotier [{delta}/{Ni}]")
+    st.subheader(f"From {start_date} to {end_date}")
+    for i,j in enumerate(array1):
+        pool = [item.replace("'", "") for item in j[1]]
+        st.text("-------------------------------------")
+        st.text(f"// Date: {j[0]} \t Pool : {pool}")
+        previousDate = ((datetime.strptime(j[0], date_format)) - timedelta(days=1)).strftime(date_format)
+        cocotierSingle(pool,delta,Ni,previousDate,j[0])
 
 def main():
     st.text("In this Section, you can store the data in the local database, \nand just run the script on"
@@ -398,13 +477,16 @@ def main():
     global sttDate
     sttDate = f"{star_time} {hour}"
     global start_date
-    start_date = datetime.strptime(sttDate, "%Y-%m-%d %H:%M:%S")
+    start_date = datetime.strptime(sttDate, date_format)
     global end_date
-    end_date = datetime.strptime(ennDate, "%Y-%m-%d %H:%M:%S")
+    end_date = datetime.strptime(ennDate, date_format)
     global start_date_prime
     start_date_prime = start_date - timedelta(hours=1000)
     global stttDAte
     stttDAte = start_date_prime.strftime(date_format)
+    global delta, N
+    global newerBotMax
+    newerBotMax = 1.000
     progressText = st.text("")
     try:
         install_package_if_needed("ccxt")
@@ -432,7 +514,7 @@ def main():
         finish_button_placeholder = st.empty()
 
         pools(progressText)
-
+    verification = False
     # Finish Processing button
     finish_button_placeholder = st.empty()
     if finish_button_placeholder.button("Finish Processing With the latest stored Data"):
@@ -440,8 +522,12 @@ def main():
         download_button_placeholder.empty()
         extract_button_placeholder.empty()
         finish_button_placeholder.empty()
-
-        finish(progressText)
+        delta, N = finish(progressText)
+        verif(delta,N)
+        # verification = True
+    # # todo add verification and before the button
+    # if verification and st.button("Verifier Cocotier"):
+    #     verif(delta, N)
 
 
 if __name__ == '__main__':
