@@ -368,6 +368,7 @@ def finish(progressText):
             array1.append((timestamp, elements))
     combinations = list(itertools.product(array1, deltaHours, Ni))
     combinations = [list(item) for item in combinations]
+    combinations = [item for item in combinations if item[0][0] != ennDate]
 
     # 4] Cocotier Process
     progressText.text("Cocotier Process")
@@ -380,11 +381,13 @@ def finish(progressText):
         previouslyBot = findPreviousBotMax(combination, combinations)
         # thread = threading.Thread(target=cocotier, args=(combination, combo,previouslyBot))
         from datetime import datetime, timedelta
-        nexDate = ((datetime.strptime(combination[0][0], date_format)) + timedelta(days=1)).strftime(date_format)
-        try :
-            cocotier(combination, combo, previouslyBot, combination[0][0],nexDate)
-        except:
-            st.error(f"{nexDate} is not downloaded yet")
+        if ennDate != combination[0][0]:
+            nexDate = ((datetime.strptime(combination[0][0], date_format)) + timedelta(days=1)).strftime(date_format)
+            nowDate = (datetime.strptime(combination[0][0], date_format) + timedelta(hours=int(combination[1].replace('h','')))).strftime(date_format)
+            try :
+                cocotier(combination, combo, previouslyBot, nowDate , nexDate)
+            except:
+                st.error(f"{nexDate} is not downloaded yet")
         # thread.start()
         # threads.append(thread)
 
@@ -455,11 +458,14 @@ def verif(delta, Ni):
         pool = [item.replace("'", "") for item in j[1]]
         st.text("-------------------------------------")
         st.text(f"// Date: {j[0]} \t Pool : {pool}")
-        nexDate = ((datetime.strptime(j[0], date_format)) + timedelta(days=1)).strftime(date_format)
-        try :
-            cocotierSingle(pool, delta, Ni, j[0], nexDate)
-        except:
-            st.error(f"{nexDate} is not downloaded yet")
+        if ennDate != j[0]:
+            nexDate = ((datetime.strptime(j[0], date_format)) + timedelta(days=1)).strftime(date_format)
+            nowDate = (datetime.strptime(j[0], date_format) + timedelta(
+                hours=int(delta.replace('h', '')))).strftime(date_format)
+            try :
+                cocotierSingle(pool, delta, Ni, nowDate, nexDate)
+            except:
+                st.error(f"{nexDate} is not downloaded yet")
     # st.text(visualisedData) here to display the chart graphic for helmi
     # Extract x and y values from the data
     # Extract the x and y values
