@@ -31,7 +31,7 @@ start_date_prime = start_date - timedelta(hours=1000)
 stttDAte = start_date_prime.strftime(date_format)
 current_date = start_date_prime
 newerBotMax = 1.000
-multiplyBotMax = 1.000
+visualisedData = []
 N = "N-1"
 delta = "4h"
 array1 = []
@@ -150,7 +150,7 @@ def cocotier(combination, combo, previous, stt, enn):
 
 def cocotierSingle(pool, delta, N, sttDate, ennDate):
     global newerBotMax
-    global multiplyBotMax
+    global visualisedData
     crypto = {}
     x = ""
     for elm in pool:
@@ -180,8 +180,9 @@ def cocotierSingle(pool, delta, N, sttDate, ennDate):
         coefMulti = coefmultiFinal(crypto)
         for i, j in enumerate(crrrr.index):
             newerBotMax = coefMulti.iloc[i, -1]
-            multiplyBotMax *= newerBotMax
             st.text(f"{j}\t{pool[maxis[i]]}\t{newerBotMax}")
+            visualisedData.append({"date":j,"crypto":pool[maxis[i]],"BotMax":newerBotMax})
+
     except Exception as ll:
         st.error(f"{ll}\n")
 
@@ -442,6 +443,7 @@ def finish(progressText):
 
 
 def verif(delta, Ni):
+    global visualisedData
     st.markdown(f"<h2 style='color:red'>-> Cocotier [{delta}/{Ni}]</h2>", unsafe_allow_html=True)
     st.subheader(f"From {start_date} to {end_date}")
     for i, j in enumerate(array1):
@@ -450,6 +452,26 @@ def verif(delta, Ni):
         st.text(f"// Date: {j[0]} \t Pool : {pool}")
         previousDate = ((datetime.strptime(j[0], date_format)) - timedelta(days=1)).strftime(date_format)
         cocotierSingle(pool, delta, Ni, previousDate, j[0])
+    # st.text(visualisedData) here to display the chart graphic for helmi
+    # Extract x and y values from the data
+    # Extract the x and y values
+    x = [entry['date'] for entry in visualisedData]
+    y = [entry['BotMax'] for entry in visualisedData]
+
+    # Create the scatter plot
+    fig = go.Figure(data=go.Scatter(x=x, y=y, mode='lines'))
+
+    # Set the graph title and axis labels
+    fig.update_layout(title='BotMax Value Over Time', xaxis_title='Date', yaxis_title='BotMax Value')
+
+    # Add annotations for each crypto symbol
+    annotations = [dict(x=x_val, y=y_val, text=crypto, showarrow=True, arrowhead=1) for x_val, y_val, crypto in
+                   zip(x, y, [entry['crypto'] for entry in visualisedData])]
+    fig.update_layout(annotations=annotations)
+
+    # Display the graph in Streamlit
+    st.plotly_chart(fig)
+    visualisedData = []
 def main():
     st.text("In this Section, you can store the data in the local database, \nand just run the script on"
             "these data to gain time. \nBut also you can download from the first")
@@ -524,12 +546,15 @@ def main():
         delta, N = finish(progressText)
     # if st.button("Verif with the best match"):
         newerBotMax = 1.0
+        visualisedData = []
         verif(delta, N)
     # if st.button("8H/N-1"):
         newerBotMax = 1.0
+        visualisedData = []
         verif("8h","n-1")
     # if st.button("4H/N"):
         newerBotMax = 1.0
+        visualisedData = []
         verif("4h","n")
 
 
