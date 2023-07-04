@@ -129,7 +129,8 @@ def cocotier(combination, combo, previous, stt, enn):
             crypto[x] = crypto[x].astype({x.lower() + '_open': 'float64', x.lower() + '_close': 'float64'})
             crypto[x] = crypto[x].set_index('timestamp')
         except Exception as ll:
-            print(f"{ll}\n{x}!")
+            st.error("Please ReDownload the Data, it hasn't been all downloaded")
+            print(f"cocotierException1\n{ll}\n{x}!")
             traceback.format_exc()
     try:
         array_mauvais_shape = detection_mauvais_shape(crypto)
@@ -144,7 +145,8 @@ def cocotier(combination, combo, previous, stt, enn):
         coefMulti = coefmultiFinal(crypto)
         combination.append(coefMulti.tail(1).iloc[-1, -1])
     except Exception as ll:
-        print(f"{ll}\n")
+        st.error("Please verify the Downloaded Data, redo it if it's necessary!")
+        print(f"cocotierException1\n{ll}\n")
     semaphore.release()
 
 
@@ -164,7 +166,7 @@ def cocotierSingle(pool, delta, N, sttDate, ennDate):
             crypto[x] = crypto[x].astype({x.lower() + '_open': 'float64', x.lower() + '_close': 'float64'})
             crypto[x] = crypto[x].set_index('timestamp')
         except Exception as ll:
-            print(f"{ll}\n{x}!")
+            print(f"cocotierSingleException1\n{ll}\n{x}!")
             traceback.format_exc()
     try:
         array_mauvais_shape = detection_mauvais_shape(crypto)
@@ -184,7 +186,7 @@ def cocotierSingle(pool, delta, N, sttDate, ennDate):
             visualisedData.append({"date":j,"crypto":pool[maxis[i]],"BotMax":newerBotMax})
 
     except Exception as ll:
-        st.error(f"{ll}\n")
+        st.error(f"cocotierSingleException2\n{ll}\n")
 
 
 def getData(progressText):
