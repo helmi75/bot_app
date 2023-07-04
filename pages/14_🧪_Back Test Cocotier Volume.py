@@ -31,6 +31,7 @@ start_date_prime = start_date - timedelta(hours=1000)
 stttDAte = start_date_prime.strftime(date_format)
 current_date = start_date_prime
 newerBotMax = 1.000
+multiplyBotMax = 1.000
 N = "N-1"
 delta = "4h"
 array1 = []
@@ -95,22 +96,25 @@ def get_historical_klines(x, deltahour, sttDate, ennDate):
 
     return new_df
 
-def findPreviousBotMax(combination,combinations):
+
+def findPreviousBotMax(combination, combinations):
     target_2h = combination[1]  # Get the '2h' value from the current combination
     target_N = combination[2]  # Get the 'N' value from the current combination
     current_date = combination[0][0]  # Get the date from the current combination
+    prev_datee = datetime.strptime(current_date, date_format) - timedelta(days=1)
     for i in range(len(combinations) - 1, -1, -1):
         prev_combination = combinations[i]
         prev_2h = prev_combination[1]  # Get the '2h' value from the previous combination
-        prev_N = prev_combination[2]   # Get the 'N' value from the previous combination
-        prev_date = prev_combination[0][0]  # Get the date from the previous combination
+        prev_N = prev_combination[2]  # Get the 'N' value from the previous combination
+        prev_date = datetime.strptime(prev_combination[0][0], date_format)  # Get the date from the previous combination
 
-        if prev_2h == target_2h and prev_N == target_N and prev_date < current_date:
+        if prev_2h == target_2h and prev_N == target_N and prev_date == prev_datee:
             return prev_combination[-1]  # Return the last element of the previous combination
 
     return 1  # Return None if no previous value is found
 
-def cocotier(combination, combo,previous,sttDate,ennDate):
+
+def cocotier(combination, combo, previous, stt, enn):
     semaphore.acquire()
     crypto = {}
     x = ""
@@ -118,10 +122,10 @@ def cocotier(combination, combo,previous,sttDate,ennDate):
         try:
             x = elm.replace("'", "")
             try:
-                crypto[x] = get_historical_klines(x, combination[1], sttDate, ennDate)
+                crypto[x] = get_historical_klines(x, combination[1], stt, enn)
             except:
                 x = x + '-USDT'
-                crypto[x] = get_historical_klines(x, combination[1], sttDate, ennDate)
+                crypto[x] = get_historical_klines(x, combination[1], stt, enn)
             crypto[x] = crypto[x].astype({x.lower() + '_open': 'float64', x.lower() + '_close': 'float64'})
             crypto[x] = crypto[x].set_index('timestamp')
         except Exception as ll:
@@ -129,10 +133,6 @@ def cocotier(combination, combo,previous,sttDate,ennDate):
             traceback.format_exc()
     try:
         array_mauvais_shape = detection_mauvais_shape(crypto)
-        # crypto = correction_shape(crypto, array_mauvais_shape)
-        # for elm in array_mauvais_shape:
-        #     crypto[elm]['timestamp'] = generation_date(crypto[elm], int(delta_hour[:1]))
-        #     crypto[elm] = crypto[elm].set_index('timestamp')
         for i in array_mauvais_shape:
             del crypto[i]
         crypto = variationN(crypto, combination[2])
@@ -140,15 +140,17 @@ def cocotier(combination, combo,previous,sttDate,ennDate):
         crypto = mergeCryptoTogether(crypto)
         crypto, maxis = botMax(crypto)
         crypto = botMaxVariation2(crypto, maxis)
-        crypto = coeffMultiBotMax(crypto,initialValue=previous)
+        crypto = coeffMultiBotMax(crypto, initialValue=previous)
         coefMulti = coefmultiFinal(crypto)
         combination.append(coefMulti.tail(1).iloc[-1, -1])
     except Exception as ll:
         print(f"{ll}\n")
     semaphore.release()
 
+
 def cocotierSingle(pool, delta, N, sttDate, ennDate):
     global newerBotMax
+    global multiplyBotMax
     crypto = {}
     x = ""
     for elm in pool:
@@ -166,10 +168,6 @@ def cocotierSingle(pool, delta, N, sttDate, ennDate):
             traceback.format_exc()
     try:
         array_mauvais_shape = detection_mauvais_shape(crypto)
-        # crypto = correction_shape(crypto, array_mauvais_shape)
-        # for elm in array_mauvais_shape:
-        #     crypto[elm]['timestamp'] = generation_date(crypto[elm], int(delta_hour[:1]))
-        #     crypto[elm] = crypto[elm].set_index('timestamp')
         for i in array_mauvais_shape:
             del crypto[i]
         crypto = variationN(crypto, N)
@@ -178,13 +176,15 @@ def cocotierSingle(pool, delta, N, sttDate, ennDate):
         crypto, maxis = botMax(crypto)
         crrrr = crypto
         crypto = botMaxVariation2(crypto, maxis)
-        crypto = coeffMultiBotMax(crypto,initialValue=newerBotMax)
+        crypto = coeffMultiBotMax(crypto, initialValue=newerBotMax)
         coefMulti = coefmultiFinal(crypto)
-        for i,j in enumerate(crrrr.index):
-            newerBotMax = coefMulti.iloc[i,-1]
+        for i, j in enumerate(crrrr.index):
+            newerBotMax = coefMulti.iloc[i, -1]
+            multiplyBotMax *= newerBotMax
             st.text(f"{j}\t{pool[maxis[i]]}\t{newerBotMax}")
     except Exception as ll:
         st.error(f"{ll}\n")
+
 
 def getData(progressText):
     progressText.text("Downloading")
@@ -341,7 +341,7 @@ def pools(progressText):
         start += delta
 
     ### Save the Pools By day dataframe
-    dff.to_csv('./database/pools.csv', header=False,date_format=date_format)
+    dff.to_csv('./database/pools.csv', header=False, date_format=date_format)
     st.dataframe(dff)
     progressText.text("Pool Saved")
     # finish(progressText)
@@ -373,12 +373,12 @@ def finish(progressText):
     # threads = []
     combinations = list(combinations)
     for combo, combination in enumerate(combinations):
-        progressText.text(f"Cocotier Process Combiation N°{combo}")
-        previouslyBot = findPreviousBotMax(combination,combinations)
+        progressText.text(f"Cocotier Process {((combo / len(combinations)) * 100):.2f}%")
+        previouslyBot = findPreviousBotMax(combination, combinations)
         # thread = threading.Thread(target=cocotier, args=(combination, combo,previouslyBot))
-        from datetime import datetime,timedelta
+        from datetime import datetime, timedelta
         previousDate = ((datetime.strptime(combination[0][0], date_format)) - timedelta(days=1)).strftime(date_format)
-        cocotier(combination,combo,previouslyBot,previousDate,combination[0][0])
+        cocotier(combination, combo, previouslyBot, previousDate, combination[0][0])
         # thread.start()
         # threads.append(thread)
 
@@ -407,7 +407,7 @@ def finish(progressText):
     df['datetime'] = pd.to_datetime(df['datetime'])
 
     # Group DataFrame by 'deltahour' and 'Ni', calculate product of 'BotMax'
-    df_grouped = df.groupby(['deltahour', 'Ni']).agg({'datetime': ['min', 'max'], 'BotMax': 'prod'}).reset_index()
+    df_grouped = df.groupby(['deltahour', 'Ni']).agg({'datetime': ['min', 'max'], 'BotMax': 'last'}).reset_index()
 
     # Rename columns
     df_grouped.columns = ['deltahour', 'Ni', 'startDate', 'endingDate', 'BotMax']
@@ -442,15 +442,14 @@ def finish(progressText):
 
 
 def verif(delta, Ni):
-    st.header(f"-> Cocotier [{delta}/{Ni}]")
+    st.markdown(f"<h2 style='color:red'>-> Cocotier [{delta}/{Ni}]</h2>", unsafe_allow_html=True)
     st.subheader(f"From {start_date} to {end_date}")
-    for i,j in enumerate(array1):
+    for i, j in enumerate(array1):
         pool = [item.replace("'", "") for item in j[1]]
         st.text("-------------------------------------")
         st.text(f"// Date: {j[0]} \t Pool : {pool}")
         previousDate = ((datetime.strptime(j[0], date_format)) - timedelta(days=1)).strftime(date_format)
-        cocotierSingle(pool,delta,Ni,previousDate,j[0])
-
+        cocotierSingle(pool, delta, Ni, previousDate, j[0])
 def main():
     st.text("In this Section, you can store the data in the local database, \nand just run the script on"
             "these data to gain time. \nBut also you can download from the first")
@@ -523,11 +522,15 @@ def main():
         extract_button_placeholder.empty()
         finish_button_placeholder.empty()
         delta, N = finish(progressText)
-        verif(delta,N)
-        # verification = True
-    # # todo add verification and before the button
-    # if verification and st.button("Verifier Cocotier"):
-    #     verif(delta, N)
+    # if st.button("Verif with the best match"):
+        newerBotMax = 1.0
+        verif(delta, N)
+    # if st.button("8H/N-1"):
+        newerBotMax = 1.0
+        verif("8h","n-1")
+    # if st.button("4H/N"):
+        newerBotMax = 1.0
+        verif("4h","n")
 
 
 if __name__ == '__main__':
