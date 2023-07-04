@@ -179,6 +179,8 @@ def cocotierSingle(pool, delta, N, sttDate, ennDate):
         crrrr = crypto
         crypto = botMaxVariation2(crypto, maxis)
         crypto = coeffMultiBotMax(crypto, initialValue=newerBotMax)
+        st.text("6")
+        st.dataframe(crypto)
         coefMulti = coefmultiFinal(crypto)
         for i, j in enumerate(crrrr.index):
             newerBotMax = coefMulti.iloc[i, -1]
