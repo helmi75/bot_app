@@ -183,7 +183,7 @@ def cocotierSingle(pool, delta, N, sttDate, ennDate):
         for i, j in enumerate(crrrr.index):
             newerBotMax = coefMulti.iloc[i, -1]
             st.text(f"{j}\t{pool[maxis[i]]}\t{newerBotMax}")
-            visualisedData.append({"date":j,"crypto":pool[maxis[i]],"BotMax":newerBotMax})
+            visualisedData.append({"date": j, "crypto": pool[maxis[i]], "BotMax": newerBotMax})
 
     except Exception as ll:
         st.error(f"cocotierSingleException2\n{ll}\n")
@@ -380,8 +380,11 @@ def finish(progressText):
         previouslyBot = findPreviousBotMax(combination, combinations)
         # thread = threading.Thread(target=cocotier, args=(combination, combo,previouslyBot))
         from datetime import datetime, timedelta
-        previousDate = ((datetime.strptime(combination[0][0], date_format)) - timedelta(days=1)).strftime(date_format)
-        cocotier(combination, combo, previouslyBot, previousDate, combination[0][0])
+        nexDate = ((datetime.strptime(combination[0][0], date_format)) + timedelta(days=1)).strftime(date_format)
+        try :
+            cocotier(combination, combo, previouslyBot, combination[0][0],nexDate)
+        except:
+            st.error(f"{nexDate} is not downloaded yet")
         # thread.start()
         # threads.append(thread)
 
@@ -452,8 +455,11 @@ def verif(delta, Ni):
         pool = [item.replace("'", "") for item in j[1]]
         st.text("-------------------------------------")
         st.text(f"// Date: {j[0]} \t Pool : {pool}")
-        previousDate = ((datetime.strptime(j[0], date_format)) - timedelta(days=1)).strftime(date_format)
-        cocotierSingle(pool, delta, Ni, previousDate, j[0])
+        nexDate = ((datetime.strptime(j[0], date_format)) + timedelta(days=1)).strftime(date_format)
+        try :
+            cocotierSingle(pool, delta, Ni, j[0], nexDate)
+        except:
+            st.error(f"{nexDate} is not downloaded yet")
     # st.text(visualisedData) here to display the chart graphic for helmi
     # Extract x and y values from the data
     # Extract the x and y values
@@ -474,6 +480,8 @@ def verif(delta, Ni):
     # Display the graph in Streamlit
     st.plotly_chart(fig)
     visualisedData = []
+
+
 def main():
     st.text("In this Section, you can store the data in the local database, \nand just run the script on"
             "these data to gain time. \nBut also you can download from the first")
@@ -546,18 +554,18 @@ def main():
         extract_button_placeholder.empty()
         finish_button_placeholder.empty()
         delta, N = finish(progressText)
-    # if st.button("Verif with the best match"):
+        # if st.button("Verif with the best match"):
         newerBotMax = 1.0
         visualisedData = []
         verif(delta, N)
-    # if st.button("8H/N-1"):
+        # if st.button("8H/N-1"):
         newerBotMax = 1.0
         visualisedData = []
-        verif("8h","n-1")
-    # if st.button("4H/N"):
+        verif("8h", "n-1")
+        # if st.button("4H/N"):
         newerBotMax = 1.0
         visualisedData = []
-        verif("4h","n")
+        verif("4h", "n")
 
 
 if __name__ == '__main__':
