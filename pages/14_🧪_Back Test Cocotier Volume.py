@@ -499,7 +499,21 @@ def main():
     st.markdown(
         "<span style='color:yellow'>When you select the current date, it's not sure it will work, because it's not finished yet!</b></span>",
         unsafe_allow_html=True)
+
     date_init = datetime.now() - timedelta(days=10)
+    date_fini = datetime.now() - timedelta(days=1)
+    try :
+        with open('./database/pools.csv', "r") as csvfile:
+            reader = csv.reader(csvfile)
+            dates = [datetime.strptime(row[0], "%Y-%m-%d %H:%M:%S") for row in reader]
+            date_init = min(dates)
+            date_fini = max(dates)
+            st.markdown(
+                f"<div style = 'border:1px solid red'><span style='color:green; font-size:150%' >The last saved data is from <span style='color:blue; font-size:160%'>{date_init}</span> to <span style='color:blue; font-size:160%'>{date_fini}</span>\nYou can proceed the Cocotier process without Downloading or extracting the pools!\n"
+                f"<br><span style='color:yellow'>Please verify the dates you're working on it, and correct the time.</span></span></div><br><br>",
+                unsafe_allow_html=True)
+    except:
+        pass
     # Entries
     global dateObservation
     dateObservation = st.number_input("Date D'observation", min_value=0, max_value=24, step=1, value=24)
@@ -510,7 +524,7 @@ def main():
     global hour
     hour = st.time_input("Time", time(0, 0))
     global ending_time
-    ending_time = st.date_input('date de fin', datetime.now() - timedelta(days=1))
+    ending_time = st.date_input('date de fin', date_fini)
     global ennDate
     ennDate = f"{ending_time} {hour}"
     global sttDate
