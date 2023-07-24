@@ -351,7 +351,6 @@ if st.button("Submit"):
                          'fiat': usdt, 'coins': coin, 'wallet': wallet, 'drawBack': (wallet - lastAth) / lastAth}
                 dt = dt.append(myrow, ignore_index=True)
                 dt['date'] = pd.to_datetime(dt['date'])
-                dt['date'] = dt['date'] + timedelta(hours=3)
             previousRow = row
         dt['resultat'] = dt['wallet'].diff()
         dt['resultat%'] = dt['wallet'].pct_change() * 100
