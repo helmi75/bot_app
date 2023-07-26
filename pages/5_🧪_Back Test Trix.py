@@ -1,5 +1,6 @@
 import math
 from datetime import time
+import datetime as dti
 import json
 import ta
 import matplotlib.pyplot as plt
@@ -214,42 +215,38 @@ if st.button("Submit"):
         if cryptoApi == 'Bybit':
             url = "https://api.bybit.com/v5/market/kline"
 
-            cryptoss = getAllPairSymbolsOfBybit()
             sttDatee = datetime.strptime(sttDate, '%Y-%m-%d %H:%M:%S')
-            # sttDatee = sttDatee.strftime("%Y-%m-%dT%H:%M:%SZ")
             ennDatee = datetime.strptime(ennDate, '%Y-%m-%d %H:%M:%S')
-            # ennDatee = ennDatee.strftime("%Y-%m-%dT%H:%M:%SZ")
-            start_time = int(sttDatee.timestamp())*1000
-            end_time = int(ennDatee.timestamp())*1000
-            interval = "60"
-            category = "spot"
-            req_params = {
-                "symbol": pair_symbol,
-                "interval": interval,
-                "category": category,
-                "start": start_time,
-                "end": end_time,
-                "limit" : 1000
-            }
-            response = requests.get(url, params=req_params)
-            data = json.loads(response.text)
-            kline_data = data["result"]["list"]
-            df = pd.DataFrame(kline_data, columns=["timestamp", "open", "high", "low", "close", "volume", "turnover"])
-            # Convert the "timestamp" column to pandas datetime format without dividing by 1000
-            df["timestamp"] = pd.to_datetime(df["timestamp"], unit="ms")
 
+            start_time = int(sttDatee.timestamp()) * 1000
+            end_time = int(ennDatee.timestamp()) * 1000
 
-            # exchange = ccxt.bybit()
-            # since = exchange.parse8601(sttDatee)
-            # klinesT = []
-            # while since < exchange.parse8601(ennDatee):
-            #     klines = exchange.fetch_ohlcv(pair_symbol, timeframe=timeInterval, since=since)
-            #     if len(klines) > 0:
-            #         klinesT += klines
-            #         since = klines[-1][0] + (int(timeInterval[:-1]) * 60 * 60 * 1000)
-            #     else:
-            #         since += (int(timeInterval[:-1]) * 60 * 60 * 1000)
-            # df = pd.DataFrame(klinesT, columns=['timestamp', 'open', 'high', 'low', 'close', 'volume'])
+            delta = dti.timedelta(days=1)
+            all_data = []
+
+            while sttDatee <= ennDatee:
+                end_date = min(sttDatee + delta, ennDatee)
+
+                start_time = int(sttDatee.timestamp()) * 1000
+                end_time = int(end_date.timestamp()) * 1000
+
+                req_params = {
+                    "symbol": pair_symbol,
+                    "interval": "60",
+                    "category": "spot",
+                    "start": start_time,
+                    "end": end_time,
+                    "limit": 1000
+                }
+
+                response = requests.get(url, params=req_params)
+                data = json.loads(response.text)
+                kline_data = data["result"]["list"]
+                all_data.extend(kline_data)
+
+                sttDatee = end_date + delta
+
+            df = pd.DataFrame(all_data, columns=["timestamp", "open", "high", "low", "close", "volume", "turnover"])
             df['close'] = pd.to_numeric(df['close'])
             df['high'] = pd.to_numeric(df['high'])
             df['low'] = pd.to_numeric(df['low'])
@@ -258,7 +255,7 @@ if st.button("Submit"):
             df.index = pd.to_datetime(df.index, unit='ms')
             del df['timestamp']
             df.drop(df.columns.difference(['open', 'high', 'low', 'close', 'volume']), 1, inplace=True)
-            df = df.iloc[::-1]
+
         elif cryptoApi == 'Binance':
             cryptoss = getAllPairSymbolsOfBinance()
             client = Client()
