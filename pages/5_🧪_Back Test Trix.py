@@ -313,7 +313,6 @@ if st.button("Submit"):
             # df.index = pd.to_datetime(df.index, unit='ms')
             # del df['timestamp']
             # df.drop(df.columns.difference(['open', 'high', 'low', 'close', 'volume']), 1, inplace=True)
-
         df['EMA200'] = ta.trend.ema_indicator(close=df['close'], window=ema200)
         df['TRIX'] = ta.trend.ema_indicator(
             ta.trend.ema_indicator(ta.trend.ema_indicator(close=df['close'], window=trix_length), window=trix_length),
@@ -322,6 +321,7 @@ if st.button("Submit"):
         df['TRIX_SIGNAL'] = ta.trend.sma_indicator(df['TRIX_PCT'], trix_signal)
         df['TRIX_HISTO'] = df['TRIX_PCT'] - df['TRIX_SIGNAL']
         df['STOCH_RSI'] = ta.momentum.stochrsi(close=df['close'], window=stoch_rsi, smooth1=3, smooth2=3)
+        st.dataframe(df)
         dfTest = None
         # dfTest = df.copy()
 
