@@ -1,6 +1,6 @@
 import math
 from datetime import time
-
+import json
 import ta
 import matplotlib.pyplot as plt
 import plotly.graph_objs as go
@@ -71,10 +71,24 @@ def getAllPairSymbolsOfBinance():
     return cryptoss
 
 
+# @st.cache_data
+# def getAllPairSymbolsOfBybit():
+#     exchange = ccxt.bybit()
+#     markets = exchange.load_markets()
+#     pairs = []
+#
+#     for market in markets:
+#         symbol = markets[market]['symbol']
+#         if 'USDT' in symbol:
+#             pairs.append(symbol)
+#
+#     return pairs
+
+
 @st.cache_data
 def getAllPairSymbolsOfBybit():
     cryptoss = []
-    url = 'https://api.bybit.com/v2/public/symbols'
+    url = 'https://api.bybit.com/spot/v1/symbols'
     response = requests.get(url)
     exchange_info = response.json()
     for s in exchange_info['result']:
@@ -131,13 +145,13 @@ def plot_courbes2(df_tableau_multi, namee, rcolor):
     return st.plotly_chart(fig)
 
 
-bybitBinance = st.radio("Select API : ", ("Binance", "Bybit", "Kucoin"), horizontal=True)
+cryptoApi = st.radio("Select API : ", ("Binance", "Bybit", "Kucoin"), horizontal=True)
 
-if bybitBinance == 'Binance':
+if cryptoApi == 'Binance':
     cryptoss = getAllPairSymbolsOfBinance()
-elif bybitBinance == 'Bybit':
+elif cryptoApi == 'Bybit':
     cryptoss = getAllPairSymbolsOfBybit()
-elif bybitBinance == 'Kucoin':
+elif cryptoApi == 'Kucoin':
     cryptoss = getAllPairSymbolsOfKucoin()
 
 date_init = datetime.now() - timedelta(days=180)
@@ -185,9 +199,9 @@ if not (len(crr) > 4 and crr[-4:] == 'USDT'):
     crr += 'USDT'
 countt = cryptoss.count(crr)
 if st.button("Submit"):
-    if (countt == 0) and False:
+    if (countt == 0) :
         st.warning("cette crypto n’existe pas")
-    else:
+    if True:
         pair_symbol = pair_symbol.upper()
         pairsSymbol = pair_symbol.upper()
         if len(pair_symbol) >= 5 and pairsSymbol[-5:] == '/USDT':
@@ -195,24 +209,47 @@ if st.button("Submit"):
         if len(pair_symbol) < 4 or pair_symbol[-4:] != 'USDT':
             pair_symbol = pair_symbol+ 'USDT'
         pairsSymbol = pair_symbol[:-4] + '/USDT'
-        st.success(pair_symbol)
-        if bybitBinance == 'Bybit':
+        if (countt != 0):
+            st.success(pair_symbol)
+        if cryptoApi == 'Bybit':
+            url = "https://api.bybit.com/v5/market/kline"
+
             cryptoss = getAllPairSymbolsOfBybit()
             sttDatee = datetime.strptime(sttDate, '%Y-%m-%d %H:%M:%S')
-            sttDatee = sttDatee.strftime("%Y-%m-%dT%H:%M:%SZ")
+            # sttDatee = sttDatee.strftime("%Y-%m-%dT%H:%M:%SZ")
             ennDatee = datetime.strptime(ennDate, '%Y-%m-%d %H:%M:%S')
-            ennDatee = ennDatee.strftime("%Y-%m-%dT%H:%M:%SZ")
-            exchange = ccxt.bybit()
-            since = exchange.parse8601(sttDatee)
-            klinesT = []
-            while since < exchange.parse8601(ennDatee):
-                klines = exchange.fetch_ohlcv(pair_symbol, timeframe=timeInterval, since=since)
-                if len(klines) > 0:
-                    klinesT += klines
-                    since = klines[-1][0] + (int(timeInterval[:-1]) * 60 * 60 * 1000)
-                else:
-                    since += (int(timeInterval[:-1]) * 60 * 60 * 1000)
-            df = pd.DataFrame(klinesT, columns=['timestamp', 'open', 'high', 'low', 'close', 'volume'])
+            # ennDatee = ennDatee.strftime("%Y-%m-%dT%H:%M:%SZ")
+            start_time = int(sttDatee.timestamp())*1000
+            end_time = int(ennDatee.timestamp())*1000
+            interval = "60"
+            category = "spot"
+            req_params = {
+                "symbol": pair_symbol,
+                "interval": interval,
+                "category": category,
+                "start": start_time,
+                "end": end_time,
+                "limit" : 1000
+            }
+            response = requests.get(url, params=req_params)
+            data = json.loads(response.text)
+            kline_data = data["result"]["list"]
+            df = pd.DataFrame(kline_data, columns=["timestamp", "open", "high", "low", "close", "volume", "turnover"])
+            # Convert the "timestamp" column to pandas datetime format without dividing by 1000
+            df["timestamp"] = pd.to_datetime(df["timestamp"], unit="ms")
+
+
+            # exchange = ccxt.bybit()
+            # since = exchange.parse8601(sttDatee)
+            # klinesT = []
+            # while since < exchange.parse8601(ennDatee):
+            #     klines = exchange.fetch_ohlcv(pair_symbol, timeframe=timeInterval, since=since)
+            #     if len(klines) > 0:
+            #         klinesT += klines
+            #         since = klines[-1][0] + (int(timeInterval[:-1]) * 60 * 60 * 1000)
+            #     else:
+            #         since += (int(timeInterval[:-1]) * 60 * 60 * 1000)
+            # df = pd.DataFrame(klinesT, columns=['timestamp', 'open', 'high', 'low', 'close', 'volume'])
             df['close'] = pd.to_numeric(df['close'])
             df['high'] = pd.to_numeric(df['high'])
             df['low'] = pd.to_numeric(df['low'])
@@ -221,7 +258,8 @@ if st.button("Submit"):
             df.index = pd.to_datetime(df.index, unit='ms')
             del df['timestamp']
             df.drop(df.columns.difference(['open', 'high', 'low', 'close', 'volume']), 1, inplace=True)
-        elif bybitBinance == 'Binance':
+            df = df.iloc[::-1]
+        elif cryptoApi == 'Binance':
             cryptoss = getAllPairSymbolsOfBinance()
             client = Client()
             klinesT = client.get_historical_klines(pair_symbol, timeInterval, str(sttDate), str(ennDate))
@@ -236,7 +274,7 @@ if st.button("Submit"):
             df.index = pd.to_datetime(df.index, unit='ms')
             del df['timestamp']
             df.drop(df.columns.difference(['open', 'high', 'low', 'close', 'volume']), 1, inplace=True)
-        elif bybitBinance == 'Kucoin':
+        elif cryptoApi == 'Kucoin':
             cryptoss = getAllPairSymbolsOfKucoin()
             # client = ccxt.kucoin()
             # df = getHistoricalKucoin(client, pairsSymbol)
