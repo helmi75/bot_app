@@ -255,7 +255,7 @@ if st.button("Submit"):
             df.index = pd.to_datetime(df.index, unit='ms')
             del df['timestamp']
             df.drop(df.columns.difference(['open', 'high', 'low', 'close', 'volume']), 1, inplace=True)
-
+            df = df.sort_index()
         elif cryptoApi == 'Binance':
             cryptoss = getAllPairSymbolsOfBinance()
             client = Client()
