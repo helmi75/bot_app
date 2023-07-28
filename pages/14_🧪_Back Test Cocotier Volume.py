@@ -136,6 +136,12 @@ def cocotier(combination, combo, previous, stt, enn):
         array_mauvais_shape = detection_mauvais_shape(crypto)
         for i in array_mauvais_shape:
             del crypto[i]
+        for cr in crypto:
+            c = cr.lower()
+            lastvalue = crypto[cr].iloc[-1, crypto[cr].columns.get_loc(c + "_close")]
+            crypto[cr][c + "_close"] = crypto[cr][c + "_open"].shift(-1)
+            crypto[cr].iloc[-1, crypto[cr].columns.get_loc(c + "_close")] = lastvalue
+            # print(crypto[cr][c+"_close"])
         crypto = variationN(crypto, combination[2])
         crypto = coeffMulti(crypto)
         crypto = mergeCryptoTogether(crypto)
@@ -145,7 +151,7 @@ def cocotier(combination, combo, previous, stt, enn):
         coefMulti = coefmultiFinal(crypto)
         combination.append(coefMulti.tail(1).iloc[-1, -1])
     except Exception as ll:
-        st.error("Please verify the Downloaded Data, redo it if it's necessary!")
+        st.error(f"Please verify the Downloaded Data, redo it if it's necessary! {ll}")
         print(f"cocotierException1\n{ll}\n")
     semaphore.release()
 
@@ -172,6 +178,11 @@ def cocotierSingle(pool, delta, N, sttDate, ennDate):
         array_mauvais_shape = detection_mauvais_shape(crypto)
         for i in array_mauvais_shape:
             del crypto[i]
+        for cr in crypto:
+            c = cr.lower()
+            lastvalue = crypto[cr].iloc[-1, crypto[cr].columns.get_loc(c + "_close")]
+            crypto[cr][c + "_close"] = crypto[cr][c + "_open"].shift(-1)
+            crypto[cr].iloc[-1, crypto[cr].columns.get_loc(c + "_close")] = lastvalue
         crypto = variationN(crypto, N)
         crypto = coeffMulti(crypto)
         crypto = mergeCryptoTogether(crypto)
