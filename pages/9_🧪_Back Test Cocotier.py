@@ -71,6 +71,7 @@ def main():
         crypto = variationN(crypto, n_i)
         crypto = coeffMulti(crypto)
         crypto = mergeCryptoTogether(crypto)
+        st.dataframe(crypto)
         crypto, maxis = botMax(crypto)
         crypto = botMaxVariation2(crypto, maxis)
         crypto = coeffMultiBotMax(crypto)
