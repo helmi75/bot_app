@@ -221,7 +221,7 @@ if st.button("Submit"):
             start_time = int(sttDatee.timestamp()) * 1000
             end_time = int(ennDatee.timestamp()) * 1000
 
-            delta = dti.timedelta(days=1)
+            delta = dti.timedelta(hours=1)
             all_data = []
 
             while sttDatee <= ennDatee:
@@ -256,6 +256,7 @@ if st.button("Submit"):
             del df['timestamp']
             df.drop(df.columns.difference(['open', 'high', 'low', 'close', 'volume']), 1, inplace=True)
             df = df.sort_index()
+            ennDatee = ennDatee.strftime('%Y-%m-%dT%H:%M:%SZ')
         elif cryptoApi == 'Binance':
             cryptoss = getAllPairSymbolsOfBinance()
             client = Client()
