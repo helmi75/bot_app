@@ -190,7 +190,6 @@ def cocotierSingle(pool, delta, N, sttDate, ennDate):
         crrrr = crypto
         crypto = botMaxVariation2(crypto, maxis)
         crypto = coeffMultiBotMax(crypto, initialValue=newerBotMax)
-        st.text("6")
         st.dataframe(crypto)
         coefMulti = coefmultiFinal(crypto)
         for i, j in enumerate(crrrr.index):
@@ -395,8 +394,12 @@ def finish(progressText):
         # thread = threading.Thread(target=cocotier, args=(combination, combo,previouslyBot))
         from datetime import datetime, timedelta
         if ennDate != combination[0][0]:
-            nexDate = ((datetime.strptime(combination[0][0], date_format)) + timedelta(days=1)).strftime(date_format)
-            nowDate = (datetime.strptime(combination[0][0], date_format) + timedelta(hours=int(combination[1].replace('h','')))).strftime(date_format)
+            nexDate = ((datetime.strptime(combination[0][0], date_format)) + timedelta(days=1)- timedelta(
+                hours=int(delta.replace('h', '')))- timedelta(
+                hours=int(delta.replace('h', '')))).strftime(date_format)
+            nowDate = (datetime.strptime(combination[0][0], date_format) - timedelta(hours=int(combination[1].replace('h','')))).strftime(date_format)
+            # nexDate = ((datetime.strptime(combination[0][0], date_format)) + timedelta(days=1)).strftime(date_format)
+            # nowDate = (datetime.strptime(combination[0][0], date_format) + timedelta(hours=int(combination[1].replace('h','')))).strftime(date_format)
             try :
                 cocotier(combination, combo, previouslyBot, nowDate , nexDate)
             except:
@@ -472,8 +475,13 @@ def verif(delta, Ni):
         st.text("-------------------------------------")
         st.text(f"// Date: {j[0]} \t Pool : {pool}")
         if ennDate != j[0]:
-            nexDate = ((datetime.strptime(j[0], date_format)) + timedelta(days=1)).strftime(date_format)
-            nowDate = (datetime.strptime(j[0], date_format) + timedelta(
+            # nexDate = ((datetime.strptime(j[0], date_format)) + timedelta(days=1)).strftime(date_format)
+            # nowDate = (datetime.strptime(j[0], date_format) + timedelta(
+            #     hours=int(delta.replace('h', '')))).strftime(date_format)
+            nexDate = ((datetime.strptime(j[0], date_format)) + timedelta(days=1)- timedelta(
+                hours=int(delta.replace('h', '')))- timedelta(
+                hours=int(delta.replace('h', '')))).strftime(date_format)
+            nowDate = (datetime.strptime(j[0], date_format) - timedelta(
                 hours=int(delta.replace('h', '')))).strftime(date_format)
             try :
                 cocotierSingle(pool, delta, Ni, nowDate, nexDate)
