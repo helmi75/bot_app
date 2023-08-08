@@ -465,7 +465,6 @@ def finish(progressText):
     st.plotly_chart(fig)
     return max_deltahour, max_Ni
 
-
 def verif(delta, Ni):
     global visualisedData
     st.markdown(f"<h2 style='color:red'>-> Cocotier [{delta}/{Ni}]</h2>", unsafe_allow_html=True)
@@ -473,16 +472,16 @@ def verif(delta, Ni):
     for i, j in enumerate(array1):
         pool = [item.replace("'", "") for item in j[1]]
         st.text("-------------------------------------")
-        st.text(f"// Date: {j[0]} \t Pool : {pool}")
-        if ennDate != j[0]:
+        datea = ((datetime.strptime(j[0], date_format))- timedelta(
+                hours=int(delta.replace('h', '')))).strftime(date_format)
+        st.text(f"// Date: {datea} \t Pool : {pool}")
+        if ennDate != datea:
             # nexDate = ((datetime.strptime(j[0], date_format)) + timedelta(days=1)).strftime(date_format)
             # nowDate = (datetime.strptime(j[0], date_format) + timedelta(
             #     hours=int(delta.replace('h', '')))).strftime(date_format)
-            nexDate = ((datetime.strptime(j[0], date_format)) + timedelta(days=1)- timedelta(
-                hours=int(delta.replace('h', '')))- timedelta(
+            nexDate = ((datetime.strptime(datea, date_format)) + timedelta(days=1)- timedelta(
                 hours=int(delta.replace('h', '')))).strftime(date_format)
-            nowDate = (datetime.strptime(j[0], date_format) - timedelta(
-                hours=int(delta.replace('h', '')))).strftime(date_format)
+            nowDate = (datetime.strptime(datea, date_format)).strftime(date_format)
             try :
                 cocotierSingle(pool, delta, Ni, nowDate, nexDate)
             except:
@@ -602,11 +601,11 @@ def main():
         # if st.button("Verif with the best match"):
         newerBotMax = 1.0
         visualisedData = []
-        verif(delta, N)
+        # verif(delta, N)
         # if st.button("8H/N-1"):
         newerBotMax = 1.0
         visualisedData = []
-        verif("8h", "n-1")
+        # verif("8h", "n-1")
         # if st.button("4H/N"):
         newerBotMax = 1.0
         visualisedData = []
