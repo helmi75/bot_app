@@ -601,11 +601,11 @@ def main():
         # if st.button("Verif with the best match"):
         newerBotMax = 1.0
         visualisedData = []
-        # verif(delta, N)
+        verif(delta, N)
         # if st.button("8H/N-1"):
         newerBotMax = 1.0
         visualisedData = []
-        # verif("8h", "n-1")
+        verif("8h", "n-1")
         # if st.button("4H/N"):
         newerBotMax = 1.0
         visualisedData = []
