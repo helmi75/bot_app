@@ -27,7 +27,7 @@ sttDate = f"{star_time} {hour}"
 date_format = "%Y-%m-%d %H:%M:%S"
 start_date = datetime.strptime(sttDate, date_format)
 end_date = datetime.strptime(ennDate, date_format)
-start_date_prime = start_date - timedelta(hours=1000)
+start_date_prime = start_date-timedelta(days=2) - timedelta(hours=1000)
 stttDAte = start_date_prime.strftime(date_format)
 current_date = start_date_prime
 newerBotMax = 1.000
@@ -53,6 +53,8 @@ dff.set_index('current_date', inplace=True)
 dff.drop(dff.index, inplace=True)
 
 
+#todo mahdi rahou el mochekel met download, mana3refech 3lech el date elli 9bal el date elli n7ebou 3liha matetsabech
+
 ### Download all the OHLCV
 def downloadingDate(current_date):
     # Acquire the semaphore
@@ -77,9 +79,8 @@ def get_historical_klines(x, deltahour, sttDate, ennDate):
     # Convert the 'date' column to datetime
     df['date'] = pd.to_datetime(df['date'], unit='ms')
 
-    # Filter the dataframe based on the start and end dates
-    mask = (df['date'] >= stt_date) & (df['date'] <= enn_date)
-    filtered_df = df.loc[mask]
+    # Use .loc to filter the dataframe based on the start and end dates
+    filtered_df = df.loc[(df['date'] >= stt_date) & (df['date'] <= enn_date)]
 
     # Extract the delta hour value from the string (e.g., '2h', '4h')
     delta_hours = int(re.findall(r'\d+', deltahour)[0])
@@ -95,6 +96,7 @@ def get_historical_klines(x, deltahour, sttDate, ennDate):
     new_df.columns = ['timestamp', f'{x.lower()}_open', f'{x.lower()}_close']
 
     return new_df
+
 
 
 def findPreviousBotMax(combination, combinations):
@@ -556,7 +558,7 @@ def main():
     global end_date
     end_date = datetime.strptime(ennDate, date_format)
     global start_date_prime
-    start_date_prime = start_date - timedelta(hours=1000)
+    start_date_prime = start_date -timedelta(days=2) - timedelta(hours=1000)
     global stttDAte
     stttDAte = start_date_prime.strftime(date_format)
     global delta, N
