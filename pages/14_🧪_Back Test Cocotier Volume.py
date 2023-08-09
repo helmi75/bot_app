@@ -27,7 +27,7 @@ sttDate = f"{star_time} {hour}"
 date_format = "%Y-%m-%d %H:%M:%S"
 start_date = datetime.strptime(sttDate, date_format)
 end_date = datetime.strptime(ennDate, date_format)
-start_date_prime = start_date-timedelta(days=2) - timedelta(hours=1000)
+start_date_prime = start_date - timedelta(hours=1000)
 stttDAte = start_date_prime.strftime(date_format)
 current_date = start_date_prime
 newerBotMax = 1.000
@@ -52,8 +52,6 @@ dff = pd.DataFrame(data)
 dff.set_index('current_date', inplace=True)
 dff.drop(dff.index, inplace=True)
 
-
-#todo mahdi rahou el mochekel met download, mana3refech 3lech el date elli 9bal el date elli n7ebou 3liha matetsabech
 
 ### Download all the OHLCV
 def downloadingDate(current_date):
@@ -218,8 +216,7 @@ def getData(progressText):
         # thread.start()
         # threads.append(thread)
         downloadingDate(current_date)
-        current_date += timedelta(hours=1000)
-
+        current_date += timedelta(hours=960)
     # Wait for all threads to finish
     # for thread in threads:
     #     thread.join()
@@ -474,9 +471,9 @@ def verif(delta, Ni):
     for i, j in enumerate(array1):
         pool = [item.replace("'", "") for item in j[1]]
         st.text("-------------------------------------")
-        datea = ((datetime.strptime(j[0], date_format))- timedelta(
-                hours=int(delta.replace('h', '')))).strftime(date_format)
-        st.text(f"// Date: {datea} \t Pool : {pool}")
+        st.text(f"// Date: {datetime.strptime(j[0], date_format)} \t Pool : {pool}")
+        datea = ((datetime.strptime(j[0], date_format)) - timedelta(
+            hours=int(delta.replace('h', '')))).strftime(date_format)
         if ennDate != datea:
             # nexDate = ((datetime.strptime(j[0], date_format)) + timedelta(days=1)).strftime(date_format)
             # nowDate = (datetime.strptime(j[0], date_format) + timedelta(
@@ -558,7 +555,7 @@ def main():
     global end_date
     end_date = datetime.strptime(ennDate, date_format)
     global start_date_prime
-    start_date_prime = start_date -timedelta(days=2) - timedelta(hours=1000)
+    start_date_prime = start_date - timedelta(hours=1000)
     global stttDAte
     stttDAte = start_date_prime.strftime(date_format)
     global delta, N
