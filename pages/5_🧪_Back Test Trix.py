@@ -61,7 +61,7 @@ def getHistoricalKucoin(client, symbol):
     dataT.set_index('timestamp', inplace=True)
     return dataT
 
-@st.cache_data
+@st.cache
 def getAllPairSymbolsOfBinance():
     cryptoss = []
     client = Client()
@@ -86,7 +86,7 @@ def getAllPairSymbolsOfBinance():
 #     return pairs
 
 
-@st.cache_data
+@st.cache
 def getAllPairSymbolsOfBybit():
     cryptoss = []
     url = 'https://api.bybit.com/spot/v1/symbols'
@@ -98,7 +98,7 @@ def getAllPairSymbolsOfBybit():
     return cryptoss
 
 
-@st.cache_data
+@st.cache
 def getAllPairSymbolsOfKucoin():
     exchange = ccxt.kucoin()
     markets = exchange.load_markets()
