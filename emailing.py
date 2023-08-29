@@ -7,8 +7,8 @@ def send_mail(receiver, sub_account, bot_type, value, stack_trace):
     TEXT = f'Bot {bot_type}: {sub_account} got an error:\n{value}\n'
 
     # Gmail Sign In
-    gmail_sender = 'hadjsassiscompany@gmail.com'
-    gmail_passwd = 'rxqdshdenijwilcv'
+    gmail_sender = 'WriteYourMailHere'
+    gmail_passwd = 'generateMailAppPasswordAndPutHere'
 
     server = smtplib.SMTP('smtp.gmail.com', 587)
     server.ehlo()
