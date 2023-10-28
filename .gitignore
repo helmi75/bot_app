@@ -20,3 +20,4 @@ output
 database/quick_analysis
 database/pools.csv
 journal.txt
+**/*.txt
