@@ -34,6 +34,7 @@ if authentication_status:
             fig = px.line(df_balence, x="dates", y=df_balence.columns, color=df_balence['nom_bot'],
                           title='bots showed by date and wallet')
             st.plotly_chart(fig)
+            st.dataframe(df_balence)
         except Exception as e:
             st.exception(e)
     else :
