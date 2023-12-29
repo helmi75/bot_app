@@ -42,6 +42,10 @@ for i in myresult:
             delta_hour = str(i[5]) + 'h'
             type_computing = i[6]
             name_bot = i[8]
+            print('--- d_hour :', d_hour)
+            print('--- delta_hour :', delta_hour)
+            print('--- type_computing :', type_computing)
+            print('--- name_bot :', name_bot)
 
             # verify the time for the crontab
 
@@ -51,7 +55,10 @@ for i in myresult:
             lastDate = datetime.strptime(datea, '%Y-%m-%d %H:%M:%S')
             currentDate = datetime.now()
             show_time = datetime.now()
-            if (currentDate >= lastDate and int(show_time.hour) % d_hour == 0):
+            #if name_bot == 'bybit_cocotier_test' :  # Pour faire des test et ne pas attendre 8h
+            #if (currentDate >= lastDate and int(show_time.hour) % d_hour == 0):   # Ancienne methode pour excuter le  cocotier à 00h, 8h, et 16h
+            if (currentDate >= lastDate and (int(currentDate.hour)-1) % d_hour == 0):  # Nouvelle methode pour excuter le cocotier lors des heures impaires pour se synchroniser avec binance
+
                 start_time = datetime.now() - timedelta(2)
                 crypto = {}
                 exchange = ccxt.bybit({
@@ -71,6 +78,10 @@ for i in myresult:
                 show_time = datetime.strftime(show_time, '%Y-%m-%d %H:%M:%S')
                 for elm in market:
                     x = elm[:-5].lower()
+                    coin = elm.lower()
+                    if elm == "BEAM/USDT":     # la paire sur Binance "BEAMX/USDT" et sur Bybit "BEAM/USDT"
+                        elm = "BEAMX/USDT"
+                        x = "beam"
 
                     klinesT = Client().get_historical_klines(elm.replace("/", ""), delta_hour, stt)
                     df = pd.DataFrame(klinesT,
@@ -81,18 +92,18 @@ for i in myresult:
                     df[x + '_open'] = pd.to_numeric(df[x + '_open'])
                     df = df.set_index('timestamp')
                     df.index = pd.to_datetime(df.index, unit='ms')
-                    crypto[elm.lower()] = df
-
+                    crypto[coin] = df
                 # Get the best bot
-                print("============= the dataframe=============")
+                #print("============= the dataframe=============")
                 # print((crypto))
-                print(affichageDataFrameLog(crypto).tail(4).head(3).to_string())
-                print("============= the dataframe=============")
+                #print(affichageDataFrameLog(crypto).tail(4).head(3).to_string())
+                #print("============= the dataframe=============")
                 crypto = variationN(crypto, type_computing)
                 crypto = coeffMulti(crypto)
                 crypto = mergeCryptoTogether(crypto)
                 del crypto['BOT_MAX']
                 nom_crypto_achat = getBotMax(crypto, market, type_computing)
+
                 # Sell Then Buy maybe here we need to do an exception management
                 try:
                     # nom_crypto_vente = crypto_a_vendre(exchange, market)
@@ -104,8 +115,14 @@ for i in myresult:
                     print(" ")
                     print(f"computing = {type_computing}")
                     print(" ")
-                    print(
-                        f"{show_time} , la meilleur crypto est {nom_crypto_achat}, je vends {nom_crypto_vente} et j'achete {nom_crypto_achat}")
+                    print(f"{show_time} , la meilleur crypto est {nom_crypto_achat}, je vends {nom_crypto_vente} et j'achete {nom_crypto_achat}")
+
+                    '''print(" ")
+                    print("Information sur la crypto à acheter : ")
+                    print(" ")
+                    df_Var_coin_to_buy = crypto[nom_crypto_achat.lower()]
+                    print(df_Var_coin_to_buy)'''
+
 
                     # Save the wallet value
                     wallet = get_wallet(exchange)
@@ -120,6 +137,9 @@ for i in myresult:
                                        traceback.format_exc())
                     emailing.send_mail("aitmoummad.yassine@gmail.com", name_bot, "Cocotier Bybit", exceptions,
                                        traceback.format_exc())
+                    emailing.send_mail("ach.pro88@gmail.com", name_bot, "Cocotier Bybit", exceptions,
+                               traceback.format_exc())
+
                     con.insert_balence(datetime.now(), "none", 0, i[7], "OFF", "none",str(exceptions))
                     print("********************")
         except ZeroDivisionError :
@@ -135,6 +155,9 @@ for i in myresult:
                                traceback.format_exc())
             emailing.send_mail("aitmoummad.yassine@gmail.com", name_bot, "Cocotier Bybit", eee,
                                traceback.format_exc())
+            emailing.send_mail("ach.pro88@gmail.com", name_bot, "Cocotier Bybit", eee,
+                               traceback.format_exc())
+
             con.insert_balence(datetime.now(), "none", 0, i[7], "OFF", "none",str(eee))
         except Exception as eee :
             con = ConnectBbd('localhost', '3306', 'root', pwd, 'cryptos', 'mysql_native_password')
@@ -148,6 +171,8 @@ for i in myresult:
             emailing.send_mail("aitmoummad.yassine@gmail.com", name_bot, "Cocotier Bybit", eee,
                                traceback.format_exc())
 
+            emailing.send_mail("ach.pro88@gmail.com", name_bot, "Cocotier Bybit", eee,
+                               traceback.format_exc())
 
 print("")
 print("--- End Execution Time ---")
