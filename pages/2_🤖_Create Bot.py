@@ -53,7 +53,7 @@ def addTrixForm():
     n_i = "None"
     return bot_name,email,api_key,secret_key,sub_account,pair_symbol,trix_lenght,trix_signal,stoch_top,stoch_bottom,stoch_rsi,delta_hour,n_i
 
-def addCocotierForm():
+def addCocotierForm(selection_bot):
     bot_name = st.text_input("Entrer the bot name ", key="cocotier_name")
     email = st.text_input("Entrer your email ", key="cocotier_email",
                           value=authenticator.credentials['usernames'][username]['email'])
@@ -61,8 +61,11 @@ def addCocotierForm():
     secret_key = st.text_input("enter  secret key", key="secret_key")
     sub_account = st.text_input("Subaccount", key="sub_account")
     st.write("Selectionner le pair symbol")
-    pair_symbol = convertListToString(choix_market())
-    delta_hour = st.selectbox('Selectionner une plage auraire', ['2h', '4h', '6h', '8h', '12h'],
+    if selection_bot == "Cocotier ByBit":
+        pair_symbol = convertListToString(choix_marketBybit())
+    else :
+        pair_symbol = convertListToString(choix_market())
+    delta_hour = st.selectbox('Selectionner une plage horaire', ['2h', '4h', '6h', '8h', '12h'],
                               key="delta_hour")
     n_i = st.radio("Selectionner le type computing", ("N", "N-1", "N-2"),
                    horizontal=True, key="n_i")
@@ -113,10 +116,10 @@ if authentication_status:
                         delta_hour, n_i = addTrixForm()
                 if selection_bot == "Cocotier Binance":
                     bot_name,email,api_key,secret_key,sub_account,pair_symbol,delta_hour,n_i,\
-                        trix_lenght,trix_signal,stoch_top,stoch_bottom,stoch_rsi = addCocotierForm()
+                        trix_lenght,trix_signal,stoch_top,stoch_bottom,stoch_rsi = addCocotierForm(selection_bot)
                 if selection_bot == "Cocotier ByBit":
                     bot_name, email, api_key, secret_key, sub_account, pair_symbol, delta_hour, n_i, \
-                        trix_lenght, trix_signal, stoch_top, stoch_bottom, stoch_rsi = addCocotierForm()
+                        trix_lenght, trix_signal, stoch_top, stoch_bottom, stoch_rsi = addCocotierForm(selection_bot)
 
                 user = Users(name, email)
                 # bot = CreateBot(user, bot_name, selection_bot, con)
