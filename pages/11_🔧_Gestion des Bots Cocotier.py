@@ -24,9 +24,13 @@ def delBot(bot_id):
     con.delete_bot(bot_id)
 
 
-def choix_market(list):
+def choix_market(list, bot_type):
     list = list.upper().split(',')
-    listacrypto = con.getAllPairSymbolsBinance()[0][0].split(',')
+    if bot_type == "Cocotier ByBit":
+        listacrypto = con.getAllPairSymbolsBybit()[0][0].split(',')
+    else :
+        listacrypto = con.getAllPairSymbolsBinance()[0][0].split(',')
+    
     liste_crypto = np.array(listacrypto)
     cols3 = st.columns(5)
     lista = [x for x in liste_crypto]
@@ -44,7 +48,7 @@ def convertListToString(lista):
     return ch[:-1]
 
 
-def modifierCocotierBot(bot_id):
+def modifierCocotierBot(bot_id, bot_type):
     con = ConnectBbd('localhost', '3306', 'root', pwd, 'cryptos', 'mysql_native_password')
     cocotier_bot = con.get_cocotier_bot(bot_id)
     st.title(f"Modifing  : {cocotier_bot[0][8]}")
@@ -57,7 +61,7 @@ def modifierCocotierBot(bot_id):
     secret_key = st.text_input("enter  secret key", key="secret_key", value=secretss)
     sub_account = st.text_input("Subaccount", key="sub_account", value=cocotier_bot[0][3])
     st.write("Selectionner le pair symbol")
-    pair_symbol = convertListToString(choix_market(cocotier_bot[0][4]))
+    pair_symbol = convertListToString(choix_market(cocotier_bot[0][4], bot_type))
     delta_hour = st.selectbox('Selectionner une plage auraire', ['2h', '4h', '6h', '8h', '12h'],
                               key="delta_hour", index=[2, 4, 6, 8, 12].index(cocotier_bot[0][5]))
     n_i = st.selectbox('Selectionner le type computing', ["N", "N-1", "N-2"],
@@ -121,7 +125,7 @@ if authentication_status:
                         pass
                         # pyautogui.hotkey("ctrl", "F5")
                 if col22.button("Edit this bot", key=f"ed{index}") or st.session_state[f'E{item}']:
-                    modifierCocotierBot(botsCocotier[index][0])
+                    modifierCocotierBot(botsCocotier[index][0], botsCocotier[index][2])
                     st.session_state[f'E{item}'] = True
                     st.session_state[f'{item}'] = False
 
