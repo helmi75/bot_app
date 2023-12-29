@@ -23,6 +23,9 @@ cursor = cnx.cursor()
 query = "select p.*, b.nom_bot,b.working from Params_bot_Cocotier as p, bots as b where p.bot_id = b.bot_id and b.type_bot = 'Cocotier Binance';"
 cursor.execute(query)
 myresult = cursor.fetchall()
+df_myresult = pd.DataFrame(myresult, columns =["id_params_bot_cocotier","api_key","secret_key","sub_account",
+                                               "pair_symbol","delta_hour","type_computing","bot_id","nom_bot_bot",
+                                               "nom_bot_bots"])
 
 for i in myresult:
     if i[9] :
