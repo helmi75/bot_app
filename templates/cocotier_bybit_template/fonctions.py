@@ -256,6 +256,8 @@ def nom_crypto_achat_vente(tableau_var):
 def algo_achat_vente(exchange, nom_crypto_vente, nom_crypto_achat):
     balence = exchange.fetch_spot_balance()
     print('## Wallet amount (USDT)', balence['total']['USDT'])
+    print('## nom_crypto_achat :', nom_crypto_achat)
+    print('## nom_crypto_vente :', nom_crypto_vente)
     if (nom_crypto_achat == False) or (nom_crypto_achat == nom_crypto_vente):
         print('## Staying on the same cryptocurency')
         pass
@@ -263,7 +265,7 @@ def algo_achat_vente(exchange, nom_crypto_vente, nom_crypto_achat):
         # buy
         if (nom_crypto_vente != 'none'):
             sell = vente(exchange, nom_crypto_vente, balence['total'])
-        print('vendage : ', nom_crypto_vente)
+            print('vendage : ', nom_crypto_vente)
 
         def acheter(exchange, var2, pourcentage):
             montant_USDT = float(exchange.fetch_spot_balance().get('USDT').get('free'))
@@ -290,6 +292,8 @@ def algo_achat_vente(exchange, nom_crypto_vente, nom_crypto_achat):
 
 
 def vente(exchange, var1, balence_total):
+    print('### balence_total :', balence_total)
+    print('### balence_total[var1[:-5]] :', balence_total[var1[:-5]])
     sell_1 = exchange.create_market_sell_order(var1, balence_total[var1[:-5]])
     return sell_1
 
@@ -492,6 +496,8 @@ def VariationFinal(cryptos):
 def getBotMax(crypto, market, type_computing):
     crr = {}
     for elm in market:
+        #print(f"crypto : {elm.lower()}:")
+        #print(crypto[elm.lower()])
         for i in crypto[elm.lower()]:
             if (i == "Variation_" + elm.lower()[:-5]):
                 crr[i] = crypto[elm.lower()][i]
@@ -560,15 +566,18 @@ def get_pair_symbol_for_last_balence_by_id(id):
     query = f"select crypto_name from get_balence where id_bot = {id} order by id_get_balence desc limit 2;"
     cursor.execute(query)
     myresult = cursor.fetchall()
+    print("myresult get pair_symbol : ", myresult)
     return myresult
 def crypto_a_vendre(exchange,idbot):
     try :
         crypto_name = get_pair_symbol_for_last_balence_by_id(idbot)[0][0]
-        if (crypto_name == "USDT"):
-            crypto_name = get_pair_symbol_for_last_balence_by_id(idbot)[1][0]
-            print(f"We'll buy {crypto_name} for now just for the start !")
-            montant_USDT = float(exchange.fetch_spot_balance().get('USDT').get('free'))
-            exchange.create_spot_order(crypto_name, "market", "buy", montant_USDT, 1)
+        if (crypto_name == "USDT/USDT"):
+            crypto_name = 'none'
+            #crypto_name = get_pair_symbol_for_last_balence_by_id(idbot)[1][0]
+            #crypto_name = "BTC/USDT"
+            #print(f"We'll buy {crypto_name} for now just for the start !")
+            #montant_USDT = float(exchange.fetch_spot_balance().get('USDT').get('free'))
+            #exchange.create_spot_order(crypto_name, "market", "buy", montant_USDT, 1)
     except Exception as exx :
         crypto_name = "BTC/USDT"
         print("We'll buy btc for now just for the start !")
