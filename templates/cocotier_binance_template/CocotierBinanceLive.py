@@ -51,7 +51,7 @@ for i in myresult:
             lastDate = datetime.now() - timedelta(hours=(d_hour-1))
         currentDate = datetime.now()
         show_time = datetime.now()
-        if(currentDate >= lastDate and int(show_time.hour)%d_hour == 0 ):
+        if(currentDate >= lastDate and (int(show_time.hour)-1) % d_hour == 0 ):
             start_time = datetime.now() - timedelta(2)
             crypto = {}
             exchange = ccxt.binance({
